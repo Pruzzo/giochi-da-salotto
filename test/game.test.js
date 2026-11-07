@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { Game, GameError, LETTERS, normalize } from '../server/game.js';
+import { Game, GameError, LETTERS, normalize } from '../games/nomi-cose-citta/game.js';
 
 function setup(names = ['Anna', 'Bruno', 'Carla']) {
   const timers = [];

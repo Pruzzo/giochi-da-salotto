@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#c6202c">
+<meta name="platform-game" content="">
+<title>Console</title>
+<link rel="icon" href="/icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/css/tokens.css">
+<link rel="stylesheet" href="/css/console.css">
+</head>
+<body class="standby-body">
+<main class="standby">
+  <div class="standby__label">
+    <h1 class="standby__title">Nessun gioco acceso</h1>
+    <p class="standby__say">Si parte appena qualcuno sceglie il gioco. Questa pagina si aggiorna da sola.</p>
+    <a class="pen-btn" href="/console">Scegli il gioco</a>
+    <p class="standby__where" id="where"></p>
+  </div>
+  <aside class="standby__qr" id="qr" hidden>
+    <img src="/qr.svg" alt="QR code per entrare">
+    <p>Inquadra e resta in attesa</p>
+  </aside>
+</main>
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/platform.js"></script>
+<script>
+  // Sulla TV non si clicca: servono l'indirizzo della console e il QR per i telefoni.
+  if (location.pathname === '/tv') {
+    document.body.classList.add('standby-body--tv');
+    document.getElementById('qr').hidden = false;
+    document.querySelector('.pen-btn').hidden = true;
+    io('/').once('platform', ({ joinUrl }) => {
+      document.getElementById('where').textContent = `Dal telefono o dal PC: ${joinUrl.replace(/^https?:\/\//, '')}/console`;
+    });
+  }
+</script>
+</body>
+</html>

@@ -1,6 +1,6 @@
-# Nomi, cose e città
+# Console di giochi da salotto
 
-Il gioco di carta e penna, da giocare in salotto con una TV e i telefoni.
+Una piattaforma da usare con una TV e i telefoni. Dalla console si sceglie il gioco e tutti lo vedono all'indirizzo principale. Per ora c'è un solo gioco: **Nomi, cose e città**.
 
 ## Avvio
 
@@ -9,12 +9,17 @@ npm install
 npm start
 ```
 
-Serve Node.js 20 o superiore. Il server stampa due indirizzi:
+Serve Node.js 20 o superiore. Il server stampa tre indirizzi:
 
+- **Console:** apri `http://<ip-del-pc>:3000/console` e accendi un gioco.
 - **TV:** apri `http://<ip-del-pc>:3000/tv` nel browser della TV o di un PC collegato alla TV.
-- **Telefoni:** inquadra il QR code che compare sulla TV. I telefoni devono essere sulla stessa rete Wi-Fi del PC.
+- **Telefoni:** inquadrano il QR code sulla TV o aprono `http://<ip-del-pc>:3000`. Devono essere sulla stessa rete Wi-Fi del PC.
 
-## Come si gioca
+Le pagine di TV e telefoni si aggiornano da sole quando dalla console si accende o si chiude un gioco. Chiudere un gioco cancella la partita in corso.
+
+La console non ha password: chiunque sia sulla stessa rete può aprirla.
+
+## Come si gioca a Nomi, cose e città
 
 1. Ognuno entra dal telefono con il proprio nome. Uno sceglie il ruolo **Amministratore**: gioca anche lui, in più può rinominare le 5 categorie e scegliere il tempo per turno.
 2. L'amministratore tocca **Fai girare la ruota**. La ruota gira da sola sulla TV e sceglie una lettera non ancora uscita.
@@ -29,7 +34,7 @@ Serve Node.js 20 o superiore. Il server stampa due indirizzi:
 | `PORT` | `3000` | Porta del server |
 | `PUBLIC_URL` | rilevato dalla rete | Indirizzo nel QR code, se quello rilevato non è giusto |
 
-La partita vive in memoria: riavviando il server si ricomincia da zero. Un telefono che va in standby ritrova posto, parole e punti.
+La partita e il gioco acceso vivono in memoria: riavviando il server si riparte dalla console. Un telefono che va in standby ritrova posto, parole e punti.
 
 ## Sviluppo
 
@@ -38,6 +43,12 @@ npm run dev   # riavvia il server a ogni modifica
 npm test      # test della logica di gioco
 ```
 
-- `server/game.js`: regole e stati della partita, senza dipendenze di rete
-- `server/index.js`: HTTP, WebSocket e QR code
-- `public/`: client senza build step (`js/tv.js` per la TV, `js/phone.js` per i telefoni)
+- `server/platform.js`: quale gioco è acceso, senza dipendenze di rete
+- `server/index.js`: HTTP, WebSocket, QR code e pagine della console
+- `public/`: console e pagina d'attesa, più font e colori condivisi
+- `games/index.js`: elenco dei giochi disponibili
+- `games/nomi-cose-citta/`: regole (`game.js`), collegamento alla console (`index.js`) e client senza build step (`public/`)
+
+### Aggiungere un gioco
+
+Crea una cartella in `games/` che esporta `{ id, title, description, page, publicDir, start }` e aggiungila a `games/index.js`. `start(nsp, { joinUrl, onStatus })` riceve un namespace Socket.IO riservato e restituisce `{ status, destroy }`. La pagina del gioco deve avere `<meta name="platform-game" content="<id>">` e caricare `/js/platform.js`.

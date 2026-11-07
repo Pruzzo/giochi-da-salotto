@@ -3,7 +3,7 @@ import { unlockAudio } from './audio.js';
 import { joinView, phoneView } from './phone.js';
 import { tvView } from './tv.js';
 
-const socket = io({ reconnectionDelayMax: 2000 });
+const socket = io('/nomi-cose-citta', { reconnectionDelayMax: 2000 });
 const app = document.getElementById('app');
 const toastEl = document.getElementById('toast');
 

@@ -5,7 +5,8 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import QRCode from 'qrcode';
 import { Server } from 'socket.io';
-import { Game, GameError } from './game.js';
+import games from '../games/index.js';
+import { Platform, PlatformError } from './platform.js';
 
 const PORT = Number(process.env.PORT) || 3000;
 const root = join(dirname(fileURLToPath(import.meta.url)), '..', 'public');
@@ -29,99 +30,48 @@ const app = express();
 const server = createServer(app);
 const io = new Server(server);
 
-app.use(express.static(root, { extensions: ['html'] }));
-app.get('/qr.svg', (_req, res) => res.type('image/svg+xml').send(qrSvg));
-app.get('/tv', (_req, res) => res.sendFile(join(root, 'index.html')));
+const broadcast = () => io.of('/').emit('platform', { ...platform.view(), joinUrl });
 
-let pending = false;
-const game = new Game({
-  onChange() {
-    if (pending) return;
-    pending = true;
-    setImmediate(() => {
-      pending = false;
-      for (const socket of io.sockets.sockets.values()) sendState(socket);
-    });
-  },
+const platform = new Platform(games, {
+  onChange: broadcast,
+  launch: (game) => game.start(io.of(`/${game.id}`), { joinUrl, onStatus: broadcast }),
 });
 
-function sendState(socket) {
-  const { role, player } = socket.data;
-  if (role) socket.emit('state', { ...game.view({ role, player }), joinUrl });
+// Un gioco spento non accetta connessioni.
+for (const game of games) {
+  io.of(`/${game.id}`).use((_socket, next) => {
+    next(platform.activeId === game.id ? undefined : new Error('Gioco non acceso'));
+  });
+  app.use(`/games/${game.id}`, express.static(game.publicDir, { index: false }));
 }
 
-function reply(ack, fn) {
-  try {
-    ack?.({ ok: true, ...(fn() ?? {}) });
-  } catch (error) {
-    if (!(error instanceof GameError)) console.error(error);
-    ack?.({ ok: false, error: error instanceof GameError ? error.message : 'Qualcosa è andato storto. Riprova.' });
-  }
-}
-
-const ACTIONS = {
-  saveWord: (p, a) => game.saveWord(p, a.index, a.word),
-  setDone: (p, a) => game.setDone(p, a.done),
-  setSettings: (p, a) => game.setSettings(p, { categories: a.categories, durationSec: a.durationSec }),
-  startRound: (p) => game.startRound(p),
-  stopWriting: (p) => game.stopWriting(p),
-  setScore: (p, a) => game.setScore(p, a.playerId, a.index, a.score),
-  setFocus: (p, a) => game.setFocus(p, a.playerId),
-  confirmRound: (p) => game.confirmRound(p),
-  reopenRound: (p) => game.reopenRound(p),
-  endGame: (p) => game.endGame(p),
-  newGame: (p) => game.newGame(p),
-  claimAdmin: (p) => { game.claimAdmin(p); game.changed(); },
-  removePlayer: (p, a) => {
-    const removed = game.removePlayer(p, a.playerId);
-    if (removed) for (const s of io.sockets.sockets.values()) {
-      if (s.data.player === removed) { s.data = {}; s.emit('kicked'); }
-    }
-  },
+// L'indirizzo principale e /tv mostrano il gioco acceso, altrimenti la pagina d'attesa.
+const sendActive = (_req, res) => {
+  res.set('Cache-Control', 'no-store');
+  res.sendFile(platform.activeGame?.page ?? join(root, 'standby.html'));
 };
-
-function detach(socket) {
-  const { player } = socket.data;
-  socket.data = {};
-  if (player) game.disconnect(player);
-}
+app.get('/', sendActive);
+app.get('/tv', sendActive);
+app.get('/console', (_req, res) => res.sendFile(join(root, 'console.html')));
+app.get('/qr.svg', (_req, res) => res.type('image/svg+xml').send(qrSvg));
+app.use(express.static(root, { index: false }));
 
 io.on('connection', (socket) => {
-  socket.data = {};
+  socket.emit('platform', { ...platform.view(), joinUrl });
 
-  socket.on('hello', (msg, ack) => reply(ack, () => {
-    const data = msg ?? {};
-    if (data.role === 'tv') {
-      detach(socket);
-      socket.data = { role: 'tv' };
-      sendState(socket);
-      return { role: 'tv' };
+  const handle = (fn) => (id, ack) => {
+    try {
+      fn(id);
+      ack?.({ ok: true });
+    } catch (error) {
+      if (!(error instanceof PlatformError)) console.error(error);
+      ack?.({ ok: false, error: error instanceof PlatformError ? error.message : 'Qualcosa è andato storto. Riprova.' });
     }
-    const player = game.join({ name: data.name, token: data.token, admin: !!data.admin });
-    detach(socket);
-    socket.data = { role: 'player', player };
-    game.connect(player);
-    sendState(socket);
-    return { role: 'player', token: player.token };
-  }));
-
-  socket.on('act', (msg, ack) => reply(ack, () => {
-    const { player } = socket.data;
-    const action = ACTIONS[msg?.type];
-    if (!player) throw new GameError('Sessione scaduta: rientra nella partita.');
-    if (!action) throw new GameError('Azione sconosciuta.');
-    action(player, msg);
-  }));
-
-  socket.on('leave', (_msg, ack) => reply(ack, () => {
-    const { player } = socket.data;
-    socket.data = {};
-    if (player) game.leave(player);
-  }));
-
-  socket.on('disconnect', () => detach(socket));
+  };
+  socket.on('select', handle((id) => platform.select(id)));
+  socket.on('close', handle(() => platform.close()));
 });
 
 server.listen(PORT, '0.0.0.0', () => {
-  console.log(`\nNomi, cose e città è pronto.\n  Telefoni: ${joinUrl}\n  TV:       ${joinUrl}/tv\n`);
+  console.log(`\nConsole pronta.\n  Scegli il gioco: ${joinUrl}/console\n  Telefoni:        ${joinUrl}\n  TV:              ${joinUrl}/tv\n`);
 });

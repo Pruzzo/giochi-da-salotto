@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#c6202c">
+<title>Console</title>
+<link rel="icon" href="/icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/css/tokens.css">
+<link rel="stylesheet" href="/css/console.css">
+</head>
+<body class="console-body">
+<main class="console">
+  <h1 class="console__title">Console</h1>
+  <p class="console__say" id="say"></p>
+  <ul class="shelf" id="shelf"></ul>
+  <section class="where" id="where" hidden>
+    <h2>Dove si gioca</h2>
+    <p><span>TV</span> <a id="tv-link"></a></p>
+    <p><span>Telefoni</span> <a id="phone-link"></a></p>
+  </section>
+  <p class="console__error" id="error" role="alert" hidden></p>
+</main>
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/console.js"></script>
+</body>
+</html>

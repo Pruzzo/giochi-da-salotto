@@ -1,0 +1,455 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-07T13:30:17Z",
+  "title": "Design System: Nomi, cose e città",
+  "extensions": {
+    "colorMeta": {
+      "ink": {
+        "role": "primary",
+        "displayName": "Biro Blu",
+        "canonical": "#1b3aa8",
+        "tonalRamp": [
+          "#010037",
+          "#06007a",
+          "#15319f",
+          "#3056c5",
+          "#4f79ec",
+          "#7aa1ff",
+          "#b1c9fe",
+          "#e7efff"
+        ]
+      },
+      "ink-deep": {
+        "role": "primary",
+        "displayName": "Biro Calcata",
+        "canonical": "#14297a",
+        "tonalRamp": [
+          "#020037",
+          "#081667",
+          "#20398b",
+          "#3d5bb0",
+          "#5c7dd6",
+          "#7da1fd",
+          "#b2c8fe",
+          "#e8eefe"
+        ]
+      },
+      "red": {
+        "role": "secondary",
+        "displayName": "Penna Rossa",
+        "canonical": "#c6202c",
+        "tonalRamp": [
+          "#200001",
+          "#4d0006",
+          "#810012",
+          "#b7031f",
+          "#e03f42",
+          "#ff726d",
+          "#ffb2ac",
+          "#ffe9e6"
+        ]
+      },
+      "red-deep": {
+        "role": "secondary",
+        "displayName": "Rosso Dorso",
+        "canonical": "#961420",
+        "tonalRamp": [
+          "#200001",
+          "#4d0007",
+          "#800114",
+          "#aa2c31",
+          "#d25251",
+          "#fa7672",
+          "#ffb2ad",
+          "#ffe9e7"
+        ]
+      },
+      "marker": {
+        "role": "tertiary",
+        "displayName": "Evidenziatore",
+        "canonical": "#ffe83f",
+        "tonalRamp": [
+          "#0f0b00",
+          "#2b2500",
+          "#4b4300",
+          "#6e6202",
+          "#938403",
+          "#baa703",
+          "#e2cb04",
+          "#fff193"
+        ]
+      },
+      "hatch-blue": {
+        "role": "tertiary",
+        "displayName": "Matita della Ruota, blu",
+        "canonical": "#7d9be0",
+        "tonalRamp": [
+          "#010037",
+          "#0c1e58",
+          "#263e7a",
+          "#445e9e",
+          "#6380c3",
+          "#85a3e9",
+          "#b1c9fe",
+          "#e7efff"
+        ]
+      },
+      "hatch-red": {
+        "role": "tertiary",
+        "displayName": "Matita della Ruota, rossa",
+        "canonical": "#f0908f",
+        "tonalRamp": [
+          "#200002",
+          "#4d000c",
+          "#742026",
+          "#984244",
+          "#be6364",
+          "#e58685",
+          "#ffb2b0",
+          "#ffe8e7"
+        ]
+      },
+      "hatch-yellow": {
+        "role": "tertiary",
+        "displayName": "Matita della Ruota, gialla",
+        "canonical": "#fbdf38",
+        "tonalRamp": [
+          "#0f0b00",
+          "#2c2500",
+          "#4d4200",
+          "#706104",
+          "#958304",
+          "#bda504",
+          "#e6ca03",
+          "#fff0a0"
+        ]
+      },
+      "paper": {
+        "role": "neutral",
+        "displayName": "Carta Fredda",
+        "canonical": "#f4f8fc",
+        "tonalRamp": [
+          "#090b0e",
+          "#222528",
+          "#3f4245",
+          "#5e6265",
+          "#7f8386",
+          "#a2a5a9",
+          "#c6cacd",
+          "#ebeff3"
+        ]
+      },
+      "grid": {
+        "role": "neutral",
+        "displayName": "Quadretto Azzurro",
+        "canonical": "#bcd0e6",
+        "tonalRamp": [
+          "#010c1a",
+          "#172637",
+          "#334456",
+          "#516376",
+          "#728499",
+          "#94a7bc",
+          "#b8cce1",
+          "#e3f0fe"
+        ]
+      },
+      "margin-line": {
+        "role": "neutral",
+        "displayName": "Margine Stampato",
+        "canonical": "#d3323e",
+        "tonalRamp": [
+          "#200001",
+          "#4d0009",
+          "#800017",
+          "#b70527",
+          "#e03f48",
+          "#ff7272",
+          "#ffb2ae",
+          "#ffe9e7"
+        ]
+      },
+      "pencil": {
+        "role": "neutral",
+        "displayName": "Matita",
+        "canonical": "#4f5660",
+        "tonalRamp": [
+          "#070b13",
+          "#1f252e",
+          "#3c434c",
+          "#5b626c",
+          "#7b838e",
+          "#9ea6b1",
+          "#c2cad6",
+          "#e7effb"
+        ]
+      },
+      "white": {
+        "role": "neutral",
+        "displayName": "Bianco Pieno",
+        "canonical": "#ffffff",
+        "tonalRamp": [
+          "#0b0b0b",
+          "#252525",
+          "#424242",
+          "#616161",
+          "#828282",
+          "#a5a5a5",
+          "#c9c9c9",
+          "#eeeeee"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display-tv": {
+        "displayName": "Display TV",
+        "purpose": "il vincitore a fine partita."
+      },
+      "title-tv": {
+        "displayName": "Title TV",
+        "purpose": "il titolo sull'etichetta di copertina."
+      },
+      "headline-tv": {
+        "displayName": "Headline TV",
+        "purpose": "cosa sta succedendo durante la ruota; 1.45 quadretti accanto alla lettera in fase di scrittura."
+      },
+      "display-phone": {
+        "displayName": "Display Phone",
+        "purpose": "i messaggi che riempiono il telefono, come \"Guarda la TV!\"."
+      },
+      "title-phone": {
+        "displayName": "Title Phone",
+        "purpose": "il titolo sulla copertina del telefono."
+      },
+      "headline-phone": {
+        "displayName": "Headline Phone",
+        "purpose": "l'intestazione di ogni foglio."
+      },
+      "annotation": {
+        "displayName": "Annotation",
+        "purpose": "le note a margine dell'arbitro e i ruoli accanto ai nomi, solo sul telefono."
+      },
+      "written-tv": {
+        "displayName": "Written TV",
+        "purpose": "le parole nella tabella di correzione, che si adattano alla casella; l'elenco delle categorie in scrittura sale a 1.9 quadretti e 600."
+      },
+      "written-phone": {
+        "displayName": "Written Phone",
+        "purpose": "quello che il giocatore digita sulle righe. Le liste stanno tra 1.25rem e 1.3rem."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "testo corrente e note a matita."
+      },
+      "button": {
+        "displayName": "Button",
+        "purpose": "etichette dei bottoni."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "la categoria sopra ogni riga di scrittura, in matita."
+      },
+      "label-tv": {
+        "displayName": "Label TV",
+        "purpose": "nomi dei campi, aiuti e intestazioni della tabella (fino a .85 quadretti)."
+      }
+    },
+    "shadows": [
+      {
+        "name": "etichetta-incollata",
+        "value": "0 0 0 3px var(--paper), 0 0 0 5px var(--ink), 0 8px 18px rgb(70 0 10 / .35)",
+        "purpose": "Le etichette della copertina: bordino di carta, filetto a biro, ombra morbida."
+      },
+      {
+        "name": "pagina-che-si-volta",
+        "value": "18px 0 40px rgb(20 20 60 / .25)",
+        "purpose": "Solo sulla pagina durante il voltapagina."
+      },
+      {
+        "name": "alone-di-carta",
+        "value": "text-shadow: 0 0 .1em var(--paper), 0 0 .1em var(--paper), 0 0 .16em var(--paper), 0 0 .16em var(--paper)",
+        "purpose": "Leggibilità: stacca parole, nomi e categorie dai quadretti. Si toglie sulle parole evidenziate."
+      }
+    ],
+    "motion": [
+      {
+        "name": "out",
+        "value": "cubic-bezier(.16, 1, .3, 1)",
+        "purpose": "Curva di tutti i gesti di scrittura e del voltapagina."
+      },
+      {
+        "name": "wheel-spin",
+        "value": "cubic-bezier(.14, .72, .1, 1)",
+        "purpose": "Rallentamento della ruota; la durata arriva dal server."
+      },
+      {
+        "name": "page-turn",
+        "value": ".85s",
+        "purpose": "Voltapagina tra le fasi: rotateY(-108deg) sul dorso."
+      },
+      {
+        "name": "write-in",
+        "value": ".7s, ritardo .45s per riga (correzione), .22s (classifica)",
+        "purpose": "Svelamento da sinistra a destra con clip-path."
+      },
+      {
+        "name": "sign",
+        "value": ".5s firme, .7s lettera estratta",
+        "purpose": "Firme e lettera che si scrivono da sinistra a destra."
+      },
+      {
+        "name": "draw",
+        "value": ".45s",
+        "purpose": "Il cerchio del voto confermato che si traccia."
+      },
+      {
+        "name": "press",
+        "value": "translateY(2px) in .12s",
+        "purpose": "Pressione dei bottoni."
+      }
+    ],
+    "breakpoints": []
+  },
+  "components": [
+    {
+      "name": "Bottone Biro",
+      "kind": "button",
+      "refersTo": "button-ink",
+      "description": "Azione del giocatore: Entra, Ho finito, Avanti.",
+      "html": "<button class=\"ds-btn-ink\">Ho finito</button>",
+      "css": ".ds-btn-ink { min-height: 56px; padding: 10px 16px; border-radius: 180px 14px 150px 12px / 12px 150px 14px 180px; font-family: var(--hand); font-size: 1.15rem; font-weight: 700; border: 3px solid transparent; cursor: pointer; transition: transform .12s var(--out), background .15s; background: var(--ink); color: var(--paper); } .ds-btn-ink:hover { background: var(--ink-deep); } .ds-btn-ink:active { transform: translateY(2px); } .ds-btn-ink:focus-visible { outline: 3px solid var(--ink); outline-offset: 2px; border-radius: 3px; }"
+    },
+    {
+      "name": "Bottone Penna",
+      "kind": "button",
+      "refersTo": "button-red",
+      "description": "Atto dell'amministratore: far girare la ruota, confermare i punti, nuovo turno.",
+      "html": "<button class=\"ds-btn-red\">Fai girare la ruota</button>",
+      "css": ".ds-btn-red { min-height: 56px; padding: 10px 16px; border-radius: 180px 14px 150px 12px / 12px 150px 14px 180px; font-family: var(--hand); font-size: 1.15rem; font-weight: 700; border: 3px solid transparent; cursor: pointer; transition: transform .12s var(--out), background .15s; background: var(--red); color: #fff; } .ds-btn-red:hover { background: var(--red-deep); } .ds-btn-red:active { transform: translateY(2px); } .ds-btn-red:focus-visible { outline: 3px solid var(--ink); outline-offset: 2px; border-radius: 3px; }"
+    },
+    {
+      "name": "Bottone Contorno",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "Azione secondaria sul telefono.",
+      "html": "<button class=\"ds-btn-ghost\">Correggi</button>",
+      "css": ".ds-btn-ghost { min-height: 56px; padding: 10px 16px; border-radius: 180px 14px 150px 12px / 12px 150px 14px 180px; font-family: var(--hand); font-size: 1.15rem; font-weight: 700; border: 3px solid transparent; cursor: pointer; transition: transform .12s var(--out), background .15s; background: var(--paper); border-color: var(--ink); color: var(--ink); } .ds-btn-ghost:hover { background: rgb(27 58 168 / .08); } .ds-btn-ghost:active { transform: translateY(2px); } .ds-btn-ghost:focus-visible { outline: 3px solid var(--ink); outline-offset: 2px; border-radius: 3px; }"
+    },
+    {
+      "name": "Riga di scrittura",
+      "kind": "input",
+      "refersTo": "input-row",
+      "description": "Il campo dove il giocatore scrive la parola: una riga di quaderno con la categoria sopra.",
+      "html": "<label class=\"ds-row\"><span class=\"ds-row-cat\">Animali</span><input class=\"ds-row-input\" placeholder=\"Con la R\" /></label>",
+      "css": ".ds-row { display: flex; flex-direction: column; width: 280px; font-family: var(--hand); } .ds-row-cat { font-size: .95rem; font-weight: 700; color: var(--pencil); } .ds-row-input { width: 100%; height: 54px; background: transparent; border: 0; border-bottom: 3px solid var(--ink); border-radius: 0; padding: 0 4px; font: inherit; font-weight: 600; font-size: 1.45rem; color: var(--ink); caret-color: var(--red); } .ds-row-input:focus { outline: none; border-bottom-color: var(--red); background: rgb(27 58 168 / .06); }"
+    },
+    {
+      "name": "Scelta a mano",
+      "kind": "chip",
+      "refersTo": "chip-choice",
+      "description": "Scelta rapida: durata del turno, giocatore da correggere. La selezione ripassa il bordo a penna.",
+      "html": "<div class=\"ds-choices\"><button class=\"ds-choice\">60s</button><button class=\"ds-choice\" aria-pressed=\"true\">90s</button><button class=\"ds-choice\">120s</button></div>",
+      "css": ".ds-choices { display: flex; gap: 6px; } .ds-choice { min-width: 62px; min-height: 48px; border: 1.5px dashed var(--pencil); background: var(--paper); color: var(--ink); border-radius: 60px 10px 50px 10px / 10px 50px 10px 60px; font-family: var(--hand); font-size: 1.05rem; font-weight: 500; cursor: pointer; } .ds-choice[aria-pressed=\"true\"] { border: 3px solid var(--red); color: var(--red); font-weight: 700; } .ds-choice:focus-visible { outline: 3px solid var(--ink); outline-offset: 2px; border-radius: 3px; }"
+    },
+    {
+      "name": "Etichetta di copertina",
+      "kind": "card",
+      "refersTo": "cover-label",
+      "description": "L'unico contenitore del sistema: etichetta incollata sulla copertina rossa, con il dorso a sinistra.",
+      "html": "<div class=\"ds-cover\"><div class=\"ds-label\"><h3 class=\"ds-label-title\">Nomi, cose e città</h3><p class=\"ds-label-hint\">Scrivi le tue parole dal telefono.</p></div></div>",
+      "css": ".ds-cover { padding: 28px 28px 28px 44px; background-color: var(--red); background-image: linear-gradient(90deg, var(--red-deep) 0 16px, transparent 16px); } .ds-label { background: var(--paper); border-radius: 14px; padding: 22px 20px; box-shadow: 0 0 0 3px var(--paper), 0 0 0 5px var(--ink), 0 8px 18px rgb(70 0 10 / .35); font-family: var(--hand); } .ds-label-title { margin: 0; font-family: var(--school); font-weight: 400; font-size: 2rem; line-height: 1.5; color: var(--ink-deep); } .ds-label-hint { margin: 0; color: var(--pencil); font-size: .98rem; }"
+    },
+    {
+      "name": "Foglio a quadretti",
+      "kind": "custom",
+      "description": "La superficie di ogni fase: quadretti azzurri, margine rosso, parole in biro con evidenziatore sui doppioni.",
+      "html": "<div class=\"ds-page\"><span class=\"ds-word ds-dup\">Roma</span><span class=\"ds-word\">Rana</span><span class=\"ds-word ds-struck\">Xilofono</span></div>",
+      "css": ".ds-page { --margin: 48px; background-color: var(--paper); background-image: linear-gradient(90deg, transparent calc(var(--margin) - 6px), var(--margin-line) calc(var(--margin) - 6px), var(--margin-line) calc(var(--margin) - 4px), transparent calc(var(--margin) - 4px)), linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px); background-size: 100% 100%, var(--q) var(--q), var(--q) var(--q); display: flex; flex-direction: column; align-items: flex-start; gap: 12px; padding: 24px 24px 24px 72px; font-family: var(--hand); } .ds-word { font-size: 1.45rem; font-weight: 500; color: var(--ink); text-shadow: 0 0 .1em var(--paper), 0 0 .1em var(--paper), 0 0 .16em var(--paper), 0 0 .16em var(--paper); } .ds-dup { text-shadow: none; background: linear-gradient(transparent 12%, var(--marker) 12%, var(--marker) 88%, transparent 88%); padding-inline: .2em; margin-inline: -.2em; border-radius: .2em .4em .3em .25em; } .ds-struck { text-decoration: line-through; text-decoration-color: var(--red); text-decoration-thickness: .12em; }"
+    },
+    {
+      "name": "Voto cerchiato",
+      "kind": "custom",
+      "description": "La firma dell'arbitro: a matita tratteggiata se proposto, a penna continua se confermato.",
+      "html": "<div class=\"ds-marks\"><span class=\"ds-mark ds-mark-pencil\"><svg viewBox=\"0 0 40 40\" aria-hidden=\"true\"><path pathLength=\"1\" d=\"M21 4C10 3 4 11 4 20c0 10 8 16 17 16 10 0 15-8 15-16C36 11 29 4 18 5\"/></svg><b>1</b></span><span class=\"ds-mark ds-mark-ink\"><svg viewBox=\"0 0 40 40\" aria-hidden=\"true\"><path pathLength=\"1\" d=\"M21 4C10 3 4 11 4 20c0 10 8 16 17 16 10 0 15-8 15-16C36 11 29 4 18 5\"/></svg><b>3</b></span></div>",
+      "css": ".ds-marks { display: flex; gap: 16px; font-size: 1.6rem; } .ds-mark { position: relative; display: inline-grid; place-items: center; width: 2.1em; height: 2.1em; font-family: var(--school); line-height: 1; } .ds-mark b { position: relative; font-weight: 400; } .ds-mark svg { position: absolute; inset: 0; width: 100%; height: 100%; fill: none; stroke-linecap: round; stroke-width: 2.6; } .ds-mark-ink { color: var(--red); } .ds-mark-ink svg { stroke: var(--red); stroke-dasharray: 1; animation: ds-draw .45s var(--out) both; } .ds-mark-pencil { color: var(--pencil); } .ds-mark-pencil svg { stroke: var(--pencil); stroke-width: 2.2; stroke-dasharray: .05 .035; } @keyframes ds-draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }"
+    },
+    {
+      "name": "Timer a tratteggio",
+      "kind": "custom",
+      "description": "Il tempo che resta: tratteggio blu, che passa in penna rossa negli ultimi dieci secondi.",
+      "html": "<div class=\"ds-timer\"><span class=\"ds-timer-track\"><span class=\"ds-timer-fill\"></span></span><span class=\"ds-timer-secs\">42</span></div>",
+      "css": ".ds-timer { display: flex; align-items: center; gap: var(--q); width: 340px; font-family: var(--hand); } .ds-timer-track { flex: 1; height: var(--q); position: relative; display: block; box-shadow: inset 0 0 0 2px var(--ink); background: repeating-linear-gradient(90deg, rgb(27 58 168 / .5) 0 1px, transparent 1px var(--q)); } .ds-timer-fill { position: absolute; inset: 0 auto 0 0; width: 62%; background: repeating-linear-gradient(-45deg, var(--ink) 0 3px, transparent 3px 6px); border-right: 2px solid var(--ink); } .ds-timer-secs { font-weight: 800; font-size: 1.9rem; font-variant-numeric: tabular-nums; line-height: 1; color: var(--ink); }"
+    }
+  ],
+  "narrative": {
+    "northStar": "Il Quaderno a Quadretti",
+    "overview": "Il sistema non imita un quaderno: è il quaderno di una partita vera. La TV è il foglio comune, il telefono è il foglietto coperto col braccio, e ogni elemento dell'interfaccia corrisponde a un gesto che si fa con una penna: scrivere, tratteggiare, sottolineare, evidenziare, cerchiare un voto, voltare pagina. Se un elemento non si potrebbe fare su carta con quattro strumenti da astuccio, non appartiene a questo mondo.\n\nLa densità cambia con la distanza. Sulla TV si progetta per il divano: la griglia è di 48 per 27 quadretti e tutto si misura in quadretti, così una stessa pagina si legge uguale a qualunque risoluzione. Sul telefono si progetta per un pollice: colonna unica, righe alte, azione ancorata in basso. La copertina rossa con l'etichetta bianca apre la partita; da lì in poi si sta sulla carta, e ogni cambio di fase è un voltapagina.\n\nIl rifiuto dichiarato è il party game viola e neon: niente gradienti luminosi, niente glow, niente estetica da app di quiz. L'energia viene dalla suspense della ruota e dallo svelamento delle parole, non dalla decorazione.",
+    "keyCharacteristics": [
+      "Carta bianca fredda con quadretti azzurri e margine rosso come superficie di ogni fase di gioco.",
+      "Quattro strumenti con un ruolo fisso: biro blu, penna rossa, matita grigia, evidenziatore giallo.",
+      "Due scritture: mano stampatella dei giocatori e corsivo scolastico italiano della voce che guida e giudica.",
+      "Una sola unità di misura, il quadretto, che sulla TV scala con lo schermo.",
+      "Forme disegnate a mano: bordi irregolari, cerchi aperti, tratteggi, nessuna icona riempita.",
+      "Movimento come scrittura: i contenuti compaiono da sinistra a destra, le fasi cambiano con il voltapagina."
+    ],
+    "rules": [
+      {
+        "name": "The Due Penne Rule",
+        "body": "Il blu è di chi gioca, il rosso è di chi giudica. Le parole dei giocatori restano in biro blu anche quando vengono corrette: il rosso arriva sopra di loro come cancellatura, cerchio o nota, mai al posto loro.",
+        "section": "colors"
+      },
+      {
+        "name": "The Evidenziatore Rule",
+        "body": "Il giallo pieno significa una cosa sola: questa parola è un doppione. Il tratteggio giallo della ruota è una matita colorata, ha un altro valore e non comunica nulla.",
+        "section": "colors"
+      },
+      {
+        "name": "The Matita Prima Rule",
+        "body": "Una proposta è a matita, una decisione è a penna. Il voto suggerito dal gioco è grigio e tratteggiato; diventa rosso e continuo solo quando l'amministratore lo conferma.",
+        "section": "colors"
+      },
+      {
+        "name": "The Corsivo Respira Rule",
+        "body": "Il corsivo su più parole ha interlinea da 1.5 in su: Playwrite IT ha ascendenti e discendenti ampie, e la build le lascia sempre respirare. Interlinea 1 è ammessa solo per la cifra isolata di un voto.",
+        "section": "typography"
+      },
+      {
+        "name": "The Tre Metri Rule",
+        "body": "Sulla TV ogni dimensione del testo si scrive in quadretti, mai in pixel o rem, e l'interfaccia fissa non scende sotto .8 quadretti. Una parola che non entra nella casella si restringe fino al 60% e poi va a capo: sotto quella soglia non si legge dal divano.",
+        "section": "typography"
+      },
+      {
+        "name": "The Foglio Piatto Rule",
+        "body": "Se non si solleva davvero dalla pagina, non ha ombra. Dock, toast, bottoni e chip restano piatti in ogni stato.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Tratteggio Rule",
+        "body": "Colorare un'area a mano significa tratteggiarla: timer, tacche di avanzamento, settori della ruota, lettera del turno. Una quantità non è mai una campitura piena; il pieno resta a ciò che non misura nulla, come bottoni, copertina e lancetta.",
+        "section": "shapes"
+      }
+    ],
+    "dos": [
+      "Do misura tutto ciò che è sulla TV in quadretti, testo compreso, partendo da `--q`.",
+      "Do fai cadere gli elementi sulla griglia visibile: colonne e righe in multipli interi o semplici del quadretto.",
+      "Do tieni le parole dei giocatori in Shantell Sans e Biro Blu, con l'alone di carta quando stanno sui quadretti.",
+      "Do usa Playwrite IT per la voce che guida e giudica, a peso 400 e con interlinea di almeno 1.5 sul testo in più parole.",
+      "Do mostra lo stato con un segno da astuccio: cerchio, cancellatura, sottolineatura, evidenziatore, tratteggio.",
+      "Do tieni i bersagli tattili a 48px o più e l'azione principale nel dock in basso sul telefono.",
+      "Do fai comparire i contenuti di gioco scrivendoli da sinistra a destra, con la curva `--out`, e neutralizza ogni movimento con `prefers-reduced-motion`.",
+      "Do disegna ogni nuova icona come un SVG a tratto, senza riempimento, con estremità arrotondate e tratto 2 su griglia 24."
+    ],
+    "donts": [
+      "Don't introdurre viola, neon, glow o gradienti luminosi da party game.",
+      "Don't usare il giallo pieno per qualcosa che non sia un doppione.",
+      "Don't colorare di rosso una parola scritta da un giocatore: il rosso le passa sopra, non la riscrive.",
+      "Don't usare il Bottone Penna per un'azione che non spetta all'amministratore.",
+      "Don't mettere ombre su ciò che non si solleva dal foglio, nemmeno in hover.",
+      "Don't racchiudere i campi di testo in una scatola: sono righe.",
+      "Don't riempire timer e barre di avanzamento con una campitura piena.",
+      "Don't aggiungere transizioni tra schermate diverse dal voltapagina.",
+      "Don't usare un raggio uniforme su bottoni e scelte toccati dal giocatore.",
+      "Don't scrivere testi sulla TV in pixel o rem, né farli scendere sotto .8 quadretti nell'interfaccia fissa."
+    ]
+  }
+}

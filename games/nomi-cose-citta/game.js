@@ -1,35 +1,20 @@
 // Macchina a stati della partita. Nessuna dipendenza da rete: testabile da sola.
 // lobby -> spinning -> writing -> review -> scored -> spinning ... -> final -> lobby
-import { randomUUID } from 'node:crypto';
+import { GameError, MAX_PLAYERS, normalize, Table } from '../shared/table.js';
 
+export { GameError, MAX_PLAYERS, normalize };
 export const LETTERS = 'ABCDEFGHILMNOPQRSTUVZ'.split('');
 export const DEFAULT_CATEGORIES = ['Nomi', 'Cose', 'Città', 'Animali', 'Mestieri'];
 export const DURATIONS = [30, 45, 60, 90, 120, 180];
 export const SPIN_MS = 6500; // la ruota gira
 export const HOLD_MS = 2500; // la lettera resta in scena prima di scrivere
-export const MAX_PLAYERS = 12;
 const MAX_WORD = 40;
-const MAX_NAME = 16;
 const MAX_CATEGORY = 16;
 export const SCORES = [0, 1, 3];
 
-export class GameError extends Error {}
-
-/** Minuscolo, senza accenti e spazi superflui: "Città " e "citta" sono la stessa parola. */
-export function normalize(word) {
-  return String(word ?? '')
-    .normalize('NFD')
-    .replace(/\p{M}/gu, '')
-    .toLowerCase()
-    .replace(/[^\p{L}\p{N}]+/gu, ' ')
-    .trim();
-}
-
-export class Game {
-  constructor({ random = Math.random, now = Date.now, setTimer = setTimeout, clearTimer = clearTimeout, onChange = () => {} } = {}) {
-    Object.assign(this, { random, now, setTimer, clearTimer, onChange });
-    this.players = new Map();
-    this.adminId = null;
+export class Game extends Table {
+  constructor(options) {
+    super(options);
     this.categories = [...DEFAULT_CATEGORIES];
     this.durationSec = 60;
     this.resetRounds();
@@ -49,73 +34,19 @@ export class Game {
     this.spin = null;
   }
 
-  clearPhaseTimer() {
-    if (this.timer) this.clearTimer(this.timer);
-    this.timer = null;
-  }
+  // ---------- Agganci del tavolo ----------
 
-  // ---------- Giocatori ----------
-
-  join({ name, token, admin = false }) {
-    let player = token ? [...this.players.values()].find((p) => p.token === token) : null;
-    if (!player) {
-      const clean = String(name ?? '').trim().replace(/\s+/g, ' ').slice(0, MAX_NAME);
-      if (!clean) throw new GameError('Scrivi il tuo nome per entrare.');
-      const twin = [...this.players.values()].find((p) => normalize(p.name) === normalize(clean));
-      if (twin && twin.connections > 0) throw new GameError(`C'è già un giocatore che si chiama ${twin.name}. Scegli un altro nome.`);
-      if (twin) {
-        player = twin; // stessa persona che torna da un altro dispositivo
-      } else {
-        if (this.players.size >= MAX_PLAYERS) throw new GameError(`La partita è piena: massimo ${MAX_PLAYERS} giocatori.`);
-        player = { id: randomUUID(), token: randomUUID(), name: clean, connections: 0 };
-        this.players.set(player.id, player);
-      }
-    }
-    if (admin) this.claimAdmin(player);
-    this.changed();
-    return player;
-  }
-
-  claimAdmin(player) {
-    const current = this.players.get(this.adminId);
-    if (current && current !== player && current.connections > 0) {
-      throw new GameError(`L'amministratore è già ${current.name}. Entra come giocatore.`);
-    }
-    this.adminId = player.id;
-  }
-
-  connect(player) {
-    player.connections += 1;
-    this.changed();
-  }
-
-  disconnect(player) {
-    player.connections = Math.max(0, player.connections - 1);
+  presenceChanged() {
     this.maybeFinishWriting();
-    this.changed();
   }
 
-  leave(player) {
-    if (this.adminId === player.id) this.adminId = null;
-    player.connections = 0;
-    if (this.phase === 'lobby' || !this.hasPlayed(player.id)) this.players.delete(player.id);
-    else player.token = randomUUID(); // resta in classifica, ma il vecchio dispositivo perde il posto
+  forget(player) {
     this.sheets.delete(player.id);
     if (this.focusId === player.id) this.focusId = null;
-    this.maybeFinishWriting();
-    this.changed();
   }
 
   hasPlayed(id) {
     return [...this.history.values()].some((round) => round.has(id)) || !!this.marks?.some((row) => row.playerId === id);
-  }
-
-  requireAdmin(actor) {
-    if (!actor || actor.id !== this.adminId) throw new GameError("Solo l'amministratore può farlo.");
-  }
-
-  requirePhase(...phases) {
-    if (!phases.includes(this.phase)) throw new GameError('Questa azione non è disponibile adesso.');
   }
 
   // ---------- Impostazioni ----------
@@ -133,17 +64,6 @@ export class Game {
       this.durationSec = durationSec;
     }
     this.changed();
-  }
-
-  removePlayer(actor, playerId) {
-    this.requireAdmin(actor);
-    this.requirePhase('lobby');
-    if (playerId === actor.id) throw new GameError('Non puoi togliere te stesso.');
-    const removed = this.players.get(playerId);
-    if (!removed) return null;
-    this.players.delete(playerId);
-    this.changed();
-    return removed;
   }
 
   // ---------- Turno ----------
@@ -166,11 +86,6 @@ export class Game {
     this.deadline = this.now() + total;
     this.schedule(total, () => this.startWriting());
     this.changed();
-  }
-
-  schedule(ms, fn) {
-    this.clearPhaseTimer();
-    this.timer = this.setTimer(fn, ms);
   }
 
   startWriting() {
@@ -205,7 +120,7 @@ export class Game {
 
   maybeFinishWriting() {
     if (this.phase !== 'writing') return;
-    const online = [...this.players.values()].filter((p) => p.connections > 0);
+    const online = this.online();
     if (online.length && online.every((p) => this.sheets.get(p.id)?.done)) this.finishWriting();
   }
 
@@ -300,7 +215,7 @@ export class Game {
   newGame(actor) {
     this.requireAdmin(actor);
     this.resetRounds();
-    for (const p of [...this.players.values()]) if (p.connections === 0) this.players.delete(p.id);
+    this.pruneOffline();
     this.changed();
   }
 
@@ -322,10 +237,7 @@ export class Game {
     const players = [...this.players.values()].map((p) => {
       const sheet = this.sheets.get(p.id);
       return {
-        id: p.id,
-        name: p.name,
-        online: p.connections > 0,
-        isAdmin: p.id === this.adminId,
+        ...this.seat(p),
         total: totals.get(p.id),
         roundPoints: lastRound?.get(p.id) ?? null,
         filled: writing && sheet ? sheet.words.map((w) => !!w.trim()) : [false, false, false, false, false],
@@ -340,8 +252,7 @@ export class Game {
       categories: this.categories,
       durationSec: this.durationSec,
       players,
-      adminId: this.adminId,
-      adminOnline: (this.players.get(this.adminId)?.connections ?? 0) > 0,
+      ...this.baseView(),
       letter: showLetter ? this.letter : null,
       letters: LETTERS,
       usedLetters: this.usedLetters,
@@ -363,7 +274,4 @@ export class Game {
     return state;
   }
 
-  changed() {
-    this.onChange();
-  }
 }

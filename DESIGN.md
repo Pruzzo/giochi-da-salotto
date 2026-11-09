@@ -15,6 +15,14 @@ colors:
   margin-line: "#d3323e"
   pencil: "#4f5660"
   white: "#ffffff"
+  crayon-red: "#d7263d"
+  crayon-orange: "#f08a24"
+  crayon-yellow: "#f6cd1a"
+  crayon-green: "#2e9e4f"
+  crayon-sky: "#2aa7e0"
+  crayon-black: "#3a3d45"
+  crayon-brown: "#8a5a2b"
+  crayon-pink: "#ec6fb0"
 typography:
   display-tv:
     fontFamily: "Playwrite IT, Shantell Sans, cursive"
@@ -183,7 +191,12 @@ Due inchiostri saturi su carta fredda, con il giallo riservato a un solo signifi
 - **Matita** (#4f5660): suggerimenti, nomi dei campi, categorie, voci vuote, voti ancora proposti.
 - **Bianco Pieno** (#ffffff): testo su fondi rossi e sul toast.
 
+### Pastelli (solo Codice segreto)
+Otto matite colorate sono i pezzi del gioco, non colori dell'interfaccia: rosso, arancione, giallo, verde, azzurro, nero, marrone, rosa (`crayon-*`). Compaiono solo dentro i tondi dei pastelli, sempre con il numero scritto sopra in Biro Calcata e alone di carta, così si riconoscono anche senza distinguere i colori. Il tondo è colorato a pastello: tinta piena attraversata da righe di carta oblique, mai una campitura liscia.
+
 ### Named Rules
+**The Pastello Rule.** I colori `crayon-*` vivono solo nei tondi dei pastelli di Codice segreto. Non diventano mai sfondi, bordi, testi o accenti dell'interfaccia; il giallo pastello rigato non è l'evidenziatore.
+
 **The Due Penne Rule.** Il blu è di chi gioca, il rosso è di chi giudica. Le parole dei giocatori restano in biro blu anche quando vengono corrette: il rosso arriva sopra di loro come cancellatura, cerchio o nota, mai al posto loro.
 
 **The Evidenziatore Rule.** Il giallo pieno significa una cosa sola: questa parola è un doppione. Il tratteggio giallo della ruota è una matita colorata, ha un altro valore e non comunica nulla.
@@ -302,6 +315,21 @@ Una striscia alta un quadretto, con anello interno a biro e tacche ogni quadrett
 ### Lo Svelamento
 Le righe della correzione si scrivono da sinistra a destra con un clip-path (.7s, una ogni .45s), la classifica finale con lo stesso gesto (una ogni .22s). Sul foglio corretto si tiene traccia delle parole con i segni della scrittura: cancellatura rossa per le parole sbagliate, sottolineatura rossa per chi ha consegnato, sottolineatura ondulata per il vincitore, freccia rossa sul margine per la riga in correzione.
 
+### Il Codice Coperto (Codice segreto)
+Quattro caselle quadrate tracciate a biro sul foglio, senza raggio. Per nascondere il codice, sopra ogni casella passano due scarabocchi a zig-zag in Biro Blu (uno per verso), disegnati con `stroke-dashoffset` uno dopo l'altro; sotto, il pastello sparisce. Allo svelamento lo scarabocchio si ritira nello stesso ordine e il pastello riappare. Sulla TV la fila si mescola per due secondi prima di essere coperta: sono pastelli a caso, la TV non conosce il codice.
+
+### I Pallini
+La risposta a un tentativo è un quadrato di quattro segni in Penna Rossa: pallino pieno per un pastello giusto al posto giusto, cerchio vuoto per un pastello giusto ma fuori posto, puntino a matita per il resto. Il rosso qui è il giudizio, come nella Due Penne Rule; i pastelli scelti dal giocatore restano suoi.
+
+### La Forca (L'impiccato)
+La forca è a matita (`pencil`, tratto 3), l'omino a Penna Rossa (tratto 4): ogni errore è un giudizio e aggiunge un tratto, nell'ordine testa, corpo, braccia, gambe, disegnato con `stroke-dashoffset` in .5s. I tratti già presenti compaiono senza animazione quando la pagina si ridisegna.
+
+### Le Caselle della Parola
+Ogni lettera è una casella sopra una riga in Biro Blu; le caselle vuote sono solo la riga. Sulla TV le caselle si tracciano una dopo l'altra (.18s l'una) mentre lo schermo sceglie la parola. Le lettere sbagliate, sul telefono e nella tabella finale, sono cancellate in Penna Rossa; sulla tastiera le lettere già nella parola diventano tratteggiate color quadretto.
+
+### Le Tessere (Anagrammi)
+Le lettere estratte sono quadretti grandi bordati in Biro Blu, senza raggio, con la lettera in Shantell Sans 700. Sulla TV girano come un contatore e si fermano una alla volta da sinistra; sul telefono una tessera usata diventa tratteggiata color quadretto finché la parola non è scritta. Una parola trovata anche da altri prende l'evidenziatore giallo, come un doppione di Nomi, cose e città: è lo stesso significato.
+
 ## Do's and Don'ts
 
 ### Do:
@@ -315,6 +343,7 @@ Le righe della correzione si scrivono da sinistra a destra con un clip-path (.7s
 - **Do** disegna ogni nuova icona come un SVG a tratto, senza riempimento, con estremità arrotondate e tratto 2 su griglia 24.
 
 ### Don't:
+- **Don't** usare i pastelli `crayon-*` fuori dai tondi di Codice segreto.
 - **Don't** introdurre viola, neon, glow o gradienti luminosi da party game.
 - **Don't** usare il giallo pieno per qualcosa che non sia un doppione.
 - **Don't** colorare di rosso una parola scritta da un giocatore: il rosso le passa sopra, non la riscrive.

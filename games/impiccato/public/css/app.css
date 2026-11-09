@@ -1,0 +1,58 @@
+/* Solo "L'impiccato": caselle della parola, forca, tastiera. Il resto è in /css/kit.css. */
+
+/* ---------- La parola ---------- */
+.slots { display: inline-flex; gap: .18em; align-items: flex-end; font-weight: 700; line-height: 1; color: var(--ink); }
+.slot { width: .82em; height: 1.15em; display: grid; place-items: end center; padding-bottom: .06em; border-bottom: .07em solid var(--ink); }
+.slots--draw .slot { animation: write-in .35s var(--out) both; animation-delay: calc(.2s + var(--i) * .18s); }
+.slots--phone { font-size: min(2.4rem, calc((100vw - 64px) / var(--len) / 1.02)); }
+.slots--side { font-size: min(calc(var(--q) * 2.4), calc(var(--q) * 13.5 / var(--len))); }
+.slots--draw { font-size: min(calc(var(--q) * 4.5), calc(var(--q) * 38 / var(--len))); }
+.slots--open { font-size: min(calc(var(--q) * 2.4), calc(var(--q) * 22 / var(--len))); }
+.open-head__say { white-space: nowrap; }
+.open .results__row { grid-template-columns: calc(var(--q) * 9) calc(var(--q) * 10) minmax(0, 1fr) calc(var(--q) * 4) calc(var(--q) * 4); }
+.slots--open .slot { animation: write-in .35s var(--out) both; animation-delay: calc(var(--i) * .12s); }
+
+/* ---------- La forca ---------- */
+.gallows { display: block; width: 100%; height: 100%; overflow: visible; }
+.gallows path { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.gallows__frame { stroke: var(--pencil); stroke-width: 3; }
+.gallows__part { stroke: var(--red); stroke-width: 4; stroke-dasharray: 1 2; stroke-dashoffset: 1.5; transition: stroke-dashoffset .5s var(--out); }
+.gallows__part.is-on { stroke-dashoffset: 0; }
+.gallows__part.is-instant { transition: none; }
+
+/* ---------- Telefono ---------- */
+.hang-sheet { gap: calc(var(--q) * .5); padding-bottom: 0; }
+.hang-errors { flex: none; font-weight: 700; font-size: 1.05rem; }
+.hang-errors.is-hurt { color: var(--red); }
+.hang-top { display: flex; align-items: center; gap: var(--q); min-height: 0; }
+.hang-pic { flex: none; width: calc(var(--q) * 5); height: calc(var(--q) * 5); }
+.hang-wrong { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 1.45rem; }
+.hang-word { display: flex; justify-content: center; padding-block: 6px; }
+
+.keys { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; }
+.key { min-height: 48px; padding: 0; border: 1.5px solid var(--ink); background: var(--paper); color: var(--ink); font-weight: 700; font-size: 1.45rem; transition: transform .1s var(--out); }
+.key:active { transform: scale(.92); }
+.key:disabled { cursor: default; opacity: 1; }
+.key.is-hit { border-style: dashed; border-color: var(--grid); color: var(--grid); }
+.key.is-wrong { border-color: var(--grid); color: var(--pencil); text-decoration: line-through; text-decoration-color: var(--red); text-decoration-thickness: .14em; }
+.word-form { display: flex; flex-direction: column; gap: 8px; }
+.wait-slots { font-size: calc(var(--q) * 2); }
+
+/* ---------- TV ---------- */
+
+.side-note { font-size: calc(var(--q) * .95); font-weight: 600; line-height: 1.35; }
+.hangs__count { margin-top: auto; margin-bottom: var(--q); font-size: calc(var(--q) * 1.1); }
+.hangs { display: grid; grid-template-columns: repeat(var(--cols, 2), minmax(0, 1fr)); grid-auto-rows: min(calc(var(--q) * 6), calc((100vh - var(--q) * 6) / var(--rows, 1))); column-gap: var(--q); }
+.hang { display: flex; align-items: center; gap: calc(var(--q) * .5); min-width: 0; border-bottom: 2px solid var(--grid); padding-block: calc(var(--q) * .2); }
+.hang__pic { flex: none; height: min(100%, calc(var(--q) * var(--pic, 5))); aspect-ratio: 1; }
+.hang__text { display: flex; flex-direction: column; min-width: 0; }
+.hang__name { font-size: calc(var(--q) * 1.15); overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.hang__status { font-size: calc(var(--q) * .85); font-weight: 600; color: var(--pencil); min-height: 1.3em; white-space: nowrap; }
+.hangs[data-cols="3"] { --pic: 3.6; }
+.hangs[data-cols="3"] .hang__name { font-size: calc(var(--q) * 1); }
+.hang.is-solved .hang__name { text-decoration: underline wavy var(--red) .09em; text-underline-offset: .22em; }
+.hang.is-solved .hang__status, .hang.is-hanged .hang__status { font-family: var(--school); font-weight: 400; color: var(--red); }
+.hang.is-hanged .hang__name { opacity: .6; }
+.hang.is-away { opacity: .5; }
+
+.results__wrong { display: flex; flex-wrap: wrap; gap: 0 .5em; font-weight: 600; overflow: hidden; }

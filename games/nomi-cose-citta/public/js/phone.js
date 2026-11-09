@@ -1,75 +1,12 @@
 import { h, fill, penLetter, scoreMark } from './dom.js';
-import { createTimer } from './timer.js';
+import { createTimer } from '/js/kit/timer.js';
+import { finalPhone, page, rankOf, rosterItems, waitingNote } from '/js/kit/ui.js';
 
 const initial = (s) => s.normalize('NFD').replace(/\p{M}/gu, '').charAt(0).toUpperCase();
-const rankOf = (players, id) => {
-  const me = players.find((p) => p.id === id);
-  return me ? players.filter((p) => p.total > me.total).length + 1 : null;
-};
-
-function page(cls, ...kids) {
-  return h('main', { class: `page page--phone ${cls}` }, ...kids);
-}
-
-// ---------- Ingresso ----------
-
-const ROLES = [
-  { id: 'player', label: 'Giocatore', hint: 'Scrivi le tue parole dal telefono.' },
-  { id: 'admin', label: 'Amministratore', hint: 'Giochi anche tu, in più avvii i turni e assegni i punti.' },
-  { id: 'tv', label: 'TV', hint: 'Questo schermo mostra ruota, parole e punteggi a tutti.' },
-];
-
-export function joinView({ onEnter }) {
-  let role = 'player';
-  const nameInput = h('input', {
-    id: 'name', class: 'field', maxLength: 16, autocomplete: 'nickname', autocapitalize: 'words',
-    enterKeyHint: 'go', placeholder: 'Il tuo nome',
-  });
-  const error = h('p', { class: 'error', role: 'alert', hidden: true });
-  const hint = h('p', { class: 'cover__hint' });
-  const nameRow = h('label', { class: 'cover__row' }, h('span', { class: 'cover__label' }, 'Nome'), nameInput);
-  const submit = h('button', { class: 'btn btn--ink btn--wide', type: 'submit' }, 'Entra');
-  const tabs = ROLES.map((r) => h('button', {
-    type: 'button', class: 'tab', 'aria-pressed': 'false',
-    onClick: () => choose(r.id),
-  }, r.label));
-
-  function choose(next) {
-    role = next;
-    ROLES.forEach((r, i) => tabs[i].setAttribute('aria-pressed', String(r.id === next)));
-    hint.textContent = ROLES.find((r) => r.id === next).hint;
-    nameRow.hidden = next === 'tv';
-    submit.textContent = next === 'tv' ? 'Usa questo schermo come TV' : 'Entra';
-    error.hidden = true;
-  }
-  choose('player');
-
-  const form = h('form', {
-    class: 'cover__label-card',
-    onSubmit: (e) => {
-      e.preventDefault();
-      submit.disabled = true;
-      const request = role === 'tv' ? { role: 'tv' } : { role: 'player', name: nameInput.value, admin: role === 'admin' };
-      onEnter(request, (message) => {
-        submit.disabled = false;
-        if (message) {
-          error.textContent = message;
-          error.hidden = false;
-        }
-      });
-    },
-  },
-  h('h1', { class: 'title' }, 'Nomi, cose', h('br'), 'e città'),
-  h('div', { class: 'tabs', role: 'group', 'aria-label': 'Come vuoi partecipare?' }, tabs),
-  hint, nameRow, error, submit);
-
-  return { el: h('main', { class: 'cover cover--phone' }, form), update() {} };
-}
-
 // ---------- Vista telefono per fase ----------
 
 export function phoneView(state, ctx) {
-  const views = { lobby: lobby, spinning, writing, review, scored, final };
+  const views = { lobby, spinning, writing, review, scored, final: finalPhone };
   return views[state.phase](state, ctx);
 }
 
@@ -104,15 +41,9 @@ function lobby(state, { act, leave }) {
     el,
     update(s) {
       const me = s.you.isAdmin;
-      status.textContent = me
-        ? 'Quando ci siete tutti, fai partire il primo turno.'
-        : s.adminOnline ? `In attesa che ${s.players.find((p) => p.isAdmin)?.name} faccia partire il turno.` : 'Manca un amministratore per iniziare.';
+      status.textContent = waitingNote(s, 'fai partire il primo turno');
       claim.hidden = me || s.adminOnline;
-      fill(list, s.players.map((p) => h('li', { class: `roster__item${p.online ? '' : ' is-away'}` },
-        h('span', { class: 'written' }, p.name),
-        p.isAdmin && h('span', { class: 'tag' }, 'amministratore'),
-        !p.online && h('span', { class: 'tag' }, 'non connesso'),
-        me && p.id !== s.you.id && h('button', { class: 'link', onClick: () => act('removePlayer', { playerId: p.id }), 'aria-label': `Togli ${p.name}` }, 'Togli'))));
+      fill(list, rosterItems(s, act));
       if (me) {
         catInputs.forEach((inp, i) => { if (document.activeElement !== inp) inp.value = s.categories[i]; });
         fill(durations, s.durations.map((d) => h('button', {
@@ -300,27 +231,6 @@ function scored(state, { act }) {
         h('h1', { class: 'shout' }, `${me?.total ?? 0} punti`),
         h('p', { class: 'note' }, `${rankOf(s.players, s.you.id)}° in classifica su ${s.players.length}. ${isAdmin ? '' : 'Tra poco si riparte.'}`),
         row && ownSheet(s, row));
-    },
-  };
-}
-
-function final(state, { act, leave }) {
-  const body = h('div');
-  const el = page('wait', body,
-    h('div', { class: 'dock' },
-      state.you.isAdmin
-        ? h('button', { class: 'btn btn--red btn--wide', onClick: () => act('newGame') }, 'Nuova partita')
-        : h('button', { class: 'btn btn--ghost btn--wide', onClick: leave }, 'Esci dalla partita')));
-  return {
-    el,
-    update(s) {
-      const me = s.players.find((p) => p.id === s.you.id);
-      const rank = rankOf(s.players, s.you.id);
-      fill(body,
-        h('h1', { class: 'shout' }, rank === 1 ? 'Hai vinto!' : `${rank}° posto`),
-        h('p', { class: 'sum' }, `${me?.total ?? 0} punti`),
-        h('ol', { class: 'own' }, [...s.players].sort((a, b) => b.total - a.total).map((p) => h('li', { class: 'standing' },
-          h('span', { class: 'written' }, p.name), h('span', { class: 'red' }, String(p.total))))));
     },
   };
 }

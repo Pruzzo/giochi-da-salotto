@@ -1,64 +1,23 @@
-import { h, fill, icon, penLetter, scoreMark } from './dom.js';
-import { isMuted, sounds, toggleMute, unlockAudio } from './audio.js';
-import { createTimer } from './timer.js';
+import { h, fill, penLetter, scoreMark } from './dom.js';
+import { sounds } from './audio.js';
+import { createTimer } from '/js/kit/timer.js';
+import { coverTv, finalTv, tvPage } from '/js/kit/ui.js';
 import { createWheel } from './wheel.js';
 import { cellClass } from './phone.js';
 
 export function tvView(state) {
-  const views = { lobby, spinning, writing, review: sheet, scored: sheet, final };
+  const views = { lobby, spinning, writing, review: sheet, scored: sheet, final: finalTv };
   return views[state.phase](state);
-}
-
-function controls() {
-  const sound = h('button', { class: 'corner__btn', title: 'Suono', 'aria-label': 'Attiva o disattiva il suono' });
-  const paint = () => fill(sound, icon(isMuted() ? 'mute' : 'sound'));
-  paint();
-  sound.addEventListener('click', () => { unlockAudio(); toggleMute(); paint(); });
-  return h('div', { class: 'corner' }, sound,
-    document.documentElement.requestFullscreen && h('button', {
-      class: 'corner__btn', title: 'Schermo intero', 'aria-label': 'Schermo intero',
-      onClick: () => (document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen()),
-    }, icon('full')));
-}
-
-function tvPage(cls, ...kids) {
-  return h('main', { class: `page page--tv ${cls}` }, ...kids, controls());
 }
 
 // ---------- Copertina ----------
 
-function lobby(state) {
-  const names = h('ol', { class: 'signatures' });
-  const what = h('p', { class: 'cover__do' });
-  const cats = h('p', { class: 'cover__cats' });
-  const url = h('span', { class: 'cover__url' });
-  const el = h('main', { class: 'cover cover--tv' },
-    h('div', { class: 'cover__label-card cover__label-card--tv' },
-      h('h1', { class: 'title' }, 'Nomi, cose e città'),
-      h('div', { class: 'label-field' }, h('span', { class: 'label-field__name' }, 'Materie'), cats),
-      h('div', { class: 'label-field label-field--grow' }, h('span', { class: 'label-field__name' }, 'Classe'), names),
-      what),
-    h('aside', { class: 'cover__join' },
-      h('img', { class: 'qr', src: '/qr.svg', alt: 'QR code per entrare nella partita' }),
-      h('p', { class: 'cover__scan' }, 'Inquadra e scrivi il tuo nome'),
-      url),
-    controls());
-  return {
-    el,
-    update(s) {
-      fill(cats, s.categories.join(' · '));
-      url.textContent = s.joinUrl.replace(/^https?:\/\//, '');
-      const longest = Math.max(1, ...s.players.map((p) => p.name.length));
-      names.style.setProperty('--sig', Math.min(s.players.length > 8 ? 1 : 1.4, 9 / (longest * 0.62)).toFixed(2));
-      fill(names, s.players.length
-        ? s.players.map((p) => h('li', { class: `signature${p.online ? '' : ' is-away'}` }, p.name, p.isAdmin && h('span', { class: 'signature__badge' }, 'amministratore')))
-        : h('li', { class: 'signature signature--empty' }, 'Nessuno in classe, per ora'));
-      const hasPlayers = s.players.length > 0;
-      what.textContent = !hasPlayers ? 'Inquadra il codice col telefono per entrare.'
-        : !s.adminOnline ? 'Serve un amministratore: sceglilo al momento di entrare.'
-        : `${s.players.find((p) => p.isAdmin).name} farà girare la ruota quando siete tutti.`;
-    },
-  };
+function lobby() {
+  return coverTv({
+    title: 'Nomi, cose e città',
+    subject: { label: 'Materie', text: (s) => s.categories.join(' · ') },
+    cta: (admin) => `${admin} farà girare la ruota quando siete tutti.`,
+  });
 }
 
 // ---------- Ruota ----------
@@ -211,27 +170,6 @@ function sheet(state) {
           }
         });
       }
-    },
-  };
-}
-
-// ---------- Fine ----------
-
-function final() {
-  const list = h('ol', { class: 'pagella' });
-  const lead = h('h1', { class: 'winner' });
-  const el = tvPage('end', lead, list);
-  return {
-    el,
-    update(s) {
-      const sorted = [...s.players].sort((a, b) => b.total - a.total);
-      const top = sorted[0]?.total ?? 0;
-      const winners = sorted.filter((p) => p.total === top).map((p) => p.name);
-      lead.textContent = winners.length > 1 ? `Pari merito: ${winners.join(' e ')}!` : `Ha vinto ${winners[0] ?? ''}!`;
-      fill(list, sorted.map((p, i) => h('li', { class: `pagella__row${p.total === top ? ' is-top' : ''}`, style: { '--i': i } },
-        h('span', { class: 'pagella__pos' }, `${sorted.findIndex((q) => q.total === p.total) + 1}°`),
-        h('span', { class: 'written' }, p.name),
-        h('span', { class: 'red' }, String(p.total)))));
     },
   };
 }

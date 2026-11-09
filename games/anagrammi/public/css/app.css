@@ -1,0 +1,59 @@
+/* Solo "Anagrammi": tessere, parole trovate, tabellone. Il resto è in /css/kit.css. */
+
+/* ---------- Tessere ---------- */
+.tiles { display: flex; justify-content: center; gap: .14em; }
+.tile { width: 1.15em; height: 1.15em; display: grid; place-items: center; padding: 0; font: inherit; font-weight: 700; line-height: 1; color: var(--ink); background: var(--paper); border: .06em solid var(--ink); }
+.tiles--tv { font-size: calc(var(--q) * 3.4); }
+.tiles--draw .tile { animation: write-in .3s var(--out) both; animation-delay: calc(var(--i) * .08s); color: var(--pencil); }
+.tiles--draw .tile.is-set { color: var(--ink); }
+.tiles--wait { font-size: calc(var(--q) * 1.9); }
+.tiles--wait .tile { color: var(--pencil); }
+
+/* ---------- Telefono ---------- */
+.ana-sheet { gap: calc(var(--q) * .5); padding-bottom: 0; }
+.tally { flex: none; font-weight: 700; font-size: 1.05rem; }
+.found { display: flex; flex-direction: column; }
+.found__item { display: grid; grid-template-columns: 1fr auto; column-gap: 8px; align-items: center; min-height: calc(var(--q) * 2); border-bottom: 2px solid var(--grid); font-size: 1.45rem; }
+.found__item .written { justify-self: start; letter-spacing: .04em; }
+.found__item .why { grid-column: 1; }
+.found__item .found__pts { grid-column: 2; grid-row: 1 / span 2; }
+.found__item.is-new { animation: write-in .4s var(--out) both; }
+.found__pts { font-weight: 700; color: var(--pencil); font-variant-numeric: tabular-nums; }
+.found__empty { padding-block: 8px; }
+.found--open { width: 100%; margin-top: 6px; }
+.found--open .found__pts { color: var(--red); }
+
+.compose-word { min-height: 1.5em; text-align: center; font-size: clamp(2rem, 10vw, 3rem); font-weight: 700; letter-spacing: .12em; color: var(--ink); border-bottom: 3px solid var(--ink); }
+.compose-word.is-empty { font-size: 1.05rem; font-weight: 500; letter-spacing: 0; color: var(--pencil); line-height: 2.6; }
+.compose-word.is-shake { animation: shake .35s var(--out); border-bottom-color: var(--red); }
+@keyframes shake { 20%, 60% { transform: translateX(-6px); } 40%, 80% { transform: translateX(6px); } }
+.tiles--phone { font-size: min(calc(var(--q) * 1.9), calc((100vw - 76px) / 8 / 1.14)); padding-block: 4px; }
+.tiles--phone .tile { cursor: pointer; transition: transform .1s var(--out); }
+.tiles--phone .tile:active { transform: scale(.92); }
+.tiles--phone .tile.is-used { border-style: dashed; border-color: var(--grid); color: var(--grid); cursor: default; }
+.tiles--phone .tile:disabled { opacity: 1; }
+.compose-row { display: grid; grid-template-columns: 1fr 1fr 1.6fr; gap: 8px; }
+.compose.is-closed { opacity: .5; }
+
+/* ---------- TV ---------- */
+.ana-play { display: flex; flex-direction: column; align-items: center; gap: calc(var(--q) * .8); padding: 0 calc(var(--q) * 2) var(--q) calc(var(--margin) + var(--q)); }
+.ana-play .play-top { align-self: stretch; height: calc(var(--q) * 3); flex: none; }
+.ana-legend { display: flex; flex-wrap: wrap; justify-content: center; gap: calc(var(--q) * .3) calc(var(--q) * 1); font-size: calc(var(--q) * .9); font-weight: 500; }
+.ana-legend b { font-weight: 700; }
+.ana-board { align-self: stretch; flex: 1; min-height: 0; display: grid; grid-template-columns: repeat(var(--cols, 2), minmax(0, 1fr)); align-content: start; column-gap: calc(var(--q) * 1.5); }
+.ana-player { display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-rows: auto auto; align-items: baseline; column-gap: calc(var(--q) * .5); padding-block: calc(var(--q) * .25); border-bottom: 2px solid var(--grid); }
+.ana-player__name { font-size: calc(var(--q) * 1.2); overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.ana-player__count { font-size: calc(var(--q) * .9); font-weight: 600; }
+.ana-player__count b { font-size: calc(var(--q) * 1.5); font-weight: 800; font-variant-numeric: tabular-nums; }
+.ana-player__long { grid-column: 1 / -1; font-size: calc(var(--q) * .85); font-weight: 600; color: var(--pencil); min-height: 1.3em; }
+.ana-player.is-done .ana-player__name { text-decoration: underline; text-decoration-color: var(--red); text-decoration-thickness: 3px; text-underline-offset: .15em; }
+.ana-player.is-away { opacity: .5; }
+
+.ana-full { display: flex; flex-wrap: wrap; gap: 0 calc(var(--q) * 1); font-size: calc(var(--q) * 2.2); font-weight: 700; letter-spacing: .08em; color: var(--ink); }
+.ana-full--many { font-size: calc(var(--q) * 1.5); }
+.ana-full__word { animation: write-in .5s var(--out) both; animation-delay: calc(var(--i) * .3s); }
+.ana-open .open-head__say { white-space: nowrap; }
+.ana-open .results__row { grid-template-columns: calc(var(--q) * 9) calc(var(--q) * 5) minmax(0, 1fr) calc(var(--q) * 4) calc(var(--q) * 4); }
+.ana-best { display: flex; gap: 0 calc(var(--q) * .8); overflow: hidden; white-space: nowrap; letter-spacing: .04em; }
+.ana-missed { flex: none; display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 calc(var(--q) * .7); font-size: calc(var(--q) * 1); }
+.ana-missed__word { letter-spacing: .04em; }

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Icona della notifica: conta solo la trasparenza, quindi il foglio e la M sono solo contorni. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="32"
+    android:viewportHeight="32">
+    <path
+        android:pathData="M6,7h20a2,2 0,0 1,2 2v14a2,2 0,0 1,-2 2h-20a2,2 0,0 1,-2 -2v-14a2,2 0,0 1,2 -2z"
+        android:strokeColor="#ffffff"
+        android:strokeLineJoin="round"
+        android:strokeWidth="2.5" />
+    <path
+        android:pathData="M10.5,21l2.5,-9l3,6l3,-6l2.5,9"
+        android:strokeColor="#ffffff"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:strokeWidth="2.5" />
+</vector>

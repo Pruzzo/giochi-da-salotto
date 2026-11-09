@@ -9,7 +9,7 @@ npm install
 npm start
 ```
 
-Serve Node.js 20 o superiore. Il server stampa tre indirizzi:
+Serve Node.js 18 o superiore. Il server stampa tre indirizzi:
 
 - **Console:** apri `http://<ip-del-pc>:3000/console` e accendi un gioco.
 - **TV:** apri `http://<ip-del-pc>:3000/tv` nel browser della TV o di un PC collegato alla TV.
@@ -54,6 +54,10 @@ La console non ha password: chiunque sia sulla stessa rete può aprirla.
 6. Alla fine la TV mostra la parola di partenza, le più lunghe di ognuno e quelle che nessuno ha trovato.
 
 Il dizionario (circa 63.000 parole con plurali, femminili e verbi coniugati) viene da morph-it: fonti, licenze e istruzioni per rigenerarlo sono in `games/anagrammi/data/README.md`.
+
+## Su Android
+
+Al posto del PC può fare da server un telefono o un box Android TV: l'app è in `android/`, istruzioni in `android/README.md`.
 
 ## Configurazione
 

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Icona per Android 7 e 8.0; da 8.0 in poi vale drawable-anydpi-v26/ic_launcher.xml. Da public/icon.svg. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="48dp"
+    android:height="48dp"
+    android:viewportWidth="32"
+    android:viewportHeight="32">
+    <path
+        android:fillColor="#c6202c"
+        android:pathData="M4,0h24a4,4 0,0 1,4 4v24a4,4 0,0 1,-4 4h-24a4,4 0,0 1,-4 -4v-24a4,4 0,0 1,4 -4z" />
+    <path
+        android:fillColor="#f7f9f6"
+        android:pathData="M7,9h18a2,2 0,0 1,2 2v10a2,2 0,0 1,-2 2h-18a2,2 0,0 1,-2 -2v-10a2,2 0,0 1,2 -2z" />
+    <path
+        android:pathData="M11,20l2.5,-8l2.5,5l2.5,-5l2.5,8"
+        android:strokeColor="#1b3aa8"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:strokeWidth="2" />
+</vector>

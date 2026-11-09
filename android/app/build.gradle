@@ -1,0 +1,106 @@
+plugins {
+    id 'com.android.application'
+}
+
+def nodeVersion = '18.20.4'
+// ./gradlew assembleDebug -Pemulator compila per l'emulatore x86_64 invece che per ARM.
+def abis = project.hasProperty('emulator') ? ['x86_64'] : ['arm64-v8a', 'armeabi-v7a']
+def libnodeDir = rootProject.file("libnode/v$nodeVersion")
+
+def keystoreProps = new Properties()
+def keystoreFile = rootProject.file('keystore.properties')
+if (keystoreFile.exists()) keystoreFile.withInputStream { keystoreProps.load(it) }
+
+android {
+    namespace 'it.nomicosecitta.console'
+    compileSdk 35
+    ndkVersion '27.2.12479018'
+
+    defaultConfig {
+        applicationId 'it.nomicosecitta.console'
+        minSdk 24
+        targetSdk 35
+        versionCode 1
+        versionName '1.0'
+
+        externalNativeBuild {
+            cmake {
+                arguments "-DLIBNODE_DIR=${libnodeDir.absolutePath}", '-DANDROID_STL=c++_shared'
+            }
+        }
+    }
+
+    // Un APK per architettura più uno universale. I telefoni recenti vogliono arm64-v8a,
+    // molti box TV economici armeabi-v7a.
+    splits {
+        abi {
+            enable true
+            reset()
+            include(*abis)
+            universalApk true
+        }
+    }
+
+    signingConfigs {
+        release {
+            if (keystoreFile.exists()) {
+                storeFile rootProject.file(keystoreProps['storeFile'])
+                storePassword keystoreProps['storePassword']
+                keyAlias keystoreProps['keyAlias']
+                keyPassword keystoreProps['keyPassword']
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            signingConfig keystoreFile.exists() ? signingConfigs.release : signingConfigs.debug
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    externalNativeBuild {
+        cmake {
+            path 'src/main/cpp/CMakeLists.txt'
+            version '3.22.1'
+        }
+    }
+
+    sourceSets {
+        main {
+            jniLibs.srcDirs += ["${libnodeDir}/bin"]
+            assets.srcDirs += ["${buildDir}/nodejs/assets"]
+        }
+    }
+
+    packaging {
+        jniLibs {
+            // libnode.so è 60 MB: compressa nell'APK pesa un terzo.
+            useLegacyPackaging true
+            // nodejs-mobile porta anche x86_64, ma il ponte nativo lo compiliamo solo per ARM.
+            if (!project.hasProperty('emulator')) excludes += ['lib/x86_64/**', 'lib/x86/**']
+        }
+    }
+}
+
+def prepareNodeProject = tasks.register('prepareNodeProject', Exec) {
+    description = 'Scarica nodejs-mobile e impacchetta il server in nodejs-project.zip'
+    def root = rootProject.projectDir.parentFile
+    inputs.dir(new File(root, 'server'))
+    inputs.dir(new File(root, 'public'))
+    inputs.dir(new File(root, 'games'))
+    inputs.file(new File(root, 'package.json'))
+    inputs.file(new File(root, 'package-lock.json'))
+    outputs.dir("${buildDir}/nodejs/assets")
+    commandLine 'bash', rootProject.file('scripts/prepare.sh').absolutePath
+}
+
+tasks.named('preBuild') { dependsOn prepareNodeProject }
+tasks.configureEach { task ->
+    if (task.name.startsWith('configureCMake') || task.name.startsWith('buildCMake')) task.dependsOn prepareNodeProject
+}

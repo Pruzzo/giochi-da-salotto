@@ -11,10 +11,19 @@ import { Platform, PlatformError } from './platform.js';
 const PORT = Number(process.env.PORT) || 3000;
 const root = join(dirname(fileURLToPath(import.meta.url)), '..', 'public');
 
+/** Le interfacce di rete, o nessuna dove il sistema non le lascia leggere (Android). */
+function interfaces() {
+  try {
+    return networkInterfaces();
+  } catch {
+    return {};
+  }
+}
+
 /** Indirizzo che i telefoni possono raggiungere: preferisce il Wi-Fi di casa a Docker e VPN. */
 function lanAddress() {
   const rank = (ip) => (ip.startsWith('192.168.') ? 0 : ip.startsWith('10.') ? 1 : /^172\.(1[6-9]|2\d|3[01])\./.test(ip) ? 3 : 2);
-  const candidates = Object.entries(networkInterfaces())
+  const candidates = Object.entries(interfaces())
     .filter(([name]) => !/^(docker|br-|veth|tailscale|lo)/.test(name))
     .flatMap(([, addrs]) => addrs ?? [])
     .filter((a) => a.family === 'IPv4' && !a.internal)

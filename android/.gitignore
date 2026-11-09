@@ -1,0 +1,10 @@
+.gradle/
+build/
+app/build/
+app/.cxx/
+local.properties
+# Scaricato da scripts/prepare.sh
+libnode/
+# La chiave di firma non va mai nel repo: conservane una copia a parte
+keystore/
+keystore.properties

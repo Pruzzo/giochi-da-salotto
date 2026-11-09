@@ -3,6 +3,8 @@ package it.nomicosecitta.console;
 import android.Manifest;
 import android.app.Activity;
 import android.app.UiModeManager;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
@@ -18,7 +20,9 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
+import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -35,12 +39,16 @@ public class MainActivity extends Activity {
     private final Handler main = new Handler(Looper.getMainLooper());
     private final ExecutorService io = Executors.newSingleThreadExecutor();
     private final Runnable poll = this::poll;
+    private final Runnable refreshLog = this::refreshLog;
 
     private WebView web;
     private TextView status;
     private TextView placeholder;
     private Button toggle;
     private Button share;
+    private View logPanel;
+    private ScrollView logScroll;
+    private TextView logText;
 
     private State state = State.STOPPED;
     private String url;
@@ -59,6 +67,9 @@ public class MainActivity extends Activity {
         placeholder = findViewById(R.id.placeholder);
         toggle = findViewById(R.id.toggle);
         share = findViewById(R.id.share);
+        logPanel = findViewById(R.id.log_panel);
+        logScroll = findViewById(R.id.log_scroll);
+        logText = findViewById(R.id.log_text);
 
         UiModeManager ui = (UiModeManager) getSystemService(UI_MODE_SERVICE);
         isTv = ui != null && ui.getCurrentModeType() == Configuration.UI_MODE_TYPE_TELEVISION;
@@ -72,6 +83,9 @@ public class MainActivity extends Activity {
             else if (state == State.STOPPED) start();
         });
         share.setOnClickListener(v -> shareUrl());
+        findViewById(R.id.logs).setOnClickListener(v -> showLog(logPanel.getVisibility() != View.VISIBLE));
+        findViewById(R.id.log_close).setOnClickListener(v -> showLog(false));
+        findViewById(R.id.log_copy).setOnClickListener(v -> copyLog());
 
         if (Build.VERSION.SDK_INT >= 33
                 && checkSelfPermission(Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
@@ -86,6 +100,7 @@ public class MainActivity extends Activity {
         resumed = true;
         main.removeCallbacks(poll);
         poll();
+        if (logPanel.getVisibility() == View.VISIBLE) refreshLog();
     }
 
     @Override
@@ -93,6 +108,7 @@ public class MainActivity extends Activity {
         super.onPause();
         resumed = false;
         main.removeCallbacks(poll);
+        main.removeCallbacks(refreshLog);
     }
 
     @Override
@@ -104,12 +120,19 @@ public class MainActivity extends Activity {
 
     @Override
     public void onBackPressed() {
-        if (web.canGoBack()) web.goBack();
+        if (logPanel.getVisibility() == View.VISIBLE) showLog(false);
+        else if (web.canGoBack()) web.goBack();
         else super.onBackPressed();
     }
 
     private void start() {
+        ServerLog.reset(this);
+        ServerLog.add(this, "Giochi da salotto " + BuildConfig.VERSION_NAME + " su Android " + Build.VERSION.RELEASE
+                + " (API " + Build.VERSION.SDK_INT + "), " + Build.MANUFACTURER + " " + Build.MODEL
+                + ", ABI " + String.join("/", Build.SUPPORTED_ABIS) + (isTv ? ", TV" : ""));
+        ServerLog.add(this, "Interfacce di rete:" + Net.describeInterfaces());
         String ip = Net.lanAddress();
+        ServerLog.add(this, "Indirizzo scelto: " + (ip == null ? "nessuno" : ip));
         if (ip == null) {
             error = getString(R.string.no_network);
             render();
@@ -143,6 +166,7 @@ public class MainActivity extends Activity {
     private void onHealth(boolean up) {
         if (isFinishing() || isDestroyed()) return;
         if (up && state != State.UP && state != State.STOPPING) {
+            if (state == State.STARTING) ServerLog.add(this, "Il server risponde su " + Net.LOCAL);
             state = State.UP;
             error = null;
             if (url == null) {
@@ -158,6 +182,7 @@ public class MainActivity extends Activity {
         } else if (!up && state == State.STARTING && SystemClock.elapsedRealtime() > startDeadline) {
             state = State.STOPPED;
             error = getString(R.string.start_failed);
+            ServerLog.add(this, "Il server non risponde dopo " + START_TIMEOUT_MS / 1000 + " secondi");
         } else if (!up && state == State.STOPPED && autoStart) {
             autoStart = false;
             start();
@@ -185,6 +210,32 @@ public class MainActivity extends Activity {
         else placeholder.setText(R.string.placeholder_stopped);
         // Su una TV lo schermo non deve spegnersi né passare al salvaschermo durante la partita.
         web.setKeepScreenOn(isTv && up);
+    }
+
+    private void showLog(boolean show) {
+        logPanel.setVisibility(show ? View.VISIBLE : View.GONE);
+        main.removeCallbacks(refreshLog);
+        if (show) refreshLog();
+    }
+
+    /** Rilegge il registro ogni secondo finché il pannello è aperto. */
+    private void refreshLog() {
+        io.execute(() -> {
+            String text = ServerLog.read(this);
+            main.post(() -> {
+                if (logPanel.getVisibility() != View.VISIBLE) return;
+                boolean atBottom = !logScroll.canScrollVertically(1);
+                logText.setText(text.isEmpty() ? getString(R.string.log_empty) : text);
+                if (atBottom) logScroll.post(() -> logScroll.fullScroll(View.FOCUS_DOWN));
+                if (resumed) main.postDelayed(refreshLog, 1000);
+            });
+        });
+    }
+
+    private void copyLog() {
+        ClipboardManager clipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
+        clipboard.setPrimaryClip(ClipData.newPlainText("Log del server", logText.getText()));
+        Toast.makeText(this, R.string.log_copied, Toast.LENGTH_SHORT).show();
     }
 
     private void shareUrl() {

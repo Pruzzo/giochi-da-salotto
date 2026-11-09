@@ -1,6 +1,7 @@
 // Il tavolo comune a tutti i giochi: chi è seduto, chi è l'amministratore, chi è connesso.
 // Ogni gioco estende Table e aggiunge le sue regole. Nessuna dipendenza di rete.
 import { randomUUID } from 'node:crypto';
+import { SEPARATORS, stripAccents } from './text.js';
 
 export const MAX_PLAYERS = 12;
 const MAX_NAME = 16;
@@ -9,12 +10,7 @@ export class GameError extends Error {}
 
 /** Minuscolo, senza accenti e spazi superflui: "Città " e "citta" sono la stessa parola. */
 export function normalize(word) {
-  return String(word ?? '')
-    .normalize('NFD')
-    .replace(/\p{M}/gu, '')
-    .toLowerCase()
-    .replace(/[^\p{L}\p{N}]+/gu, ' ')
-    .trim();
+  return stripAccents(word).toLowerCase().replace(SEPARATORS, ' ').trim();
 }
 
 export class Table {

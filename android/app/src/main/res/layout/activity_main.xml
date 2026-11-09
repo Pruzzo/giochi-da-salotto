@@ -35,6 +35,13 @@
             android:text="@string/share" />
 
         <Button
+            android:id="@+id/logs"
+            style="@style/HeaderButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/log" />
+
+        <Button
             android:id="@+id/toggle"
             style="@style/HeaderButton"
             android:layout_width="wrap_content"
@@ -61,5 +68,54 @@
             android:padding="32dp"
             android:textColor="@color/ink"
             android:textSize="18sp" />
+
+        <LinearLayout
+            android:id="@+id/log_panel"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/paper"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <ScrollView
+                android:id="@+id/log_scroll"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:fillViewport="true">
+
+                <TextView
+                    android:id="@+id/log_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="monospace"
+                    android:padding="12dp"
+                    android:textColor="#222222"
+                    android:textIsSelectable="true"
+                    android:textSize="12sp" />
+            </ScrollView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/ink"
+                android:gravity="end"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/log_copy"
+                    style="@style/HeaderButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/log_copy" />
+
+                <Button
+                    android:id="@+id/log_close"
+                    style="@style/HeaderButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/log_close" />
+            </LinearLayout>
+        </LinearLayout>
     </FrameLayout>
 </LinearLayout>

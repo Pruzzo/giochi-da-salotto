@@ -1,4 +1,5 @@
-// Ponte tra Java e Node.js: avvia node::Start con gli argomenti dati e manda stdout e stderr su logcat.
+// Ponte tra Java e Node.js: avvia node::Start con gli argomenti dati e manda stdout e stderr
+// su logcat e nel registro dell'app (server.log), che si legge dal pulsante Log.
 #include <jni.h>
 #include <android/log.h>
 #include <pthread.h>
@@ -16,6 +17,7 @@ namespace {
 const char *TAG = "NodeServer";
 int pipeOut[2];
 int pipeErr[2];
+FILE *logFile = nullptr;
 
 void *forward(void *arg) {
   const bool isErr = arg != nullptr;
@@ -26,6 +28,12 @@ void *forward(void *arg) {
     if (buf[n - 1] == '\n') --n;
     buf[n] = 0;
     __android_log_write(isErr ? ANDROID_LOG_ERROR : ANDROID_LOG_INFO, TAG, buf);
+    if (logFile) {
+      fputs(isErr ? "node!  " : "node   ", logFile);
+      fputs(buf, logFile);
+      fputc('\n', logFile);
+      fflush(logFile);
+    }
   }
   return nullptr;
 }
@@ -47,7 +55,11 @@ void redirectOutput() {
 }  // namespace
 
 extern "C" JNIEXPORT jint JNICALL
-Java_it_nomicosecitta_console_NodeService_startNode(JNIEnv *env, jclass, jobjectArray jargs) {
+Java_it_nomicosecitta_console_NodeService_startNode(JNIEnv *env, jclass, jobjectArray jargs, jstring jlogPath) {
+  const char *logPath = env->GetStringUTFChars(jlogPath, nullptr);
+  logFile = fopen(logPath, "a");
+  env->ReleaseStringUTFChars(jlogPath, logPath);
+
   const jsize argc = env->GetArrayLength(jargs);
   std::vector<std::string> args;
   for (jsize i = 0; i < argc; i++) {

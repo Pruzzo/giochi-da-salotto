@@ -25,6 +25,7 @@ mkdir -p "$STAGE" "$OUT/assets"
 
 cp -R "$ROOT/server" "$ROOT/public" "$ROOT/games" "$ROOT/package.json" "$ROOT/package-lock.json" "$STAGE/"
 rm -rf "$STAGE"/games/*/tools
+cp "$ANDROID_DIR/scripts/boot.mjs" "$STAGE/boot.mjs"
 
 (cd "$STAGE" && npm ci --omit=dev --omit=optional --ignore-scripts --no-audit --no-fund --loglevel=error)
 # Documentazione, tipi e mappe non servono a runtime.

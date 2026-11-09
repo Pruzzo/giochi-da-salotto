@@ -4,6 +4,7 @@ import { readFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { GameError, MAX_PLAYERS, Table } from '../shared/table.js';
+import { stripAccents } from '../shared/text.js';
 
 export { GameError, MAX_PLAYERS };
 export const MIN_LEN = 3;
@@ -25,7 +26,7 @@ export function loadDictionary() {
 }
 
 /** Come la scrive un giocatore: minuscolo, senza accenti né spazi. */
-export const plain = (w) => String(w ?? '').normalize('NFD').replace(/\p{M}/gu, '').toLowerCase().replace(/[^a-z]/g, '');
+export const plain = (w) => stripAccents(w).toLowerCase().replace(/[^a-z]/g, '');
 
 const counts = (w) => [...w].reduce((m, c) => m.set(c, (m.get(c) ?? 0) + 1), new Map());
 /** La parola si può comporre con queste lettere, ognuna usata al massimo una volta? */

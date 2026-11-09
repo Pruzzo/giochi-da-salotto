@@ -1,6 +1,7 @@
 // "L'impiccato": lo schermo sceglie la parola, ognuno la indovina dal suo telefono, a gara.
 // lobby -> choosing -> playing -> reveal -> choosing ... -> final -> lobby
 import { GameError, MAX_PLAYERS, Table } from '../shared/table.js';
+import { stripAccents } from '../shared/text.js';
 import { SHORT_MAX, WORDS } from './words.js';
 
 export { GameError, MAX_PLAYERS };
@@ -28,7 +29,7 @@ export function pointsFor(board, durationMs) {
   return Math.max(1, BASE_POINTS - board.errors + speed);
 }
 
-const clean = (s) => String(s ?? '').normalize('NFD').replace(/\p{M}/gu, '').toUpperCase().replace(/[^A-Z]/g, '');
+const clean = (s) => stripAccents(s).toUpperCase().replace(/[^A-Z]/g, '');
 
 export class Game extends Table {
   constructor(options) {

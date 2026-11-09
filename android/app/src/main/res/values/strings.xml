@@ -14,5 +14,10 @@
     <string name="placeholder_stopped">Il server è spento. Tocca Accendi per giocare.</string>
     <string name="no_network">Questo dispositivo non è su una rete locale. Collegalo al Wi-Fi di casa, oppure accendi l\'hotspot e collega lì telefoni e TV, poi tocca Accendi.</string>
     <string name="start_failed">Il server non è partito. Riprova con Accendi; se non va, riavvia l\'app.</string>
+    <string name="log">Log</string>
+    <string name="log_copy">Copia</string>
+    <string name="log_close">Chiudi</string>
+    <string name="log_copied">Log copiato: incollalo dove vuoi</string>
+    <string name="log_empty">Ancora niente. Tocca Accendi e guarda qui cosa succede.</string>
     <string name="share_text">Giochiamo! Telefoni: %1$s · TV: %2$s</string>
 </resources>

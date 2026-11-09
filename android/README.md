@@ -12,6 +12,8 @@ L'APK fa da server: dentro c'è Node.js ([nodejs-mobile](https://github.com/node
 
 Senza router: accendi l'hotspot del telefono server, collega lì TV e telefoni e poi tocca **Accendi**. Se cambi rete con il server acceso, spegnilo e riaccendilo perché prenda il nuovo indirizzo.
 
+Se il server non parte, tocca **Log**: c'è ogni passaggio dell'avvio (rete scelta, librerie, scompattamento) e tutto quello che scrive Node. **Copia** lo mette negli appunti.
+
 Su un televisore Android l'app mostra direttamente lo schermo della TV invece della console; la console si apre da un telefono su `/console`.
 
 ## Quale APK installare
@@ -56,4 +58,5 @@ Chiave e file delle password non vanno nel repo. **Tienine una copia a parte**: 
 - `MainActivity`: accende e spegne il server, mostra l'indirizzo e la console in una WebView.
 - `NodeService`: servizio in primo piano, in un processo a parte (`:node`), che scompatta il server e avvia Node. Node si può avviare una volta sola per processo, quindi spegnere vuol dire chiudere quel processo. Tiene acceso il Wi-Fi a bassa latenza anche a schermo spento.
 - `Net`: sceglie l'indirizzo della rete locale (Wi-Fi, cavo o hotspot) e lo passa al server come `PUBLIC_URL`, perché su Android Node non sempre riesce a leggere le interfacce di rete.
-- `cpp/nodebridge.cpp`: chiama `node::Start` e manda l'output di Node su logcat (`adb logcat -s NodeServer`).
+- `cpp/nodebridge.cpp`: chiama `node::Start` e manda l'output di Node su logcat (`adb logcat -s NodeServer`) e nel registro del pulsante Log (`ServerLog`, file `server.log`).
+- `scripts/boot.mjs`: primo file che Node esegue; scrive versione e ICU nel registro e carica `server/index.js`.

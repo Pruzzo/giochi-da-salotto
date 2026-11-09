@@ -14,7 +14,6 @@ import android.os.IBinder;
 import android.os.PowerManager;
 import android.os.Process;
 import android.system.Os;
-import android.util.Log;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -34,59 +33,81 @@ import java.util.zip.ZipInputStream;
 public class NodeService extends Service {
     static final String EXTRA_URL = "url";
     static final String ACTION_STOP = "it.nomicosecitta.console.STOP";
-    private static final String TAG = "NodeServer";
     private static final String CHANNEL = "server";
     private static final int NOTIFICATION_ID = 1;
 
-    static {
-        System.loadLibrary("node");
-        System.loadLibrary("nodebridge");
-    }
-
-    private static native int startNode(String[] args);
+    private static native int startNode(String[] args, String logPath);
 
     private static boolean started;
     private PowerManager.WakeLock wakeLock;
     private WifiManager.WifiLock wifiLock;
 
     @Override
+    public void onCreate() {
+        super.onCreate();
+        Thread.UncaughtExceptionHandler fallback = Thread.getDefaultUncaughtExceptionHandler();
+        Thread.setDefaultUncaughtExceptionHandler((thread, error) -> {
+            ServerLog.add(this, "Errore nel servizio (" + thread.getName() + ")", error);
+            if (fallback != null) fallback.uncaughtException(thread, error);
+        });
+        ServerLog.add(this, "Servizio creato (processo " + Process.myPid() + ")");
+    }
+
+    @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         if (intent != null && ACTION_STOP.equals(intent.getAction())) {
+            ServerLog.add(this, "Spegnimento richiesto");
             shutdown();
             return START_NOT_STICKY;
         }
         String url = intent != null ? intent.getStringExtra(EXTRA_URL) : null;
         if (url == null) url = Net.LOCAL;
 
-        Notification notification = buildNotification(url);
-        if (Build.VERSION.SDK_INT >= 34) {
-            startForeground(NOTIFICATION_ID, notification, ServiceInfo.FOREGROUND_SERVICE_TYPE_SPECIAL_USE);
-        } else {
-            startForeground(NOTIFICATION_ID, notification);
+        try {
+            Notification notification = buildNotification(url);
+            if (Build.VERSION.SDK_INT >= 34) {
+                startForeground(NOTIFICATION_ID, notification, ServiceInfo.FOREGROUND_SERVICE_TYPE_SPECIAL_USE);
+            } else {
+                startForeground(NOTIFICATION_ID, notification);
+            }
+            ServerLog.add(this, "Servizio in primo piano");
+        } catch (Throwable t) {
+            ServerLog.add(this, "Non riesco a mettere il servizio in primo piano", t);
         }
 
         if (!started) {
             started = true;
             acquireLocks();
             final String publicUrl = url;
-            new Thread(() -> runNode(publicUrl), "node").start();
+            // Stack ampio: quello predefinito dei thread Java (~1 MB) è al limite per V8.
+            new Thread(null, () -> runNode(publicUrl), "node", 8L * 1024 * 1024).start();
         }
         return START_REDELIVER_INTENT;
     }
 
     private void runNode(String publicUrl) {
         try {
+            String libDir = getApplicationInfo().nativeLibraryDir;
+            String[] libs = new File(libDir).list();
+            ServerLog.add(this, "Librerie in " + libDir + ": " + (libs == null ? "nessuna" : String.join(", ", libs)));
+            System.loadLibrary("node");
+            System.loadLibrary("nodebridge");
+            ServerLog.add(this, "Librerie native caricate");
+
+            long t0 = System.currentTimeMillis();
             File project = extractProject(this);
+            ServerLog.add(this, "Server pronto in " + project + " (" + (System.currentTimeMillis() - t0) + " ms)");
             Os.setenv("PUBLIC_URL", publicUrl, true);
             Os.setenv("PORT", String.valueOf(Net.PORT), true);
             Os.setenv("HOME", getFilesDir().getAbsolutePath(), true);
             Os.setenv("TMPDIR", getCacheDir().getAbsolutePath(), true);
             Os.setenv("NODE_ENV", "production", true);
-            Log.i(TAG, "Avvio il server su " + publicUrl);
-            int code = startNode(new String[] {"node", new File(project, "server/index.js").getAbsolutePath()});
-            Log.e(TAG, "Node è uscito con codice " + code);
+            ServerLog.add(this, "Avvio Node con PUBLIC_URL=" + publicUrl);
+            int code = startNode(new String[] {"node", new File(project, "boot.mjs").getAbsolutePath()},
+                    ServerLog.file(this).getAbsolutePath());
+            ServerLog.add(this, "Node è uscito con codice " + code);
         } catch (Throwable t) {
-            Log.e(TAG, "Il server non è partito", t);
+            ServerLog.add(this, "Il server non è partito", t);
         }
         shutdown();
     }
@@ -147,8 +168,10 @@ public class NodeService extends Service {
         String stamp = String.valueOf(c.getPackageManager().getPackageInfo(c.getPackageName(), 0).lastUpdateTime);
         if (dir.isDirectory() && marker.exists()
                 && stamp.equals(new String(Files.readAllBytes(marker.toPath()), StandardCharsets.UTF_8))) {
+            ServerLog.add(c, "Server già scompattato, lo riuso");
             return dir;
         }
+        ServerLog.add(c, "Scompatto il server dall'APK…");
 
         deleteRecursively(dir);
         String base = files.getCanonicalPath() + File.separator;

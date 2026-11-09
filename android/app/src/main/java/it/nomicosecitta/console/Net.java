@@ -48,6 +48,20 @@ final class Net {
         return 2;
     }
 
+    /** Tutte le interfacce con i loro indirizzi, per il registro: "wlan0 (su) 192.168.1.42". */
+    static String describeInterfaces() {
+        StringBuilder sb = new StringBuilder();
+        try {
+            for (NetworkInterface ni : Collections.list(NetworkInterface.getNetworkInterfaces())) {
+                sb.append("\n    ").append(ni.getName()).append(ni.isUp() ? " (su)" : " (giù)");
+                for (InetAddress a : Collections.list(ni.getInetAddresses())) sb.append(' ').append(a.getHostAddress());
+            }
+        } catch (Exception e) {
+            sb.append("\n    non leggibili: ").append(e);
+        }
+        return sb.length() == 0 ? " nessuna" : sb.toString();
+    }
+
     static String joinUrl(String ip) {
         return "http://" + ip + ":" + PORT;
     }

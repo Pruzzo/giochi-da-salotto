@@ -36,6 +36,15 @@ Chi è entrato compare sulla TV e sui telefoni. L'amministratore sceglie le impo
   <img src="img/ncc-tv-sala.png" width="560" alt="La TV con i giocatori entrati">
 </p>
 
+## Le vittorie della serata
+
+Chi vince una partita, a qualunque gioco, prende una **stellina**. Le stelline restano anche cambiando gioco, finché il server resta acceso: compaiono accanto ai nomi sulla TV e sui telefoni, nella fine partita, nella console e nella pagina d'attesa tra un gioco e l'altro.
+
+- Vince chi ha più punti quando l'amministratore tocca **Fine partita**. A pari merito la stellina va a tutti i primi.
+- Da soli, o se nessuno ha fatto punti, non vince nessuno.
+- Conta il nome: per tenere le tue stelline entra in ogni gioco con lo stesso nome (maiuscole e accenti non contano).
+- Spegnendo il server le stelline si azzerano.
+
 ---
 
 ## Nomi, cose e città

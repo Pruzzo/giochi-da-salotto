@@ -9,12 +9,14 @@
 <link rel="icon" href="/icon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="/css/tokens.css">
 <link rel="stylesheet" href="/css/console.css">
+<link rel="stylesheet" href="/css/tally.css">
 </head>
 <body class="standby-body">
 <main class="standby">
   <div class="standby__label">
     <h1 class="standby__title">Nessun gioco acceso</h1>
     <p class="standby__say">Si parte appena qualcuno sceglie il gioco. Questa pagina si aggiorna da sola.</p>
+    <div class="standby__tally" id="tally" hidden></div>
     <a class="pen-btn" href="/console">Scegli il gioco</a>
     <p class="standby__where" id="where"></p>
   </div>
@@ -25,16 +27,24 @@
 </main>
 <script src="/socket.io/socket.io.js"></script>
 <script src="/js/platform.js"></script>
-<script>
+<script type="module">
+  import { fill } from '/js/kit/dom.js';
+  import { tally } from '/js/kit/stars.js';
+
   // Sulla TV non si clicca: servono l'indirizzo della console e il QR per i telefoni.
-  if (location.pathname === '/tv') {
+  const isTv = location.pathname === '/tv';
+  if (isTv) {
     document.body.classList.add('standby-body--tv');
     document.getElementById('qr').hidden = false;
     document.querySelector('.pen-btn').hidden = true;
-    io('/').once('platform', ({ joinUrl }) => {
-      document.getElementById('where').textContent = `Dal telefono o dal PC: ${joinUrl.replace(/^https?:\/\//, '')}/console`;
-    });
   }
+  // Tra un gioco e l'altro, le vittorie della serata fin qui.
+  const tallyEl = document.getElementById('tally');
+  io('/').on('platform', ({ joinUrl, session }) => {
+    if (isTv) document.getElementById('where').textContent = `Dal telefono o dal PC: ${joinUrl.replace(/^https?:\/\//, '')}/console`;
+    tallyEl.hidden = !session?.players.length;
+    if (!tallyEl.hidden) fill(tallyEl, tally(session));
+  });
 </script>
 </body>
 </html>

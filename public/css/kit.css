@@ -1,3 +1,4 @@
+@import url(/css/tally.css);
 /* Il quaderno comune a tutti i giochi della console: carta, copertina, penne, bottoni, timer, fine partita. */
 *, *::before, *::after { box-sizing: border-box; }
 html, body { height: 100%; margin: 0; }
@@ -153,12 +154,22 @@ body.offline::after { content: "Connessione persa, riprovo…"; position: fixed;
 .reveal { animation: write-in .7s var(--out) both; animation-delay: calc(.5s + var(--i) * .45s); }
 @keyframes write-in { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 -5% 0 -10%); } }
 /* Fine */
-.end { display: flex; flex-direction: column; align-items: flex-start; justify-content: center; padding: var(--q) calc(var(--q) * 4) var(--q) calc(var(--margin) + var(--q) * 2); gap: var(--q); }
+.end { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; column-gap: calc(var(--q) * 2); padding: var(--q) calc(var(--q) * 2) var(--q) calc(var(--margin) + var(--q) * 2); }
+.end__main { display: flex; flex-direction: column; align-items: flex-start; gap: var(--q); min-width: 0; }
+.end__prize { display: flex; align-items: center; gap: .5em; margin-top: calc(var(--q) * -1); font-family: var(--school); font-size: calc(var(--q) * 1.05); line-height: 1.7; color: var(--ink-deep); animation: write-in .7s var(--out) both; animation-delay: .3s; }
+.end__prize .stars { font-size: 1.5em; }
+/* Il foglio delle stelline, attaccato di sbieco accanto alla pagella */
+.end__tally { width: calc(var(--q) * 13); max-height: calc(100vh - var(--q) * 2); overflow: hidden; font-size: var(--q); padding: calc(var(--q) * .6) calc(var(--q) * .9) calc(var(--q) * .8); background: #fff; border: 3px solid var(--ink); border-radius: 60px 10px 50px 10px / 10px 50px 10px 60px; box-shadow: 0 6px 16px rgb(20 20 60 / .18); transform: rotate(1.2deg); --stamp-delay: 1.8s; }
 .winner { font-family: var(--school); font-weight: 400; color: var(--red); font-size: calc(var(--q) * 2.8); line-height: 1.6; text-wrap: balance; }
 .pagella { width: min(100%, calc(var(--q) * 28)); display: flex; flex-direction: column; font-size: min(calc(var(--q) * 1.6), calc((100vh - var(--q) * 10) / var(--n, 8) * .6)); }
 .pagella__row { display: grid; grid-template-columns: 3em 1fr auto; align-items: baseline; border-bottom: 2px solid var(--grid); padding-block: .1em; animation: write-in .7s var(--out) both; animation-delay: calc(.4s + var(--i) * .22s); }
 .pagella__row.is-top .written { justify-self: start; text-decoration: underline wavy var(--red) .09em; text-underline-offset: .22em; }
 .pagella__pos { color: var(--pencil); font-weight: 600; }
+.prize { display: flex; align-items: center; gap: 10px; font-family: var(--school); font-size: 1.1rem; line-height: 1.7; color: var(--ink-deep); }
+.prize .stars { font-size: 1.7rem; }
+.final-tally { margin-block: var(--q); font-size: 1.15rem; }
+.signature .stars { font-size: .72em; align-self: center; }
+.roster__item .stars { font-size: 1.2rem; }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; animation-delay: 0ms !important; transition-duration: .01ms !important; }

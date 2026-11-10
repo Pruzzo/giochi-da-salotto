@@ -7,10 +7,26 @@ import { GameError } from './table.js';
  * @param game      istanza di una sottoclasse di Table
  * @param actions   { nome: (player, msg) => void } azioni dei giocatori
  * @param status    () => string  stato breve mostrato in console
+ * @param session   le vittorie della serata (server/session.js), facoltativo
  */
-export function openRoom(nsp, { game, actions, status, joinUrl, onStatus }) {
+export function openRoom(nsp, { game, actions, status, joinUrl, onStatus, session = null }) {
   let pending = false;
   let lastStatus = status();
+  let lastPhase = game.phase;
+  let awarded = new Set(); // chi ha appena vinto una stellina, finché resta la schermata finale
+
+  /** Ogni partita che arriva alla fine assegna le vittorie della serata, una volta sola. */
+  function trackFinal() {
+    if (!session || game.phase === lastPhase) return;
+    lastPhase = game.phase;
+    if (game.phase !== 'final') {
+      awarded = new Set();
+      return;
+    }
+    const totals = game.totals();
+    const standings = [...game.players.values()].map((p) => ({ id: p.id, name: p.name, total: totals.get(p.id) ?? 0 }));
+    awarded = new Set(session.record(standings).map((w) => w.id));
+  }
 
   // Gli aggiornamenti dello stesso giro di eventi partono una volta sola.
   game.onChange = () => {
@@ -18,6 +34,7 @@ export function openRoom(nsp, { game, actions, status, joinUrl, onStatus }) {
     pending = true;
     setImmediate(() => {
       pending = false;
+      trackFinal();
       for (const socket of nsp.sockets.values()) sendState(socket);
       const next = status();
       if (next !== lastStatus) {
@@ -29,7 +46,18 @@ export function openRoom(nsp, { game, actions, status, joinUrl, onStatus }) {
 
   function sendState(socket) {
     const { role, player } = socket.data;
-    if (role) socket.emit('state', { ...game.view({ role, player }), joinUrl });
+    if (role) socket.emit('state', withSession(game.view({ role, player })));
+  }
+
+  /** Accanto a ogni nome le sue vittorie della serata; a fine partita, chi ne ha appena presa una. */
+  function withSession(state) {
+    if (!session) return { ...state, joinUrl };
+    return {
+      ...state,
+      joinUrl,
+      players: state.players.map((p) => ({ ...p, wins: session.winsOf(p.name), wonNow: awarded.has(p.id) })),
+      session: session.view(),
+    };
   }
 
   function reply(ack, fn) {

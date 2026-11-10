@@ -4,6 +4,19 @@ Con l'app **Giochi da salotto** un telefono, un tablet o un box Android TV fa da
 
 Serve **Android 7 o più recente**. L'app serve solo sul dispositivo che fa da server: gli altri giocatori usano il browser, come sempre.
 
+## Su quale rete funziona
+
+L'app funziona in due modi. **In nessuno dei due serve internet**: la partita resta dentro la rete locale.
+
+| | **Wi-Fi di casa** | **Hotspot del telefono** |
+| --- | --- | --- |
+| Quando usarlo | Hai un router e tutti sono in casa | Non c'è un router (vacanza, giardino, casa di amici) o il Wi-Fi isola i dispositivi, come le reti ospiti e degli alberghi |
+| Chi crea la rete | Il router | Il telefono che fa da server |
+| Chi si collega | Telefono server, TV e giocatori, tutti allo stesso Wi-Fi | TV e giocatori, all'hotspot del telefono server |
+| Come si fa | Basta aprire l'app | Vedi [Senza Wi-Fi: l'hotspot](#senza-wi-fi-lhotspot) |
+
+Non c'è niente da impostare: l'app sceglie da sola la rete (prima Wi-Fi o cavo, altrimenti hotspot) e mette l'indirizzo giusto sulla barra rossa e nel QR code.
+
 ## 1. Scarica l'APK
 
 Apri la pagina delle [release](https://github.com/Pruzzo/giochi-da-salotto/releases/latest) dal telefono che farà da server e scarica uno di questi file:
@@ -77,6 +90,10 @@ Dove non c'è un router (in vacanza, in giardino, a casa di amici) il telefono s
 3. Apri l'app e tocca **Accendi** (o **Spegni** e poi **Accendi**, se era già acceso).
 
 Non serve che ci siano dati mobili: tutto passa dentro l'hotspot.
+
+L'indirizzo dell'hotspot è diverso da quello di casa e cambia da telefono a telefono: leggilo sulla barra rossa, o fai inquadrare il QR code sulla TV.
+
+Se un telefono avvisa che la rete **non ha accesso a internet**, scegli di **restare connesso**. Altrimenti passa ai dati mobili e non vede più il gioco.
 
 Se cambi rete con il server acceso (da Wi-Fi a hotspot o viceversa), spegnilo e riaccendilo: così prende il nuovo indirizzo.
 

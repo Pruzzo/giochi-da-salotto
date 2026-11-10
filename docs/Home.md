@@ -26,7 +26,7 @@ Serve un dispositivo che tenga la partita: il **server**. Telefoni e TV si colle
 | --- | --- | --- |
 | Cosa serve | Un computer con Node.js 18+ | L'app *Giochi da salotto* (APK) |
 | Installazione | `npm install`, poi `npm start` | Scarichi l'APK e lo apri |
-| Senza router | No | Sì, con l'hotspot del telefono |
+| Rete | Wi-Fi di casa | [Wi-Fi di casa **oppure** hotspot del telefono](App-Android.md#su-quale-rete-funziona) |
 | Guida | [Installazione sul PC](Installazione-sul-PC.md) | [App Android](App-Android.md) |
 
 In tutti e due i casi i giochi sono gli stessi e TV e telefoni li aprono nel browser.

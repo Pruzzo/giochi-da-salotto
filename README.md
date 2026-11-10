@@ -43,7 +43,14 @@ Il terminale stampa gli indirizzi per console, TV e telefoni, per esempio `http:
 
 ### Su un telefono o box Android
 
-Scarica l'APK dalle [release](https://github.com/Pruzzo/giochi-da-salotto/releases/latest), installalo e apri **Giochi da salotto**: il server si accende da solo e mostra indirizzo e console. Funziona anche **senza router**, con l'hotspot del telefono. Guida completa: [App Android](docs/App-Android.md).
+Scarica l'APK dalle [release](https://github.com/Pruzzo/giochi-da-salotto/releases/latest), installalo e apri **Giochi da salotto**: il server si accende da solo e mostra indirizzo e console. Guida completa: [App Android](docs/App-Android.md).
+
+L'app funziona in due modi, e in nessuno dei due serve internet:
+
+- **Wi-Fi di casa**: telefono server, TV e giocatori sullo stesso Wi-Fi.
+- **Hotspot del telefono**: dove non c'è un router, il telefono server crea la rete e TV e giocatori si collegano lì.
+
+L'app sceglie la rete da sola e mette l'indirizzo giusto nel QR code.
 
 ## Documentazione
 

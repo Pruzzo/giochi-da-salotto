@@ -1,5 +1,7 @@
 # Come funziona
 
+Si usa in **due modi**, a scelta: con l'**app Android** su un telefono oppure con un **server su PC**. Solo quel dispositivo installa qualcosa: TV e giocatori usano il browser.
+
 ## I pezzi
 
 ```

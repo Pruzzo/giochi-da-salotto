@@ -2,6 +2,8 @@
 
 Se non vuoi usare l'[app Android](App-Android.md), può fare da server un PC: i giochi sono gli stessi. Il PC va acceso durante la partita e collegato alla stessa rete Wi-Fi di TV e telefoni (via cavo o Wi-Fi, è uguale). Funziona su Windows, macOS e Linux.
 
+> **Si installa solo sul PC.** Con il server su PC non serve nemmeno l'APK: i giocatori inquadrano il QR code e giocano nel browser, e la TV apre un indirizzo.
+
 ## 1. Installa Node.js
 
 Serve **Node.js 18 o più recente**.

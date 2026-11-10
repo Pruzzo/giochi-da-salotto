@@ -1,11 +1,21 @@
 # Giochi da salotto
 
-Una console di giochi per serate in compagnia: la **TV** è il tavolo comune, ogni **telefono** è il foglietto privato. I giocatori non installano niente e non creano account: inquadrano il QR code sulla TV, scrivono il nome e giocano.
+Una console di giochi per serate in compagnia: la **TV** è il tavolo comune, ogni **telefono** è il foglietto privato. Funziona con un'**app Android** oppure con un **server su PC**. Installa qualcosa solo chi fa da server: tutti gli altri inquadrano il QR code sulla TV, scrivono il nome e giocano, senza app e senza account.
 
 <p align="center">
   <img src="docs/img/ncc-tv-correzione.png" width="560" alt="La TV mostra le parole di tutti durante la correzione">
   <img src="docs/img/ncc-telefono-scrittura.png" width="190" alt="Il telefono di un giocatore mentre scrive le parole">
 </p>
+
+## Chi deve installare cosa
+
+Si può usare in **due modi**: con l'**app Android** oppure con un **server su PC**. Ne basta uno solo, e installa qualcosa **un solo dispositivo**, quello che fa da server.
+
+| Chi | Cosa deve fare |
+| --- | --- |
+| **Il server** (uno solo) | Installa l'APK su un telefono Android ([guida](docs/App-Android.md)), **oppure** avvia il server su un PC ([guida](docs/Installazione-sul-PC.md)). |
+| **Tutti gli altri giocatori** | **Niente da installare.** Con qualsiasi telefono, anche iPhone, inquadrano il QR code e giocano nel browser. |
+| **La TV** | **Niente da installare.** Apre un indirizzo nel browser. |
 
 ## I giochi
 

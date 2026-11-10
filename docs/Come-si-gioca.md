@@ -15,7 +15,7 @@ Per cambiare gioco tocca **Chiudi il gioco** e conferma con **Chiudi e cancella 
 
 ## 2. Entrate dal telefono
 
-La TV mostra il QR code. Ognuno lo inquadra con la fotocamera, sceglie il ruolo, scrive il nome e tocca **Entra**.
+I giocatori **non devono installare niente**. La TV mostra il QR code: ognuno lo inquadra con la fotocamera, sceglie il ruolo, scrive il nome e tocca **Entra**.
 
 <p align="center">
   <img src="img/telefono-ingresso.png" width="230" alt="L'ingresso dal telefono come giocatore">

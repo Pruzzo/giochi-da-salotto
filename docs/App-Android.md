@@ -2,7 +2,9 @@
 
 È la strada più semplice per giocare: con l'app **Giochi da salotto** un telefono, un tablet o un box Android TV fa da server, senza bisogno di un computer.
 
-Serve **Android 7 o più recente**. L'app serve solo sul dispositivo che fa da server: gli altri giocatori usano il browser, come sempre.
+Serve **Android 7 o più recente**.
+
+> **L'APK si installa su un solo telefono, quello che fa da server.** Gli altri giocatori non installano niente: inquadrano il QR code e giocano nel browser, con qualsiasi telefono, anche iPhone. Anche la TV usa solo il browser.
 
 ## Su quale rete funziona
 

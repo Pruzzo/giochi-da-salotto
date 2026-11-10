@@ -1,6 +1,6 @@
 # Come si gioca
 
-Prima di iniziare il server deve essere acceso: dal [PC](Installazione-sul-PC.md) o dall'[app Android](App-Android.md).
+Prima di iniziare il server deve essere acceso: dall'[app Android](App-Android.md) o dal [PC](Installazione-sul-PC.md).
 
 ## 1. Scegli il gioco dalla console
 

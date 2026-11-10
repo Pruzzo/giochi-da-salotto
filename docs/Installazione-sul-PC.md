@@ -1,6 +1,6 @@
 # Installazione sul PC
 
-Il PC fa da server: va acceso durante la partita e collegato alla stessa rete Wi-Fi di TV e telefoni (via cavo o Wi-Fi, è uguale). Funziona su Windows, macOS e Linux.
+Se non vuoi usare l'[app Android](App-Android.md), può fare da server un PC: i giochi sono gli stessi. Il PC va acceso durante la partita e collegato alla stessa rete Wi-Fi di TV e telefoni (via cavo o Wi-Fi, è uguale). Funziona su Windows, macOS e Linux.
 
 ## 1. Installa Node.js
 

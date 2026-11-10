@@ -20,22 +20,22 @@ Fino a 12 giocatori per partita. Regole complete in [Come si gioca](Come-si-gioc
 
 ## Chi fa da server
 
-Serve un dispositivo che tenga la partita: il **server**. Telefoni e TV si collegano a lui sulla rete Wi-Fi di casa. Hai due possibilità:
+Serve un dispositivo che tenga la partita: il **server**. Telefoni e TV si collegano a lui sulla stessa rete. La strada più semplice è l'**app Android**: non serve un computer.
 
-| | **PC** | **Telefono o box Android** |
+| | **Telefono o box Android** (consigliato) | **PC** |
 | --- | --- | --- |
-| Cosa serve | Un computer con Node.js 18+ | L'app *Giochi da salotto* (APK) |
-| Installazione | `npm install`, poi `npm start` | Scarichi l'APK e lo apri |
-| Rete | Wi-Fi di casa | [Wi-Fi di casa **oppure** hotspot del telefono](App-Android.md#su-quale-rete-funziona) |
-| Guida | [Installazione sul PC](Installazione-sul-PC.md) | [App Android](App-Android.md) |
+| Cosa serve | L'app *Giochi da salotto* (APK) | Un computer con Node.js 18+ |
+| Installazione | Scarichi l'APK e lo apri | `npm install`, poi `npm start` |
+| Rete | [Wi-Fi di casa **oppure** hotspot del telefono](App-Android.md#su-quale-rete-funziona) | Wi-Fi di casa |
+| Guida | [App Android](App-Android.md) | [Installazione sul PC](Installazione-sul-PC.md) |
 
 In tutti e due i casi i giochi sono gli stessi e TV e telefoni li aprono nel browser.
 
 ## Le pagine di questa guida
 
 1. [Come funziona](Come-funziona.md): server, console, TV e telefoni, e cosa serve in rete.
-2. [Installazione sul PC](Installazione-sul-PC.md): Windows, macOS e Linux, passo per passo.
-3. [App Android](App-Android.md): un telefono o un box TV fa da server, anche senza Wi-Fi di casa.
+2. [App Android](App-Android.md): un telefono o un box TV fa da server, anche senza Wi-Fi di casa.
+3. [Installazione sul PC](Installazione-sul-PC.md): Windows, macOS e Linux, passo per passo.
 4. [Come si gioca](Come-si-gioca.md): dall'accensione alla classifica, con le regole di ogni gioco.
 5. [Risoluzione dei problemi](Risoluzione-dei-problemi.md): i telefoni non entrano, il QR porta altrove, il server si spegne.
 6. [Sviluppo](Sviluppo.md): com'è fatto il codice, come aggiungere un gioco, come compilare l'APK.

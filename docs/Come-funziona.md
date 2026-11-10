@@ -6,7 +6,7 @@
                   Wi-Fi di casa (o hotspot del telefono server)
    ┌──────────────────────────────────────────────────────────────────┐
    │                                                                  │
-   │   SERVER (PC con Node.js, oppure app Android)                    │
+   │   SERVER (app Android, oppure PC con Node.js)                    │
    │   http://192.168.1.42:3000                                       │
    │      │                                                           │
    │      ├── /console   chi organizza sceglie il gioco               │
@@ -16,7 +16,7 @@
    └──────────────────────────────────────────────────────────────────┘
 ```
 
-- **Server**: tiene la partita in memoria e parla con tutti in tempo reale. È un PC con `npm start` oppure l'app Android. Non serve internet: basta che tutti siano sulla **stessa rete**.
+- **Server**: tiene la partita in memoria e parla con tutti in tempo reale. È l'app Android su un telefono o un box TV, oppure un PC con `npm start`. Non serve internet: basta che tutti siano sulla **stessa rete**.
 - **Console** (`/console`): da qui si accende un gioco, si cambia gioco o si chiude la partita. La apri da un telefono o dal PC. Non ha password: chiunque sia sulla rete può aprirla.
 - **TV** (`/tv`): lo schermo che tutti guardano. Mostra il QR code per entrare, la ruota, il tempo, le risposte da correggere e la classifica. Va bene il browser della smart TV, un PC collegato alla TV in HDMI, un Chromecast con browser, o l'app Android installata su un box TV.
 - **Telefoni** (`/`): ogni giocatore entra inquadrando il QR code sulla TV e scrive il suo nome. Il telefono è privato: le risposte restano segrete finché la TV non le svela.

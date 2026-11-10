@@ -18,7 +18,7 @@ Fino a 12 giocatori. Regole complete in [Come si gioca](docs/Come-si-gioca.md).
 
 ## Come funziona
 
-Un dispositivo fa da **server** e tiene la partita; TV e telefoni lo aprono nel browser, sulla stessa rete Wi-Fi. Non serve internet.
+Un dispositivo fa da **server** e tiene la partita: di solito un telefono con l'app Android, oppure un PC; TV e telefoni lo aprono nel browser, sulla stessa rete Wi-Fi. Non serve internet.
 
 - **Console** (`/console`): accende, cambia o chiude il gioco.
 - **TV** (`/tv`): QR code per entrare, ruota, tempo, risposte e classifica.
@@ -28,7 +28,20 @@ Se un telefono va in standby ritrova posto e punti. Più dettagli in [Come funzi
 
 ## Avviare il server
 
-### Sul PC
+### Con l'app Android (la strada più semplice)
+
+Non serve un computer: fa tutto un telefono, un tablet o un box Android TV.
+
+Scarica l'APK dalle [release](https://github.com/Pruzzo/giochi-da-salotto/releases/latest), installalo e apri **Giochi da salotto**: il server si accende da solo e mostra indirizzo e console. Guida completa: [App Android](docs/App-Android.md).
+
+L'app funziona in due modi, e in nessuno dei due serve internet:
+
+- **Wi-Fi di casa**: telefono server, TV e giocatori sullo stesso Wi-Fi.
+- **Hotspot del telefono**: dove non c'è un router, il telefono server crea la rete e TV e giocatori si collegano lì.
+
+L'app sceglie la rete da sola e mette l'indirizzo giusto nel QR code.
+
+### In alternativa, sul PC
 
 Serve [Node.js](https://nodejs.org/) 18 o più recente.
 
@@ -41,24 +54,13 @@ npm start
 
 Il terminale stampa gli indirizzi per console, TV e telefoni, per esempio `http://192.168.1.42:3000/console`. Guida completa, con firewall e impostazioni: [Installazione sul PC](docs/Installazione-sul-PC.md).
 
-### Su un telefono o box Android
-
-Scarica l'APK dalle [release](https://github.com/Pruzzo/giochi-da-salotto/releases/latest), installalo e apri **Giochi da salotto**: il server si accende da solo e mostra indirizzo e console. Guida completa: [App Android](docs/App-Android.md).
-
-L'app funziona in due modi, e in nessuno dei due serve internet:
-
-- **Wi-Fi di casa**: telefono server, TV e giocatori sullo stesso Wi-Fi.
-- **Hotspot del telefono**: dove non c'è un router, il telefono server crea la rete e TV e giocatori si collegano lì.
-
-L'app sceglie la rete da sola e mette l'indirizzo giusto nel QR code.
-
 ## Documentazione
 
 Tutta la guida, con gli screenshot, è nel [wiki](https://github.com/Pruzzo/giochi-da-salotto/wiki) e nella cartella [`docs/`](docs/Home.md):
 
 1. [Come funziona](docs/Come-funziona.md)
-2. [Installazione sul PC](docs/Installazione-sul-PC.md)
-3. [App Android](docs/App-Android.md)
+2. [App Android](docs/App-Android.md)
+3. [Installazione sul PC](docs/Installazione-sul-PC.md)
 4. [Come si gioca](docs/Come-si-gioca.md)
 5. [Risoluzione dei problemi](docs/Risoluzione-dei-problemi.md)
 6. [Sviluppo](docs/Sviluppo.md)

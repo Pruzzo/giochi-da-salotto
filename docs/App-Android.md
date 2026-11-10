@@ -1,6 +1,6 @@
 # App Android
 
-Con l'app **Giochi da salotto** un telefono, un tablet o un box Android TV fa da server al posto del PC. Dentro c'è lo stesso server: i giochi, la console e la TV sono identici.
+È la strada più semplice per giocare: con l'app **Giochi da salotto** un telefono, un tablet o un box Android TV fa da server, senza bisogno di un computer.
 
 Serve **Android 7 o più recente**. L'app serve solo sul dispositivo che fa da server: gli altri giocatori usano il browser, come sempre.
 

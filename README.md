@@ -1,6 +1,8 @@
 # Giochi da salotto
 
-Una console di giochi per serate in compagnia: la **TV** è il tavolo comune, ogni **telefono** è il foglietto privato. Funziona con un'**app Android** oppure con un **server su PC**. Installa qualcosa solo chi fa da server: tutti gli altri inquadrano il QR code sulla TV, scrivono il nome e giocano, senza app e senza account.
+Una console di giochi per serate in compagnia: la **TV** è il tavolo comune, ogni **telefono** è il foglietto privato. Funziona con un'**app Android** oppure con un **server su PC**.
+
+> **L'app va installata su un solo cellulare, quello che fa da server.** Tutti gli altri giocano dal browser del loro telefono: inquadrano il QR code sulla TV, scrivono il nome e sono dentro, senza installare niente e senza account.
 
 <p align="center">
   <img src="docs/img/ncc-tv-correzione.png" width="560" alt="La TV mostra le parole di tutti durante la correzione">
@@ -40,7 +42,7 @@ Se un telefono va in standby ritrova posto e punti. Più dettagli in [Come funzi
 
 ### Con l'app Android (la strada più semplice)
 
-Non serve un computer: fa tutto un telefono, un tablet o un box Android TV.
+Non serve un computer: fa tutto un telefono, un tablet o un box Android TV. **L'APK serve solo su quel dispositivo**: gli altri giocatori usano il browser.
 
 Scarica l'APK dalle [release](https://github.com/Pruzzo/giochi-da-salotto/releases/latest), installalo e apri **Giochi da salotto**: il server si accende da solo e mostra indirizzo e console. Guida completa: [App Android](docs/App-Android.md).
 

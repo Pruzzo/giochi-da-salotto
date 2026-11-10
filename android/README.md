@@ -1,5 +1,7 @@
 # App Android
 
+Questo file è per chi compila l'app. Per installarla e usarla c'è la guida [App Android](../docs/App-Android.md).
+
 L'APK fa da server: dentro c'è Node.js ([nodejs-mobile](https://github.com/nodejs-mobile/nodejs-mobile) v18) che fa girare `server/index.js` così com'è. TV e telefoni si collegano al dispositivo Android come farebbero col PC.
 
 ## Come si usa
@@ -18,7 +20,7 @@ Su un televisore Android l'app mostra direttamente lo schermo della TV invece de
 
 ## Quale APK installare
 
-In `app/build/outputs/apk/release/`:
+Gli APK pronti sono nelle [release](https://github.com/Pruzzo/giochi-da-salotto/releases/latest). Compilando, finiscono in `app/build/outputs/apk/release/`:
 
 | File | Per |
 | --- | --- |

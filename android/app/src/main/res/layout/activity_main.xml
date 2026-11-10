@@ -55,6 +55,16 @@
             android:layout_height="wrap_content"
             android:text="@string/stop" />
         </LinearLayout>
+
+        <Button
+            android:id="@+id/play"
+            style="@style/PlayButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="8dp"
+            android:text="@string/play"
+            android:visibility="gone" />
     </LinearLayout>
 
     <FrameLayout

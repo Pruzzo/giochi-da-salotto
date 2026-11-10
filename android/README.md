@@ -7,12 +7,12 @@ L'APK fa da server: dentro c'è Node.js ([nodejs-mobile](https://github.com/node
 ## Come si usa
 
 1. Installa l'APK sul telefono (o sul box Android TV) che farà da server. Serve Android 7 o superiore.
-2. Apri **Giochi da salotto**: il server si accende da solo e in alto compare l'indirizzo, per esempio `http://192.168.1.42:3000`.
+2. Apri **Giochi da salotto**: il server si accende da solo e in alto compare l'indirizzo `game.local:3000`, con il pulsante **Vai a giocare** per giocare dallo stesso telefono.
 3. Sotto c'è la console: scegli il gioco da lì. **Condividi** manda l'indirizzo per telefoni e TV su WhatsApp o altrove.
-4. La TV apre `http://<indirizzo>:3000/tv`, i telefoni inquadrano il QR code sulla TV.
+4. La TV apre `http://game.local:3000/tv`, i telefoni inquadrano il QR code sulla TV.
 5. Il server resta acceso anche a schermo spento o con l'app chiusa, finché c'è la notifica. **Spegni**, nell'app o nella notifica, lo chiude e libera la batteria.
 
-Senza router: accendi l'hotspot del telefono server, collega lì TV e telefoni e poi tocca **Accendi**. Se cambi rete con il server acceso, spegnilo e riaccendilo perché prenda il nuovo indirizzo.
+Senza router: accendi l'hotspot del telefono server, collega lì TV e telefoni e poi tocca **Accendi**. Se cambi rete con il server acceso, spegnilo e riaccendilo perché il QR code si aggiorni.
 
 Se il server non parte, tocca **Log**: c'è ogni passaggio dell'avvio (rete scelta, librerie, scompattamento) e tutto quello che scrive Node. **Copia** lo mette negli appunti.
 
@@ -59,6 +59,6 @@ Chiave e file delle password non vanno nel repo. **Tienine una copia a parte**: 
 
 - `MainActivity`: accende e spegne il server, mostra l'indirizzo e la console in una WebView.
 - `NodeService`: servizio in primo piano, in un processo a parte (`:node`), che scompatta il server e avvia Node. Node si può avviare una volta sola per processo, quindi spegnere vuol dire chiudere quel processo. Tiene acceso il Wi-Fi a bassa latenza anche a schermo spento.
-- `Net`: sceglie l'indirizzo della rete locale (Wi-Fi, cavo o hotspot) e lo passa al server come `PUBLIC_URL`, perché su Android Node non sempre riesce a leggere le interfacce di rete.
+- `Net`: sceglie la rete locale (Wi-Fi, cavo o hotspot) e ne passa l'indirizzo al server come `PUBLIC_URL`, perché su Android Node non sempre riesce a leggere le interfacce di rete. Il server lo usa solo nel QR code e per annunciare `game.local`: ovunque si legga, l'indirizzo è il nome.
 - `cpp/nodebridge.cpp`: chiama `node::Start` e manda l'output di Node su logcat (`adb logcat -s NodeServer`) e nel registro del pulsante Log (`ServerLog`, file `server.log`).
 - `scripts/boot.mjs`: primo file che Node esegue; scrive versione e ICU nel registro e carica `server/index.js`.

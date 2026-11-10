@@ -17,7 +17,7 @@ L'app funziona in due modi. **In nessuno dei due serve internet**: la partita re
 | Chi si collega | Telefono server, TV e giocatori, tutti allo stesso Wi-Fi | TV e giocatori, all'hotspot del telefono server |
 | Come si fa | Basta aprire l'app | Vedi [Senza Wi-Fi: l'hotspot](#senza-wi-fi-lhotspot) |
 
-Non c'è niente da impostare: l'app sceglie da sola la rete (prima Wi-Fi o cavo, altrimenti hotspot) e mette l'indirizzo giusto sulla barra rossa e nel QR code.
+Non c'è niente da impostare: l'app sceglie da sola la rete (prima Wi-Fi o cavo, altrimenti hotspot) e prepara il QR code. L'indirizzo è sempre `game.local:3000`.
 
 ## 1. Scarica l'APK
 
@@ -48,28 +48,29 @@ Apri **Giochi da salotto**. Il server si accende da solo:
 
 <p align="center">
   <img src="img/app-avvio.png" width="230" alt="L'app mentre il server si accende">
-  <img src="img/app-acceso.png" width="230" alt="L'app con il server acceso: indirizzo in alto e console sotto">
+  <img src="img/app-acceso.png" width="230" alt="L'app con il server acceso: indirizzo e pulsante Vai a giocare in alto, console sotto">
 </p>
 
 - La prima volta ci vuole qualche secondo in più: l'app prepara i file del server.
 - Su Android 13 e successivi l'app chiede di poter mostrare **notifiche**: rispondi **Consenti**, così vedi che il server è acceso e lo spegni dalla notifica.
-- Quando è pronto, sulla barra rossa compare **Acceso** con l'indirizzo, per esempio `http://192.168.1.42:3000`, e sotto la **console** per scegliere il gioco.
+- Quando è pronto, sulla barra rossa compare **Acceso** con l'indirizzo `game.local:3000`, poi il pulsante **Vai a giocare** e sotto la **console** per scegliere il gioco.
 
 Sulla barra rossa:
 
 | Pulsante | Cosa fa |
 | --- | --- |
-| **Condividi** | Manda gli indirizzi per telefoni e TV su WhatsApp, Telegram o dove vuoi. |
+| **Vai a giocare** | Apre il gioco sullo stesso telefono, così anche chi tiene il server può giocare. Con il tasto Indietro torni alla console. |
+| **Condividi** | Manda gli indirizzi per telefoni e TV su WhatsApp, Telegram o dove vuoi. Si aprono solo sui dispositivi che riconoscono `game.local`: agli altri serve il QR code. |
 | **Log** | Mostra cosa sta facendo il server. Serve se qualcosa non va: vedi sotto. |
 | **Spegni** / **Accendi** | Spegne o riaccende il server. Spegnere cancella la partita in corso. |
 
 ## 4. Collega TV e giocatori
 
 1. Nella console dell'app tocca **Accendi questo gioco** sotto il gioco che vuoi.
-2. Sulla **TV** apri l'indirizzo della barra rossa seguito da `/tv`, per esempio `http://192.168.1.42:3000/tv`. Compare il QR code.
+2. Sulla **TV** apri `http://game.local:3000/tv`. Compare il QR code. Se la TV non trova il nome, vedi [Risoluzione dei problemi](Risoluzione-dei-problemi.md#il-nome-gamelocal-non-si-apre).
 3. I **giocatori** inquadrano il QR code e scrivono il loro nome. Si gioca come sempre: vedi [Come si gioca](Come-si-gioca.md).
 
-Anche chi tiene il telefono server può giocare: apre il browser sullo stesso telefono, va all'indirizzo della barra rossa ed entra con il suo nome.
+Anche chi tiene il telefono server può giocare: tocca **Vai a giocare** ed entra con il suo nome.
 
 ## Il server a schermo spento
 
@@ -93,11 +94,11 @@ Dove non c'è un router (in vacanza, in giardino, a casa di amici) il telefono s
 
 Non serve che ci siano dati mobili: tutto passa dentro l'hotspot.
 
-L'indirizzo dell'hotspot è diverso da quello di casa e cambia da telefono a telefono: leggilo sulla barra rossa, o fai inquadrare il QR code sulla TV.
+I giocatori entrano come sempre inquadrando il QR code sulla TV.
 
 Se un telefono avvisa che la rete **non ha accesso a internet**, scegli di **restare connesso**. Altrimenti passa ai dati mobili e non vede più il gioco.
 
-Se cambi rete con il server acceso (da Wi-Fi a hotspot o viceversa), spegnilo e riaccendilo: così prende il nuovo indirizzo.
+Se cambi rete con il server acceso (da Wi-Fi a hotspot o viceversa), spegnilo e riaccendilo: così il QR code si aggiorna.
 
 ## Su Android TV
 
@@ -114,7 +115,7 @@ Tocca **Log** sulla barra rossa. Il registro si aggiorna da solo e racconta ogni
 </p>
 
 - il modello del telefono, la versione di Android e l'architettura;
-- le reti trovate e l'indirizzo scelto;
+- se ha trovato una rete locale;
 - le librerie caricate e la preparazione dei file del server;
 - la versione di Node.js e ogni messaggio del server, compresi gli errori.
 

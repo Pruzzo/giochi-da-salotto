@@ -6,6 +6,7 @@
     <string name="start">Accendi</string>
     <string name="stop">Spegni</string>
     <string name="share">Condividi</string>
+    <string name="play">Vai a giocare</string>
     <string name="status_up">Acceso · %1$s</string>
     <string name="status_starting">Si accende…</string>
     <string name="status_stopping">Si spegne…</string>

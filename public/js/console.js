@@ -67,9 +67,9 @@
     shelf.replaceChildren(...view.games.map(slot));
     where.hidden = !view.activeId;
     const host = view.joinUrl;
-    for (const [id, url] of [['tv-link', `${host}/tv`], ['phone-link', host]]) {
+    for (const [id, path, url] of [['tv-link', '/tv', `${host}/tv`], ['phone-link', '/', host]]) {
       const a = document.getElementById(id);
-      a.href = url;
+      a.href = path; // relativo: funziona anche dove il nome locale non si risolve
       a.textContent = url.replace(/^https?:\/\//, '');
     }
   }

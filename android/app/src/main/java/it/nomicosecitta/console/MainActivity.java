@@ -46,17 +46,18 @@ public class MainActivity extends Activity {
     private TextView placeholder;
     private Button toggle;
     private Button share;
+    private Button play;
     private View logPanel;
     private ScrollView logScroll;
     private TextView logText;
 
     private State state = State.STOPPED;
-    private String url;
     private String error;
     private long startDeadline;
     private boolean isTv;
     private boolean autoStart;
     private boolean resumed;
+    private boolean onHome;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +68,7 @@ public class MainActivity extends Activity {
         placeholder = findViewById(R.id.placeholder);
         toggle = findViewById(R.id.toggle);
         share = findViewById(R.id.share);
+        play = findViewById(R.id.play);
         logPanel = findViewById(R.id.log_panel);
         logScroll = findViewById(R.id.log_scroll);
         logText = findViewById(R.id.log_text);
@@ -83,6 +85,7 @@ public class MainActivity extends Activity {
             else if (state == State.STOPPED) start();
         });
         share.setOnClickListener(v -> shareUrl());
+        play.setOnClickListener(v -> web.loadUrl(Net.LOCAL + "/"));
         findViewById(R.id.logs).setOnClickListener(v -> showLog(logPanel.getVisibility() != View.VISIBLE));
         findViewById(R.id.log_close).setOnClickListener(v -> showLog(false));
         findViewById(R.id.log_copy).setOnClickListener(v -> copyLog());
@@ -121,7 +124,7 @@ public class MainActivity extends Activity {
     @Override
     public void onBackPressed() {
         if (logPanel.getVisibility() == View.VISIBLE) showLog(false);
-        else if (web.canGoBack()) web.goBack();
+        else if (web.canGoBack() && !onHome) web.goBack(); // dalla partita si torna alla console
         else super.onBackPressed();
     }
 
@@ -132,15 +135,14 @@ public class MainActivity extends Activity {
                 + ", ABI " + String.join("/", Build.SUPPORTED_ABIS) + (isTv ? ", TV" : ""));
         ServerLog.add(this, "Interfacce di rete:" + Net.describeInterfaces());
         String ip = Net.lanAddress();
-        ServerLog.add(this, "Indirizzo scelto: " + (ip == null ? "nessuno" : ip));
+        ServerLog.add(this, ip == null ? "Nessuna rete locale" : "Rete locale trovata");
         if (ip == null) {
             error = getString(R.string.no_network);
             render();
             return;
         }
         error = null;
-        url = Net.joinUrl(ip);
-        Intent intent = new Intent(this, NodeService.class).putExtra(NodeService.EXTRA_URL, url);
+        Intent intent = new Intent(this, NodeService.class).putExtra(NodeService.EXTRA_URL, Net.joinUrl(ip));
         if (Build.VERSION.SDK_INT >= 26) startForegroundService(intent);
         else startService(intent);
         state = State.STARTING;
@@ -166,13 +168,9 @@ public class MainActivity extends Activity {
     private void onHealth(boolean up) {
         if (isFinishing() || isDestroyed()) return;
         if (up && state != State.UP && state != State.STOPPING) {
-            if (state == State.STARTING) ServerLog.add(this, "Il server risponde su " + Net.LOCAL);
+            if (state == State.STARTING) ServerLog.add(this, "Il server risponde");
             state = State.UP;
             error = null;
-            if (url == null) {
-                String ip = Net.lanAddress();
-                url = ip != null ? Net.joinUrl(ip) : Net.LOCAL;
-            }
             web.loadUrl(Net.LOCAL + (isTv ? "/tv" : "/console"));
         } else if (!up && state == State.UP) {
             state = State.STOPPED;
@@ -195,7 +193,7 @@ public class MainActivity extends Activity {
     private void render() {
         boolean up = state == State.UP;
         switch (state) {
-            case UP: status.setText(getString(R.string.status_up, url)); break;
+            case UP: status.setText(getString(R.string.status_up, Net.DISPLAY)); break;
             case STARTING: status.setText(R.string.status_starting); break;
             case STOPPING: status.setText(R.string.status_stopping); break;
             default: status.setText(R.string.status_stopped);
@@ -203,6 +201,8 @@ public class MainActivity extends Activity {
         toggle.setText(up || state == State.STARTING ? R.string.stop : R.string.start);
         toggle.setEnabled(state != State.STOPPING);
         share.setVisibility(up ? View.VISIBLE : View.GONE);
+        // Solo sulla console: durante la partita lo schermo serve al gioco, e su una TV non si gioca.
+        play.setVisibility(up && onHome && !isTv ? View.VISIBLE : View.GONE);
         web.setVisibility(up ? View.VISIBLE : View.INVISIBLE);
         placeholder.setVisibility(up ? View.GONE : View.VISIBLE);
         if (error != null) placeholder.setText(error);
@@ -239,10 +239,9 @@ public class MainActivity extends Activity {
     }
 
     private void shareUrl() {
-        if (url == null) return;
         Intent send = new Intent(Intent.ACTION_SEND)
                 .setType("text/plain")
-                .putExtra(Intent.EXTRA_TEXT, getString(R.string.share_text, url, url + "/tv"));
+                .putExtra(Intent.EXTRA_TEXT, getString(R.string.share_text, Net.DISPLAY, Net.DISPLAY + "/tv"));
         startActivity(Intent.createChooser(send, getString(R.string.share)));
     }
 
@@ -251,7 +250,13 @@ public class MainActivity extends Activity {
         s.setJavaScriptEnabled(true);
         s.setDomStorageEnabled(true);
         s.setMediaPlaybackRequiresUserGesture(false);
-        web.setWebViewClient(new WebViewClient());
+        web.setWebViewClient(new WebViewClient() {
+            @Override
+            public void doUpdateVisitedHistory(WebView view, String page, boolean isReload) {
+                onHome = page.endsWith(isTv ? "/tv" : "/console");
+                render();
+            }
+        });
     }
 
     /** Da Android 15 l'app disegna sotto le barre di sistema: la barra rossa scende sotto l'orologio. */
@@ -262,7 +267,7 @@ public class MainActivity extends Activity {
         root.setOnApplyWindowInsetsListener((v, insets) -> {
             int left, top, right, bottom;
             if (Build.VERSION.SDK_INT >= 30) {
-                Insets bars = insets.getInsets(WindowInsets.Type.systemBars() | WindowInsets.Type.displayCutout());
+                Insets bars = insets.getInsets(WindowInsets.Type.systemBars() | WindowInsets.Type.displayCutout() | WindowInsets.Type.ime());
                 left = bars.left; top = bars.top; right = bars.right; bottom = bars.bottom;
             } else {
                 left = insets.getSystemWindowInsetLeft(); top = insets.getSystemWindowInsetTop();

@@ -4,7 +4,7 @@ Prima di iniziare il server deve essere acceso: dall'[app Android](App-Android.m
 
 ## 1. Scegli il gioco dalla console
 
-Apri la **console** (indirizzo del server + `/console`) e tocca **Accendi questo gioco**. TV e telefoni passano da soli al gioco scelto.
+Apri la **console** (`game.local:3000/console`; nell'app Android è già aperta) e tocca **Accendi questo gioco**. TV e telefoni passano da soli al gioco scelto.
 
 <p align="center">
   <img src="img/console.png" width="230" alt="La console: l'elenco dei giochi">

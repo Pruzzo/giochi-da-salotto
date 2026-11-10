@@ -15,6 +15,7 @@ npm test      # test della logica di gioco (node --test)
 ```
 server/
   index.js          HTTP, WebSocket, QR code, pagine della console
+  mdns.js           annuncia il nome game.local nella rete
   platform.js       quale gioco è acceso (senza dipendenze di rete)
 public/             console, pagina d'attesa, font, colori e pezzi comuni del client
   js/kit/           ingresso, copertina TV, voltapagina, timer, suoni, fine partita

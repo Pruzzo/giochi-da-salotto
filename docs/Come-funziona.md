@@ -9,7 +9,7 @@ Si usa in **due modi**, a scelta: con l'**app Android** su un telefono oppure co
    ┌──────────────────────────────────────────────────────────────────┐
    │                                                                  │
    │   SERVER (app Android, oppure PC con Node.js)                    │
-   │   http://192.168.1.42:3000                                       │
+   │   http://game.local:3000                                         │
    │      │                                                           │
    │      ├── /console   chi organizza sceglie il gioco               │
    │      ├── /tv        lo schermo comune: QR code, ruota, classifica│
@@ -25,13 +25,15 @@ Si usa in **due modi**, a scelta: con l'**app Android** su un telefono oppure co
 
 ## Gli indirizzi
 
-Il server stampa (o, nell'app, mostra in alto) il suo indirizzo nella rete, per esempio `http://192.168.1.42:3000`:
+Il server si fa trovare nella rete con il nome **`game.local`**, senza configurare niente. Il suo indirizzo è sempre `http://game.local:3000`:
 
 | Chi | Apre | Esempio |
 | --- | --- | --- |
-| Chi organizza | indirizzo + `/console` | `http://192.168.1.42:3000/console` |
-| La TV | indirizzo + `/tv` | `http://192.168.1.42:3000/tv` |
-| I giocatori | l'indirizzo, oppure il QR code sulla TV | `http://192.168.1.42:3000` |
+| Chi organizza | indirizzo + `/console` | `http://game.local:3000/console` |
+| La TV | indirizzo + `/tv` | `http://game.local:3000/tv` |
+| I giocatori | il QR code sulla TV, oppure l'indirizzo | `http://game.local:3000` |
+
+PC e iPhone di solito riconoscono il nome, alcuni telefoni Android e smart TV no. Il **QR code funziona su tutti i telefoni**, anche quelli che non riconoscono `game.local`: per questo è il modo consigliato per entrare. Se il nome non si apre, vedi [Risoluzione dei problemi](Risoluzione-dei-problemi.md#il-nome-gamelocal-non-si-apre).
 
 <p align="center">
   <img src="img/console.png" width="230" alt="La console sul telefono: l'elenco dei giochi">

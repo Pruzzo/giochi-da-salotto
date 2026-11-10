@@ -6,6 +6,7 @@ import { fileURLToPath } from 'node:url';
 import QRCode from 'qrcode';
 import { Server } from 'socket.io';
 import games from '../games/index.js';
+import { announce, LOCAL_NAME } from './mdns.js';
 import { Platform, PlatformError } from './platform.js';
 
 const PORT = Number(process.env.PORT) || 3000;
@@ -32,8 +33,13 @@ function lanAddress() {
   return candidates[0] ?? 'localhost';
 }
 
-const joinUrl = process.env.PUBLIC_URL || `http://${lanAddress()}:${PORT}`;
-const qrSvg = await QRCode.toString(joinUrl, { type: 'svg', margin: 0, errorCorrectionLevel: 'M', color: { dark: '#16307f', light: '#0000' } });
+// L'indirizzo numerico finisce solo nel QR code, dove non si legge: è l'unico che aprono tutti i telefoni.
+// Ovunque si legga un indirizzo c'è il nome locale, e alle pagine il numero non arriva proprio.
+const qrUrl = process.env.PUBLIC_URL || `http://${lanAddress()}:${PORT}`;
+const { hostname, port: qrPort } = new URL(qrUrl);
+const isIp = /^\d+\.\d+\.\d+\.\d+$/.test(hostname);
+const joinUrl = isIp ? `http://${LOCAL_NAME}${qrPort ? `:${qrPort}` : ''}` : qrUrl;
+const qrSvg = await QRCode.toString(qrUrl, { type: 'svg', margin: 0, errorCorrectionLevel: 'M', color: { dark: '#16307f', light: '#0000' } });
 
 const app = express();
 const server = createServer(app);
@@ -83,4 +89,5 @@ io.on('connection', (socket) => {
 
 server.listen(PORT, '0.0.0.0', () => {
   console.log(`\nConsole pronta.\n  Scegli il gioco: ${joinUrl}/console\n  Telefoni:        ${joinUrl}\n  TV:              ${joinUrl}/tv\n`);
+  if (isIp) announce(hostname);
 });

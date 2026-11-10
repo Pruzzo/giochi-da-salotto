@@ -11,6 +11,8 @@ import java.util.Collections;
 final class Net {
     static final int PORT = 3000;
     static final String LOCAL = "http://127.0.0.1:" + PORT;
+    /** L'unico indirizzo che si legge sullo schermo: quello numerico resta nascosto nel QR code. */
+    static final String DISPLAY = "game.local:" + PORT;
 
     private Net() {}
 
@@ -48,16 +50,19 @@ final class Net {
         return 2;
     }
 
-    /** Tutte le interfacce con i loro indirizzi, per il registro: "wlan0 (su) 192.168.1.42". */
+    /** Le interfacce per il registro, senza indirizzi: "wlan0 (su, con rete locale)". */
     static String describeInterfaces() {
         StringBuilder sb = new StringBuilder();
         try {
             for (NetworkInterface ni : Collections.list(NetworkInterface.getNetworkInterfaces())) {
-                sb.append("\n    ").append(ni.getName()).append(ni.isUp() ? " (su)" : " (giù)");
-                for (InetAddress a : Collections.list(ni.getInetAddresses())) sb.append(' ').append(a.getHostAddress());
+                boolean lan = false;
+                for (InetAddress a : Collections.list(ni.getInetAddresses())) {
+                    lan |= a instanceof Inet4Address && a.isSiteLocalAddress();
+                }
+                sb.append("\n    ").append(ni.getName()).append(ni.isUp() ? " (su" : " (giù").append(lan ? ", con rete locale)" : ")");
             }
         } catch (Exception e) {
-            sb.append("\n    non leggibili: ").append(e);
+            sb.append("\n    non leggibili: ").append(e.getClass().getSimpleName());
         }
         return sb.length() == 0 ? " nessuna" : sb.toString();
     }

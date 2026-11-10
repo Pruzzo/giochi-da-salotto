@@ -6,10 +6,10 @@ Il browser del telefono gira a vuoto o dice che il sito non è raggiungibile.
 
 1. **Stessa rete?** Telefono e server devono essere sullo stesso Wi-Fi (o sull'hotspot del telefono server). Controlla che il telefono non sia passato ai dati mobili: in quel caso spegni i dati e riprova.
 2. **Rete ospiti?** Le reti *ospiti* dei router, molte reti di alberghi e alcuni ripetitori isolano i dispositivi tra loro: si naviga su internet, ma non ci si vede in casa. Usa la rete principale, oppure l'hotspot del telefono server con l'[app Android](App-Android.md#senza-wi-fi-lhotspot).
-3. **Indirizzo giusto?** Deve essere `http://` (non `https://`) seguito dall'indirizzo e dalla porta, per esempio `http://192.168.1.42:3000`. Alcuni browser aggiungono `https://` da soli: scrivilo per intero.
+3. **Indirizzo giusto?** Deve essere `http://game.local:3000`, con `http://` (non `https://`) e la porta. Alcuni browser aggiungono `https://` da soli: scrivilo per intero. Se il nome non si apre, vedi [più sotto](#il-nome-gamelocal-non-si-apre).
 4. **Firewall del PC?** Vedi sotto.
 
-Una prova veloce: apri l'indirizzo dal browser dello stesso dispositivo che fa da server. Se lì funziona e dagli altri no, il problema è la rete o il firewall, non il gioco.
+Una prova veloce: apri il gioco dallo stesso dispositivo che fa da server (nell'app con **Vai a giocare**, sul PC con `http://localhost:3000`). Se lì funziona e dagli altri no, il problema è la rete o il firewall, non il gioco.
 
 ## Il firewall del PC blocca i telefoni
 
@@ -19,23 +19,31 @@ Sul PC la pagina si apre, dai telefoni no.
 - **macOS**: *Impostazioni di Sistema → Rete → Firewall → Opzioni*, e consenti le connessioni in entrata a `node`.
 - **Linux** con `ufw`: `sudo ufw allow 3000/tcp`.
 
+## Il nome game.local non si apre
+
+Alcuni telefoni Android e alcune smart TV non riconoscono i nomi che finiscono con `.local`: il browser dice che il sito non esiste.
+
+- **Telefoni**: inquadrate il QR code sulla TV, che funziona anche su questi dispositivi.
+- **TV**: se il suo browser non trova il nome, collega alla TV un PC in HDMI o usa un box Android TV con l'[app](App-Android.md#su-android-tv). In alternativa inquadra il QR code con un dispositivo collegato alla TV e scegli il ruolo **TV**.
+- **Link mandato con Condividi**: contiene `game.local`, quindi su questi telefoni non si apre. Usate il QR code.
+
 ## Il QR code porta a un indirizzo sbagliato
 
-Succede su PC con più reti (VPN, macchine virtuali, cavo e Wi-Fi insieme): il QR code e gli indirizzi stampati usano la rete sbagliata.
+Succede su PC con più reti (VPN, macchine virtuali, cavo e Wi-Fi insieme): il QR code usa la rete sbagliata.
 
-1. Trova l'indirizzo del PC nella rete di casa. Di solito inizia con `192.168.` o `10.`:
+1. Trova l'indirizzo del PC nella rete di casa:
    - Windows: `ipconfig` nel terminale, alla voce *Indirizzo IPv4* della scheda Wi-Fi o Ethernet;
    - macOS: *Impostazioni di Sistema → Wi-Fi → Dettagli*, oppure `ipconfig getifaddr en0`;
    - Linux: `hostname -I`.
 2. Riavvia il server dicendogli l'indirizzo giusto, per esempio:
 
    ```bash
-   PUBLIC_URL=http://192.168.1.50:3000 npm start
+   PUBLIC_URL=http://INDIRIZZO-DEL-PC:3000 npm start
    ```
 
-   Su Windows (PowerShell): `$env:PUBLIC_URL="http://192.168.1.50:3000"; npm start`.
+   Su Windows (PowerShell): `$env:PUBLIC_URL="http://INDIRIZZO-DEL-PC:3000"; npm start`.
 
-Nell'app Android l'indirizzo si sceglie da solo tra Wi-Fi, cavo e hotspot. Se è sbagliato dopo un cambio di rete, tocca **Spegni** e poi **Accendi**.
+Nell'app Android il QR code si prepara da solo sulla rete giusta tra Wi-Fi, cavo e hotspot. Se è sbagliato dopo un cambio di rete, tocca **Spegni** e poi **Accendi**.
 
 ## La TV non mostra bene il gioco
 

@@ -41,6 +41,7 @@ public class NodeService extends Service {
     private static boolean started;
     private PowerManager.WakeLock wakeLock;
     private WifiManager.WifiLock wifiLock;
+    private WifiManager.MulticastLock multicastLock;
 
     @Override
     public void onCreate() {
@@ -64,7 +65,7 @@ public class NodeService extends Service {
         if (url == null) url = Net.LOCAL;
 
         try {
-            Notification notification = buildNotification(url);
+            Notification notification = buildNotification();
             if (Build.VERSION.SDK_INT >= 34) {
                 startForeground(NOTIFICATION_ID, notification, ServiceInfo.FOREGROUND_SERVICE_TYPE_SPECIAL_USE);
             } else {
@@ -102,7 +103,7 @@ public class NodeService extends Service {
             Os.setenv("HOME", getFilesDir().getAbsolutePath(), true);
             Os.setenv("TMPDIR", getCacheDir().getAbsolutePath(), true);
             Os.setenv("NODE_ENV", "production", true);
-            ServerLog.add(this, "Avvio Node con PUBLIC_URL=" + publicUrl);
+            ServerLog.add(this, "Avvio Node");
             int code = startNode(new String[] {"node", new File(project, "boot.mjs").getAbsolutePath()},
                     ServerLog.file(this).getAbsolutePath());
             ServerLog.add(this, "Node è uscito con codice " + code);
@@ -130,15 +131,19 @@ public class NodeService extends Service {
             int mode = Build.VERSION.SDK_INT >= 29 ? WifiManager.WIFI_MODE_FULL_LOW_LATENCY : WifiManager.WIFI_MODE_FULL_HIGH_PERF;
             wifiLock = wifi.createWifiLock(mode, "giochi:server");
             wifiLock.acquire();
+            // Senza questo il Wi-Fi scarta le richieste per game.local (mDNS).
+            multicastLock = wifi.createMulticastLock("giochi:mdns");
+            multicastLock.acquire();
         }
     }
 
     private void releaseLocks() {
         if (wakeLock != null && wakeLock.isHeld()) wakeLock.release();
         if (wifiLock != null && wifiLock.isHeld()) wifiLock.release();
+        if (multicastLock != null && multicastLock.isHeld()) multicastLock.release();
     }
 
-    private Notification buildNotification(String url) {
+    private Notification buildNotification() {
         NotificationManager nm = getSystemService(NotificationManager.class);
         if (Build.VERSION.SDK_INT >= 26 && nm.getNotificationChannel(CHANNEL) == null) {
             NotificationChannel channel = new NotificationChannel(CHANNEL, getString(R.string.channel_name), NotificationManager.IMPORTANCE_LOW);
@@ -153,7 +158,7 @@ public class NodeService extends Service {
         Notification.Builder b = Build.VERSION.SDK_INT >= 26 ? new Notification.Builder(this, CHANNEL) : new Notification.Builder(this);
         return b.setSmallIcon(R.drawable.ic_stat)
                 .setContentTitle(getString(R.string.notification_title))
-                .setContentText(url)
+                .setContentText(Net.DISPLAY)
                 .setContentIntent(open)
                 .setOngoing(true)
                 .addAction(new Notification.Action.Builder(null, getString(R.string.stop), stop).build())

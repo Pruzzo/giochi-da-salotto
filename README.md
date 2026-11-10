@@ -17,7 +17,7 @@ Si può usare in **due modi**: con l'**app Android** oppure con un **server su P
 | --- | --- |
 | **Il server** (uno solo) | Installa l'APK su un telefono Android ([guida](docs/App-Android.md)), **oppure** avvia il server su un PC ([guida](docs/Installazione-sul-PC.md)). |
 | **Tutti gli altri giocatori** | **Niente da installare.** Con qualsiasi telefono, anche iPhone, inquadrano il QR code e giocano nel browser. |
-| **La TV** | **Niente da installare.** Apre un indirizzo nel browser. |
+| **La TV** | **Niente da installare.** Apre `game.local:3000/tv` nel browser. |
 
 ## I giochi
 
@@ -44,14 +44,14 @@ Se un telefono va in standby ritrova posto e punti. Più dettagli in [Come funzi
 
 Non serve un computer: fa tutto un telefono, un tablet o un box Android TV. **L'APK serve solo su quel dispositivo**: gli altri giocatori usano il browser.
 
-Scarica l'APK dalle [release](https://github.com/Pruzzo/giochi-da-salotto/releases/latest), installalo e apri **Giochi da salotto**: il server si accende da solo e mostra indirizzo e console. Guida completa: [App Android](docs/App-Android.md).
+Scarica l'APK dalle [release](https://github.com/Pruzzo/giochi-da-salotto/releases/latest), installalo e apri **Giochi da salotto**: il server si accende da solo e mostra la console e il pulsante **Vai a giocare**. Guida completa: [App Android](docs/App-Android.md).
 
 L'app funziona in due modi, e in nessuno dei due serve internet:
 
 - **Wi-Fi di casa**: telefono server, TV e giocatori sullo stesso Wi-Fi.
 - **Hotspot del telefono**: dove non c'è un router, il telefono server crea la rete e TV e giocatori si collegano lì.
 
-L'app sceglie la rete da sola e mette l'indirizzo giusto nel QR code.
+L'app sceglie la rete da sola e prepara il QR code. Il server si fa trovare nella rete con il nome **`game.local`**: l'indirizzo è sempre `http://game.local:3000`.
 
 ### In alternativa, sul PC
 
@@ -64,7 +64,7 @@ npm install
 npm start
 ```
 
-Il terminale stampa gli indirizzi per console, TV e telefoni, per esempio `http://192.168.1.42:3000/console`. Guida completa, con firewall e impostazioni: [Installazione sul PC](docs/Installazione-sul-PC.md).
+Il terminale stampa gli indirizzi per console, TV e telefoni, per esempio `http://game.local:3000/console`. Guida completa, con firewall e impostazioni: [Installazione sul PC](docs/Installazione-sul-PC.md).
 
 ## Documentazione
 

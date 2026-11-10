@@ -52,9 +52,9 @@ Il terminale risponde con i tre indirizzi da usare:
 
 ```
 Console pronta.
-  Scegli il gioco: http://192.168.1.42:3000/console
-  Telefoni:        http://192.168.1.42:3000
-  TV:              http://192.168.1.42:3000/tv
+  Scegli il gioco: http://game.local:3000/console
+  Telefoni:        http://game.local:3000
+  TV:              http://game.local:3000/tv
 ```
 
 **Lascia aperto il terminale** per tutta la partita: chiuderlo (o premere `Ctrl+C`) spegne il server e cancella la partita.
@@ -92,15 +92,15 @@ Esempi:
 ```bash
 # Linux e macOS
 PORT=8080 npm start
-PUBLIC_URL=http://192.168.1.50:3000 npm start
+PUBLIC_URL=http://INDIRIZZO-DEL-PC:3000 npm start
 ```
 
 ```powershell
 # Windows (PowerShell)
-$env:PUBLIC_URL="http://192.168.1.50:3000"; npm start
+$env:PUBLIC_URL="http://INDIRIZZO-DEL-PC:3000"; npm start
 ```
 
-Il server sceglie da solo l'indirizzo del Wi-Fi di casa e scarta Docker e VPN. Serve `PUBLIC_URL` solo quando il PC ha più reti e il QR code porta a quella sbagliata: per trovare l'indirizzo giusto vedi [Risoluzione dei problemi](Risoluzione-dei-problemi.md#il-qr-code-porta-a-un-indirizzo-sbagliato).
+Il server sceglie da solo l'indirizzo del Wi-Fi di casa e scarta Docker e VPN. Serve `PUBLIC_URL` solo quando il PC ha più reti e il QR code porta a quella sbagliata: per trovare l'indirizzo da mettere al posto di `INDIRIZZO-DEL-PC` vedi [Risoluzione dei problemi](Risoluzione-dei-problemi.md#il-qr-code-porta-a-un-indirizzo-sbagliato).
 
 ## Aggiornare
 

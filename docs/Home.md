@@ -15,7 +15,7 @@ Si può usare in **due modi**: con l'**app Android** oppure con un **server su P
 | --- | --- |
 | **Il server** (uno solo) | Installa l'APK su un telefono Android ([guida](App-Android.md)), **oppure** avvia il server su un PC ([guida](Installazione-sul-PC.md)). |
 | **Tutti gli altri giocatori** | **Niente da installare.** Con qualsiasi telefono, anche iPhone, inquadrano il QR code e giocano nel browser. |
-| **La TV** | **Niente da installare.** Apre un indirizzo nel browser. |
+| **La TV** | **Niente da installare.** Apre `game.local:3000/tv` nel browser. |
 
 ## I giochi
 

@@ -13,6 +13,8 @@ Apri la **console** (`game.local:3000/console`; nell'app Android è già aperta)
 
 Per cambiare gioco tocca **Chiudi il gioco** e conferma con **Chiudi e cancella la partita**, poi accendi l'altro.
 
+Più comodo: l'amministratore può cambiare gioco dal suo telefono, senza aprire la console. In sala d'attesa, o a fine partita, tocca **Cambia gioco** e sceglie il gioco nuovo. Tutti ci rientrano da soli con lo stesso nome, e l'amministratore resta amministratore. Le stelline della serata restano, i punti della partita lasciata si perdono.
+
 ## 2. Entrate dal telefono
 
 I giocatori **non devono installare niente**. La TV mostra il QR code: ognuno lo inquadra con la fotocamera, sceglie il ruolo, scrive il nome e tocca **Entra**.

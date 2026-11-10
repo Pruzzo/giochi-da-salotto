@@ -1,6 +1,6 @@
 import { h, fill } from '/js/kit/dom.js';
 import { createTimer } from '/js/kit/timer.js';
-import { finalPhone, page, rankOf, rosterItems, waitingNote } from '/js/kit/ui.js';
+import { finalPhone, page, rankOf, rosterItems, switchGame, waitingNote } from '/js/kit/ui.js';
 import { clock, createGallows, LENGTH_LABELS, rules, slots } from './gallows.js';
 
 export function phoneView(state, ctx) {
@@ -31,6 +31,7 @@ function lobby(state, { act, leave }) {
     status, claim,
     h('section', { class: 'block' }, h('h2', { class: 'heading' }, 'In classe'), list),
     settings,
+    switchGame(state, act),
     state.you.isAdmin && h('div', { class: 'dock' },
       h('button', { class: 'btn btn--red btn--wide', onClick: () => act('startRound') }, 'Fai scegliere la parola')));
 

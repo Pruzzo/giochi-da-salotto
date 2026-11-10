@@ -53,8 +53,14 @@ const broadcast = () => io.of('/').emit('platform', platformView());
 const session = new Session({ onChange: broadcast });
 const platform = new Platform(games, {
   onChange: broadcast,
-  launch: (game) => game.start(io.of(`/${game.id}`), { joinUrl, onStatus: broadcast, session }),
+  launch: (game) => game.start(io.of(`/${game.id}`), { joinUrl, onStatus: broadcast, session, platform: shelf }),
 });
+
+// Cosa vede un gioco della console: l'elenco dei giochi e il modo di passare a un altro.
+const shelf = {
+  list: () => games.map(({ id, title }) => ({ id, title })),
+  switchTo: (id) => platform.switchTo(id),
+};
 
 // Un gioco spento non accetta connessioni.
 for (const game of games) {

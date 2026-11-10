@@ -15,7 +15,7 @@ const PHASES = {
   final: 'partita finita',
 };
 
-function start(nsp, { joinUrl, onStatus, session }) {
+function start(nsp, ctx) {
   const game = new Game();
 
   const status = () => {
@@ -39,7 +39,7 @@ function start(nsp, { joinUrl, onStatus, session }) {
     newGame: (p) => game.newGame(p),
   };
 
-  return openRoom(nsp, { game, actions, status, joinUrl, onStatus, session });
+  return openRoom(nsp, { game, actions, status, ...ctx });
 }
 
 export default {

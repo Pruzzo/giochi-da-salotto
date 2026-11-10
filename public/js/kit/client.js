@@ -20,9 +20,21 @@ export function startClient({ namespace, storage, views }) {
     del(key) { try { localStorage.removeItem(key); } catch { /* storage bloccato */ } },
   };
 
+  // Chi eri nell'ultimo gioco, per rientrare da solo quando l'amministratore cambia gioco.
+  const ME = 'salotto-me';
+  const carried = takeCarry(namespace.slice(1));
+  if (carried) { store.del(TOKEN); store.del(ROLE); }
+
   let session = location.pathname === '/tv' || store.get(ROLE) === 'tv'
     ? { role: 'tv' }
     : store.get(TOKEN) ? { role: 'player', token: store.get(TOKEN) } : null;
+
+  function takeCarry(id) {
+    let to = null;
+    try { to = sessionStorage.getItem('salotto-carry'); sessionStorage.removeItem('salotto-carry'); } catch { /* storage bloccato */ }
+    if (to !== id) return null;
+    try { return JSON.parse(store.get(ME)); } catch { return null; }
+  }
 
   let view = null;
   let viewKey = null;
@@ -123,6 +135,7 @@ export function startClient({ namespace, storage, views }) {
   socket.on('disconnect', () => document.body.classList.add('offline'));
   socket.on('state', (next) => {
     state = next;
+    store.set(ME, JSON.stringify(next.role === 'tv' ? { role: 'tv' } : { role: 'player', name: next.you.name, admin: next.you.isAdmin }));
     render();
   });
   socket.on('kicked', () => {
@@ -132,4 +145,9 @@ export function startClient({ namespace, storage, views }) {
 
   addEventListener('pointerdown', unlockAudio, { passive: true });
   render();
+  if (carried && !session) {
+    enter(carried.role === 'tv' ? { role: 'tv' } : { role: 'player', name: carried.name, admin: !!carried.admin }, (error) => {
+      if (error) toast(`Non sono riuscito a farti rientrare: ${error}`);
+    });
+  }
 }

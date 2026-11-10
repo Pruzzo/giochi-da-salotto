@@ -39,7 +39,7 @@ test/               test di regole e piattaforma
 ## Aggiungere un gioco
 
 1. Crea una cartella in `games/` che esporta `{ id, title, description, page, publicDir, start }` e aggiungila a `games/index.js`.
-2. `start(nsp, { joinUrl, onStatus, session })` riceve un namespace Socket.IO riservato e restituisce `{ status, destroy }`. Passa `session` a `openRoom`: quando la fase diventa `'final'`, chi ha più punti in `totals()` prende una vittoria della serata.
+2. `start(nsp, ctx)` riceve un namespace Socket.IO riservato e restituisce `{ status, destroy }`. Passa tutto `ctx` a `openRoom` (`{ joinUrl, onStatus, session, platform }`): con `session`, quando la fase diventa `'final'` chi ha più punti in `totals()` prende una vittoria della serata; con `platform`, l'amministratore può usare **Cambia gioco** (azione `switchGame`, in sala d'attesa e a fine partita). Nella sala d'attesa del telefono metti `switchGame(state, act)` di `/js/kit/ui.js`.
 3. La pagina del gioco deve avere `<meta name="platform-game" content="<id>">` e caricare `/js/platform.js`.
 
 La strada più corta è copiare `games/codice-segreto/`: le regole estendono `Table`, `start` chiama `openRoom` di `games/shared/room.js` con le azioni del gioco, e il client chiama `startClient` di `/js/kit/client.js` con le sue viste di telefono e TV.

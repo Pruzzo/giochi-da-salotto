@@ -1,6 +1,6 @@
 import { h, fill, penLetter, scoreMark } from './dom.js';
 import { createTimer } from '/js/kit/timer.js';
-import { finalPhone, page, rankOf, rosterItems, waitingNote } from '/js/kit/ui.js';
+import { finalPhone, page, rankOf, rosterItems, switchGame, waitingNote } from '/js/kit/ui.js';
 
 const initial = (s) => s.normalize('NFD').replace(/\p{M}/gu, '').charAt(0).toUpperCase();
 // ---------- Vista telefono per fase ----------
@@ -35,6 +35,7 @@ function lobby(state, { act, leave }) {
     status, claim,
     h('section', { class: 'block' }, h('h2', { class: 'heading' }, 'In classe'), list),
     admin,
+    switchGame(state, act),
     isAdmin && h('div', { class: 'dock' }, startBtn));
 
   return {

@@ -8,8 +8,10 @@ import { GameError } from './table.js';
  * @param actions   { nome: (player, msg) => void } azioni dei giocatori
  * @param status    () => string  stato breve mostrato in console
  * @param session   le vittorie della serata (server/session.js), facoltativo
+ * @param platform  { list(), switchTo(id) } la console, per cambiare gioco dalla sala d'attesa; facoltativo
  */
-export function openRoom(nsp, { game, actions, status, joinUrl, onStatus, session = null }) {
+export function openRoom(nsp, { game, actions, status, joinUrl, onStatus, session = null, platform = null }) {
+  const gameId = nsp.name?.slice(1);
   let pending = false;
   let lastStatus = status();
   let lastPhase = game.phase;
@@ -51,10 +53,12 @@ export function openRoom(nsp, { game, actions, status, joinUrl, onStatus, sessio
 
   /** Accanto a ogni nome le sue vittorie della serata; a fine partita, chi ne ha appena presa una. */
   function withSession(state) {
-    if (!session) return { ...state, joinUrl };
+    const games = platform ? platform.list().filter((g) => g.id !== gameId) : [];
+    if (!session) return { ...state, joinUrl, games };
     return {
       ...state,
       joinUrl,
+      games,
       players: state.players.map((p) => ({ ...p, wins: session.winsOf(p.name), wonNow: awarded.has(p.id) })),
       session: session.view(),
     };
@@ -72,6 +76,14 @@ export function openRoom(nsp, { game, actions, status, joinUrl, onStatus, sessio
   const ACTIONS = {
     ...actions,
     claimAdmin: (p) => { game.claimAdmin(p); game.changed(); },
+    // L'amministratore passa a un altro gioco: in sala d'attesa o a partita finita, mai a metà turno.
+    switchGame: (p, a) => {
+      game.requireAdmin(p);
+      game.requirePhase('lobby', 'final');
+      if (!platform?.list().some((g) => g.id === a.gameId && g.id !== gameId)) throw new GameError('Questo gioco non c\'è.');
+      // Dopo la risposta: il cambio chiude questa stanza e tutte le sue connessioni.
+      setImmediate(() => platform.switchTo(a.gameId));
+    },
     removePlayer: (p, a) => {
       const removed = game.removePlayer(p, a.playerId);
       if (removed) for (const s of nsp.sockets.values()) {

@@ -28,6 +28,8 @@ Si può usare in **due modi**: con l'**app Android** oppure con un **server su P
 
 Fino a 12 giocatori per partita. Regole complete in [Come si gioca](Come-si-gioca.md).
 
+**In arrivo** (bozze, a squadre di due, solo con un numero pari di giocatori): **Disinnesca la bomba**, dove uno ha la bomba e l'altro il manuale, e **Labirinto al buio**, dove uno muove l'omino e l'altro ha una mappa che si gira. Idee e regole in [Giochi in arrivo](Giochi-in-arrivo.md).
+
 ## Chi fa da server
 
 Serve un dispositivo che tenga la partita: il **server**. Telefoni e TV si collegano a lui sulla stessa rete. La strada più semplice è l'**app Android**: non serve un computer.
@@ -47,5 +49,6 @@ In tutti e due i casi i giochi sono gli stessi e TV e telefoni li aprono nel bro
 2. [App Android](App-Android.md): un telefono o un box TV fa da server, anche senza Wi-Fi di casa.
 3. [Installazione sul PC](Installazione-sul-PC.md): Windows, macOS e Linux, passo per passo.
 4. [Come si gioca](Come-si-gioca.md): dall'accensione alla classifica, con le regole di ogni gioco.
-5. [Risoluzione dei problemi](Risoluzione-dei-problemi.md): i telefoni non entrano, il QR porta altrove, il server si spegne.
-6. [Sviluppo](Sviluppo.md): com'è fatto il codice, come aggiungere un gioco, come compilare l'APK.
+5. [Giochi in arrivo](Giochi-in-arrivo.md): le bozze dei prossimi giochi a squadre.
+6. [Risoluzione dei problemi](Risoluzione-dei-problemi.md): i telefoni non entrano, il QR porta altrove, il server si spegne.
+7. [Sviluppo](Sviluppo.md): com'è fatto il codice, come aggiungere un gioco, come compilare l'APK.

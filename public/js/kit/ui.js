@@ -144,6 +144,27 @@ export function coverTv({ title, subject, cta }) {
   };
 }
 
+// ---------- Cambia gioco ----------
+
+/** Solo per l'amministratore: passa a un altro gioco, e tutti ci rientrano da soli. */
+export function switchGame(state, act) {
+  if (!state.you?.isAdmin || !state.games?.length) return null;
+  const open = h('button', { class: 'btn btn--ghost btn--wide', onClick: () => show(true) }, 'Cambia gioco');
+  const picker = h('div', { class: 'switch__list', hidden: true },
+    h('p', { class: 'note' }, 'Tutti passano al nuovo gioco col loro nome. I punti di questa partita si perdono, le stelline restano.'),
+    state.games.map((g) => h('button', {
+      class: 'btn btn--ink btn--wide',
+      onClick: (e) => { e.currentTarget.disabled = true; act('switchGame', { gameId: g.id }, (res) => { if (!res?.ok) show(false); }); },
+    }, g.title)),
+    h('button', { class: 'link', onClick: () => show(false) }, 'Annulla'));
+  function show(on) {
+    open.hidden = on;
+    picker.hidden = !on;
+    for (const b of picker.querySelectorAll('button')) b.disabled = false;
+  }
+  return h('section', { class: 'switch' }, open, picker);
+}
+
 // ---------- Fine partita ----------
 
 export function finalPhone(state, { act, leave }) {
@@ -152,7 +173,7 @@ export function finalPhone(state, { act, leave }) {
   const el = page('wait', body,
     h('div', { class: 'dock' },
       state.you.isAdmin
-        ? h('button', { class: 'btn btn--red btn--wide', onClick: () => act('newGame') }, 'Nuova partita')
+        ? [h('button', { class: 'btn btn--red btn--wide', onClick: () => act('newGame') }, 'Nuova partita'), switchGame(state, act)]
         : h('button', { class: 'btn btn--ghost btn--wide', onClick: leave }, 'Esci dalla partita')));
   return {
     el,

@@ -8,5 +8,8 @@
   - [Codice segreto](Come-si-gioca.md#codice-segreto)
   - [L'impiccato](Come-si-gioca.md#limpiccato)
   - [Anagrammi](Come-si-gioca.md#anagrammi)
+- [Giochi in arrivo (bozze)](Giochi-in-arrivo.md)
+  - [Disinnesca la bomba](Giochi-in-arrivo.md#disinnesca-la-bomba)
+  - [Labirinto al buio](Giochi-in-arrivo.md#labirinto-al-buio)
 - [Risoluzione dei problemi](Risoluzione-dei-problemi.md)
 - [Sviluppo](Sviluppo.md)

@@ -211,3 +211,8 @@ body.offline::after { content: "Connessione persa, riprovo…"; position: fixed;
 .is-dup { background: linear-gradient(transparent 12%, var(--marker) 12%, var(--marker) 88%, transparent 88%); padding-inline: .2em; margin-inline: -.2em; border-radius: .2em .4em .3em .25em; }
 .why { font-family: var(--school); font-size: .86rem; line-height: 1.7; color: var(--red); }
 .why:empty { display: none; }
+
+/* Cambia gioco, nella sala d'attesa e a fine partita dell'amministratore */
+.switch { margin-top: 8px; }
+.switch__list:not([hidden]) { display: flex; flex-direction: column; gap: 8px; }
+.switch__list .link { margin: 0 auto; }

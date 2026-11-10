@@ -54,3 +54,20 @@ test('chiudere ferma il gioco e permette di sceglierne un altro', () => {
   platform.select('b');
   assert.deepEqual(log, ['start a', 'stop a', 'start b']);
 });
+
+test('cambiare gioco chiude quello acceso e accende l\'altro', () => {
+  const { platform, log } = setup();
+  platform.select('a');
+  platform.switchTo('b');
+  assert.equal(platform.view().activeId, 'b');
+  assert.deepEqual(log, ['start a', 'stop a', 'start b']);
+});
+
+test('non si cambia verso lo stesso gioco o uno inesistente', () => {
+  const { platform, log } = setup();
+  platform.select('a');
+  assert.throws(() => platform.switchTo('a'), /già acceso/);
+  assert.throws(() => platform.switchTo('zzz'), PlatformError);
+  assert.equal(platform.view().activeId, 'a');
+  assert.deepEqual(log, ['start a']);
+});

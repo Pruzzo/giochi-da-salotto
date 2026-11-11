@@ -1,8 +1,6 @@
-# Giochi in arrivo
+# Giochi a squadre
 
-> **Bozze.** Questi giochi non ci sono ancora: qui c'è l'idea da cui partire. Regole, nomi e punteggi possono cambiare mentre li costruiamo.
-
-Tutti e due si giocano a squadre di due, con le stesse regole per formare le squadre e scegliere i ruoli.
+**Labirinto al buio** e **Disinnesca la bomba** si giocano a squadre di due, con le stesse regole per formare le squadre e scegliere i ruoli. Si accendono dalla console come gli altri giochi.
 
 ## Regole comuni dei giochi a squadre
 
@@ -73,7 +71,7 @@ Uno dei due ha la bomba in mano e non sa come si smonta, l'altro ha il manuale e
 
 - Ha da 3 a 5 **moduli**, scelti a caso tra i dodici tipi, tutti diversi. Ogni modulo ha una lucina: si accende di verde quando è risolto.
 - Sul telefono dell'artificiere in alto c'è una fila di quadratini, uno per modulo: si tocca un quadratino per aprire quel modulo. Sotto c'è sempre l'**etichetta** col numero di serie.
-- Il **numero di serie** è sempre fatto così: due lettere, una cifra, trattino, due cifre, una lettera (es. `RT4-82K`). Quindi ha sempre **tre lettere** e **tre cifre**. L'*ultima cifra* è quella prima della lettera finale (nell'esempio, 2). Molte regole lo usano: l'esperto dovrà chiederlo.
+- Il **numero di serie** è sempre fatto così: due lettere, una cifra, trattino, due cifre, una lettera (es. `RT4-82K`). Non c'è mai la lettera O, così non si confonde con lo zero (che è scritto barrato). Quindi ha sempre **tre lettere** e **tre cifre**. L'*ultima cifra* è quella prima della lettera finale (nell'esempio, 2). Molte regole lo usano: l'esperto dovrà chiederlo.
 - **Uno diverso per ogni squadra**, e una bomba nuova a ogni turno. Tutte le bombe di un turno hanno lo stesso numero di moduli.
 
 **Errori e fine**
@@ -278,7 +276,7 @@ Uno dei due cammina al buio in un labirinto pieno di bombe, con una torcia che i
 - **Grandezze**: piccolo (7×7 caselle, 3 bombe), medio (9×9, 5 bombe), grande (11×11, 8 bombe).
 - **Decori**: alcune caselle sono diverse dalle altre e servono a orientarsi. Possono essere **a tinta unita** (pavimento rosso, verde, blu…) o avere un **simbolo** (stella, luna, chiave, fiore, ancora…). In un labirinto ogni decoro compare una volta sola. Più o meno una casella su sei è decorata.
 - **Bombe**: stanno sulle caselle dove si può passare, mai sul percorso obbligato per l'uscita: c'è sempre una strada senza bombe.
-- **Uscita**: una porta su una casella del bordo.
+- **Uscita**: una porta sul muro esterno di una casella del bordo. Si esce da quella casella premendo la freccia verso la porta.
 - **Partenza**: l'omino parte sempre su una casella decorata, così l'esploratore ha subito qualcosa da descrivere.
 
 **Cosa vede l'esploratore (la torcia)**
@@ -295,7 +293,7 @@ Sulla TV il nord è sempre in alto, e l'esploratore non sa dove sia l'uscita. Il
 **Cosa vede il navigatore (la mappa che gira)**
 
 - Ha la mappa intera, con muri, decori, bombe e uscita. **Non vede l'omino**: capisce dov'è da quello che l'esploratore gli descrive (*"sono su una casella blu, a destra ho un muro, sotto c'è una stella"*).
-- **Ogni 8 passi dell'esploratore la mappa si gira**: ruotata di 90°, 180° o 270°, e/o capovolta in orizzontale o in verticale. Il telefono lo scrive sempre in grande (es. *Ruotata di 90° a destra · Capovolta in orizzontale*), e un'animazione avvisa quando cambia. Contano solo i passi fatti davvero: i muri non contano, e stando fermi a ragionare la mappa non si muove. Gli 8 passi valgono per tutte le grandezze.
+- **Ogni 8 passi dell'esploratore la mappa si gira**: ruotata di 90° a destra, 180° o 90° a sinistra, e/o capovolta in orizzontale o in verticale. Si parte con la mappa dritta; dopo, ogni girata è diversa dalla precedente e non torna mai dritta. Otto pallini sotto la mappa dicono quanti passi mancano alla prossima girata. Il telefono lo scrive sempre in grande (es. *Ruotata di 90° a destra · Capovolta in orizzontale*), e un'animazione avvisa quando cambia. Contano solo i passi fatti davvero: i muri non contano, e stando fermi a ragionare la mappa non si muove. Gli 8 passi valgono per tutte le grandezze.
 - I simboli dei decori restano sempre dritti, così non tradiscono come è girata la mappa: per saperlo bisogna leggere la scritta.
 - Il navigatore deve tradurre *"sulla mia mappa vai a destra"* nella direzione vera per l'esploratore.
 
@@ -306,6 +304,7 @@ Sulla TV il nord è sempre in alto, e l'esploratore non sa dove sia l'uscita. Il
 3. L'esploratore si muove con le frecce. Contro un muro l'omino non si sposta e trema un attimo, senza penalità.
 4. **Su una bomba** l'omino salta in aria e **torna alla partenza**. La bomba scoppiata sparisce, dalla TV e dalla mappa. Il navigatore deve capire di nuovo dov'è, ma almeno sa che è alla partenza.
 5. Il turno della squadra finisce quando l'omino passa dalla porta d'uscita. Le altre squadre continuano fino allo scadere del tempo.
+6. A fine turno la TV svela il labirinto di ogni squadra, con la strada fatta e le bombe prese.
 
 **Punti**: chi esce prende 10 punti più 1 ogni 10 secondi rimasti, meno 1 per ogni bomba presa (minimo 1). La prima squadra a uscire prende 3 punti in più. Chi non esce prende 0. In due non si tengono i punti.
 

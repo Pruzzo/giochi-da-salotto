@@ -6,7 +6,8 @@
 //   teamTimeout(team)          il tempo è finito e la squadra non aveva finito
 //   teamPoints(team)           punti del turno per la squadra (li prendono tutti e due)
 //   teamView(team, viewer)     cosa vede di quella squadra { role: 'tv'|'player', player, member, teamRole }
-// e chiama this.playingTeam(actor) nelle sue azioni, this.finishTeam(team, outcome) quando una squadra ha finito.
+// e chiama this.playingTeam(actor) nelle sue azioni (controlla fase, pausa e squadra, non il ruolo: quello lo
+// controlla il gioco), this.finishTeam(team, outcome) quando una squadra ha finito.
 import { GameError, Table } from './table.js';
 
 export const TEAM_COLORS = [

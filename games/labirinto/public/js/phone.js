@@ -34,7 +34,7 @@ function explorerPhone(state, { act }, team0) {
   const el = page('lab-explorer',
     h('header', { class: 'lab-head' },
       h('p', { class: 'lab-role' }, 'Esploratore'), chip),
-    h('p', { class: 'note' }, 'Racconta al navigatore cosa vedi: colori, simboli, muri, bombe. Il nord è in alto.'),
+    h('p', { class: 'note' }, 'Racconta al navigatore cosa vedi: colori, simboli, muri. Il nord è in alto.'),
     torch,
     h('div', { class: 'lab-info' }, status, hits),
     pad);

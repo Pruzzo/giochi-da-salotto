@@ -145,9 +145,6 @@ test('sulla bomba si torna alla partenza e la bomba sparisce, dalla torcia e dal
   const way = sidesOf(b, b.pos)[0];
   const target = neighbor(b, b.pos, way);
   b.bombs = [...b.bombs, target]; // una bomba proprio accanto alla partenza
-  // Nella torcia dell'esploratore: la bomba è nella striscia della casella accanto.
-  const torch = () => game.view({ role: 'player', player: ps[0] }).teams[0].game.torch;
-  assert.equal(torch().around[way].bomb, true);
   game.move(ps[0], way);
   assert.equal(b.pos, b.start);
   assert.equal(b.bombsHit, 1);
@@ -155,7 +152,6 @@ test('sulla bomba si torna alla partenza e la bomba sparisce, dalla torcia e dal
   assert.deepEqual(b.trail, [[b.start, target], [b.start]]);
   assert.equal(b.event.type, 'bomb');
   assert.ok(!b.bombs.includes(target));
-  assert.equal(torch().around[way].bomb, false);
   assert.equal(game.view({ role: 'tv' }).teams[0].game.bombsHit, 1);
   assert.ok(!game.view({ role: 'player', player: ps[1] }).teams[0].game.bombs.includes(target));
 });
@@ -244,13 +240,11 @@ test('cosa vede chi: la mappa solo al navigatore, la torcia solo all’esplorato
   // L'esploratore ha le frecce e la torcia, non la mappa.
   assert.equal(explorer.role, 'esploratore');
   for (const key of ['open', 'deco', 'bombs', 'exit', 'pos', 'start']) assert.ok(!(key in explorer), key);
-  assert.deepEqual(Object.keys(explorer.torch).sort(), ['around', 'here']);
+  assert.deepEqual(Object.keys(explorer.torch), ['here']); // solo la sua casella, niente di quelle accanto
   assert.equal(explorer.torch.here.deco, b.deco[b.start]);
   for (const s of Object.keys(DIRS)) {
     const wall = b.open[b.pos] & DIRS[s].bit ? 'open' : b.exit.cell === b.pos && b.exit.side === s ? 'door' : 'wall';
     assert.equal(explorer.torch.here.walls[s], wall);
-    const side = explorer.torch.around[s];
-    if (side) assert.equal(Object.keys(side.walls).length, 2); // della casella accanto, solo la striscia vicina
   }
   // Il navigatore ha la mappa, ma non sa dov'è l'omino né dove è partito.
   assert.equal(navigator.role, 'navigatore');
@@ -266,15 +260,13 @@ test('cosa vede chi: la mappa solo al navigatore, la torcia solo all’esplorato
   assert.deepEqual(after.reveal.trail, [[b.start]]);
 });
 
-test('nella torcia, fuori dal bordo è buio', () => {
+test('nella torcia non si vede niente delle caselle accanto, nemmeno le bombe', () => {
   const { game, ps } = setup();
   play(game, ps);
   const b = game.teams[0].board;
-  b.pos = 0; // l'angolo in alto a sinistra
-  const torch = game.view({ role: 'player', player: ps[0] }).teams[0].game.torch;
-  assert.equal(torch.around.N, null);
-  assert.equal(torch.around.W, null);
-  assert.ok(torch.around.E && torch.around.S);
-  assert.deepEqual(Object.keys(torch.around.E.walls), ['N', 'S']);
-  assert.deepEqual(Object.keys(torch.around.S.walls), ['W', 'E']);
+  const before = JSON.stringify(game.view({ role: 'player', player: ps[0] }).teams[0].game.torch);
+  for (const s of Object.keys(DIRS)) {
+    if (b.open[b.pos] & DIRS[s].bit) b.bombs = [...b.bombs, neighbor(b, b.pos, s)];
+  }
+  assert.equal(JSON.stringify(game.view({ role: 'player', player: ps[0] }).teams[0].game.torch), before);
 });

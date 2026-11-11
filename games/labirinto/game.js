@@ -1,5 +1,5 @@
-// "Labirinto al buio": l'esploratore muove l'omino con la torcia sul telefono, che illumina solo la sua casella
-// e la striscia più vicina di quelle accanto; il navigatore ha la mappa intera sul telefono, ma la mappa gira ogni 8 passi
+// "Labirinto al buio": l'esploratore muove l'omino con la torcia sul telefono, che illumina solo la sua casella;
+// il navigatore ha la mappa intera sul telefono, ma la mappa gira ogni 8 passi
 // e non dice dov'è l'omino. Le regole sono in docs/Giochi-a-squadre.md, "Labirinto al buio".
 // Le fasi (squadre, ruoli, turni, pausa) sono quelle comuni di games/shared/teams.js.
 import { GameError, MAX_PLAYERS } from '../shared/table.js';
@@ -35,8 +35,6 @@ export const DIRS = {
   W: { dr: 0, dc: -1, bit: 8, back: 'E' },
 };
 const SIDES = Object.keys(DIRS);
-/** Di una casella accanto la torcia illumina la striscia vicina: si vedono i due muri di lato. */
-const ACROSS = { N: ['W', 'E'], S: ['W', 'E'], E: ['N', 'S'], W: ['N', 'S'] };
 
 /** Il percorso più corto senza bombe, per ogni grandezza: le squadre dello stesso turno stanno tutte qui. */
 export function pathTarget(n) {
@@ -255,22 +253,10 @@ export class Game extends TeamTable {
     return { n: b.n, open: b.open, deco: b.deco, bombs: b.bombs, exit: b.exit };
   }
 
-  /** La torcia: la casella dell'omino intera, delle quattro accanto solo la striscia vicina. Niente coordinate. */
+  /** La torcia: solo la casella dell'omino, con i suoi muri e il suo decoro. Niente coordinate. */
   torch(b) {
-    const n = b.n;
-    const r = Math.floor(b.pos / n);
-    const c = b.pos % n;
-    const side = (i, s) => (b.open[i] & DIRS[s].bit ? 'open' : b.exit.cell === i && b.exit.side === s ? 'door' : 'wall');
-    const here = { deco: b.deco[b.pos], walls: Object.fromEntries(SIDES.map((s) => [s, side(b.pos, s)])) };
-    const around = {};
-    for (const s of SIDES) {
-      const rr = r + DIRS[s].dr;
-      const cc = c + DIRS[s].dc;
-      if (rr < 0 || cc < 0 || rr >= n || cc >= n) { around[s] = null; continue; }
-      const j = rr * n + cc;
-      around[s] = { deco: b.deco[j], bomb: b.bombs.includes(j), walls: Object.fromEntries(ACROSS[s].map((x) => [x, side(j, x)])) };
-    }
-    return { here, around };
+    const side = (s) => (b.open[b.pos] & DIRS[s].bit ? 'open' : b.exit.cell === b.pos && b.exit.side === s ? 'door' : 'wall');
+    return { here: { deco: b.deco[b.pos], walls: Object.fromEntries(SIDES.map((s) => [s, side(s)])) } };
   }
 }
 

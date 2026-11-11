@@ -555,7 +555,7 @@ Se nel numero di serie c'è una **vocale**, al posto del **pecorino** va il **pa
 
 ## Labirinto al buio
 
-Uno dei due cammina al buio in un labirinto pieno di bombe, con una torcia che illumina appena intorno a sé. L'altro ha la mappa, ma la mappa non sta mai ferma e non dice dove si trova l'omino.
+Uno dei due cammina al buio in un labirinto pieno di bombe, con una torcia che illumina solo la casella dove si trova. L'altro ha la mappa, ma la mappa non sta mai ferma e non dice dove si trova l'omino.
 
 **Ruoli**
 
@@ -576,18 +576,19 @@ Uno dei due cammina al buio in un labirinto pieno di bombe, con una torcia che i
 
 **Cosa vede l'esploratore (la torcia)**
 
-Sul suo telefono, sopra le frecce, vede la **sua casella** intera e la **striscia più vicina** di ognuna delle quattro caselle accanto (sopra, sotto, destra, sinistra), larga una riga di quadretti su quattro. Gli angoli restano bui. Gli basta per vedere:
+Sul suo telefono, sopra le frecce, vede **solo la sua casella**. Tutto intorno è buio. Vede:
 
 - i **muri** intorno a sé, cioè dove può andare;
-- le **bombe** nelle caselle accanto, prima di metterci il piede;
-- i **decori**: il colore o il simbolo della sua casella e di quelle accanto;
-- l'**uscita**, quando ci arriva vicino.
+- il **decoro** della sua casella, cioè il colore o il simbolo;
+- l'**uscita**, quando ci è sopra.
+
+Delle caselle accanto non vede niente, **nemmeno le bombe**: per sapere dove sono deve farselo dire dal navigatore.
 
 Il nord è sempre in alto, e l'esploratore non sa dove sia l'uscita. La torcia sta sul telefono e non sulla TV perché il navigatore, guardando la TV, vedrebbe dov'è l'omino: l'esploratore non deve fargli vedere lo schermo. Il tempo che resta si vede solo sulla TV, non sui telefoni.
 
 **Cosa vede il navigatore (la mappa che si capovolge)**
 
-- Ha la mappa intera, con muri, decori, bombe e uscita. **Non vede l'omino**: capisce dov'è da quello che l'esploratore gli descrive (*"sono su una casella blu, a destra ho un muro, sotto c'è una stella"*).
+- Ha la mappa intera, con muri, decori, bombe e uscita. **Non vede l'omino**: capisce dov'è da quello che l'esploratore gli descrive (*"sono su una casella blu, ho un muro sopra e uno a destra"*).
 - **Ogni 8 passi dell'esploratore la mappa si capovolge**, in orizzontale (destra e sinistra scambiate) o in verticale (sopra e sotto scambiati). Non viene mai ruotata. Si parte con la mappa dritta; dopo non torna mai dritta e ogni volta cambia, quindi orizzontale e verticale si alternano. Otto pallini sotto la mappa dicono quanti passi mancano alla prossima volta. Il telefono lo scrive sempre in grande (es. *Capovolta in orizzontale*), e un'animazione avvisa quando cambia. Contano solo i passi fatti davvero: i muri non contano, e stando fermi a ragionare la mappa non si muove. Gli 8 passi valgono per tutte le grandezze.
 - I simboli dei decori restano sempre dritti, così non tradiscono come è capovolta la mappa: per saperlo bisogna leggere la scritta.
 - Il navigatore deve tradurre *"sulla mia mappa vai a destra"* nella direzione vera per l'esploratore.

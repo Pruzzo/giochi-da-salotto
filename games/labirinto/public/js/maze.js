@@ -262,61 +262,32 @@ function omino(color, aside = false) {
       s('circle', { cx: 0.5, cy: 0.37, r: 0.085, fill: '#fff' })));
 }
 
-// Delle caselle accanto si vede solo la striscia più vicina: una riga di quadretti su quattro.
-const SEE = 0.25;
-const HALF = {
-  N: { x: 0, y: -SEE, w: 1, h: SEE }, S: { x: 0, y: 1, w: 1, h: SEE },
-  W: { x: -SEE, y: 0, w: SEE, h: 1 }, E: { x: 1, y: 0, w: SEE, h: 1 },
-};
-// Dove comincia la casella accanto, per disegnarne i muri.
-const NEXT = { N: [0, -1], S: [0, 1], W: [-1, 0], E: [1, 0] };
-const PAD = 0.06;
-const VIEW = { x: -SEE - PAD, size: 1 + 2 * (SEE + PAD) };
+// Intorno alla casella resta un po' di buio: ci stanno la freccia della porta e l'omino che sbatte.
+const DARK = 0.31;
+const VIEW = { x: -DARK, size: 1 + 2 * DARK };
 
 /**
- * La torcia dell'esploratore: la casella dell'omino e la striscia vicina delle quattro accanto. Il nord è in alto.
- * @param torch  { here: { deco, walls }, around: { N|E|S|W: { deco, bomb, walls } | null } }
+ * La torcia dell'esploratore: solo la casella dell'omino, il resto è buio. Il nord è in alto.
+ * @param torch  { here: { deco, walls } }
  */
 export function torchSvg(torch, { color, event = null }) {
   const id = `t${++uid}`;
-  const world = s('g', { class: 'world' });
   const lit = s('g', { class: 'lit' });
   const glow = s('radialGradient', { id: `${id}-glow`, cx: 0.5, cy: 0.5, r: 0.62 },
     s('stop', { offset: '45%', 'stop-color': '#0d1330', 'stop-opacity': 0 }),
     s('stop', { offset: '100%', 'stop-color': '#0d1330', 'stop-opacity': 0.72 }));
 
-  const areas = [{ x: 0, y: 0, w: 1, h: 1, deco: torch.here.deco }];
-  for (const side of SIDES) {
-    const cell = torch.around[side];
-    if (cell) areas.push({ ...HALF[side], deco: cell.deco, bomb: cell.bomb, side });
+  lit.append(s('rect', { class: 'torch__floor', x: 0, y: 0, width: 1, height: 1 }));
+  lit.append(s('rect', { class: 'maze__grid torch__edge', x: 0, y: 0, width: 1, height: 1 }));
+  const floor = FLOORS[torch.here.deco];
+  if (floor) {
+    lit.append(s('rect', { x: 0, y: 0, width: 1, height: 1, fill: floor }));
+    lit.append(s('rect', { class: 'cell--color', x: 0.05, y: 0.05, width: 0.9, height: 0.9 }));
   }
-  // La luce cade solo sulle caselle che ci sono: fuori dal bordo resta buio.
-  const clip = s('clipPath', { id: `${id}-clip` }, areas.map((a) => s('rect', { x: a.x, y: a.y, width: a.w, height: a.h })));
-  for (const a of areas) {
-    lit.append(s('rect', { class: 'torch__floor', x: a.x, y: a.y, width: a.w, height: a.h }));
-    // Niente quadretti: solo il contorno della casella (di quelle accanto, il pezzo che si vede).
-    const [ox, oy] = a.side ? NEXT[a.side] : [0, 0];
-    lit.append(s('rect', { class: 'maze__grid torch__edge', x: ox, y: oy, width: 1, height: 1 }));
-    const color = FLOORS[a.deco];
-    if (color) {
-      lit.append(s('rect', { x: a.x, y: a.y, width: a.w, height: a.h, fill: color }));
-      lit.append(s('rect', { class: 'cell--color', x: a.x + 0.05, y: a.y + 0.05, width: a.w - 0.1, height: a.h - 0.1 }));
-    }
-  }
-  // Decori e bombe delle caselle accanto, nella striscia che si vede. La bomba sta dove stava quando
-  // si vedeva mezza casella: la luce ne mostra solo il pezzo che cade nella striscia.
-  for (const a of areas.slice(1)) {
-    const cx = a.x + a.w / 2;
-    const cy = a.y + a.h / 2;
-    if (a.bomb) {
-      const [dx, dy] = NEXT[a.side];
-      lit.append(bomb(0.5 + dx * 0.75, 0.5 + dy * 0.75, 0.42));
-    } else if (a.deco && !FLOORS[a.deco]) lit.append(symbol(a.deco, cx, cy, SEE * 0.85));
-  }
-  // Il simbolo della casella dell'omino, grande sul pavimento.
-  // Il simbolo della casella dell'omino, grande sul pavimento; l'omino si sposta un po' per non coprirlo.
-  const sym = torch.here.deco && !FLOORS[torch.here.deco];
+  // Il simbolo della casella, grande sul pavimento; l'omino si sposta un po' per non coprirlo.
+  const sym = torch.here.deco && !floor;
   if (sym) lit.append(symbol(torch.here.deco, 0.4, 0.4, 0.66));
+  lit.append(s('rect', { x: 0, y: 0, width: 1, height: 1, fill: `url(#${id}-glow)` }));
 
   const walls = s('g', { class: 'walls' });
   for (const side of SIDES) {
@@ -325,27 +296,12 @@ export function torchSvg(torch, { color, event = null }) {
     if (kind === 'wall') walls.append(wallLine(x1, y1, x2, y2, `wall${event?.type === 'wall' && event.dir === side ? ' is-hit' : ''}`));
     if (kind === 'door') walls.append(door(x1, y1, x2, y2, [VEC[side][1], VEC[side][0]]));
   }
-  for (const side of SIDES) {
-    const cell = torch.around[side];
-    if (!cell) continue;
-    const half = HALF[side];
-    for (const [across, kind] of Object.entries(cell.walls)) {
-      if (kind === 'open') continue;
-      const [x1, y1, x2, y2] = edge(NEXT[side][0], NEXT[side][1], across);
-      // della casella accanto si vede solo la striscia vicina
-      const clipLine = (v1, v2, lo, hi) => [Math.max(Math.min(v1, v2), lo), Math.min(Math.max(v1, v2), hi)];
-      const [ax, bx] = clipLine(x1, x2, half.x, half.x + half.w);
-      const [ay, by] = clipLine(y1, y2, half.y, half.y + half.h);
-      if (kind === 'door') walls.append(door(ax, ay, bx, by, [VEC[across][1], VEC[across][0]]));
-      else walls.append(wallLine(ax, ay, bx, by));
-    }
-  }
   // Sotto i muri un alone di carta, così si staccano dal buio.
   const halo = walls.cloneNode(true);
   halo.setAttribute('class', 'walls walls--halo');
-  world.append(s('g', { 'clip-path': `url(#${id}-clip)` }, lit, s('rect', { x: -SEE, y: -SEE, width: 1 + 2 * SEE, height: 1 + 2 * SEE, fill: `url(#${id}-glow)` })), halo, walls);
+  const world = s('g', { class: 'world' }, lit, halo, walls);
   const svg = s('svg', { class: `torch${event ? ` is-${event.type}` : ''}`, viewBox: `${VIEW.x} ${VIEW.x} ${VIEW.size} ${VIEW.size}`, role: 'img', 'aria-label': describe(torch) },
-    s('defs', {}, clip, glow),
+    s('defs', {}, glow),
     s('rect', { class: 'torch__dark', x: VIEW.x, y: VIEW.x, width: VIEW.size, height: VIEW.size }),
     world,
     omino(color, sym));
@@ -364,8 +320,7 @@ function describe(torch) {
   const words = { N: 'sopra', E: 'a destra', S: 'sotto', W: 'a sinistra' };
   for (const side of SIDES) {
     const w = torch.here.walls[side];
-    const cell = torch.around[side];
-    parts.push(`${words[side]}: ${w === 'wall' ? 'muro' : w === 'door' ? 'porta d’uscita' : cell?.bomb ? 'bomba' : cell?.deco ? name(cell.deco) : 'passaggio'}`);
+    parts.push(`${words[side]}: ${w === 'wall' ? 'muro' : w === 'door' ? 'porta d’uscita' : 'passaggio'}`);
   }
   return parts.join('; ');
 }

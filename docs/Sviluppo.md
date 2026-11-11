@@ -44,6 +44,13 @@ test/               test di regole e piattaforma
 
 La strada più corta è copiare `games/codice-segreto/`: le regole estendono `Table`, `start` chiama `openRoom` di `games/shared/room.js` con le azioni del gioco, e il client chiama `startClient` di `/js/kit/client.js` con le sue viste di telefono e TV.
 
+### Giochi a squadre
+
+Per un gioco a squadre da due c'è già tutta la parte comune: scelta del colore, nome della squadra, ruoli che si scambiano, impostazioni prima di ogni turno, pausa in due, chi arriva a metà che aspetta la fine del turno.
+
+- Server: le regole estendono `TeamTable` di `games/shared/teams.js` e definiscono `setupTeam`, `teamTimeout`, `teamPoints` e `teamView` (cosa vede ciascuno della squadra). Le azioni chiamano `playingTeam(actor)` e, a squadra finita, `finishTeam(team, outcome)`. `teamActions(game)` dà le azioni comuni da passare a `openRoom`.
+- Client: `teamViews(spec)` di `/js/kit/teams.js` dà le pagine di telefono e TV per tutte le fasi; il gioco passa le istruzioni, le impostazioni, il telefono durante il turno e la zona della TV di una squadra. Gli stili comuni sono in `/css/teams.css`.
+
 ## L'app Android
 
 In `android/`: un'app Java che contiene Node.js ([nodejs-mobile](https://github.com/nodejs-mobile/nodejs-mobile) 18) e fa girare `server/index.js` così com'è. Istruzioni di compilazione, firma e struttura in [`android/README.md`](https://github.com/Pruzzo/giochi-da-salotto/blob/main/android/README.md).

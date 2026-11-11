@@ -57,7 +57,7 @@ Una schermata sola, sul telefono di ognuno:
 
 Uno dei due ha la bomba in mano e non sa come si smonta, l'altro ha il manuale e non vede la bomba. Si salva solo chi si spiega bene.
 
-È ispirato ai giochi di bombe da disinnescare in coppia, ma in versione corta e in italiano: un'etichetta sola, dodici tipi di modulo con regole di poche righe, e alcuni giocano su cose italiane (la bandiera, la smorfia, la moka). Moduli e manuale sono nostri.
+È ispirato ai giochi di bombe da disinnescare in coppia, ma in versione corta e in italiano: un'etichetta sola, trenta tipi di modulo con regole di poche righe, e molti giocano su cose italiane (la bandiera, la smorfia, la moka, la briscola, la carbonara). Moduli e manuale sono nostri.
 
 **Ruoli**
 
@@ -69,10 +69,17 @@ Uno dei due ha la bomba in mano e non sa come si smonta, l'altro ha il manuale e
 
 **La bomba**
 
-- Ha da 3 a 5 **moduli**, scelti a caso tra i dodici tipi, tutti diversi. Ogni modulo ha una lucina: si accende di verde quando è risolto.
+- Ha da 3 a 5 **moduli**, tutti di tipo diverso. Ogni modulo ha una lucina: si accende di verde quando è risolto.
+- I tipi di modulo sono **trenta**, dieci per ogni **complessità**: 1 (si guarda e si risponde), 2 (regole in ordine o un conto) e 3 (più condizioni, conti a più passaggi, o regole che ricordano cosa si è fatto prima). Quali escono dipende dalla **difficoltà** del turno:
+
+  | Difficoltà | Moduli che possono uscire |
+  | --- | --- |
+  | Facile | solo complessità 1 |
+  | Medio | complessità 1 e 2, almeno uno di complessità 2 |
+  | Difficile | complessità 2 e 3, almeno uno di complessità 3 |
 - Sul telefono dell'artificiere in alto c'è una fila di quadratini, uno per modulo: si tocca un quadratino per aprire quel modulo. Sotto c'è sempre l'**etichetta** col numero di serie.
 - Il **numero di serie** è sempre fatto così: due lettere, una cifra, trattino, due cifre, una lettera (es. `RT4-82K`). Non c'è mai la lettera O, così non si confonde con lo zero (che è scritto barrato). Quindi ha sempre **tre lettere** e **tre cifre**. L'*ultima cifra* è quella prima della lettera finale (nell'esempio, 2). Molte regole lo usano: l'esperto dovrà chiederlo.
-- **Uno diverso per ogni squadra**, e una bomba nuova a ogni turno. Tutte le bombe di un turno hanno lo stesso numero di moduli.
+- **Uno diverso per ogni squadra**, e una bomba nuova a ogni turno. Tutte le bombe di un turno hanno lo stesso numero di moduli e la stessa difficoltà.
 
 **Errori e fine**
 
@@ -83,17 +90,156 @@ Uno dei due ha la bomba in mano e non sa come si smonta, l'altro ha il manuale e
 
 **Come si gioca**
 
-1. **Prima di ogni turno** l'amministratore sceglie quanti moduli ha la bomba (3, 4 o 5) e quanto tempo c'è (da 3 a 6 minuti), come nelle [regole comuni](#2-nome-istruzioni-e-ruoli).
+1. **Prima di ogni turno** l'amministratore sceglie la **difficoltà** (Facile, Medio, Difficile; si parte da Medio), quanti moduli ha la bomba (3, 4 o 5) e quanto tempo c'è (da 3 a 8 minuti), come nelle [regole comuni](#2-nome-istruzioni-e-ruoli).
 2. Formate le squadre e scelti i ruoli (vedi le [regole comuni](#regole-comuni-dei-giochi-a-squadre)), l'amministratore tocca **Via**. Tutte le squadre partono insieme.
 3. L'artificiere apre un modulo e lo descrive. L'esperto cerca la pagina giusta e lo guida. I moduli si risolvono in qualunque ordine.
 
-**Punti**: la squadra che disinnesca prende 10 punti, più 1 ogni 10 secondi rimasti, meno 2 per ogni errore (minimo 1). La prima squadra a disinnescare prende 3 punti in più. Chi scoppia prende 0. In due non si tengono i punti.
+**Punti**: la squadra che disinnesca prende 10 punti a Facile, 15 a Medio e 20 a Difficile, più 1 ogni 10 secondi rimasti, meno 2 per ogni errore (minimo 1). La prima squadra a disinnescare prende 3 punti in più. Chi scoppia prende 0. In due non si tengono i punti.
 
 ### Il manuale
 
-Questo è il testo che l'esperto ha sul telefono. La prima pagina è un **indice** con il disegno di ogni modulo, così l'esperto riconosce il modulo da come lo descrive l'artificiere e apre la pagina giusta.
+Questo è il testo che l'esperto ha sul telefono. La prima pagina è un **indice** con il disegno di ogni modulo, così l'esperto riconosce il modulo da come lo descrive l'artificiere e apre la pagina giusta. L'indice mostra solo i moduli che possono uscire con la difficoltà del turno: 10 a Facile, 20 a Medio e a Difficile, divisi per complessità.
 
 Quando una regola parla di **vocali** intende A, E, I, O, U tra le lettere del numero di serie.
+
+### Moduli di complessità 1
+
+Si guarda, si cerca nella tabella e si risponde.
+
+#### Lampadine
+
+*Quattro lampadine numerate da 1 a 4, ognuna accesa o spenta (si toccano per cambiarle), e un tasto Conferma.*
+
+1. Accendi le lampadine il cui numero compare tra le **cifre del numero di serie**, e spegni le altre.
+2. Se nessuna cifra va da 1 a 4, accendi **solo la 4**.
+
+Esempio: `RT4-82K` → cifre 4, 8, 2 → accese la **2** e la **4**. Poi premi **Conferma**.
+
+#### Moka
+
+*Una moka sul fornello con un manometro: la lancetta sta nella zona verde, gialla o rossa. Tre tasti: Alza la fiamma, Abbassa, Spegni. Si risolve in tre passi.*
+
+| Lancetta | Cosa fare |
+| --- | --- |
+| Verde | **Alza la fiamma** |
+| Gialla | ultima cifra pari: **Abbassa**; dispari: **Spegni** |
+| Rossa | **Spegni** |
+
+Un tasto sbagliato è un errore, e la lancetta si sposta.
+
+#### Tombola
+
+*Uno schermino con un disegno e quattro tasti con un numero ciascuno. Si risolve in tre passi.*
+
+È la smorfia: premi il numero del disegno.
+
+| Disegno | Numero | | Disegno | Numero |
+| --- | --- | --- | --- | --- |
+| L'Italia | 1 | | I topi | 11 |
+| La bambina | 2 | | I soldati | 12 |
+| La gatta | 3 | | La risata | 19 |
+| Il maiale | 4 | | La festa | 20 |
+| La mano | 5 | | La testa | 34 |
+| | | | La paura | 90 |
+
+Il numero giusto c'è sempre tra i quattro tasti. Un tasto sbagliato è un errore, e arriva un disegno nuovo.
+
+#### Bussola
+
+*Una freccia che punta in su, in giù, a destra o a sinistra, e quattro tasti: N, S, E, O. Si risolve in tre passi.*
+
+La freccia in su è il Nord, a destra l'Est, in giù il Sud, a sinistra l'Ovest. Premi la direzione della freccia **girata di un quarto in senso orario** (N → E, E → S, S → O, O → N).
+
+Se nel numero di serie c'è una **vocale**, gira invece in senso **antiorario** (N → O, O → S, S → E, E → N).
+
+#### Dado
+
+*Un dado, bianco o rosso, che mostra una faccia, e sei tasti da 1 a 6. Si risolve in tre lanci.*
+
+| Dado | Cosa premere |
+| --- | --- |
+| Bianco | la **faccia opposta**: 7 meno il numero (1 → 6, 2 → 5, 3 → 4…) |
+| Rosso | il **numero dopo** (1 → 2, 2 → 3… e 6 → 1) |
+
+Se nel numero di serie c'è una **vocale**, i colori si scambiano: il dado bianco va trattato come rosso e il rosso come bianco.
+
+Un tasto sbagliato è un errore, e il dado si rilancia.
+
+#### Semaforo
+
+*Tre luci in alto (rossa, gialla, verde) e sotto tre tasti degli stessi colori. Si risolve in tre passi: a ogni passo si accende una luce.*
+
+Guarda se nel numero di serie c'è almeno una **vocale**, poi premi il tasto indicato:
+
+| Si accende | Con vocale | Senza vocale |
+| --- | --- | --- |
+| Rossa | premi Verde | premi Giallo |
+| Gialla | premi Rosso | premi Verde |
+| Verde | premi Giallo | premi Rosso |
+
+Dopo tre passi giusti il semaforo è risolto. Un tasto sbagliato è un errore, e quel passo ricomincia con una luce nuova.
+
+#### Pizza
+
+*Una pizza vista dall'alto con sopra gli ingredienti, e quattro tasti con il nome di una pizza. Si risolve in tre passi.*
+
+Premi il nome della pizza:
+
+| Sulla pizza | Premi |
+| --- | --- |
+| pomodoro, mozzarella, basilico | Margherita |
+| pomodoro, aglio, origano, **niente mozzarella** | Marinara |
+| pomodoro, mozzarella, salame piccante | Diavola |
+| pomodoro, mozzarella, funghi | Funghi |
+| pomodoro, mozzarella, acciughe, capperi | Napoli |
+| pomodoro, mozzarella, prosciutto, funghi, carciofi, olive | Capricciosa |
+| mozzarella, patate, **niente pomodoro** | Patate |
+| quattro formaggi diversi, **niente pomodoro** | Quattro formaggi |
+
+Il nome giusto c'è sempre tra i quattro tasti. Un tasto sbagliato è un errore, e arriva una pizza nuova.
+
+#### Termometro
+
+*Un termometro con la temperatura scritta sotto, in gradi, e quattro tasti: Cappotto, Maglione, Maglietta, Costume. Si risolve in tre passi.*
+
+| Temperatura | Premi |
+| --- | --- |
+| sotto i 5 gradi (anche sotto zero) | Cappotto |
+| da 5 a 14 | Maglione |
+| da 15 a 24 | Maglietta |
+| 25 o più | Costume |
+
+Un tasto sbagliato è un errore, e la temperatura cambia.
+
+#### Cartello
+
+*Un cartello stradale e quattro tasti: Fermati, Rallenta, Avanti, Clacson. Si risolve in tre passi.*
+
+Il disegno dentro il cartello non conta: contano **forma e colore**.
+
+| Cartello | Premi |
+| --- | --- |
+| ottagono rosso | Fermati |
+| cerchio rosso, o bianco col bordo rosso | Fermati |
+| triangolo con la punta in giù | Rallenta |
+| triangolo con la punta in su | Clacson |
+| cerchio blu | Avanti |
+| quadrato blu | Avanti |
+| rombo giallo | Clacson |
+
+Un tasto sbagliato è un errore, e arriva un cartello nuovo.
+
+#### Orologio
+
+*Un orologio con le lancette e quattro tasti con un orario scritto in cifre. Si risolve in tre passi.*
+
+La lancetta corta segna l'ora, la lunga i minuti. Premi l'orario che l'orologio segnerà **tra un quarto d'ora**: se segna le 3 e 50, premi **4:05**. I minuti sono sempre multipli di 5 e gli orari vanno da 1:00 a 12:55 (dopo le 12:55 vengono le 1:10).
+
+Un tasto sbagliato è un errore, e l'orologio cambia ora.
+
+### Moduli di complessità 2
+
+Regole da leggere in ordine, o un conto col numero di serie.
 
 #### Fili
 
@@ -106,6 +252,17 @@ I fili si contano dall'alto. Leggi le regole in ordine e fermati alla prima che 
 3. Il **primo filo è nero**: taglia il **secondo filo**.
 4. Ci sono **più fili blu che bianchi**: taglia l'**ultimo filo**.
 5. Altrimenti: taglia il **filo di mezzo** (con un numero pari di fili, il più alto dei due di mezzo).
+
+#### Bandiera
+
+*Una bandiera con tre strisce verticali. Colori possibili: rosso, giallo, verde, blu, bianco, nero. Le tre strisce non sono mai tutte dello stesso colore. Si tocca una striscia sola.*
+
+Leggi le regole in ordine e fermati alla prima che vale:
+
+1. È la **bandiera italiana** (verde, bianco, rosso, da sinistra): tocca la **bianca**.
+2. **Due strisce hanno lo stesso colore**: tocca quella **diversa**.
+3. La striscia di **mezzo è rossa**: tocca quella **a sinistra**.
+4. Altrimenti tocca la striscia col colore che viene **prima** in questo elenco: rosso, giallo, verde, blu, bianco, nero.
 
 #### Leve
 
@@ -123,19 +280,19 @@ Guarda la **prima lettera** del numero di serie e metti le leve così, da sinist
 
 Se nel numero di serie c'è uno **zero**, la leva di mezzo va al contrario.
 
-#### Semaforo
+#### Lucchetto
 
-*Tre luci in alto (rossa, gialla, verde) e sotto tre tasti degli stessi colori. Si risolve in tre passi: a ogni passo si accende una luce.*
+*Un lucchetto colorato (rosso, blu o verde) con tre rotelle di lettere, ognuna con le frecce su e giù, e un tasto Apri.*
 
-Guarda se nel numero di serie c'è almeno una **vocale**, poi premi il tasto indicato:
+Le rotelle vanno sulle **tre lettere del numero di serie**:
 
-| Si accende | Con vocale | Senza vocale |
-| --- | --- | --- |
-| Rossa | premi Verde | premi Giallo |
-| Gialla | premi Rosso | premi Verde |
-| Verde | premi Giallo | premi Rosso |
+| Lucchetto | Ordine delle lettere |
+| --- | --- |
+| Rosso | come compaiono nel numero di serie |
+| Blu | al contrario |
+| Verde | in ordine alfabetico |
 
-Dopo tre passi giusti il semaforo è risolto. Un tasto sbagliato è un errore, e quel passo ricomincia con una luce nuova.
+Esempio: `RT4-82K` col lucchetto verde → **K R T**. Poi premi **Apri**.
 
 #### Parola
 
@@ -167,94 +324,209 @@ Il codice ha quattro cifre:
 
 Esempio: `RT4-82K` → 4, 8, 2 → somma 14 → **4824**. Scrivilo e premi **Apri**.
 
-#### Lucchetto
+#### Scontrino
 
-*Un lucchetto colorato (rosso, blu o verde) con tre rotelle di lettere, ognuna con le frecce su e giù, e un tasto Apri.*
+*Uno scontrino con tre prezzi in euro, senza centesimi, e accanto una banconota da 10, 20 o 50 euro. Sotto un tastierino da 0 a 9, i tasti Cancella e Paga, e uno schermino.*
 
-Le rotelle vanno sulle **tre lettere del numero di serie**:
+1. Somma i tre prezzi: è il **totale**.
+2. Se nel numero di serie c'è una **vocale**, c'è lo sconto: togli **2 euro** dal totale.
+3. Scrivi il **resto**, cioè la banconota meno il totale, e premi **Paga**.
 
-| Lucchetto | Ordine delle lettere |
-| --- | --- |
-| Rosso | come compaiono nel numero di serie |
-| Blu | al contrario |
-| Verde | in ordine alfabetico |
+Esempio: prezzi 4, 7 e 3, banconota da 20, nessuna vocale → totale 14 → scrivi **6**. Il totale non supera mai la banconota.
 
-Esempio: `RT4-82K` col lucchetto verde → **K R T**. Poi premi **Apri**.
+#### Telefono
 
-#### Bandiera
+*Uno schermino con il nome di chi chiamare, un tastierino da 0 a 9 e i tasti Cancella e Chiama.*
 
-*Una bandiera con tre strisce verticali. Colori possibili: rosso, giallo, verde, blu, bianco, nero. Le tre strisce non sono mai tutte dello stesso colore. Si tocca una striscia sola.*
+Cerca il nome nella rubrica:
+
+| Nome | Numero | | Nome | Numero |
+| --- | --- | --- | --- | --- |
+| Nonna Pina | 427 | | Mamma | 125 |
+| Nonno Gino | 913 | | Papà | 842 |
+| Zia Rosa | 358 | | Il dottore | 609 |
+| Zio Tano | 760 | | La pizzeria | 271 |
+| Zia Tina | 394 | | Il vigile | 534 |
+
+Se l'**ultima cifra** del numero di serie è **dispari**, componi il numero **al contrario** (427 → 724). Poi premi **Chiama**.
+
+#### Tavolozza
+
+*Due macchie di colore e quattro tasti colorati. Si risolve in tre passi.*
 
 Leggi le regole in ordine e fermati alla prima che vale:
 
-1. È la **bandiera italiana** (verde, bianco, rosso, da sinistra): tocca la **bianca**.
-2. **Due strisce hanno lo stesso colore**: tocca quella **diversa**.
-3. La striscia di **mezzo è rossa**: tocca quella **a sinistra**.
-4. Altrimenti tocca la striscia col colore che viene **prima** in questo elenco: rosso, giallo, verde, blu, bianco, nero.
+1. Le due macchie sono **dello stesso colore**: premi **quel colore**.
+2. Le due macchie sono in questa tabella: premi il colore che fanno insieme.
 
-#### Dado
+   | Macchie | Premi |
+   | --- | --- |
+   | rosso e giallo | arancione |
+   | giallo e blu | verde |
+   | rosso e blu | viola |
+   | bianco e nero | grigio |
+   | bianco e rosso | rosa |
+   | rosso e verde | marrone |
 
-*Un dado, bianco o rosso, che mostra una faccia, e sei tasti da 1 a 6. Si risolve in tre lanci.*
+3. Altrimenti premi il **nero**.
 
-| Dado | Cosa premere |
+Un tasto sbagliato è un errore, e arrivano macchie nuove.
+
+#### Ingranaggi
+
+*Da 3 a 6 ingranaggi in fila, da sinistra a destra. Sul primo una freccia dice in che verso gira. Due tasti: ↻ (orario) e ↺ (antiorario).*
+
+1. Due ingranaggi che **si toccano** girano al **contrario** l'uno dell'altro.
+2. Due ingranaggi uniti da una **cinghia** (una striscia nera: non si toccano) girano **nello stesso verso**.
+3. Un ingranaggio **rosso** è rotto: lì la catena si ferma.
+
+Premi il verso dell'**ultimo ingranaggio che gira**: quello più a destra, oppure, se c'è un ingranaggio rosso, quello subito prima del rosso.
+
+### Moduli di complessità 3
+
+Più condizioni insieme, conti a più passaggi, o regole che dipendono da cosa si è fatto prima.
+
+#### Briscola
+
+*In alto la briscola (un seme). Al centro la carta giocata dall'avversario. In basso le tue tre carte: si tocca quella da giocare. Si risolve in tre mani.*
+
+Le carte hanno un seme (coppe, denari, spade, bastoni) e un numero da 1 a 10: l'8 è il Fante, il 9 il Cavallo, il 10 il Re. Dalla più forte alla più debole:
+
+**Asso (1) · Tre · Re (10) · Cavallo (9) · Fante (8) · 7 · 6 · 5 · 4 · 2**
+
+Una carta **prende** se è dello stesso seme di quella giocata ed è più forte, oppure se è una briscola e quella giocata no. Leggi le regole in ordine e fermati alla prima che vale:
+
+1. Puoi prendere con una carta **dello stesso seme** di quella giocata: gioca la **più debole** che prende.
+2. La carta giocata è un **Asso** o un **Tre** e hai una briscola: gioca la **briscola più debole**.
+3. Altrimenti gioca la carta **più debole** che non è briscola. Se hai solo briscole, la più debole.
+
+Un tocco sbagliato è un errore, e si gioca una mano nuova.
+
+#### Cifrario
+
+*Uno schermino con una parola segreta di cinque lettere, sotto cinque rotelle di lettere con le frecce su e giù, e il tasto Apri.*
+
+Si usa l'alfabeto italiano di 21 lettere: **A B C D E F G H I L M N O P Q R S T U V Z** (niente J, K, W, X, Y).
+
+1. Lo **spostamento** è l'**ultima cifra** del numero di serie. Se è 0, lo spostamento è 10.
+2. Ogni lettera della parola segreta va **indietro** di tanti posti quanto lo spostamento. Prima della A si ricomincia dalla Z.
+3. Metti le rotelle sulla parola che viene fuori e premi **Apri**.
+
+Esempio: spostamento 2, parola segreta **VTGPQ** → V torna a T, T a R, G a E, P a N, Q a O → **TRENO**. La parola giusta è sempre una di queste, così l'esperto può controllare:
+
+PIANO · TRENO · VESPA · LIBRO · PORTA · SCALA · MONTE · FIUME · GATTO · SEDIA · CARTA · NOTTE
+
+#### Barista
+
+*Uno schermino con l'ora e quello che chiede il cliente, e quattro tasti con cose da bar. Si risolve in tre clienti.*
+
+Leggi le regole in ordine e fermati alla prima che vale:
+
+1. Chiede un **cappuccino** e sono le **11 o più tardi**: servi un **caffè**. Il cappuccino si beve la mattina.
+2. Chiede uno **spritz** e sono **prima delle 17**: servi una **spremuta**.
+3. Chiede **la stessa cosa** che hai **servito** al cliente prima: servi un'**acqua**.
+4. Altrimenti servi **quello che chiede**.
+
+Le cose da bar sono: caffè, cappuccino, spremuta, spritz, acqua, cornetto. Al primo cliente la regola 3 non vale. Un tasto sbagliato è un errore, e arriva un cliente nuovo: il "cliente prima" resta l'ultimo servito bene.
+
+#### Schedina
+
+*Quattro partite, una per riga, ognuna con due città: a sinistra chi gioca in casa. Accanto a ogni riga tre tasti: 1, X, 2. Sotto il tasto Gioca.*
+
+Per ogni riga leggi le regole in ordine e fermati alla prima che vale:
+
+1. Le due città **cominciano con la stessa lettera**: **X**.
+2. Una delle due è **Roma**: vince Roma.
+3. Vince la città col nome **più lungo**.
+4. I nomi sono lunghi uguali: **X**.
+
+Vince la città in casa: **1**. Vince quella fuori: **2**. Infine, se l'**ultima cifra** del numero di serie è **dispari**, nella **terza riga** scambia 1 e 2. Poi premi **Gioca**.
+
+#### Anagramma
+
+*Cinque tessere in fila, ognuna con una lettera, in disordine. Si toccano una alla volta.*
+
+1. Le lettere sono quelle di una di queste parole: CAMPO · FORNO · GRANO · TIGRE · SPADA · BURRO · PESCA · LAMPO · CUORE · DENTE · SALTO · FUNGO.
+2. Tocca le tessere nell'**ordine della parola**.
+3. Se nel numero di serie c'è una **vocale**, toccale invece **dalla fine**: la parola al contrario.
+
+Le lettere doppie (FORNO, BURRO…) si toccano in un ordine qualsiasi tra loro. Una tessera sbagliata è un errore e si ricomincia dalla prima.
+
+#### Ascensore
+
+*Una pulsantiera con i piani da 0 a 6 e uno schermino con una chiamata: un piano e una freccia, su o giù. Si risolve in quattro chiamate.*
+
+Per ogni chiamata leggi le regole in ordine e fermati alla prima che vale:
+
+1. È la **prima** chiamata: premi il **piano della chiamata**.
+2. Il piano della chiamata è **quello che hai premuto prima**: premi lo **0**.
+3. Freccia **su**: premi il piano **sopra** quello che hai premuto prima. Freccia **giù**: il piano **sotto**.
+4. Se così finiresti sopra il 6 o sotto lo 0, premi invece il **piano della chiamata**.
+
+Un tasto sbagliato è un errore, e arriva una chiamata nuova: "quello che hai premuto prima" resta l'ultimo piano giusto.
+
+#### Bilancia
+
+*Una bilancia a due piatti. A sinistra ci sono dei pesi con scritto quanti chili, il piatto di destra è vuoto. Sotto, cinque pesi: 1, 2, 3, 5 e 10 chili. Si toccano per metterli a destra o toglierli, poi si preme Pesa.*
+
+1. Somma i pesi di sinistra.
+2. Se nel numero di serie c'è una **vocale**, la bilancia è **truccata**: aggiungi 1 chilo.
+3. Metti a destra i pesi che fanno **esattamente** quel numero, usando **meno pesi possibile**, e premi **Pesa**.
+
+#### Stazione
+
+*Il tabellone delle partenze con un treno: destinazione, ora di partenza e ritardo. Sotto, sei tasti con i binari da 1 a 6. Si risolve in tre treni.*
+
+1. Trova il binario della destinazione:
+
+   | Destinazione | Binario |
+   | --- | --- |
+   | Milano, Torino | 1 |
+   | Venezia, Trieste | 2 |
+   | Bologna, Firenze | 3 |
+   | Roma, Napoli | 4 |
+   | Bari, Lecce | 5 |
+   | Palermo, Genova | 6 |
+
+2. Il treno ha **più di 10 minuti** di ritardo: vai al binario **dopo** (dopo il 6 viene l'1).
+3. Poi, se il treno parte **dalle 18 in poi** e nel numero di serie c'è una **vocale**, vai al binario **prima** (prima dell'1 viene il 6).
+
+Premi il binario. Un tasto sbagliato è un errore, e arriva un treno nuovo.
+
+#### Quadro elettrico
+
+*Cinque interruttori in fila, ognuno rosso o blu, con sopra una spia accesa o spenta. Si toccano per metterli su o giù; sotto il tasto Conferma.*
+
+Metti ogni interruttore come dice la tabella:
+
+| Interruttore | Spia accesa | Spia spenta |
+| --- | --- | --- |
+| Rosso | giù | su |
+| Blu | su se l'ultima cifra è pari, giù se è dispari | giù |
+
+Se nel numero di serie c'è una **vocale**, il **terzo** interruttore va al **contrario** di quello che dice la tabella. Poi premi **Conferma**. Le spie non cambiano quando muovi gli interruttori.
+
+#### Ricetta
+
+*Uno schermino con il nome di un primo piatto e sei tasti, ognuno con un ingrediente. Si toccano gli ingredienti giusti nell'ordine giusto. Si risolve in due piatti.*
+
+| Piatto | Ingredienti, in ordine |
 | --- | --- |
-| Bianco | la **faccia opposta**: 7 meno il numero (1 → 6, 2 → 5, 3 → 4…) |
-| Rosso | il **numero dopo** (1 → 2, 2 → 3… e 6 → 1) |
+| Carbonara | guanciale, uova, pecorino, pepe |
+| Amatriciana | guanciale, pomodoro, pecorino |
+| Gricia | guanciale, pecorino, pepe |
+| Cacio e pepe | pecorino, pepe |
+| Aglio, olio e peperoncino | aglio, olio, peperoncino |
+| Pesto | basilico, aglio, pinoli, olio, parmigiano |
+| Al pomodoro | olio, pomodoro, basilico |
 
-Se nel numero di serie c'è una **vocale**, i colori si scambiano: il dado bianco va trattato come rosso e il rosso come bianco.
-
-Un tasto sbagliato è un errore, e il dado si rilancia.
-
-#### Lampadine
-
-*Quattro lampadine numerate da 1 a 4, ognuna accesa o spenta (si toccano per cambiarle), e un tasto Conferma.*
-
-1. Accendi le lampadine il cui numero compare tra le **cifre del numero di serie**, e spegni le altre.
-2. Se nessuna cifra va da 1 a 4, accendi **solo la 4**.
-
-Esempio: `RT4-82K` → cifre 4, 8, 2 → accese la **2** e la **4**. Poi premi **Conferma**.
-
-#### Tombola
-
-*Uno schermino con un disegno e quattro tasti con un numero ciascuno. Si risolve in tre passi.*
-
-È la smorfia: premi il numero del disegno.
-
-| Disegno | Numero | | Disegno | Numero |
-| --- | --- | --- | --- | --- |
-| L'Italia | 1 | | I topi | 11 |
-| La bambina | 2 | | I soldati | 12 |
-| La gatta | 3 | | La risata | 19 |
-| Il maiale | 4 | | La festa | 20 |
-| La mano | 5 | | La testa | 34 |
-| | | | La paura | 90 |
-
-Il numero giusto c'è sempre tra i quattro tasti. Un tasto sbagliato è un errore, e arriva un disegno nuovo.
-
-#### Moka
-
-*Una moka sul fornello con un manometro: la lancetta sta nella zona verde, gialla o rossa. Tre tasti: Alza la fiamma, Abbassa, Spegni. Si risolve in tre passi.*
-
-| Lancetta | Cosa fare |
-| --- | --- |
-| Verde | **Alza la fiamma** |
-| Gialla | ultima cifra pari: **Abbassa**; dispari: **Spegni** |
-| Rossa | **Spegni** |
-
-Un tasto sbagliato è un errore, e la lancetta si sposta.
-
-#### Bussola
-
-*Una freccia che punta in su, in giù, a destra o a sinistra, e quattro tasti: N, S, E, O. Si risolve in tre passi.*
-
-La freccia in su è il Nord, a destra l'Est, in giù il Sud, a sinistra l'Ovest. Premi la direzione della freccia **girata di un quarto in senso orario** (N → E, E → S, S → O, O → N).
-
-Se nel numero di serie c'è una **vocale**, gira invece in senso **antiorario** (N → O, O → S, S → E, E → N).
+Se nel numero di serie c'è una **vocale**, al posto del **pecorino** va il **parmigiano**. La **panna** non va mai. Un ingrediente sbagliato è un errore e il piatto si ricomincia da capo.
 
 **Da provare giocando**
 
-- Il manuale resta uguale in tutte le partite: chi gioca spesso lo impara, e va bene così. Se diventa troppo facile, si aggiunge un livello col manuale che cambia a ogni partita.
-- Con 12 tipi e 3–5 moduli per bomba, ogni bomba è diversa. Se qualche modulo risulta troppo facile o troppo difficile, si sistema la sua pagina o lo si toglie.
+- Il manuale resta uguale in tutte le partite: con trenta moduli ci vuole parecchio a impararlo. Se diventa comunque troppo facile, si aggiunge un livello col manuale che cambia a ogni partita.
+- La complessità di ogni modulo è una stima: se giocando un modulo risulta più facile o più difficile del previsto, si sposta di livello o si sistema la sua pagina.
+- Alcuni moduli facili si risolvono anche senza manuale da chi conosce la cosa (le pizze, il termometro): va bene così. Quelli di complessità 3 hanno sempre una regola che non si indovina (nella briscola l'Asso e il Tre, nella ricetta il parmigiano al posto del pecorino).
 
 ---
 

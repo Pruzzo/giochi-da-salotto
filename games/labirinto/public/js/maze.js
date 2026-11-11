@@ -271,7 +271,7 @@ const HALF = {
 };
 // Dove comincia la casella accanto, per disegnarne i muri.
 const NEXT = { N: [0, -1], S: [0, 1], W: [-1, 0], E: [1, 0] };
-const PAD = 0.06;
+const PAD = 0.1;
 const VIEW = { x: -SEE - PAD, size: 1 + 2 * (SEE + PAD) };
 
 /**
@@ -302,11 +302,14 @@ export function torchSvg(torch, { color, event = null }) {
       lit.append(s('rect', { class: 'cell--color', x: a.x + 0.05, y: a.y + 0.05, width: a.w - 0.1, height: a.h - 0.1 }));
     }
   }
-  // Decori e bombe delle caselle accanto, nella striscia che si vede.
+  // Decori e bombe delle caselle accanto, nella striscia che si vede. La bomba resta grande come una
+  // mezza casella e sborda dalla striscia: va disegnata fuori dalla luce, che la taglierebbe.
+  const bombs = s('g', { class: 'bombs' });
   for (const a of areas.slice(1)) {
     const cx = a.x + a.w / 2;
     const cy = a.y + a.h / 2;
-    if (a.bomb) lit.append(bomb(cx, cy, SEE * 0.9));
+    // la sfera (non il disegno con la miccia) sta al centro della striscia
+    if (a.bomb) bombs.append(bomb(cx + 0.025, cy - 0.035, 0.42));
     else if (a.deco && !FLOORS[a.deco]) lit.append(symbol(a.deco, cx, cy, SEE * 0.85));
   }
   // Il simbolo della casella dell'omino, grande sul pavimento.
@@ -339,7 +342,7 @@ export function torchSvg(torch, { color, event = null }) {
   // Sotto i muri un alone di carta, così si staccano dal buio.
   const halo = walls.cloneNode(true);
   halo.setAttribute('class', 'walls walls--halo');
-  world.append(s('g', { 'clip-path': `url(#${id}-clip)` }, lit, s('rect', { x: -SEE, y: -SEE, width: 1 + 2 * SEE, height: 1 + 2 * SEE, fill: `url(#${id}-glow)` })), halo, walls);
+  world.append(s('g', { 'clip-path': `url(#${id}-clip)` }, lit, s('rect', { x: -SEE, y: -SEE, width: 1 + 2 * SEE, height: 1 + 2 * SEE, fill: `url(#${id}-glow)` })), bombs, halo, walls);
   const svg = s('svg', { class: `torch${event ? ` is-${event.type}` : ''}`, viewBox: `${VIEW.x} ${VIEW.x} ${VIEW.size} ${VIEW.size}`, role: 'img', 'aria-label': describe(torch) },
     s('defs', {}, clip, glow),
     s('rect', { class: 'torch__dark', x: VIEW.x, y: VIEW.x, width: VIEW.size, height: VIEW.size }),

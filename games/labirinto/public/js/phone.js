@@ -1,7 +1,7 @@
 // Il telefono durante il turno: le frecce dell'esploratore, la mappa che gira del navigatore.
 import { h, fill } from '/js/kit/dom.js';
 import { page } from '/js/kit/ui.js';
-import { mapSvg, orientationHint, orientationText } from './maze.js';
+import { mapSvg, orientationHint, orientationText, torchSvg } from './maze.js';
 
 const vibrate = (pattern) => { try { navigator.vibrate?.(pattern); } catch { /* niente vibrazione */ } };
 const bombsText = (n) => (n ? `Bombe prese: ${n}` : 'Nessuna bomba presa');
@@ -30,13 +30,15 @@ function explorerPhone(state, { act }, team0) {
       onClick: () => act('move', { dir: a.dir }),
     }, h('svg:svg', { viewBox: '0 0 24 24', 'aria-hidden': 'true' }, h('svg:path', { d: a.d })))),
     h('span', { class: 'pad__north', 'aria-hidden': 'true' }, 'N', h('small', {}, '↑')));
+  const torch = h('div', { class: 'torch-box' });
   const el = page('lab-explorer',
     h('header', { class: 'lab-head' },
       h('p', { class: 'lab-role' }, 'Esploratore'), chip),
-    h('p', { class: 'lab-say' }, 'Guarda la TV: la tua zona è quella ', h('b', { style: { color: team0.color.hex } }, team0.color.name.toLowerCase()), '. Il nord è sempre in alto.'),
-    h('p', { class: 'note' }, 'Racconta al navigatore cosa vedi: colori, simboli, muri, bombe.'),
-    status, hits, pad);
-  let seq = team0.game?.event?.seq ?? 0;
+    h('p', { class: 'note' }, 'Racconta al navigatore cosa vedi: colori, simboli, muri, bombe. Il nord è in alto.'),
+    torch,
+    h('div', { class: 'lab-info' }, status, hits),
+    pad);
+  let seq = null;
   const onKey = (e) => {
     const dir = KEYS[e.key];
     if (!dir) return;
@@ -44,6 +46,9 @@ function explorerPhone(state, { act }, team0) {
     act('move', { dir });
   };
   addEventListener('keydown', onKey);
+  const finishUpdate = (s, team) => {
+    for (const btn of pad.querySelectorAll('button')) btn.disabled = !!s.paused || team.done;
+  };
   return {
     el,
     update(s, team) {
@@ -51,7 +56,10 @@ function explorerPhone(state, { act }, team0) {
       if (!g) return;
       hits.textContent = bombsText(g.bombsHit);
       if (g.event.seq !== seq) {
+        const first = seq === null;
         seq = g.event.seq;
+        fill(torch, torchSvg(g.torch, { color: team.color.hex, event: first ? null : g.event }));
+        if (first) return finishUpdate(s, team);
         const say = { wall: 'Muro! Da lì non si passa.', bomb: 'BUM! Sei tornato alla partenza.', exit: 'Siete usciti!' }[g.event.type] ?? '';
         status.textContent = say;
         status.className = `lab-status${g.event.type === 'bomb' ? ' is-bomb' : ''}`;
@@ -59,7 +67,7 @@ function explorerPhone(state, { act }, team0) {
         if (g.event.type === 'bomb') vibrate([300, 100, 300]);
         if (g.event.type === 'exit') vibrate([80, 60, 80, 60, 160]);
       }
-      for (const btn of pad.querySelectorAll('button')) btn.disabled = !!s.paused || team.done;
+      finishUpdate(s, team);
     },
     destroy: () => removeEventListener('keydown', onKey),
   };

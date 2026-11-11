@@ -1,4 +1,4 @@
-/* Solo "Labirinto al buio": il labirinto a biro, la torcia della TV, le frecce e la mappa che gira.
+/* Solo "Labirinto al buio": il labirinto a biro, la torcia del telefono, le frecce e la mappa che gira.
    Carta, bottoni e pagine comuni dei giochi a squadre sono in /css/kit.css e /css/teams.css. */
 
 /* ---------- Il labirinto (mappa e torcia) ---------- */
@@ -11,7 +11,7 @@
 .trail { fill: none; stroke: var(--red); stroke-width: .1; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: .18 .14; opacity: .85; }
 .start { fill: none; stroke: var(--red); stroke-width: .09; }
 
-/* ---------- Torcia sulla TV ---------- */
+/* ---------- Torcia (sul telefono dell'esploratore) ---------- */
 .torch__dark { fill: #121a3a; }
 .torch .wall { stroke-width: .1; }
 .torch .walls--halo .wall, .torch .walls--halo .door > * { stroke: var(--paper); stroke-width: .15; stroke-linecap: round; }
@@ -47,7 +47,17 @@
   box-shadow: 0 6px 16px rgb(20 20 60 / .3); animation: stamp .5s var(--out);
 }
 @keyframes stamp { from { transform: translate(-50%, -50%) rotate(-4deg) scale(1.8); opacity: 0; } }
-.zone.is-done .torch-box { opacity: .55; }
+.zone.is-done .dark-box { opacity: .55; }
+
+/* TV durante il turno: niente torcia, solo un omino al buio e i passi */
+.dark-box { min-height: 0; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: calc(var(--q) * .3); }
+.dark-omino { flex: 0 1 auto; width: auto; height: min(100%, calc(var(--q) * 7)); min-height: 0; aspect-ratio: 1; }
+.dark-omino__night { fill: #121a3a; }
+.dark-omino__beam { fill: #ffe9a3; opacity: .85; transform-origin: 58px 46px; animation: sweep 3s ease-in-out infinite alternate; }
+@keyframes sweep { from { transform: rotate(-18deg); } to { transform: rotate(18deg); } }
+.dark-omino__ink { fill: var(--paper); }
+.dark-omino__line { fill: none; stroke: var(--paper); stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; }
+.dark-steps { flex: none; font-size: calc(var(--q) * 1.1); font-weight: 800; color: var(--ink-deep); }
 
 .legend { flex: none; display: flex; justify-content: center; flex-wrap: wrap; gap: calc(var(--q) * .4) calc(var(--q) * 1.4); font-size: calc(var(--q) * .8); font-weight: 600; color: var(--pencil); }
 .legend__item { display: inline-flex; align-items: center; gap: calc(var(--q) * .3); }
@@ -65,10 +75,15 @@
 .lab-status.is-bomb { color: var(--red); }
 
 /* Esploratore: quattro frecce grandi in basso, per il pollice */
-.lab-explorer { gap: 12px; padding-bottom: max(16px, env(safe-area-inset-bottom)); }
+.lab-explorer { gap: 8px; padding-bottom: max(12px, env(safe-area-inset-bottom)); overflow: hidden; }
+.lab-explorer .torch-box { flex: 1 1 0; min-height: 120px; display: grid; place-items: center; }
+.lab-explorer .torch { width: auto; height: auto; max-width: 100%; max-height: 100%; aspect-ratio: 1; border-radius: 12px; }
+.lab-info { flex: none; display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
+.lab-info .lab-status { min-height: 1.3em; font-size: 1rem; }
+.lab-info .note { text-align: right; }
 .pad {
-  --b: min(calc((100vw - 76px) / 3), 124px, 15vh);
-  margin-top: auto; align-self: center; display: grid; gap: 8px;
+  --b: min(calc((100vw - 76px) / 3), 110px, 12vh);
+  flex: none; align-self: center; display: grid; gap: 8px;
   grid-template: "a n b" var(--b) "w c e" var(--b) "d s f" var(--b) / var(--b) var(--b) var(--b);
 }
 .pad__btn {
@@ -119,4 +134,5 @@
 
 @media (prefers-reduced-motion: reduce) {
   .torch .burst { animation: none; opacity: 0; }
+  .dark-omino__beam { animation: none; }
 }

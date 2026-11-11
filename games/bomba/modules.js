@@ -1,5 +1,5 @@
 // I dodici moduli di "Disinnesca la bomba": come nascono, cosa vede l'artificiere, qual è la mossa giusta.
-// Le regole sono quelle del manuale, in docs/Giochi-in-arrivo.md ("Il manuale"). Nessuna dipendenza di rete.
+// Le regole sono quelle del manuale, in docs/Giochi-a-squadre.md ("Il manuale"). Nessuna dipendenza di rete.
 // Per ogni tipo:
 //   make(rand, serial, prev)   la faccia del modulo (solo quello che l'artificiere vede); prev è la faccia di prima,
 //                              per i moduli a passi, così la nuova è sempre diversa

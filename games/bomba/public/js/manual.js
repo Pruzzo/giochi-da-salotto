@@ -1,4 +1,4 @@
-// Il telefono dell'esperto: il manuale. Il testo è quello di docs/Giochi-in-arrivo.md, "Il manuale", parola per parola.
+// Il telefono dell'esperto: il manuale. Il testo è quello di docs/Giochi-a-squadre.md, "Il manuale", parola per parola.
 // Prima pagina: l'indice col disegno di ogni modulo; poi una pagina per modulo.
 import { h, fill } from '/js/kit/dom.js';
 import { page } from '/js/kit/ui.js';

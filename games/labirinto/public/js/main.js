@@ -10,13 +10,13 @@ const bombs = (n) => (n === 1 ? '1 bomba' : `${n} bombe`);
 
 const { phone, tv } = teamViews({
   title: 'Labirinto al buio',
-  goal: 'L’esploratore cammina al buio guardando la TV, il navigatore ha la mappa sul telefono. Parlatevi e uscite dalla porta prima che finisca il tempo, lontano dalle bombe.',
+  goal: 'L’esploratore cammina al buio con la torcia sul telefono, il navigatore ha la mappa. Parlatevi e uscite dalla porta prima che finisca il tempo, lontano dalle bombe.',
   roles: {
     esploratore: {
       label: 'Esploratore',
-      short: 'Muove l’omino con le frecce e guarda la TV.',
+      short: 'Ha la torcia sul telefono e muove l’omino con le frecce.',
       brief: [
-        'Sulla TV, nella zona della tua squadra, vedi solo la tua casella e metà di quelle accanto. Il nord è sempre in alto.',
+        'Sul telefono vedi solo la tua casella e metà di quelle accanto. Il nord è sempre in alto. Non far vedere lo schermo al navigatore.',
         'Descrivi al navigatore quello che vedi: colori, simboli, muri, bombe.',
         'Sulla bomba torni alla partenza. Contro un muro non succede niente.',
       ],
@@ -53,9 +53,9 @@ startClient({
     join: (ctx) => joinView({
       title: ['Labirinto', 'al buio'],
       hints: {
-        player: 'A squadre di due: uno muove l’omino guardando la TV, l’altro lo guida con la mappa sul telefono.',
+        player: 'A squadre di due: uno muove l’omino al buio con la torcia sul telefono, l’altro lo guida con la mappa.',
         admin: 'Giochi anche tu, in più scegli grandezza del labirinto e tempo e fai partire i turni.',
-        tv: 'Questo schermo è la torcia: per ogni squadra mostra solo intorno all’omino. E il tempo.',
+        tv: 'Questo schermo mostra il tempo e i passi di ogni squadra. A fine turno svela i labirinti.',
       },
     }, ctx),
     phone,

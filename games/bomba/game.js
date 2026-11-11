@@ -1,5 +1,5 @@
 // Le regole di "Disinnesca la bomba": una bomba per squadra, l'artificiere la smonta, l'esperto legge il manuale.
-// Le regole sono in docs/Giochi-in-arrivo.md, "Disinnesca la bomba". Nessuna dipendenza di rete.
+// Le regole sono in docs/Giochi-a-squadre.md, "Disinnesca la bomba". Nessuna dipendenza di rete.
 // Squadre, ruoli, turni e pause sono di TeamTable (games/shared/teams.js); i moduli sono in modules.js.
 import { GameError } from '../shared/table.js';
 import { TeamTable } from '../shared/teams.js';

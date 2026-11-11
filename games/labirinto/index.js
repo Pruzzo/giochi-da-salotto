@@ -37,7 +37,7 @@ function start(nsp, ctx) {
 export default {
   id: 'labirinto',
   title: 'Labirinto al buio',
-  description: 'A squadre di due, solo in numero pari. L’esploratore cammina al buio tra le bombe guardando la TV, il navigatore ha la mappa sul telefono: ma la mappa gira e non dice dov’è l’omino. Fino a 6 squadre.',
+  description: 'A squadre di due, solo in numero pari. L’esploratore cammina al buio tra le bombe con la torcia sul telefono, il navigatore ha la mappa: ma la mappa gira e non dice dov’è l’omino. Fino a 6 squadre.',
   page: join(here, 'public', 'index.html'),
   publicDir: join(here, 'public'),
   start,

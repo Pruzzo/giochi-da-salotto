@@ -266,9 +266,9 @@ Uno dei due cammina al buio in un labirinto pieno di bombe, con una torcia che i
 
 | | Cosa vede | Cosa fa |
 | --- | --- | --- |
-| **Esploratore** | Sul telefono: quattro frecce. Sulla TV: la zona della sua squadra. | Muove l'omino e descrive quello che vede. |
+| **Esploratore** | Sul telefono: la torcia e quattro frecce. | Muove l'omino e descrive quello che vede. |
 | **Navigatore** | Sul telefono: la mappa intera, con muri, decori, bombe e uscita. Non l'omino. | Capisce dov'è l'omino e lo guida a voce fino all'uscita, lontano dalle bombe. |
-| **TV** | Per ogni squadra: la casella dell'omino e metà di ognuna delle quattro caselle accanto. Il resto è buio. | |
+| **TV** | Il tempo e, per ogni squadra, i passi fatti e le bombe prese. Niente torcia: la TV la vede anche il navigatore. | |
 
 **Il labirinto**
 
@@ -281,14 +281,14 @@ Uno dei due cammina al buio in un labirinto pieno di bombe, con una torcia che i
 
 **Cosa vede l'esploratore (la torcia)**
 
-Sulla TV, nella zona della sua squadra, vede la **sua casella** intera e la **metà più vicina** di ognuna delle quattro caselle accanto (sopra, sotto, destra, sinistra). Gli angoli restano bui. Gli basta per vedere:
+Sul suo telefono, sopra le frecce, vede la **sua casella** intera e la **metà più vicina** di ognuna delle quattro caselle accanto (sopra, sotto, destra, sinistra). Gli angoli restano bui. Gli basta per vedere:
 
 - i **muri** intorno a sé, cioè dove può andare;
 - le **bombe** nelle caselle accanto, prima di metterci il piede;
 - i **decori**: il colore o il simbolo della sua casella e di quelle accanto;
 - l'**uscita**, quando ci arriva vicino.
 
-Sulla TV il nord è sempre in alto, e l'esploratore non sa dove sia l'uscita. Il tempo che resta si vede solo sulla TV, non sui telefoni.
+Il nord è sempre in alto, e l'esploratore non sa dove sia l'uscita. La torcia sta sul telefono e non sulla TV perché il navigatore, guardando la TV, vedrebbe dov'è l'omino: l'esploratore non deve fargli vedere lo schermo. Il tempo che resta si vede solo sulla TV, non sui telefoni.
 
 **Cosa vede il navigatore (la mappa che gira)**
 
@@ -302,7 +302,7 @@ Sulla TV il nord è sempre in alto, e l'esploratore non sa dove sia l'uscita. Il
 1. **Prima di ogni turno** l'amministratore sceglie la grandezza del labirinto e quanto tempo c'è (da 3 a 8 minuti), come nelle [regole comuni](#2-nome-istruzioni-e-ruoli).
 2. Formate le squadre e scelti i ruoli (vedi le [regole comuni](#regole-comuni-dei-giochi-a-squadre)), l'amministratore tocca **Via**. Tutte le squadre partono insieme, ognuna nel suo labirinto.
 3. L'esploratore si muove con le frecce. Contro un muro l'omino non si sposta e trema un attimo, senza penalità.
-4. **Su una bomba** l'omino salta in aria e **torna alla partenza**. La bomba scoppiata sparisce, dalla TV e dalla mappa. Il navigatore deve capire di nuovo dov'è, ma almeno sa che è alla partenza.
+4. **Su una bomba** l'omino salta in aria e **torna alla partenza**. La bomba scoppiata sparisce, dalla torcia e dalla mappa. Il navigatore deve capire di nuovo dov'è, ma almeno sa che è alla partenza.
 5. Il turno della squadra finisce quando l'omino passa dalla porta d'uscita. Le altre squadre continuano fino allo scadere del tempo.
 6. A fine turno la TV svela il labirinto di ogni squadra, con la strada fatta e le bombe prese.
 

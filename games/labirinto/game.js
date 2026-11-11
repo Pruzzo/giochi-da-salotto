@@ -1,6 +1,6 @@
-// "Labirinto al buio": l'esploratore muove l'omino guardando la TV, che illumina solo la sua casella
+// "Labirinto al buio": l'esploratore muove l'omino con la torcia sul telefono, che illumina solo la sua casella
 // e metà di quelle accanto; il navigatore ha la mappa intera sul telefono, ma la mappa gira ogni 8 passi
-// e non dice dov'è l'omino. Le regole sono in docs/Giochi-in-arrivo.md, "Labirinto al buio".
+// e non dice dov'è l'omino. Le regole sono in docs/Giochi-a-squadre.md, "Labirinto al buio".
 // Le fasi (squadre, ruoli, turni, pausa) sono quelle comuni di games/shared/teams.js.
 import { GameError, MAX_PLAYERS } from '../shared/table.js';
 import { TeamTable } from '../shared/teams.js';
@@ -232,7 +232,8 @@ export class Game extends TeamTable {
     const b = team.board;
     const common = { size: b.n, bombsHit: b.bombsHit };
     if (viewer.role === 'tv') {
-      const view = { ...common, torch: this.torch(b), event: b.event };
+      // La torcia sta sul telefono dell'esploratore: la TV la vede anche il navigatore.
+      const view = { ...common, steps: b.steps };
       // A turno finito la TV svela il labirinto e la strada fatta.
       if (this.phase === 'result' || this.phase === 'final') view.reveal = { ...this.map(b), trail: b.trail, start: b.start };
       return view;
@@ -246,7 +247,7 @@ export class Game extends TeamTable {
         event: { seq: b.event.seq, type: b.event.type },
       };
     }
-    if (viewer.teamRole === 'esploratore') return { ...common, role: 'esploratore', event: b.event };
+    if (viewer.teamRole === 'esploratore') return { ...common, role: 'esploratore', torch: this.torch(b), event: b.event };
     return null;
   }
 

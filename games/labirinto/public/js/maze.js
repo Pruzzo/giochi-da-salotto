@@ -1,6 +1,6 @@
 // Il labirinto disegnato a biro sul quaderno: muri, pavimenti colorati, simboli, bombe, porta, omino.
 // Una casella misura 1 nelle coordinate SVG; la mappa intera serve al navigatore e alla TV a fine turno,
-// la torcia alla TV durante il turno.
+// la torcia all'esploratore durante il turno.
 import { h } from '/js/kit/dom.js';
 
 const s = (tag, props, ...kids) => h(`svg:${tag}`, props, ...kids);
@@ -162,7 +162,7 @@ export function orientationText({ rot, flip }) {
 }
 
 export function orientationHint({ rot, flip }) {
-  if (!rot && !flip) return 'Il nord è in alto, come sulla TV.';
+  if (!rot && !flip) return 'Il nord è in alto, come per l’esploratore.';
   const hints = [];
   if (rot && flip) hints.push('Prima ruotata, poi capovolta.');
   if (flip === 'h') hints.push('Destra e sinistra scambiate.');
@@ -270,7 +270,7 @@ const HALF = {
 };
 
 /**
- * La zona della TV: la casella dell'omino e la metà vicina delle quattro accanto. Il nord è in alto.
+ * La torcia dell'esploratore: la casella dell'omino e la metà vicina delle quattro accanto. Il nord è in alto.
  * @param torch  { here: { deco, walls }, around: { N|E|S|W: { deco, bomb, walls } | null } }
  */
 export function torchSvg(torch, { color, event = null }) {

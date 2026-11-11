@@ -1,6 +1,6 @@
 // Il tavolo dei giochi a squadre da due: scelta del colore, nome, ruoli, turni, chi aspetta.
 // lobby -> teams -> briefing -> playing -> result -> (teams | briefing) ... -> final -> lobby
-// Le regole sono in docs/Giochi-in-arrivo.md, "Regole comuni dei giochi a squadre".
+// Le regole sono in docs/Giochi-a-squadre.md, "Regole comuni dei giochi a squadre".
 // Ogni gioco estende TeamTable e definisce:
 //   setupTeam(team)            prepara team.board per il turno (labirinto, bomba…)
 //   teamTimeout(team)          il tempo è finito e la squadra non aveva finito

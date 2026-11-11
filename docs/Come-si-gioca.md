@@ -13,6 +13,8 @@ Apri la **console** (`game.local:3000/console`; nell'app Android è già aperta)
 
 Per cambiare gioco tocca **Chiudi il gioco** e conferma con **Chiudi e cancella la partita**, poi accendi l'altro.
 
+Più comodo: l'amministratore può cambiare gioco dal suo telefono, senza aprire la console. In sala d'attesa, o a fine partita, tocca **Cambia gioco** e sceglie il gioco nuovo. Tutti ci rientrano da soli con lo stesso nome, e l'amministratore resta amministratore. Le stelline della serata restano, i punti della partita lasciata si perdono.
+
 ## 2. Entrate dal telefono
 
 I giocatori **non devono installare niente**. La TV mostra il QR code: ognuno lo inquadra con la fotocamera, sceglie il ruolo, scrive il nome e tocca **Entra**.
@@ -35,6 +37,15 @@ Chi è entrato compare sulla TV e sui telefoni. L'amministratore sceglie le impo
 <p align="center">
   <img src="img/ncc-tv-sala.png" width="560" alt="La TV con i giocatori entrati">
 </p>
+
+## Le vittorie della serata
+
+Chi vince una partita, a qualunque gioco, prende una **stellina**. Le stelline restano anche cambiando gioco, finché il server resta acceso: compaiono accanto ai nomi sulla TV e sui telefoni, nella fine partita, nella console e nella pagina d'attesa tra un gioco e l'altro.
+
+- Vince chi ha più punti quando l'amministratore tocca **Fine partita**. A pari merito la stellina va a tutti i primi.
+- Da soli, o se nessuno ha fatto punti, non vince nessuno.
+- Conta il nome: per tenere le tue stelline entra in ogni gioco con lo stesso nome (maiuscole e accenti non contano).
+- Spegnendo il server le stelline si azzerano.
 
 ---
 

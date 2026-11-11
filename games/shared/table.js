@@ -30,6 +30,8 @@ export class Table {
   presenceChanged() {}
   /** Il giocatore esce: il gioco dimentica i suoi dati del turno. */
   forget() {}
+  /** Punti della partita, playerId -> punti. Quando la fase diventa 'final' chi ne ha di più vince una stellina della serata. */
+  totals() { return new Map(); }
 
   // ---------- Giocatori ----------
 

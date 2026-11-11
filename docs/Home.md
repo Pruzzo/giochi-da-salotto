@@ -25,8 +25,10 @@ Si può usare in **due modi**: con l'**app Android** oppure con un **server su P
 | **Codice segreto** | Lo schermo nasconde 4 pastelli; ognuno prova a indovinarli dal telefono con l'aiuto dei pallini. |
 | **L'impiccato** | Ognuno indovina la stessa parola sul suo telefono, la TV mostra l'omino di tutti. |
 | **Anagrammi** | 8 lettere estratte, più parole possibile in tempo; vale doppio quella trovata solo da te. |
+| **Labirinto al buio** | A squadre di due: uno muove l'omino al buio guardando la TV, l'altro ha la mappa, che ogni tanto si gira. |
+| **Disinnesca la bomba** | A squadre di due: uno ha la bomba sul telefono, l'altro il manuale per smontarla. |
 
-Fino a 12 giocatori per partita. Regole complete in [Come si gioca](Come-si-gioca.md).
+Fino a 12 giocatori per partita. Regole complete in [Come si gioca](Come-si-gioca.md). I giochi a squadre vogliono un numero pari di giocatori: regole in [Giochi a squadre](Giochi-a-squadre.md).
 
 ## Chi fa da server
 
@@ -47,5 +49,6 @@ In tutti e due i casi i giochi sono gli stessi e TV e telefoni li aprono nel bro
 2. [App Android](App-Android.md): un telefono o un box TV fa da server, anche senza Wi-Fi di casa.
 3. [Installazione sul PC](Installazione-sul-PC.md): Windows, macOS e Linux, passo per passo.
 4. [Come si gioca](Come-si-gioca.md): dall'accensione alla classifica, con le regole di ogni gioco.
-5. [Risoluzione dei problemi](Risoluzione-dei-problemi.md): i telefoni non entrano, il QR porta altrove, il server si spegne.
-6. [Sviluppo](Sviluppo.md): com'è fatto il codice, come aggiungere un gioco, come compilare l'APK.
+5. [Giochi a squadre](Giochi-a-squadre.md): Labirinto al buio e Disinnesca la bomba, con il manuale della bomba.
+6. [Risoluzione dei problemi](Risoluzione-dei-problemi.md): i telefoni non entrano, il QR porta altrove, il server si spegne.
+7. [Sviluppo](Sviluppo.md): com'è fatto il codice, come aggiungere un gioco, come compilare l'APK.

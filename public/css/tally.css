@@ -1,0 +1,26 @@
+/* Le vittorie della serata: stelline dorate col bordo a biro, e il foglio che le raccoglie.
+   Tutto in em: ogni pagina sceglie la grandezza con font-size. */
+.stars { display: inline-flex; align-items: center; gap: .1em; flex: none; line-height: 1; vertical-align: -.15em; }
+.star { width: 1.1em; height: 1.1em; overflow: visible; transform: rotate(var(--r, 0deg)); }
+.star path { fill: #f6cd1a; stroke: var(--ink-deep); stroke-width: 1.7; stroke-linejoin: round; }
+.stars__count { font-family: var(--school); color: var(--red); font-size: .85em; margin-left: .2em; }
+.star--fresh { animation: stamp .55s var(--out) both; animation-delay: var(--stamp-delay, 1.1s); }
+@keyframes stamp {
+  from { transform: rotate(calc(var(--r, 0deg) - 50deg)) scale(3); opacity: 0; }
+  55% { opacity: 1; }
+  to { transform: rotate(var(--r, 0deg)) scale(1); opacity: 1; }
+}
+
+.tally { display: flex; flex-direction: column; gap: .35em; min-width: 0; }
+.tally__title { font-family: var(--school); font-weight: 400; color: var(--red); font-size: 1.2em; line-height: 1.7; }
+.tally__list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+.tally__row { display: flex; align-items: center; justify-content: space-between; gap: .6em; min-height: 2.1em; border-bottom: 2px solid var(--grid); }
+.tally__name { font-weight: 600; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding-block: .25em; }
+.tally__row .stars { font-size: 1.3em; }
+.tally__row.is-fresh .tally__name { text-decoration: underline wavy var(--red) .09em; text-underline-offset: .22em; }
+.tally__empty { color: var(--pencil); font-weight: 500; }
+.tally__note { color: var(--pencil); font-size: .82em; }
+
+@media (prefers-reduced-motion: reduce) {
+  .star--fresh { animation: none; }
+}

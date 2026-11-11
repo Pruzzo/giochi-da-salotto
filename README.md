@@ -25,8 +25,10 @@ Si può usare in **due modi**: con l'**app Android** oppure con un **server su P
 - **Codice segreto**: lo schermo nasconde 4 pastelli e ognuno prova a indovinarli dal telefono, aiutato dai pallini.
 - **L'impiccato**: tutti indovinano la stessa parola, ognuno sul suo telefono; la TV mostra l'omino di ciascuno.
 - **Anagrammi**: 8 lettere estratte, più parole possibile; quella trovata solo da te vale doppio.
+- **Labirinto al buio** (a squadre di due): uno muove l'omino al buio guardando la TV, l'altro ha la mappa, che ogni tanto si gira.
+- **Disinnesca la bomba** (a squadre di due): uno ha la bomba sul telefono, l'altro il manuale per smontarla.
 
-Fino a 12 giocatori. Regole complete in [Come si gioca](docs/Come-si-gioca.md).
+Fino a 12 giocatori; i giochi a squadre vogliono un numero pari. Regole complete in [Come si gioca](docs/Come-si-gioca.md) e [Giochi a squadre](docs/Giochi-a-squadre.md).
 
 ## Come funziona
 
@@ -74,8 +76,9 @@ Tutta la guida, con gli screenshot, è nel [wiki](https://github.com/Pruzzo/gioc
 2. [App Android](docs/App-Android.md)
 3. [Installazione sul PC](docs/Installazione-sul-PC.md)
 4. [Come si gioca](docs/Come-si-gioca.md)
-5. [Risoluzione dei problemi](docs/Risoluzione-dei-problemi.md)
-6. [Sviluppo](docs/Sviluppo.md)
+5. [Giochi a squadre](docs/Giochi-a-squadre.md)
+6. [Risoluzione dei problemi](docs/Risoluzione-dei-problemi.md)
+7. [Sviluppo](docs/Sviluppo.md)
 
 ## Sviluppo
 

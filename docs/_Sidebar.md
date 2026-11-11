@@ -8,5 +8,8 @@
   - [Codice segreto](Come-si-gioca.md#codice-segreto)
   - [L'impiccato](Come-si-gioca.md#limpiccato)
   - [Anagrammi](Come-si-gioca.md#anagrammi)
+- [Giochi a squadre](Giochi-a-squadre.md)
+  - [Labirinto al buio](Giochi-a-squadre.md#labirinto-al-buio)
+  - [Disinnesca la bomba](Giochi-a-squadre.md#disinnesca-la-bomba)
 - [Risoluzione dei problemi](Risoluzione-dei-problemi.md)
 - [Sviluppo](Sviluppo.md)

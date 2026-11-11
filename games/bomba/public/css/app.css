@@ -1,0 +1,346 @@
+/* Solo "Disinnesca la bomba": la bomba dell'artificiere, il manuale dell'esperto, le zone della TV.
+   Carta, bottoni e pagine comuni dei giochi a squadre sono in /css/kit.css e /css/teams.css. */
+:root {
+  --metal: #e2e7ed;
+  --steel: #b9c1ca;
+  --steel-deep: #8a9099;
+  --c-red: #d7263d;
+  --c-green: #2e9e4f;
+  --c-yellow: #f6cd1a;
+  --c-black: #2b2d33;
+}
+
+/* ---------- Segni comuni: crocette e lucine ---------- */
+.crosses, .lamps { display: inline-flex; align-items: center; gap: 5px; vertical-align: middle; }
+.cross {
+  display: inline-block; width: 22px; height: 22px; border: 2px solid var(--ink); border-radius: 3px; background: var(--paper);
+}
+.cross.is-on {
+  border-color: var(--red);
+  background:
+    linear-gradient(45deg, transparent 42%, var(--red) 42% 58%, transparent 58%),
+    linear-gradient(-45deg, transparent 42%, var(--red) 42% 58%, transparent 58%), var(--paper);
+}
+.lamp {
+  display: inline-block; flex: none; width: 18px; height: 18px; border-radius: 50%;
+  background: #c9ced6; border: 2px solid var(--ink); box-shadow: inset 0 -3px 0 rgb(0 0 0 / .15);
+}
+.lamp.is-on { background: #4cd36d; border-color: #1d6e34; box-shadow: 0 0 0 3px rgb(46 158 79 / .25), 0 0 12px #4cd36d; }
+
+.stamp { display: inline-block; align-self: center; font-family: var(--school); font-size: 2.3rem; line-height: 1.5; padding: 0 .4em; border: 4px solid currentColor; border-radius: 10px; transform: rotate(-5deg); }
+.stamp--ok { color: var(--c-green); }
+.stamp--boom { color: var(--red); }
+.bomb-done { display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center; padding-block: 20px; }
+
+/* Lo zero col trattino: nel numero di serie non c'è mai la O, ma chi lo legge non lo sa. */
+.zero { position: relative; display: inline-block; }
+.zero::after { content: ""; position: absolute; left: calc(50% - 1.5px); top: 22%; bottom: 22%; width: 3px; border-radius: 2px; background: currentColor; transform: rotate(32deg); }
+
+/* ---------- Telefono dell'artificiere ---------- */
+.bomb { gap: 14px; padding-bottom: 16px; }
+
+.squares { display: flex; gap: 6px; }
+.square {
+  position: relative; flex: 1; min-width: 0; height: 64px; padding: 4px; display: grid; place-items: center;
+  border: 2px solid var(--ink); border-radius: 10px; background: var(--metal);
+}
+.square.is-open { border: 3px solid var(--red); background: #fff; box-shadow: 0 3px 0 var(--red); }
+.square__thumb { width: 40px; height: 40px; }
+.square__n { position: absolute; left: 5px; top: 1px; font-weight: 800; font-size: .85rem; color: var(--ink-deep); }
+.square__lamp { position: absolute; right: 4px; top: 4px; width: 12px; height: 12px; border-radius: 50%; background: #c9ced6; border: 1.5px solid var(--ink); }
+.square__lamp.is-on { background: #4cd36d; border-color: #1d6e34; box-shadow: 0 0 6px #4cd36d; }
+
+/* L'etichetta incollata sulla bomba */
+.label {
+  display: grid; grid-template-columns: auto 1fr; grid-template-rows: auto auto; align-items: center; column-gap: 12px;
+  padding: 6px 14px 8px; background: #fff; border: 2.5px solid var(--ink); border-radius: 6px;
+  box-shadow: 3px 3px 0 rgb(27 58 168 / .25); transform: rotate(-.6deg);
+}
+.label__what { grid-column: 1; font-size: .78rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--pencil); }
+.label__serial { grid-column: 1; grid-row: 2; font-size: 2rem; font-weight: 800; letter-spacing: .12em; line-height: 1.1; color: var(--ink-deep); font-variant-numeric: tabular-nums slashed-zero; }
+.label__errors { grid-column: 2; grid-row: 1 / span 2; justify-self: end; }
+
+.module { display: flex; flex-direction: column; gap: 10px; }
+.module__head { display: flex; align-items: center; gap: 12px; }
+.module__n { font-family: var(--school); font-size: 1.15rem; color: var(--ink-deep); }
+.module__head .lamp { margin-left: auto; width: 26px; height: 26px; }
+.module__body, .module__solved {
+  position: relative; padding: 18px 16px; border: 3px solid var(--ink); border-radius: 14px; background-color: var(--metal);
+  /* quattro viti negli angoli */
+  background-image:
+    radial-gradient(circle at 12px 12px, var(--steel-deep) 0 4px, transparent 5px),
+    radial-gradient(circle at calc(100% - 12px) 12px, var(--steel-deep) 0 4px, transparent 5px),
+    radial-gradient(circle at 12px calc(100% - 12px), var(--steel-deep) 0 4px, transparent 5px),
+    radial-gradient(circle at calc(100% - 12px) calc(100% - 12px), var(--steel-deep) 0 4px, transparent 5px);
+}
+.module__solved { display: flex; flex-direction: column; align-items: center; gap: 14px; padding-block: 40px; }
+.panel__stack { display: flex; flex-direction: column; gap: 16px; align-items: stretch; }
+.panel__hint { text-align: center; color: var(--pencil); font-size: .95rem; }
+
+.steps { display: inline-flex; gap: 6px; }
+.steps__dot { width: 14px; height: 14px; border-radius: 50%; border: 2px solid var(--ink); background: var(--paper); }
+.steps__dot.is-done { background: var(--ink); }
+
+.flash { position: fixed; inset: 0; z-index: 10; background: var(--c-red); opacity: 0; pointer-events: none; }
+.flash.is-on { animation: flash .8s ease-out; }
+@keyframes flash { 0% { opacity: .7; } 25% { opacity: .1; } 45% { opacity: .55; } 100% { opacity: 0; } }
+
+/* Tasti */
+.keys { display: grid; gap: 8px; }
+.keys--1 { grid-template-columns: 1fr; }
+.keys--2 { grid-template-columns: 1fr 1fr; }
+.keys--3 { grid-template-columns: repeat(3, 1fr); }
+.keys--4 { grid-template-columns: repeat(4, 1fr); }
+.word-key, .pad-key {
+  min-height: 60px; padding: 6px; border: 3px solid var(--ink); border-radius: 12px; background: #fff;
+  font-weight: 800; color: var(--ink-deep); box-shadow: 0 4px 0 var(--ink); transition: transform .08s, box-shadow .08s;
+}
+.word-key:active, .pad-key:active, .round-key:active { transform: translateY(3px); box-shadow: 0 1px 0 var(--ink); }
+.word-key { font-size: 1.3rem; letter-spacing: .08em; }
+.pad-key { font-size: 1.6rem; }
+.pad-key--small { font-size: 1rem; }
+.pad-key--go { background: var(--ink); color: var(--paper); }
+.pad-key--num { font-size: 1.8rem; min-height: 70px; }
+
+/* Fili */
+.wires { display: flex; flex-direction: column; gap: 2px; }
+.wires__wire { height: 50px; padding: 0; border: 0; background: none; border-radius: 8px; }
+.wires__wire svg { display: block; width: 100%; height: 100%; }
+.wires__wire:disabled { opacity: 1; cursor: default; }
+.wires__wire:not(:disabled):active { background: rgb(27 58 168 / .08); }
+.wire__edge { fill: none; stroke: var(--ink); stroke-width: 13; stroke-linecap: round; }
+.wire__core { fill: none; stroke-width: 8; stroke-linecap: round; }
+.wire__fray { fill: none; stroke: var(--ink); stroke-width: 2.5; stroke-linecap: round; }
+.wire__clamp { fill: var(--steel); stroke: var(--ink); stroke-width: 2.5; }
+
+/* Leve */
+.levers { display: grid; grid-template-columns: repeat(5, 1fr); gap: 4px; }
+.levers__lever { display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 4px 0; border: 0; background: none; border-radius: 10px; }
+.levers__lever svg { width: 100%; height: 132px; }
+.levers__pos { font-weight: 800; font-size: 1.05rem; }
+.lever__slot { fill: var(--c-black); stroke: var(--ink); stroke-width: 2; }
+.lever__arm { stroke: var(--steel-deep); stroke-width: 7; stroke-linecap: round; }
+.lever__pin { fill: var(--ink); }
+.lever__knob { fill: var(--c-red); stroke: var(--ink); stroke-width: 3; }
+
+/* Semaforo */
+.semaforo { display: grid; grid-template-columns: 110px 1fr; align-items: center; gap: 18px; }
+.light { width: 110px; height: 280px; }
+.light__box { fill: var(--c-black); stroke: var(--ink); stroke-width: 3; }
+.light__pole { fill: var(--steel-deep); stroke: var(--ink); stroke-width: 2; }
+.light__lamp { stroke: var(--ink); stroke-width: 3; opacity: .18; }
+.light__lamp.is-on { opacity: 1; }
+.light__glow { opacity: .35; }
+.semaforo__keys { display: flex; flex-direction: column; gap: 14px; align-items: center; }
+.round-key {
+  width: 112px; min-height: 74px; display: flex; align-items: center; justify-content: center; padding: 8px;
+  border: 3px solid var(--ink); border-radius: 40px; background: var(--c); box-shadow: 0 4px 0 var(--ink);
+  transition: transform .08s, box-shadow .08s;
+}
+.round-key__label { font-weight: 800; font-size: 1.1rem; color: #fff; text-shadow: 0 1px 2px rgb(0 0 0 / .45); }
+.round-key[aria-label="Giallo"] .round-key__label { color: var(--c-black); text-shadow: none; }
+
+/* Schermini */
+.lcd {
+  display: flex; justify-content: center; gap: .35em; padding: 14px 10px; border: 3px solid var(--ink); border-radius: 10px;
+  background: #1f2d24; color: #b8f27a; font-size: 2.3rem; font-weight: 800; letter-spacing: .22em; line-height: 1.1;
+  box-shadow: inset 0 0 0 4px #33463a, inset 0 6px 14px rgb(0 0 0 / .45); text-shadow: 0 0 10px rgb(184 242 122 / .5);
+}
+.lcd--code { letter-spacing: 0; gap: 0; }
+.lcd__digit { width: 1.2em; text-align: center; font-variant-numeric: tabular-nums slashed-zero; }
+.safe { display: flex; flex-direction: column; gap: 14px; }
+
+/* Lucchetto */
+.lock { width: min(100%, 290px); margin: 0 auto; }
+.padlock { display: block; width: 100%; height: auto; margin-bottom: -6px; }
+.padlock__shackle { fill: none; stroke: var(--ink); stroke-width: 22; }
+.padlock__shine { fill: none; stroke: var(--steel); stroke-width: 14; }
+.lock__body {
+  width: 80%; margin: 0 auto; padding: 12px 10px; border: 3px solid var(--ink); border-radius: 12px 12px 22px 22px; background: var(--c);
+  background-image: repeating-linear-gradient(-40deg, rgb(255 255 255 / .18) 0 3px, transparent 3px 9px);
+}
+.lock__wheels { display: flex; justify-content: center; gap: 8px; }
+.wheel { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.wheel__btn { width: 58px; height: 42px; padding: 0; border: 2.5px solid var(--ink); border-radius: 10px; background: #fff; font-size: 1.1rem; color: var(--ink-deep); }
+.wheel__btn:active { background: var(--marker); }
+.wheel__window { display: flex; flex-direction: column; align-items: center; width: 58px; padding: 2px 0; background: #fff; border: 2.5px solid var(--ink); border-radius: 6px; line-height: 1.05; box-shadow: inset 0 8px 8px -6px rgb(0 0 0 / .35), inset 0 -8px 8px -6px rgb(0 0 0 / .35); }
+.wheel__letter { font-size: 2rem; font-weight: 800; color: var(--ink-deep); }
+.wheel__ghost { font-size: .95rem; font-weight: 700; color: #a3a9b1; }
+
+/* Bandiera */
+.flag { display: flex; align-items: flex-start; justify-content: center; padding-block: 6px; }
+.flag__pole { flex: none; width: 12px; height: 270px; margin-right: -2px; background: linear-gradient(90deg, #a57a4c, #8a5a2b); border: 2.5px solid var(--ink); border-radius: 6px 6px 3px 3px; }
+.flag__cloth { display: flex; flex: 1; max-width: 290px; margin-top: 10px; border: 3px solid var(--ink); }
+.flag__stripe { flex: 1; height: 190px; padding: 0; border: 0; background: var(--c); }
+.flag__stripe + .flag__stripe { border-left: 2px solid rgb(27 58 168 / .35); }
+.flag__stripe:active { filter: brightness(.9); }
+
+/* Dado */
+.dice-tray { display: grid; place-items: center; padding: 6px; }
+.die { width: 150px; height: 150px; }
+.die__body { stroke: var(--ink); stroke-width: 4; }
+.die--bianco .die__body { fill: #fff; }
+.die--bianco .die__pip { fill: var(--c-black); }
+.die--rosso .die__body { fill: var(--c-red); }
+.die--rosso .die__pip { fill: #fff; }
+
+/* Lampadine */
+.bulbs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; }
+.bulbs__bulb { padding: 4px 0; border: 0; background: none; border-radius: 12px; }
+.bulbs__bulb svg { width: 100%; height: 130px; }
+.bulb__glass { fill: #e9edf2; stroke: var(--ink); stroke-width: 3; }
+.bulb.is-on .bulb__glass { fill: var(--marker); }
+.bulb__rays { stroke: #f0a800; stroke-width: 4; stroke-linecap: round; }
+.bulb__wire { fill: none; stroke: var(--steel-deep); stroke-width: 2.5; }
+.bulb.is-on .bulb__wire { stroke: #f08a24; }
+.bulb__base { fill: var(--steel); stroke: var(--ink); stroke-width: 2.5; }
+.bulb__screw { stroke: var(--ink); stroke-width: 2; }
+.bulb__n { font: 800 16px var(--hand); fill: var(--ink-deep); text-anchor: middle; }
+
+/* Tombola */
+.board-screen { display: grid; place-items: center; padding: 12px; background: #fff; border: 3px solid var(--ink); border-radius: 12px; box-shadow: inset 0 0 0 6px #f3e3c3; }
+.art--big { width: 190px; height: 190px; }
+
+/* Moka */
+.moka { width: 100%; height: auto; }
+.moka__stove { stroke: var(--c-black); stroke-width: 7; stroke-linecap: round; }
+.moka__flame { fill: var(--c-yellow); stroke: #f08a24; stroke-width: 3; stroke-linejoin: round; }
+.moka__pot { fill: var(--steel); stroke: var(--ink); stroke-width: 3; stroke-linejoin: round; }
+.moka__waist { fill: var(--steel-deep); stroke: var(--ink); stroke-width: 3; }
+.moka__lid { fill: var(--steel); stroke: var(--ink); stroke-width: 3; }
+.moka__knob { fill: var(--c-black); }
+.moka__handle { fill: none; stroke: var(--c-black); stroke-width: 7; stroke-linejoin: round; stroke-linecap: round; }
+.moka__spout { stroke: var(--ink); stroke-width: 3; }
+.moka__line { stroke: var(--steel-deep); stroke-width: 3; stroke-linecap: round; }
+.moka__pipe { fill: none; stroke: var(--steel-deep); stroke-width: 7; }
+.moka__gaugebox { fill: #fff; stroke: var(--ink); stroke-width: 3; }
+.gauge__face { fill: #fff; stroke: var(--ink); stroke-width: 3; }
+.gauge__zone { fill: none; stroke-width: 13; }
+.gauge__needle { stroke: var(--c-black); stroke-width: 4; stroke-linecap: round; }
+.gauge__pin { fill: var(--c-black); }
+
+/* Bussola */
+.compass { width: 220px; height: 220px; margin: 0 auto; display: block; }
+.compass__rim { fill: var(--steel); stroke: var(--ink); stroke-width: 4; }
+.compass__face { fill: #fff; stroke: var(--ink); stroke-width: 2; }
+.compass__tick { stroke: var(--ink); stroke-width: 2.5; }
+.compass__arrow { fill: var(--c-red); stroke: var(--ink); stroke-width: 3; stroke-linejoin: round; }
+.compass__pin { fill: var(--ink); }
+
+/* ---------- Disegni della smorfia ---------- */
+.art path, .art circle, .art ellipse, .art rect { fill: none; stroke: var(--ink); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+.art .art-green { fill: #7cc68f; }
+.art .art-skin { fill: #f6d2b0; }
+.art .art-brown { fill: #8a5a2b; }
+.art .art-pink { fill: #f6b3c4; }
+.art .art-pinkdeep { fill: #ec6fb0; }
+.art .art-orange { fill: #f0a24a; }
+.art .art-grey { fill: #a9b0b9; }
+.art .art-black { fill: var(--c-black); }
+.art .art-red { fill: var(--c-red); }
+.art .art-yellow { fill: var(--c-yellow); }
+.art .art-blue { fill: #7db3ec; }
+.art .art-mouth { fill: #8e1c2b; }
+.art .art-white { fill: #fff; }
+.art .art-pale { fill: #d6e6f5; }
+.art .art-dot { fill: var(--ink); stroke: none; }
+.art .art-gun { stroke: #5a3a1a; stroke-width: 4; }
+.art .art-tear { stroke: #2aa7e0; stroke-width: 3; }
+.art .art-hair { stroke-width: 3; }
+.art .art-tail { stroke-width: 2; }
+.art .art-confetti { stroke: var(--c-red); stroke-width: 3; }
+
+/* ---------- Miniature ---------- */
+.thumb path, .thumb rect, .thumb circle, .square__thumb path, .square__thumb rect, .square__thumb circle,
+.man-card__thumb path, .man-card__thumb rect, .man-card__thumb circle, .man-page__thumb path, .man-page__thumb rect, .man-page__thumb circle { stroke-linecap: round; stroke-linejoin: round; }
+.th-edge { fill: none; stroke: var(--ink); stroke-width: 10; }
+.th-wire { fill: none; stroke-width: 6; }
+.th-slot { fill: var(--c-black); }
+.th-knob { fill: var(--c-red); stroke: var(--ink); stroke-width: 2.5; }
+.th-box { fill: var(--c-black); stroke: var(--ink); stroke-width: 2; }
+[class*="thumb"] circle[fill] { stroke: var(--ink); stroke-width: 2; }
+.th-screen { fill: #1f2d24; stroke: var(--ink); stroke-width: 2.5; }
+.th-screen--light { fill: #fff; }
+.th-word { font: 800 17px var(--hand); fill: #b8f27a; text-anchor: middle; letter-spacing: 1px; }
+.th-key { fill: #fff; stroke: var(--ink); stroke-width: 2.5; }
+.th-shackle { fill: none; stroke: var(--ink); stroke-width: 9; }
+.th-body { stroke: var(--ink); stroke-width: 3; }
+.th-wheel { fill: #fff; stroke: var(--ink); stroke-width: 2; }
+.th-pole { stroke: #8a5a2b; stroke-width: 5; }
+.th-stripe { stroke: var(--ink); stroke-width: 2; }
+.th-die { fill: #fff; stroke: var(--ink); stroke-width: 4; }
+.th-pip { fill: var(--c-black); }
+.th-bulb { fill: #e9edf2; stroke: var(--ink); stroke-width: 3; }
+.th-bulb.is-on { fill: var(--marker); }
+.th-base { fill: var(--steel); stroke: var(--ink); stroke-width: 2; }
+.th-n { font: 800 16px var(--hand); fill: var(--ink-deep); text-anchor: middle; }
+.th-pot { fill: var(--steel); stroke: var(--ink); stroke-width: 3; }
+.th-gaugeface { fill: #fff; stroke: var(--ink); stroke-width: 3; }
+.th-needle { stroke: var(--c-red); stroke-width: 4; }
+.th-rim { fill: #fff; stroke: var(--ink); stroke-width: 5; }
+.th-arrow { fill: var(--c-red); stroke: var(--ink); stroke-width: 3; }
+
+/* ---------- Telefono dell'esperto: il manuale ---------- */
+.manual { gap: 14px; padding-bottom: 24px; }
+.man-head {
+  position: sticky; top: calc(var(--q) * -.5); z-index: 3; display: flex; align-items: center; gap: 10px;
+  min-height: 56px; margin: 0 calc(var(--q) * -1) 0 calc(var(--q) * -.5); padding: 6px var(--q) 6px calc(var(--q) * .5);
+  background: var(--paper); border-bottom: 2px solid var(--ink);
+}
+.man-status { display: flex; align-items: center; gap: 12px; margin-left: auto; }
+.man-status .cross { width: 18px; height: 18px; }
+.man-status .lamp { width: 15px; height: 15px; }
+.man-back { min-height: 44px; padding: 6px 14px; border: 2.5px solid var(--ink); border-radius: 60px 10px 50px 10px / 10px 50px 10px 60px; background: #fff; font-weight: 800; color: var(--ink-deep); }
+.man-title { font-family: var(--school); font-weight: 400; font-size: 1.6rem; line-height: 1.5; color: var(--ink-deep); }
+.man-intro { display: flex; flex-direction: column; gap: 8px; }
+.man-index { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.man-card {
+  display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 8px 4px 6px;
+  border: 2.5px solid var(--ink); border-radius: 12px; background: #fff; box-shadow: 0 3px 0 var(--ink);
+}
+.man-card:active { transform: translateY(2px); box-shadow: 0 1px 0 var(--ink); }
+.man-card__thumb { width: 64px; height: 64px; }
+.man-card__name { font-weight: 800; font-size: 1rem; color: var(--ink-deep); }
+.man-page { display: flex; flex-direction: column; gap: 12px; font-size: 1.08rem; }
+.man-page__head { display: flex; align-items: center; gap: 12px; }
+.man-page__thumb { width: 56px; height: 56px; flex: none; }
+.man-desc { font-style: italic; color: var(--pencil); padding-left: 10px; border-left: 3px solid var(--grid); }
+.man-page b, .man-intro b { color: var(--red-deep); }
+.man-ol { list-style: decimal; padding-left: 26px; display: flex; flex-direction: column; gap: 8px; }
+.man-ol li::marker { font-weight: 800; color: var(--ink-deep); }
+.man-table { width: 100%; border-collapse: collapse; background: #fff; border: 2.5px solid var(--ink); }
+.man-table th { background: var(--ink); color: var(--paper); text-align: left; padding: 6px 8px; font-size: .95rem; }
+.man-table td { padding: 8px; border-top: 2px solid var(--grid); vertical-align: middle; }
+.man-table td:first-child { font-weight: 800; }
+.man-table--levers td:last-child { white-space: nowrap; font-weight: 700; }
+.man-table--words td { font-weight: 800; letter-spacing: .08em; font-size: 1.15rem; }
+.man-table--tombola td { padding-block: 2px; }
+.man-table--tombola td:last-child { font-size: 1.4rem; text-align: center; }
+.art--tiny { width: 58px; height: 58px; display: block; }
+
+/* ---------- TV ---------- */
+/* La zona di una squadra si misura da sola: con due squadre i segni sono grandi, con sei più piccoli. */
+.tvz { position: relative; align-self: stretch; flex: 1; min-height: 0; container-type: size; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5cqmin; }
+.tvz__row { display: flex; align-items: center; justify-content: center; gap: 6cqmin; flex-wrap: wrap; }
+.crosses--tv { gap: 2.5cqmin; }
+.crosses--tv .cross { width: min(15cqmin, 12cqw); height: min(15cqmin, 12cqw); border-width: 3px; }
+.lamps--tv { gap: 2.5cqmin; }
+.lamps--tv .lamp { width: min(11cqmin, 9cqw); height: min(11cqmin, 9cqw); border-width: 3px; }
+.tvz__count { font-size: max(14px, 6cqmin); }
+/* Il timbro di fine va sopra la zona, di sbieco, come un timbro vero. */
+.tvz__stamp {
+  position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%) rotate(-8deg); white-space: nowrap;
+  font-family: var(--school); font-size: max(18px, 12cqmin); line-height: 1.5; padding: 0 .4em;
+  border: 4px solid currentColor; border-radius: 10px; background: color-mix(in srgb, var(--paper) 88%, transparent);
+}
+.tvz.is-boom .crosses--tv .cross.is-on { animation: shake .5s; }
+.zone.is-done:has(.is-boom) { background: color-mix(in srgb, var(--red) 10%, var(--paper)); }
+@keyframes shake { 25% { transform: translateX(-4px) rotate(-6deg); } 75% { transform: translateX(4px) rotate(6deg); } }
+.tv-legend { display: flex; align-items: center; justify-content: center; gap: 8px; font-size: calc(var(--q) * .75); }
+.tv-legend .cross, .tv-legend .lamp { width: calc(var(--q) * .8); height: calc(var(--q) * .8); }
+/* A fine turno la zona ha sotto anche il risultato e i punti: niente misure dal contenitore. */
+.tvz--result { flex: none; align-self: center; container-type: normal; gap: calc(var(--q) * .4); }
+.tvz--result .tvz__row { gap: calc(var(--q) * .8); }
+.tvz--result .crosses--tv .cross { width: calc(var(--q) * 1.6); height: calc(var(--q) * 1.6); }
+.tvz--result .lamps--tv .lamp { width: calc(var(--q) * 1.3); height: calc(var(--q) * 1.3); }
+.tvz--result .tvz__stamp { position: static; transform: rotate(-5deg); font-size: calc(var(--q) * 1.1); }

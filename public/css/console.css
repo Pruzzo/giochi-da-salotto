@@ -96,3 +96,11 @@ button { font: inherit; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition-duration: .01ms !important; }
 }
+
+/* ---------- Vittorie della serata ---------- */
+.console__tally { max-width: 520px; font-size: 1.15rem; }
+.standby__tally { font-size: 1.1rem; }
+.standby-body--tv .standby__tally { font-size: calc(var(--q) * 1); max-height: calc(var(--q) * 13); overflow: hidden; }
+/* Sulla TV, con le vittorie in vista, il titolo si stringe e l'avviso lascia il posto */
+.standby-body--tv .standby__label:has(.standby__tally:not([hidden])) .standby__say { display: none; }
+.standby-body--tv .standby__label:has(.standby__tally:not([hidden])) .standby__title { font-size: calc(var(--q) * 1.8); }

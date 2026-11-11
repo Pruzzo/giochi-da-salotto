@@ -8,6 +8,7 @@ import { Server } from 'socket.io';
 import games from '../games/index.js';
 import { announce, LOCAL_NAME } from './mdns.js';
 import { Platform, PlatformError } from './platform.js';
+import { Session } from './session.js';
 
 const PORT = Number(process.env.PORT) || 3000;
 const root = join(dirname(fileURLToPath(import.meta.url)), '..', 'public');
@@ -45,12 +46,21 @@ const app = express();
 const server = createServer(app);
 const io = new Server(server);
 
-const broadcast = () => io.of('/').emit('platform', { ...platform.view(), joinUrl });
+const platformView = () => ({ ...platform.view(), joinUrl, session: session.view() });
+const broadcast = () => io.of('/').emit('platform', platformView());
 
+// Le vittorie della serata restano finché il server è acceso, anche cambiando gioco.
+const session = new Session({ onChange: broadcast });
 const platform = new Platform(games, {
   onChange: broadcast,
-  launch: (game) => game.start(io.of(`/${game.id}`), { joinUrl, onStatus: broadcast }),
+  launch: (game) => game.start(io.of(`/${game.id}`), { joinUrl, onStatus: broadcast, session, platform: shelf }),
 });
+
+// Cosa vede un gioco della console: l'elenco dei giochi e il modo di passare a un altro.
+const shelf = {
+  list: () => games.map(({ id, title }) => ({ id, title })),
+  switchTo: (id) => platform.switchTo(id),
+};
 
 // Un gioco spento non accetta connessioni.
 for (const game of games) {
@@ -72,7 +82,7 @@ app.get('/qr.svg', (_req, res) => res.type('image/svg+xml').send(qrSvg));
 app.use(express.static(root, { index: false }));
 
 io.on('connection', (socket) => {
-  socket.emit('platform', { ...platform.view(), joinUrl });
+  socket.emit('platform', platformView());
 
   const handle = (fn) => (id, ack) => {
     try {

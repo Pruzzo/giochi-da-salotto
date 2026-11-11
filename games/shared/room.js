@@ -7,10 +7,28 @@ import { GameError } from './table.js';
  * @param game      istanza di una sottoclasse di Table
  * @param actions   { nome: (player, msg) => void } azioni dei giocatori
  * @param status    () => string  stato breve mostrato in console
+ * @param session   le vittorie della serata (server/session.js), facoltativo
+ * @param platform  { list(), switchTo(id) } la console, per cambiare gioco dalla sala d'attesa; facoltativo
  */
-export function openRoom(nsp, { game, actions, status, joinUrl, onStatus }) {
+export function openRoom(nsp, { game, actions, status, joinUrl, onStatus, session = null, platform = null }) {
+  const gameId = nsp.name?.slice(1);
   let pending = false;
   let lastStatus = status();
+  let lastPhase = game.phase;
+  let awarded = new Set(); // chi ha appena vinto una stellina, finché resta la schermata finale
+
+  /** Ogni partita che arriva alla fine assegna le vittorie della serata, una volta sola. */
+  function trackFinal() {
+    if (!session || game.phase === lastPhase) return;
+    lastPhase = game.phase;
+    if (game.phase !== 'final') {
+      awarded = new Set();
+      return;
+    }
+    const totals = game.totals();
+    const standings = [...game.players.values()].map((p) => ({ id: p.id, name: p.name, total: totals.get(p.id) ?? 0 }));
+    awarded = new Set(session.record(standings).map((w) => w.id));
+  }
 
   // Gli aggiornamenti dello stesso giro di eventi partono una volta sola.
   game.onChange = () => {
@@ -18,6 +36,7 @@ export function openRoom(nsp, { game, actions, status, joinUrl, onStatus }) {
     pending = true;
     setImmediate(() => {
       pending = false;
+      trackFinal();
       for (const socket of nsp.sockets.values()) sendState(socket);
       const next = status();
       if (next !== lastStatus) {
@@ -29,7 +48,20 @@ export function openRoom(nsp, { game, actions, status, joinUrl, onStatus }) {
 
   function sendState(socket) {
     const { role, player } = socket.data;
-    if (role) socket.emit('state', { ...game.view({ role, player }), joinUrl });
+    if (role) socket.emit('state', withSession(game.view({ role, player })));
+  }
+
+  /** Accanto a ogni nome le sue vittorie della serata; a fine partita, chi ne ha appena presa una. */
+  function withSession(state) {
+    const games = platform ? platform.list().filter((g) => g.id !== gameId) : [];
+    if (!session) return { ...state, joinUrl, games };
+    return {
+      ...state,
+      joinUrl,
+      games,
+      players: state.players.map((p) => ({ ...p, wins: session.winsOf(p.name), wonNow: awarded.has(p.id) })),
+      session: session.view(),
+    };
   }
 
   function reply(ack, fn) {
@@ -44,6 +76,14 @@ export function openRoom(nsp, { game, actions, status, joinUrl, onStatus }) {
   const ACTIONS = {
     ...actions,
     claimAdmin: (p) => { game.claimAdmin(p); game.changed(); },
+    // L'amministratore passa a un altro gioco: in sala d'attesa o a partita finita, mai a metà turno.
+    switchGame: (p, a) => {
+      game.requireAdmin(p);
+      game.requirePhase('lobby', 'final');
+      if (!platform?.list().some((g) => g.id === a.gameId && g.id !== gameId)) throw new GameError('Questo gioco non c\'è.');
+      // Dopo la risposta: il cambio chiude questa stanza e tutte le sue connessioni.
+      setImmediate(() => platform.switchTo(a.gameId));
+    },
     removePlayer: (p, a) => {
       const removed = game.removePlayer(p, a.playerId);
       if (removed) for (const s of nsp.sockets.values()) {

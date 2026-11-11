@@ -8,11 +8,13 @@
 <link rel="icon" href="/icon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="/css/tokens.css">
 <link rel="stylesheet" href="/css/console.css">
+<link rel="stylesheet" href="/css/tally.css">
 </head>
 <body class="console-body">
 <main class="console">
   <h1 class="console__title">Console</h1>
   <p class="console__say" id="say"></p>
+  <div class="console__tally" id="tally"></div>
   <ul class="shelf" id="shelf"></ul>
   <section class="where" id="where" hidden>
     <h2>Dove si gioca</h2>
@@ -22,6 +24,6 @@
   <p class="console__error" id="error" role="alert" hidden></p>
 </main>
 <script src="/socket.io/socket.io.js"></script>
-<script src="/js/console.js"></script>
+<script type="module" src="/js/console.js"></script>
 </body>
 </html>

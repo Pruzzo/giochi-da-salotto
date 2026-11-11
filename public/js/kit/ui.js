@@ -1,6 +1,7 @@
 // Le pagine che ogni gioco della console ha uguali: ingresso, copertina TV, elenco della classe, fine partita.
 import { h, fill, icon } from './dom.js';
 import { isMuted, toggleMute, unlockAudio } from './audio.js';
+import { stars, starsWidth, tally } from './stars.js';
 
 export const rankOf = (players, id) => {
   const me = players.find((p) => p.id === id);
@@ -93,6 +94,7 @@ export function rosterItems(s, act) {
   const me = s.you.isAdmin;
   return s.players.map((p) => h('li', { class: `roster__item${p.online ? '' : ' is-away'}` },
     h('span', { class: 'written' }, p.name),
+    stars(p.wins),
     p.isAdmin && h('span', { class: 'tag' }, 'amministratore'),
     !p.online && h('span', { class: 'tag' }, 'non connesso'),
     me && p.id !== s.you.id && h('button', { class: 'link', onClick: () => act('removePlayer', { playerId: p.id }), 'aria-label': `Togli ${p.name}` }, 'Togli')));
@@ -130,10 +132,10 @@ export function coverTv({ title, subject, cta }) {
     update(s) {
       fill(about, subject.text(s));
       url.textContent = s.joinUrl.replace(/^https?:\/\//, '');
-      const longest = Math.max(1, ...s.players.map((p) => p.name.length));
+      const longest = Math.max(1, ...s.players.map((p) => p.name.length + starsWidth(p.wins) * 0.7));
       names.style.setProperty('--sig', Math.min(s.players.length > 8 ? 1 : 1.4, 9 / (longest * 0.62)).toFixed(2));
       fill(names, s.players.length
-        ? s.players.map((p) => h('li', { class: `signature${p.online ? '' : ' is-away'}` }, p.name, p.isAdmin && h('span', { class: 'signature__badge' }, 'amministratore')))
+        ? s.players.map((p) => h('li', { class: `signature${p.online ? '' : ' is-away'}` }, p.name, stars(p.wins), p.isAdmin && h('span', { class: 'signature__badge' }, 'amministratore')))
         : h('li', { class: 'signature signature--empty' }, 'Nessuno in classe, per ora'));
       what.textContent = !s.players.length ? 'Inquadra il codice col telefono per entrare.'
         : !s.adminOnline ? 'Serve un amministratore: sceglilo al momento di entrare.'
@@ -142,14 +144,36 @@ export function coverTv({ title, subject, cta }) {
   };
 }
 
+// ---------- Cambia gioco ----------
+
+/** Solo per l'amministratore: passa a un altro gioco, e tutti ci rientrano da soli. */
+export function switchGame(state, act) {
+  if (!state.you?.isAdmin || !state.games?.length) return null;
+  const open = h('button', { class: 'btn btn--ghost btn--wide', onClick: () => show(true) }, 'Cambia gioco');
+  const picker = h('div', { class: 'switch__list', hidden: true },
+    h('p', { class: 'note' }, 'Tutti passano al nuovo gioco col loro nome. I punti di questa partita si perdono, le stelline restano.'),
+    state.games.map((g) => h('button', {
+      class: 'btn btn--ink btn--wide',
+      onClick: (e) => { e.currentTarget.disabled = true; act('switchGame', { gameId: g.id }, (res) => { if (!res?.ok) show(false); }); },
+    }, g.title)),
+    h('button', { class: 'link', onClick: () => show(false) }, 'Annulla'));
+  function show(on) {
+    open.hidden = on;
+    picker.hidden = !on;
+    for (const b of picker.querySelectorAll('button')) b.disabled = false;
+  }
+  return h('section', { class: 'switch' }, open, picker);
+}
+
 // ---------- Fine partita ----------
 
 export function finalPhone(state, { act, leave }) {
   const body = h('div');
+  let first = true; // la stellina nuova si attacca una volta sola, non a ogni aggiornamento
   const el = page('wait', body,
     h('div', { class: 'dock' },
       state.you.isAdmin
-        ? h('button', { class: 'btn btn--red btn--wide', onClick: () => act('newGame') }, 'Nuova partita')
+        ? [h('button', { class: 'btn btn--red btn--wide', onClick: () => act('newGame') }, 'Nuova partita'), switchGame(state, act)]
         : h('button', { class: 'btn btn--ghost btn--wide', onClick: leave }, 'Esci dalla partita')));
   return {
     el,
@@ -159,8 +183,11 @@ export function finalPhone(state, { act, leave }) {
       fill(body,
         h('h1', { class: 'shout' }, rank === 1 ? 'Hai vinto!' : `${rank}° posto`),
         h('p', { class: 'sum' }, `${me?.total ?? 0} punti`),
+        me?.wonNow && h('p', { class: 'prize' }, stars(1, { fresh: first }), 'Una vittoria in più stasera'),
         h('ol', { class: 'own' }, [...s.players].sort((a, b) => b.total - a.total).map((p) => h('li', { class: 'standing' },
-          h('span', { class: 'written' }, p.name), h('span', { class: 'red' }, String(p.total))))));
+          h('span', { class: 'written' }, p.name), h('span', { class: 'red' }, String(p.total))))),
+        s.session && h('div', { class: 'final-tally' }, tally(s.session, { fresh: first })));
+      first = false;
     },
   };
 }
@@ -168,10 +195,19 @@ export function finalPhone(state, { act, leave }) {
 export function finalTv() {
   const list = h('ol', { class: 'pagella' });
   const lead = h('h1', { class: 'winner' });
-  const el = tvPage('end', lead, list);
+  const prize = h('p', { class: 'end__prize' });
+  const side = h('aside', { class: 'end__tally' });
+  const el = tvPage('end', h('div', { class: 'end__main' }, lead, prize, list), side);
+  let first = true; // le stelline nuove si attaccano una volta sola, non a ogni aggiornamento
   return {
     el,
     update(s) {
+      const won = s.players.filter((p) => p.wonNow);
+      prize.hidden = !won.length;
+      fill(prize, stars(1), won.length > 1 ? 'Una stellina a testa nelle vittorie della serata' : 'Una stellina in più nelle vittorie della serata');
+      side.hidden = !s.session;
+      if (s.session) fill(side, tally(s.session, { fresh: first }));
+      first = false;
       const sorted = [...s.players].sort((a, b) => b.total - a.total);
       const top = sorted[0]?.total ?? 0;
       const winners = sorted.filter((p) => p.total === top).map((p) => p.name);

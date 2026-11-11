@@ -24,6 +24,14 @@ export class Platform {
     this.onChange();
   }
 
+  /** Dalla sala d'attesa: chiude il gioco acceso e accende l'altro in un colpo solo. */
+  switchTo(id) {
+    if (!this.games.has(id)) throw new PlatformError('Questo gioco non esiste.');
+    if (this.activeId === id) throw new PlatformError('Questo gioco è già acceso.');
+    this.close();
+    this.select(id);
+  }
+
   close() {
     if (!this.activeId) return;
     this.session.destroy();

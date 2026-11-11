@@ -17,6 +17,7 @@ server/
   index.js          HTTP, WebSocket, QR code, pagine della console
   mdns.js           annuncia il nome game.local nella rete
   platform.js       quale gioco è acceso (senza dipendenze di rete)
+  session.js        le vittorie della serata, che restano cambiando gioco
 public/             console, pagina d'attesa, font, colori e pezzi comuni del client
   js/kit/           ingresso, copertina TV, voltapagina, timer, suoni, fine partita
 games/
@@ -38,10 +39,17 @@ test/               test di regole e piattaforma
 ## Aggiungere un gioco
 
 1. Crea una cartella in `games/` che esporta `{ id, title, description, page, publicDir, start }` e aggiungila a `games/index.js`.
-2. `start(nsp, { joinUrl, onStatus })` riceve un namespace Socket.IO riservato e restituisce `{ status, destroy }`.
+2. `start(nsp, ctx)` riceve un namespace Socket.IO riservato e restituisce `{ status, destroy }`. Passa tutto `ctx` a `openRoom` (`{ joinUrl, onStatus, session, platform }`): con `session`, quando la fase diventa `'final'` chi ha più punti in `totals()` prende una vittoria della serata; con `platform`, l'amministratore può usare **Cambia gioco** (azione `switchGame`, in sala d'attesa e a fine partita). Nella sala d'attesa del telefono metti `switchGame(state, act)` di `/js/kit/ui.js`.
 3. La pagina del gioco deve avere `<meta name="platform-game" content="<id>">` e caricare `/js/platform.js`.
 
 La strada più corta è copiare `games/codice-segreto/`: le regole estendono `Table`, `start` chiama `openRoom` di `games/shared/room.js` con le azioni del gioco, e il client chiama `startClient` di `/js/kit/client.js` con le sue viste di telefono e TV.
+
+### Giochi a squadre
+
+Per un gioco a squadre da due c'è già tutta la parte comune: scelta del colore, nome della squadra, ruoli che si scambiano, impostazioni prima di ogni turno, pausa in due, chi arriva a metà che aspetta la fine del turno.
+
+- Server: le regole estendono `TeamTable` di `games/shared/teams.js` e definiscono `setupTeam`, `teamTimeout`, `teamPoints` e `teamView` (cosa vede ciascuno della squadra). Le azioni chiamano `playingTeam(actor)` e, a squadra finita, `finishTeam(team, outcome)`. `teamActions(game)` dà le azioni comuni da passare a `openRoom`.
+- Client: `teamViews(spec)` di `/js/kit/teams.js` dà le pagine di telefono e TV per tutte le fasi; il gioco passa le istruzioni, le impostazioni, il telefono durante il turno e la zona della TV di una squadra. Gli stili comuni sono in `/css/teams.css`.
 
 ## L'app Android
 

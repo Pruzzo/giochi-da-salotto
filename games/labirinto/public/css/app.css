@@ -1,0 +1,122 @@
+/* Solo "Labirinto al buio": il labirinto a biro, la torcia della TV, le frecce e la mappa che gira.
+   Carta, bottoni e pagine comuni dei giochi a squadre sono in /css/kit.css e /css/teams.css. */
+
+/* ---------- Il labirinto (mappa e torcia) ---------- */
+.maze, .torch { display: block; width: 100%; height: 100%; overflow: visible; }
+.maze__paper, .torch__floor { fill: var(--paper); }
+.maze__grid { fill: none; stroke: var(--grid); stroke-width: .018; }
+.maze .cell { stroke: none; }
+.cell--color { fill: none; stroke: rgb(255 255 255 / .38); stroke-width: .05; stroke-dasharray: .09 .07; }
+.wall { stroke: var(--ink-deep); stroke-width: .13; stroke-linecap: round; }
+.trail { fill: none; stroke: var(--red); stroke-width: .1; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: .18 .14; opacity: .85; }
+.start { fill: none; stroke: var(--red); stroke-width: .09; }
+
+/* ---------- Torcia sulla TV ---------- */
+.torch__dark { fill: #121a3a; }
+.torch .wall { stroke-width: .1; }
+.torch .walls--halo .wall, .torch .walls--halo .door > * { stroke: var(--paper); stroke-width: .15; stroke-linecap: round; }
+.torch .wall.is-hit { animation: hit .9s ease-out; }
+@keyframes hit { 0%, 45% { stroke: var(--red); stroke-width: .16; } }
+.torch .burst, .torch .omino__body { transform-box: fill-box; transform-origin: center; }
+.torch.is-step .world { animation: walk .3s var(--out); }
+@keyframes walk { from { transform: translate(calc(var(--dx) * .4px), calc(var(--dy) * .4px)); } }
+.torch.is-step .omino__body { animation: hop .3s ease-out; }
+@keyframes hop { 40% { transform: translateY(-.06px); } }
+.torch.is-wall .omino__body { animation: bump .45s ease-out; }
+@keyframes bump {
+  20% { transform: translate(calc(var(--dx) * .12px), calc(var(--dy) * .12px)); }
+  40% { transform: translate(calc(var(--dx) * -.04px), calc(var(--dy) * -.04px)) rotate(-8deg); }
+  60% { transform: translate(calc(var(--dx) * .05px), calc(var(--dy) * .05px)) rotate(6deg); }
+  80% { transform: rotate(-3deg); }
+}
+.torch .burst { opacity: 0; animation: boom 1.1s var(--out); }
+@keyframes boom { 0% { opacity: 1; transform: scale(.2); } 35% { opacity: 1; transform: scale(1.1); } 100% { opacity: 0; transform: scale(1.3); } }
+.torch.is-bomb .omino__body { animation: back .9s var(--out); }
+.torch.is-exit .omino__body { animation: leave .9s ease-in forwards; }
+@keyframes leave { to { transform: translate(calc(var(--dx) * .8px), calc(var(--dy) * .8px)); opacity: 0; } }
+@keyframes back { 0%, 45% { opacity: 0; transform: scale(.4); } }
+
+.lab-zone { position: relative; flex: 1; width: 100%; min-height: 0; display: grid; grid-template-rows: minmax(0, 1fr) auto; justify-items: center; }
+.torch-box { width: 100%; height: 100%; min-height: 0; }
+.torch-foot { font-size: calc(var(--q) * .8); font-weight: 700; color: var(--red); min-height: 1.2em; line-height: 1.2; }
+.torch-done {
+  position: absolute; left: 50%; top: 45%; transform: translate(-50%, -50%) rotate(-4deg);
+  padding: calc(var(--q) * .2) calc(var(--q) * .8); white-space: nowrap;
+  font-family: var(--school); font-size: calc(var(--q) * 1.5); line-height: 1.5; color: var(--ink-deep);
+  background: var(--marker); border: 3px solid var(--ink); border-radius: 60px 10px 50px 10px / 10px 50px 10px 60px;
+  box-shadow: 0 6px 16px rgb(20 20 60 / .3); animation: stamp .5s var(--out);
+}
+@keyframes stamp { from { transform: translate(-50%, -50%) rotate(-4deg) scale(1.8); opacity: 0; } }
+.zone.is-done .torch-box { opacity: .55; }
+
+.legend { flex: none; display: flex; justify-content: center; flex-wrap: wrap; gap: calc(var(--q) * .4) calc(var(--q) * 1.4); font-size: calc(var(--q) * .8); font-weight: 600; color: var(--pencil); }
+.legend__item { display: inline-flex; align-items: center; gap: calc(var(--q) * .3); }
+.legend__icon { width: 1.5em; height: 1.5em; overflow: visible; }
+.legend__north { font-weight: 800; color: var(--ink-deep); }
+
+/* A fine turno: il labirinto svelato con la strada fatta */
+.reveal { flex: 1 1 0; min-height: 0; width: 100%; }
+
+/* ---------- Telefono ---------- */
+.lab-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex: none; }
+.lab-role { font-family: var(--school); font-size: 1.35rem; line-height: 1.6; color: var(--ink-deep); }
+.lab-say { font-size: 1.15rem; font-weight: 600; }
+.lab-status { min-height: 1.5em; font-weight: 700; font-size: 1.1rem; color: var(--ink-deep); }
+.lab-status.is-bomb { color: var(--red); }
+
+/* Esploratore: quattro frecce grandi in basso, per il pollice */
+.lab-explorer { gap: 12px; padding-bottom: max(16px, env(safe-area-inset-bottom)); }
+.pad {
+  --b: min(calc((100vw - 76px) / 3), 124px, 15vh);
+  margin-top: auto; align-self: center; display: grid; gap: 8px;
+  grid-template: "a n b" var(--b) "w c e" var(--b) "d s f" var(--b) / var(--b) var(--b) var(--b);
+}
+.pad__btn {
+  display: grid; place-items: center; padding: 0; touch-action: manipulation; -webkit-tap-highlight-color: transparent;
+  background: var(--ink); color: var(--paper); border: 3px solid var(--ink-deep);
+  border-radius: 40px 14px 36px 12px / 12px 36px 14px 40px; box-shadow: 0 5px 0 var(--ink-deep);
+  transition: transform .08s, box-shadow .08s;
+}
+.pad__btn:active { transform: translateY(4px); box-shadow: 0 1px 0 var(--ink-deep); background: var(--ink-deep); }
+.pad__btn:disabled { opacity: .35; cursor: not-allowed; }
+.pad__btn svg { width: 62%; height: 62%; fill: none; stroke: currentColor; stroke-width: 3.2; stroke-linecap: round; stroke-linejoin: round; }
+.pad__btn--N { grid-area: n; }
+.pad__btn--W { grid-area: w; }
+.pad__btn--E { grid-area: e; }
+.pad__btn--S { grid-area: s; }
+.pad__north { grid-area: c; display: flex; flex-direction: column; align-items: center; justify-content: center; font-family: var(--school); font-size: 1.4rem; line-height: 1.2; color: var(--red); }
+.pad__north small { font-family: var(--hand); font-size: 1.2rem; font-weight: 800; order: -1; }
+
+/* Navigatore: la scritta della girata in grande, la mappa più grande possibile */
+.lab-nav { --margin: 0px; gap: 8px; padding: 6px 10px max(8px, env(safe-area-inset-bottom)); overflow: hidden; }
+.turn-card {
+  flex: none; padding: 6px 12px 8px; text-align: center; background: var(--paper);
+  border: 3px solid var(--ink); border-radius: 14px 40px 14px 40px / 40px 14px 40px 14px;
+}
+.turn-card__label { font-family: var(--school); font-size: .86rem; line-height: 1.7; color: var(--pencil); }
+.turn-card__big { font-weight: 800; font-size: clamp(1.35rem, 6.6vw, 1.75rem); line-height: 1.15; color: var(--ink-deep); }
+.turn-card__hint { font-family: var(--school); font-size: .86rem; line-height: 1.8; color: var(--red); }
+.turn-card__hint:empty { display: none; }
+.turn-card.is-turning { animation: flag 1.4s var(--out); }
+@keyframes flag {
+  0% { background: var(--marker); transform: scale(1.12) rotate(-2deg); }
+  15% { transform: scale(1) rotate(2deg); }
+  30% { transform: rotate(-1deg); }
+  70% { background: var(--marker); transform: none; }
+}
+.map-box { flex: 1; min-height: 0; display: grid; place-items: center; }
+.map-box .maze { max-width: 100%; max-height: 100%; }
+.map-box.is-turning .maze { animation: spin .8s var(--out); }
+@keyframes spin { from { transform: rotate(-35deg) scale(.55); opacity: .1; filter: blur(3px); } }
+.lab-foot { flex: none; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.lab-foot__turn, .lab-foot__info { display: flex; flex-direction: column; gap: 2px; }
+.lab-foot__info { align-items: flex-end; text-align: right; }
+.lab-foot .note { font-size: .95rem; }
+.lab-foot .lab-status { font-size: 1rem; min-height: 0; }
+.dots { display: flex; gap: 5px; }
+.dot { width: 13px; height: 13px; border: 2px solid var(--ink); border-radius: 50%; }
+.dot.is-done { background: var(--ink); }
+
+@media (prefers-reduced-motion: reduce) {
+  .torch .burst { animation: none; opacity: 0; }
+}

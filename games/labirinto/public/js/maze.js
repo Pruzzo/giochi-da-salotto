@@ -295,7 +295,9 @@ export function torchSvg(torch, { color, event = null }) {
   const clip = s('clipPath', { id: `${id}-clip` }, areas.map((a) => s('rect', { x: a.x, y: a.y, width: a.w, height: a.h })));
   for (const a of areas) {
     lit.append(s('rect', { class: 'torch__floor', x: a.x, y: a.y, width: a.w, height: a.h }));
-    lit.append(s('path', { class: 'maze__grid', d: gridPath(0, a.x, a.y, a.w, a.h) }));
+    // Niente quadretti: solo il contorno della casella (di quelle accanto, il pezzo che si vede).
+    const [ox, oy] = a.side ? NEXT[a.side] : [0, 0];
+    lit.append(s('rect', { class: 'maze__grid torch__edge', x: ox, y: oy, width: 1, height: 1 }));
     const color = FLOORS[a.deco];
     if (color) {
       lit.append(s('rect', { x: a.x, y: a.y, width: a.w, height: a.h, fill: color }));

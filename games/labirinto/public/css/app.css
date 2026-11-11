@@ -14,6 +14,7 @@
 /* ---------- Torcia (sul telefono dell'esploratore) ---------- */
 .torch__dark { fill: #121a3a; }
 .torch .wall { stroke-width: .1; }
+.torch__edge { stroke-width: .025; }
 .torch .walls--halo .wall, .torch .walls--halo .door > * { stroke: var(--paper); stroke-width: .15; stroke-linecap: round; }
 .torch .wall.is-hit { animation: hit .9s ease-out; }
 @keyframes hit { 0%, 45% { stroke: var(--red); stroke-width: .16; } }

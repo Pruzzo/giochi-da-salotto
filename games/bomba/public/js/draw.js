@@ -2,7 +2,7 @@
 import { h } from '/js/kit/dom.js';
 
 export const S = (tag, attrs = {}, ...kids) => h(`svg:${tag}`, attrs, ...kids);
-export const svg = (viewBox, cls, ...kids) => S('svg', { viewBox, class: cls, 'aria-hidden': 'true' }, ...kids);
+export const svg = (viewBox, cls, ...kids) => S('svg', { viewBox, class: cls, 'aria-hidden': 'true' }, ...kids.flat(Infinity));
 
 export const INK = '#1b3aa8';
 export const COLORS = {
@@ -123,23 +123,28 @@ function sized(el, width, height) {
   return el;
 }
 
-const ARROW_ANGLE = { su: 0, destra: 90, giu: 180, sinistra: 270 };
+export const SCOOP_COLORS = {
+  cioccolato: '#6b3f1f', fragola: '#f4a3b8', limone: '#f8e27a', pistacchio: '#a9c96a', fiordilatte: '#fbf7ec',
+  stracciatella: '#fbf7ec', puffo: '#5fb4f0', liquirizia: '#26272d', pesca: '#f6a35c',
+};
 
-export function compass(arrow, cls = 'compass') {
-  return svg('0 0 200 200', cls,
-    S('circle', { cx: 100, cy: 100, r: 92, class: 'compass__rim' }),
-    S('circle', { cx: 100, cy: 100, r: 78, class: 'compass__face' }),
-    Array.from({ length: 16 }, (_, i) => {
-      const a = (i * Math.PI) / 8;
-      const r1 = i % 4 ? 70 : 62;
-      return S('line', {
-        x1: (100 + r1 * Math.sin(a)).toFixed(1), y1: (100 - r1 * Math.cos(a)).toFixed(1),
-        x2: (100 + 78 * Math.sin(a)).toFixed(1), y2: (100 - 78 * Math.cos(a)).toFixed(1), class: 'compass__tick',
-      });
+/** Il cono con una pallina; la stracciatella ha le gocce di cioccolato. */
+export function gelato(flavor, cls = 'gelato') {
+  const chips = flavor === 'stracciatella'
+    ? [[78, 62], [104, 54], [122, 76], [92, 88], [66, 92], [116, 104], [86, 112], [134, 96]].map(([x, y], i) => S('path', {
+      d: `M${x} ${y}l${5 + (i % 3)} -3l2 6z`, class: 'gelato__chip',
+    }))
+    : [];
+  return svg('0 0 200 260', cls,
+    S('path', { d: 'M56 110L100 250L144 110z', class: 'gelato__cone' }),
+    S('clipPath', { id: 'gelato-cone' }, S('path', { d: 'M56 110L100 250L144 110z' })),
+    S('path', { d: 'M40 120L150 200M40 160L150 120M40 200L150 160M40 160L150 240M40 240L150 200', class: 'gelato__waffle', 'clip-path': 'url(#gelato-cone)' }),
+    S('path', {
+      d: 'M44 112c-6-40 22-74 56-74s62 34 56 74c-8 6-16 2-22 6-8-6-16 0-24-4-8 6-18 2-24 4-8-6-16 0-22-4-8 4-14 2-20-2z',
+      fill: SCOOP_COLORS[flavor], class: 'gelato__scoop',
     }),
-    S('g', { transform: `rotate(${ARROW_ANGLE[arrow]} 100 100)` },
-      S('path', { d: 'M100 30l22 40h-12v62h-20v-62h-12z', class: 'compass__arrow' })),
-    S('circle', { cx: 100, cy: 100, r: 6, class: 'compass__pin' }));
+    S('ellipse', { cx: 76, cy: 66, rx: 12, ry: 8, class: 'gelato__shine' }),
+    chips);
 }
 
 /** Il lucchetto: arco in alto e corpo colorato (le rotelle sono bottoni HTML sopra il corpo). */
@@ -288,12 +293,217 @@ export const THUMBS = {
     P('M56 18 A20 20 0 0 1 96 18', 'th-gaugeface'),
     P('M76 18l10-12', 'th-needle'),
   ],
-  bussola: () => [
-    C(50, 50, 40, 'th-rim'),
-    P('M50 18l12 22h-7v30h-10v-30h-7z', 'th-arrow'),
+  gelato: () => [
+    P('M34 48L50 94L66 48z', 'th-cone'),
+    P('M28 50c-2-18 9-32 22-32s24 14 22 32c-6 3-10 0-14 2-4-3-8 0-12-1-4 3-8 0-12 1z', 'th-scoop'),
   ],
 };
 
 export function thumb(type, cls = 'thumb') {
   return svg('0 0 100 100', cls, THUMBS[type]());
 }
+
+// ---------- I moduli nuovi ----------
+
+export const PAINT_COLORS = {
+  ...COLORS, arancione: '#f08a24', viola: '#7d3fb8', grigio: '#9aa1ab', rosa: '#f3a6c0', marrone: '#8a5a2b',
+};
+
+/** Gli ingredienti sulla pizza: ognuno è un mucchietto di pezzi sparsi sul disco. */
+const SPOTS = [[-30, -38], [28, -40], [44, 4], [26, 40], [-24, 42], [-46, 2], [0, 0], [-6, -54], [52, -24], [-50, -26], [8, 56], [-56, 30]];
+const spread = (seed, n, draw) => Array.from({ length: n }, (_, i) => {
+  const [x, y] = SPOTS[(seed + i * 5) % SPOTS.length];
+  return S('g', { transform: `translate(${100 + x * 1.05} ${100 + y * 1.05}) rotate(${(seed * 37 + i * 71) % 360})` }, draw(i));
+});
+const TOPPING = {
+  mozzarella: (k) => spread(k, 7, () => S('path', { d: 'M-11 -6q6-8 15-2q9 4 6 11q-5 8-14 4q-11-3-7-13z', class: 'pz-mozz' })),
+  basilico: (k) => spread(k + 2, 4, () => S('path', { d: 'M0 -10q10 6 0 20q-10-14 0-20zM0 -8v16', class: 'pz-leaf' })),
+  origano: (k) => spread(k + 1, 12, () => S('circle', { r: 2.2, class: 'pz-herb' })),
+  aglio: (k) => spread(k + 3, 5, () => S('path', { d: 'M-5 6q-3-10 5-14q8 4 5 14z', class: 'pz-garlic' })),
+  salame: (k) => spread(k + 4, 6, () => [S('circle', { r: 11, class: 'pz-salami' }), S('circle', { cx: -3, cy: -3, r: 2, class: 'pz-fat' }), S('circle', { cx: 4, cy: 3, r: 1.8, class: 'pz-fat' })]),
+  funghi: (k) => spread(k + 5, 5, () => S('path', { d: 'M-10 0q0-11 10-11t10 11h-6v8h-8v-8z', class: 'pz-mush' })),
+  acciughe: (k) => spread(k + 6, 4, () => S('path', { d: 'M-14 0q14-7 26 0l5-4v8l-5-4q-12 7-26 0z', class: 'pz-fish' })),
+  capperi: (k) => spread(k + 7, 7, () => S('circle', { r: 4, class: 'pz-caper' })),
+  prosciutto: (k) => spread(k + 8, 4, () => S('path', { d: 'M-13 -4q5-7 13-2t13 0q-2 9-13 8t-13-6z', class: 'pz-ham' })),
+  carciofi: (k) => spread(k + 9, 4, () => S('path', { d: 'M0 -11q8 5 6 13q-6 4-12 0q-2-8 6-13zM0 -6v12', class: 'pz-arti' })),
+  olive: (k) => spread(k + 10, 6, () => S('circle', { r: 5.5, class: 'pz-olive' })),
+  patate: (k) => spread(k + 11, 7, () => S('ellipse', { rx: 11, ry: 8, class: 'pz-potato' })),
+  formaggi: (k) => ['pz-c1', 'pz-c2', 'pz-c3', 'pz-c4'].flatMap((cls, j) => spread(k + j * 3, 3, () => S('path', { d: 'M-9 -7h18l-3 14h-14z', class: cls }))),
+};
+
+export function pizza(top, cls = 'pizza') {
+  const red = top.includes('pomodoro');
+  return svg('0 0 200 200', cls,
+    S('circle', { cx: 100, cy: 100, r: 94, class: 'pz-crust' }),
+    S('circle', { cx: 100, cy: 100, r: 80, class: red ? 'pz-sauce' : 'pz-white' }),
+    top.filter((t) => t !== 'pomodoro').map((t, k) => TOPPING[t](k * 3)));
+}
+
+/** Il termometro: la colonnina rossa sale da -10 a 40 gradi. */
+export function thermometer(temp) {
+  const y = (t) => 214 - ((t + 10) / 50) * 180;
+  const ticks = [-10, 0, 10, 20, 30, 40];
+  return svg('0 0 140 260', 'thermo',
+    S('rect', { x: 50, y: 18, width: 40, height: 210, rx: 20, class: 'thermo__glass' }),
+    S('circle', { cx: 70, cy: 226, r: 28, class: 'thermo__bulb' }),
+    S('rect', { x: 62, y: y(temp), width: 16, height: 226 - y(temp), class: 'thermo__mercury' }),
+    ticks.map((t) => S('path', { d: `M90 ${y(t)}h14`, class: 'thermo__tick' })),
+    ticks.map((t) => S('text', { x: 110, y: y(t) + 6, class: 'thermo__n' }, String(t))));
+}
+
+/** I cartelli stradali. */
+export function roadSign(sign, cls = 'sign') {
+  const W = 'sign__white';
+  const shapes = {
+    ottagono: [S('path', { d: 'M62 10h76l52 52v76l-52 52H62l-52-52V62z', class: 'sign__red' }), S('rect', { x: 48, y: 88, width: 104, height: 24, rx: 4, class: W })],
+    'cerchio-rosso': [S('circle', { cx: 100, cy: 100, r: 90, class: 'sign__red' }), S('rect', { x: 36, y: 86, width: 128, height: 28, rx: 4, class: W })],
+    divieto: [S('circle', { cx: 100, cy: 100, r: 90, class: 'sign__red' }), S('circle', { cx: 100, cy: 100, r: 66, class: W })],
+    'triangolo-giu': [S('path', { d: 'M10 22h180L100 186z', class: 'sign__red' }), S('path', { d: 'M44 42h112L100 146z', class: W })],
+    'triangolo-su': [S('path', { d: 'M100 14l90 164H10z', class: 'sign__red' }), S('path', { d: 'M100 52l56 104H44z', class: W }),
+      S('path', { d: 'M100 80v40M100 134v6', class: 'sign__mark' })],
+    'cerchio-blu': [S('circle', { cx: 100, cy: 100, r: 90, class: 'sign__blue' }), S('path', { d: 'M100 48l34 40h-20v54h-28V88H66z', class: W })],
+    'quadrato-blu': [S('rect', { x: 14, y: 14, width: 172, height: 172, rx: 14, class: 'sign__blue' }), S('text', { x: 100, y: 140, class: 'sign__letter' }, 'P')],
+    rombo: [S('path', { d: 'M100 8l92 92-92 92-92-92z', class: 'sign__white sign__edge' }), S('path', { d: 'M100 34l66 66-66 66-66-66z', class: 'sign__yellow' })],
+  };
+  return svg('0 0 200 200', cls, shapes[sign]);
+}
+
+/** L'orologio a lancette; `minutes` sono i minuti dopo mezzanotte. */
+export function clockFace(minutes, cls = 'clock') {
+  const m = minutes % 60;
+  const hAngle = ((minutes % 720) / 720) * 360;
+  const mAngle = (m / 60) * 360;
+  return svg('0 0 200 200', cls,
+    S('circle', { cx: 100, cy: 100, r: 92, class: 'clock__rim' }),
+    S('circle', { cx: 100, cy: 100, r: 80, class: 'clock__face' }),
+    Array.from({ length: 12 }, (_, i) => {
+      const a = (i * Math.PI) / 6;
+      return S('text', { x: (100 + 64 * Math.sin(a)).toFixed(1), y: (100 - 64 * Math.cos(a) + 7).toFixed(1), class: 'clock__n' }, String(i || 12));
+    }),
+    S('line', { x1: 100, y1: 100, x2: 100, y2: 52, class: 'clock__hour', transform: `rotate(${hAngle} 100 100)` }),
+    S('line', { x1: 100, y1: 100, x2: 100, y2: 30, class: 'clock__min', transform: `rotate(${mAngle} 100 100)` }),
+    S('circle', { cx: 100, cy: 100, r: 6, class: 'clock__pin' }));
+}
+
+/** Una banconota da 10, 20 o 50 euro. */
+export function banknote(value) {
+  return svg('0 0 180 90', `note note--${value}`,
+    S('rect', { x: 4, y: 4, width: 172, height: 82, rx: 8, class: 'note__paper' }),
+    S('circle', { cx: 132, cy: 45, r: 26, class: 'note__seal' }),
+    S('text', { x: 18, y: 36, class: 'note__eur' }, 'EURO'),
+    S('text', { x: 18, y: 76, class: 'note__val' }, String(value)));
+}
+
+/** Una macchia di colore. */
+export function blob(color, flip = false) {
+  return svg('0 0 120 110', 'blob',
+    S('path', {
+      d: 'M60 8c22 0 40 10 46 30s-2 34-12 46-30 22-48 18-36-14-38-36 8-36 22-46 18-12 30-12z',
+      fill: PAINT_COLORS[color], class: 'blob__paint', transform: flip ? 'scale(-1 1) translate(-120 0)' : null,
+    }),
+    S('ellipse', { cx: 42, cy: 34, rx: 12, ry: 7, class: 'blob__shine' }));
+}
+
+/** Un ingranaggio a dieci denti. */
+function gear(cx, cy, r, red) {
+  const teeth = 10;
+  let d = '';
+  for (let i = 0; i < teeth * 2; i++) {
+    const a1 = (i * Math.PI) / teeth;
+    const a2 = ((i + 1) * Math.PI) / teeth;
+    const rr = i % 2 ? r : r + 9;
+    d += `${i ? 'L' : 'M'}${(cx + rr * Math.cos(a1)).toFixed(1)} ${(cy + rr * Math.sin(a1)).toFixed(1)}L${(cx + rr * Math.cos(a2)).toFixed(1)} ${(cy + rr * Math.sin(a2)).toFixed(1)}`;
+  }
+  return [S('path', { d: `${d}z`, class: `gear${red ? ' gear--red' : ''}` }), S('circle', { cx, cy, r: r * 0.32, class: 'gear__hub' })];
+}
+
+/** La fila di ingranaggi: quelli che si toccano sono vicini, quelli con la cinghia lontani e legati. */
+export function gears({ gears: list, first }) {
+  const r = 30;
+  const xs = [50];
+  list.slice(0, -1).forEach((g) => xs.push(xs.at(-1) + (g.belt ? 2 * r + 46 : 2 * r + 9)));
+  const width = xs.at(-1) + 50;
+  const cy = 70;
+  const arrow = first === 'orario'
+    ? 'M26 34 A32 32 0 0 1 74 34' : 'M74 34 A32 32 0 0 0 26 34';
+  return svg(`0 0 ${width} 150`, 'gears',
+    list.map((g, i) => g.belt && S('path', {
+      d: `M${xs[i]} ${cy - r + 4}L${xs[i + 1]} ${cy - r + 4}M${xs[i]} ${cy + r - 4}L${xs[i + 1]} ${cy + r - 4}`, class: 'gears__belt',
+    })),
+    list.flatMap((g, i) => gear(xs[i], cy, r, g.red)),
+    S('path', { d: arrow, class: 'gears__arrow', transform: `translate(0 -8)`, 'marker-end': 'url(#gear-head)' }),
+    S('defs', {}, S('marker', { id: 'gear-head', viewBox: '0 0 10 10', refX: 5, refY: 5, markerWidth: 4, markerHeight: 4, orient: 'auto-start-reverse' },
+      S('path', { d: 'M0 0L10 5L0 10z', class: 'gears__head' }))));
+}
+
+/** I semi delle carte napoletane, disegnati semplici. */
+export const SUIT_ART = {
+  coppe: () => [S('path', { d: 'M14 10h32q0 22-16 26q-16-4-16-26z', class: 'suit--cup' }), S('path', { d: 'M30 36v12M20 52h20', class: 'suit--cupfoot' })],
+  denari: () => [S('circle', { cx: 30, cy: 30, r: 22, class: 'suit--coin' }), S('circle', { cx: 30, cy: 30, r: 11, class: 'suit--coinin' })],
+  spade: () => [S('path', { d: 'M30 4l6 8v30h-12V12z', class: 'suit--blade' }), S('path', { d: 'M16 42h28M30 42v14', class: 'suit--hilt' })],
+  bastoni: () => [S('path', { d: 'M22 56l14-50q8 2 6 10l-12 42z', class: 'suit--club' }), S('path', { d: 'M30 26l-8-4M34 16l6-6', class: 'suit--twig' })],
+};
+const CARD_NAMES = { 8: 'Fante', 9: 'Cavallo', 10: 'Re', 1: 'Asso' };
+
+/** Una carta: numero, seme e (per le figure e l'asso) il nome. */
+export function card({ s, n }, cls = 'card') {
+  return svg('0 0 80 120', `${cls} card--${s}`,
+    S('rect', { x: 3, y: 3, width: 74, height: 114, rx: 8, class: 'card__paper' }),
+    S('text', { x: 12, y: 30, class: 'card__n' }, String(n)),
+    S('g', { transform: 'translate(18 40)' }, SUIT_ART[s]()),
+    CARD_NAMES[n] && S('text', { x: 40, y: 110, class: 'card__name' }, CARD_NAMES[n]));
+}
+
+/** La bilancia a due piatti: a sinistra i pesi del modulo, a destra quelli messi dall'artificiere. Sempre in pari: non tradisce. */
+export function scale(left, right) {
+  const weight = (x, w, i) => S('g', { transform: `translate(${x + i * 34} 52)` },
+    S('path', { d: 'M4 30h26l-4-26h-18z', class: 'weight' }), S('text', { x: 17, y: 26, class: 'weight__n' }, String(w)));
+  return svg('0 0 300 190', 'scale',
+    S('path', { d: 'M150 40v130M110 176h80', class: 'scale__post' }),
+    S('path', { d: 'M40 40h220', class: 'scale__beam' }),
+    S('circle', { cx: 150, cy: 40, r: 8, class: 'scale__pin' }),
+    S('path', { d: 'M40 40l-26 46M40 40l26 46M260 40l-26 46M260 40l26 46', class: 'scale__string' }),
+    S('path', { d: 'M4 86h72q-6 18-36 18t-36-18zM224 86h72q-6 18-36 18t-36-18z', class: 'scale__pan' }),
+    left.map((w, i) => weight(40 - (left.length * 34) / 2, w, i)),
+    right.map((w, i) => weight(260 - (right.length * 34) / 2, w, i)));
+}
+
+/** Un interruttore colorato con la spia sopra. */
+export function powerSwitch(color, lamp, up) {
+  return svg('0 0 60 150', 'switch',
+    S('circle', { cx: 30, cy: 20, r: 13, class: `switch__lamp${lamp ? ' is-on' : ''}` }),
+    S('rect', { x: 8, y: 44, width: 44, height: 98, rx: 8, class: 'switch__plate' }),
+    S('rect', { x: 18, y: up ? 54 : 94, width: 24, height: 38, rx: 6, fill: COLORS[color], class: 'switch__toggle' }));
+}
+
+Object.assign(THUMBS, {
+  pizza: () => [C(50, 50, 44, 'th-crust'), C(50, 50, 36, 'th-sauce'), ...[[38, 38], [62, 44], [46, 64], [64, 64]].map(([x, y]) => C(x, y, 7, 'th-mozz')),
+    P('M34 54q6 4 0 10q-6-6 0-10z', 'th-leaf')],
+  termometro: () => [S('rect', { x: 40, y: 6, width: 20, height: 72, rx: 10, class: 'th-glass' }), C(50, 80, 14, 'th-merc'),
+    S('rect', { x: 46, y: 36, width: 8, height: 44, class: 'th-merc' })],
+  cartello: () => [P('M50 8l42 76H8z', 'th-signred'), P('M50 30l23 42H27z', 'th-signwhite')],
+  orologio: () => [C(50, 50, 42, 'th-rim'), P('M50 50V22M50 50l18 10', 'th-hands')],
+  scontrino: () => [P('M24 6h52v84l-6-5-7 5-6-5-7 5-6-5-7 5-6-5-7 5z', 'th-receipt'), P('M32 22h36M32 36h36M32 50h36M32 66h20', 'th-lines')],
+  telefono: () => [S('rect', { x: 26, y: 4, width: 48, height: 92, rx: 8, class: 'th-box' }), S('rect', { x: 31, y: 12, width: 38, height: 18, rx: 2, class: 'th-screen' }),
+    ...Array.from({ length: 9 }, (_, i) => S('rect', { x: 32 + (i % 3) * 13, y: 36 + Math.floor(i / 3) * 16, width: 10, height: 11, rx: 2, class: 'th-key' }))],
+  tavolozza: () => [P('M50 8c26 0 44 16 44 36 0 12-10 14-18 12-8-2-12 4-8 12 4 10-6 24-22 24C24 92 6 72 6 48S24 8 50 8z', 'th-palette'),
+    C(30, 34, 8, 'th-paint-r'), C(52, 24, 8, 'th-paint-y'), C(72, 34, 8, 'th-paint-b')],
+  ingranaggi: () => [...gear(32, 50, 18, false), ...gear(70, 50, 18, false)],
+  briscola: () => [S('rect', { x: 14, y: 10, width: 40, height: 62, rx: 5, class: 'th-card', transform: 'rotate(-10 34 41)' }),
+    S('rect', { x: 44, y: 22, width: 40, height: 62, rx: 5, class: 'th-card', transform: 'rotate(8 64 53)' }), C(64, 52, 9, 'th-coin')],
+  cifrario: () => [S('rect', { x: 8, y: 10, width: 84, height: 28, rx: 4, class: 'th-screen' }), S('text', { x: 50, y: 31, class: 'th-word' }, 'VTGPQ'),
+    ...[0, 1, 2, 3, 4].map((i) => S('rect', { x: 10 + i * 17, y: 52, width: 13, height: 34, rx: 3, class: 'th-wheel' }))],
+  barista: () => [P('M24 40h44v18q0 22-22 22t-22-22z', 'th-cup'), P('M68 46q14 0 12 12t-14 8', 'th-handle'), P('M36 30q4-8 0-16M50 30q4-8 0-16', 'th-steam')],
+  schedina: () => [S('rect', { x: 10, y: 6, width: 80, height: 88, rx: 4, class: 'th-receipt' }),
+    ...[0, 1, 2, 3].flatMap((r) => [0, 1, 2].map((c) => S('rect', { x: 46 + c * 14, y: 16 + r * 19, width: 11, height: 12, rx: 2, class: (r + c) % 3 ? 'th-key' : 'th-key th-key--on' })))],
+  anagramma: () => ['G', 'A', 'T', 'O'].map((l, i) => [S('rect', { x: 6 + i * 23, y: 34, width: 20, height: 26, rx: 4, class: 'th-tile' }), S('text', { x: 16 + i * 23, y: 54, class: 'th-tilel' }, l)]),
+  ascensore: () => [S('rect', { x: 26, y: 4, width: 48, height: 92, rx: 6, class: 'th-panel' }),
+    ...Array.from({ length: 6 }, (_, i) => C(40 + (i % 2) * 20, 22 + Math.floor(i / 2) * 26, 8, 'th-btn'))],
+  bilancia: () => [P('M50 14v76M30 90h40M14 22h72', 'th-scale'), P('M14 22l-8 20M14 22l8 20M86 22l-8 20M86 22l8 20', 'th-string'),
+    P('M2 42h24q-2 8-12 8t-12-8zM74 42h24q-2 8-12 8t-12-8z', 'th-pan')],
+  stazione: () => [S('rect', { x: 6, y: 20, width: 88, height: 56, rx: 4, class: 'th-board' }), P('M14 36h50M14 50h40M14 64h46', 'th-boardline'), S('text', { x: 82, y: 56, class: 'th-plat' }, '4')],
+  quadro: () => [0, 1, 2, 3].flatMap((i) => [C(20 + i * 20, 18, 6, i % 2 ? 'th-lamp' : 'th-lamp is-on'),
+    S('rect', { x: 12 + i * 20, y: 32, width: 16, height: 54, rx: 3, class: 'th-plate' }),
+    S('rect', { x: 15 + i * 20, y: i % 3 ? 36 : 62, width: 10, height: 20, rx: 2, class: i % 2 ? 'th-tog-b' : 'th-tog-r' })]),
+  ricetta: () => [P('M14 46h72v26q0 18-18 18H32q-18 0-18-18z', 'th-pot'), P('M6 50h8M86 50h8', 'th-pot'), P('M30 40q4-10 0-20M50 40q4-10 0-20M70 40q4-10 0-20', 'th-steam')],
+});

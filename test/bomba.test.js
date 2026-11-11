@@ -3,7 +3,7 @@ import { test } from 'node:test';
 import { GameError } from '../games/shared/table.js';
 import { Game, MAX_ERRORS } from '../games/bomba/game.js';
 import {
-  FLAG_COLORS, MODULES, MODULE_TYPES, SERIAL_FORMAT, SMORFIA, WORDS, hasVowel, isRight, lastDigit, makeSerial,
+  CIPHER_WORDS, FLAG_COLORS, IT_ALPHABET, MODULES, MODULE_TYPES, SERIAL_FORMAT, SMORFIA, WORDS, hasVowel, isRight, lastDigit, makeSerial,
 } from '../games/bomba/modules.js';
 
 /** Un caso ripetibile: lo stesso seme dà sempre la stessa partita. */
@@ -28,6 +28,7 @@ test('il numero di serie è due lettere, una cifra, trattino, due cifre, una let
     const serial = makeSerial(rand);
     assert.match(serial, SERIAL_FORMAT);
     assert.ok(!serial.includes('O'), 'niente O, si confonde con lo zero');
+    assert.ok(!serial.includes('Z'), 'niente Z, si confonde col 2');
   }
   assert.equal(lastDigit('RT4-82K'), 2);
   assert.equal(hasVowel('RT4-82K'), false);
@@ -35,6 +36,10 @@ test('il numero di serie è due lettere, una cifra, trattino, due cifre, una let
 });
 
 // ---------- Ogni modulo: una sola mossa giusta ----------
+
+const permutations = (list) => (list.length <= 1 ? [list] : list.flatMap((x, i) => permutations([...list.slice(0, i), ...list.slice(i + 1)]).map((p) => [x, ...p])));
+/** Le sequenze di n elementi diversi presi da `list`, in ogni ordine. */
+const arrangements = (list, n) => (n === 0 ? [[]] : list.flatMap((x, i) => arrangements([...list.slice(0, i), ...list.slice(i + 1)], n - 1).map((p) => [x, ...p])));
 
 /** Tutte le mosse possibili che il telefono può mandare per quella faccia. */
 function allMoves(type, face) {
@@ -53,7 +58,24 @@ function allMoves(type, face) {
     case 'bandiera': return [0, 1, 2];
     case 'dado': return [1, 2, 3, 4, 5, 6];
     case 'moka': return ['alza', 'abbassa', 'spegni'];
-    case 'bussola': return ['N', 'S', 'E', 'O'];
+    case 'pizza': case 'gelato': case 'orologio': case 'tavolozza': case 'barista': return face.keys;
+    case 'termometro': return ['cappotto', 'maglione', 'maglietta', 'costume'];
+    case 'cartello': return ['fermati', 'rallenta', 'avanti', 'clacson'];
+    case 'scontrino': return Array.from({ length: 100 }, (_, i) => String(i));
+    case 'telefono': return Array.from({ length: 1000 }, (_, i) => String(i).padStart(3, '0'));
+    case 'ingranaggi': return ['orario', 'antiorario'];
+    case 'briscola': return [0, 1, 2];
+    // Tutte le 21^5 parole sono troppe: bastano le parole possibili lette con ogni spostamento.
+    case 'cifrario': return CIPHER_WORDS.flatMap((w) => Array.from({ length: 21 }, (_, k) => [...w].map((c) => IT_ALPHABET[(IT_ALPHABET.indexOf(c) + k) % 21])));
+    case 'schedina': {
+      const v = ['1', 'X', '2'];
+      return Array.from({ length: 81 }, (_, k) => [0, 1, 2, 3].map((i) => v[Math.floor(k / 3 ** i) % 3]));
+    }
+    case 'anagramma': return permutations([0, 1, 2, 3, 4]);
+    case 'ascensore': return [0, 1, 2, 3, 4, 5, 6];
+    case 'bilancia': case 'quadro': return combos(5);
+    case 'stazione': return [1, 2, 3, 4, 5, 6];
+    case 'ricetta': return [1, 2, 3, 4, 5].flatMap((n) => arrangements(face.keys, n));
     default: throw new Error(type);
   }
 }
@@ -65,7 +87,9 @@ test('ogni modulo generato ha esattamente una mossa giusta, ed è una mossa che 
     for (let i = 0; i < (heavy ? 40 : 400); i++) {
       const serial = makeSerial(rand);
       const face = MODULES[type].make(rand, serial, null);
-      const right = allMoves(type, face).filter((m) => MODULES[type].parse(m, face) !== null && isRight(type, face, serial, m));
+      // Conta le mosse diverse per il server: nell'anagramma due lettere uguali toccate in ordine diverso sono la stessa parola.
+      const parsed = allMoves(type, face).map((m) => MODULES[type].parse(m, face)).filter((m) => m !== null);
+      const right = [...new Set(parsed.filter((m) => isRight(type, face, serial, m)).map((m) => JSON.stringify(m)))];
       assert.equal(right.length, 1, `${type} ${serial} ${JSON.stringify(face)}`);
     }
   }
@@ -204,10 +228,23 @@ test('Moka: verde alza, rossa spegne, gialla secondo l’ultima cifra', () => {
   assert.equal(press('gialla', 'RT4-83K'), 'spegni');
 });
 
-test('Bussola: un quarto in senso orario, antiorario con la vocale', () => {
-  const press = (arrow, serial) => solve('bussola', { arrow }, serial);
-  assert.deepEqual(['su', 'destra', 'giu', 'sinistra'].map((a) => press(a, 'RT4-82K')), ['E', 'S', 'O', 'N']);
-  assert.deepEqual(['su', 'destra', 'giu', 'sinistra'].map((a) => press(a, 'RU4-82K')), ['O', 'N', 'E', 'S']);
+test('Orologio: i minuti da aggiungere dipendono dall’ultima cifra, e dopo le 12 si ricomincia dall’1', () => {
+  const at = 12 * 60 + 50; // le 12:50
+  assert.deepEqual(['RT4-80K', 'RT4-83K', 'RT4-86K', 'RT4-89K'].map((s) => solve('orologio', { minutes: at }, s)), ['1:05', '1:20', '1:35', '1:50']);
+  assert.equal(solve('orologio', { minutes: 3 * 60 + 50 }, 'RT4-84K'), '4:20');
+});
+
+test('Gelato: si preme il gusto della pallina, e con fiordilatte spesso c’è anche la stracciatella', () => {
+  assert.equal(solve('gelato', { flavor: 'puffo', keys: [] }, 'RT4-82K'), 'puffo');
+  const rand = seeded(3);
+  let both = 0;
+  for (let i = 0; i < 200; i++) {
+    const face = MODULES.gelato.make(rand, 'RT4-82K', null);
+    assert.equal(face.keys.length, 4);
+    assert.ok(face.keys.includes(face.flavor));
+    if (face.flavor === 'fiordilatte' && face.keys.includes('stracciatella')) both++;
+  }
+  assert.ok(both > 0);
 });
 
 // ---------- La partita ----------
@@ -247,14 +284,17 @@ function play(game, ps, settings = {}) {
 /** La mossa giusta e una sbagliata, calcolate solo da quello che vede l'artificiere. */
 function moves(view, index) {
   const m = view.modules[index];
-  const right = MODULES[m.type].solve(m.face, view.serial);
-  const wrong = allMovesQuick(m.type, m.face).find((v) => MODULES[m.type].parse(v, m.face) !== null && !isRight(m.type, m.face, view.serial, v));
+  // La mossa giusta come la manda il telefono: per quasi tutti è la soluzione stessa, per alcuni no (indici, testo).
+  const right = allMovesQuick(m.type, m.face).find((v) => MODULES[m.type].parse(v, m.face) !== null && isRight(m.type, m.face, view.serial, MODULES[m.type].parse(v, m.face)))
+    ?? MODULES[m.type].solve(m.face, view.serial);
+  const wrong = allMovesQuick(m.type, m.face).find((v) => MODULES[m.type].parse(v, m.face) !== null && !isRight(m.type, m.face, view.serial, MODULES[m.type].parse(v, m.face)));
   return { m, right, wrong };
 }
 
 function allMovesQuick(type, face) {
   if (type === 'cassaforte') return ['0000', '1111', '2222'];
   if (type === 'lucchetto') return [['A', 'A', 'A'], ['B', 'B', 'B']];
+  if (type === 'telefono') return ['000', '111', '999'];
   return allMoves(type, face);
 }
 

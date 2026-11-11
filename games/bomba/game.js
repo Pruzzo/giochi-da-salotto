@@ -59,7 +59,7 @@ export class Game extends TeamTable {
     const move = type.parse(value, mod.face);
     if (move === null) throw new GameError('Questa mossa non si può fare.');
     const right = isRight(mod.type, mod.face, board.serial, move);
-    type.after?.(mod.face, move);
+    type.after?.(mod.face, move, right);
     if (right) {
       mod.step += 1;
       if (mod.step >= type.steps) mod.solved = true;

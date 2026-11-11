@@ -59,6 +59,8 @@ Uno dei due ha la bomba in mano e non sa come si smonta, l'altro ha il manuale e
 
 È ispirato ai giochi di bombe da disinnescare in coppia, ma in versione corta e in italiano: un'etichetta sola, trenta tipi di modulo con regole di poche righe, e molti giocano su cose italiane (la bandiera, la smorfia, la moka, la briscola, la carbonara). Moduli e manuale sono nostri.
 
+> **Lavori in corso.** I 30 moduli ci sono già, e [qui](https://claude.ai/artifact/St1Fp2vAgn5Vb6Lgef4YpQ) si vedono tutti, sia come li vede l'artificiere sia come li legge l'esperto. Mancano però due cose. La prima è la **difficoltà** del turno: per ora i moduli escono a caso fra tutti e 30, e i punti e l'indice del manuale non dipendono ancora dalla difficoltà. La seconda è la **validazione di tutti i flussi** in una partita vera. I dettagli sono in [Sviluppo](Sviluppo.md#lavori-in-corso-i-30-moduli-di-disinnesca-la-bomba).
+
 **Ruoli**
 
 | | Cosa vede | Cosa fa |
@@ -78,7 +80,7 @@ Uno dei due ha la bomba in mano e non sa come si smonta, l'altro ha il manuale e
   | Medio | complessità 1 e 2, almeno uno di complessità 2 |
   | Difficile | complessità 2 e 3, almeno uno di complessità 3 |
 - Sul telefono dell'artificiere in alto c'è una fila di quadratini, uno per modulo: si tocca un quadratino per aprire quel modulo. Sotto c'è sempre l'**etichetta** col numero di serie.
-- Il **numero di serie** è sempre fatto così: due lettere, una cifra, trattino, due cifre, una lettera (es. `RT4-82K`). Non c'è mai la lettera O, così non si confonde con lo zero (che è scritto barrato). Quindi ha sempre **tre lettere** e **tre cifre**. L'*ultima cifra* è quella prima della lettera finale (nell'esempio, 2). Molte regole lo usano: l'esperto dovrà chiederlo.
+- Il **numero di serie** è sempre fatto così: due lettere, una cifra, trattino, due cifre, una lettera (es. `RT4-82K`). Non ci sono mai la lettera O, che si confonderebbe con lo zero (scritto barrato), e la Z, che si confonderebbe col 2. Quindi ha sempre **tre lettere** e **tre cifre**. L'*ultima cifra* è quella prima della lettera finale (nell'esempio, 2). Molte regole lo usano: l'esperto dovrà chiederlo.
 - **Uno diverso per ogni squadra**, e una bomba nuova a ogni turno. Tutte le bombe di un turno hanno lo stesso numero di moduli e la stessa difficoltà.
 
 **Errori e fine**
@@ -144,13 +146,25 @@ Un tasto sbagliato è un errore, e la lancetta si sposta.
 
 Il numero giusto c'è sempre tra i quattro tasti. Un tasto sbagliato è un errore, e arriva un disegno nuovo.
 
-#### Bussola
+#### Gelato
 
-*Una freccia che punta in su, in giù, a destra o a sinistra, e quattro tasti: N, S, E, O. Si risolve in tre passi.*
+*Un cono con una pallina di gelato e quattro tasti con il nome di un gusto. Si risolve in tre passi.*
 
-La freccia in su è il Nord, a destra l'Est, in giù il Sud, a sinistra l'Ovest. Premi la direzione della freccia **girata di un quarto in senso orario** (N → E, E → S, S → O, O → N).
+Premi il gusto della pallina:
 
-Se nel numero di serie c'è una **vocale**, gira invece in senso **antiorario** (N → O, O → S, S → E, E → N).
+| Pallina | Gusto |
+| --- | --- |
+| marrone | Cioccolato |
+| rosa | Fragola |
+| gialla | Limone |
+| verde | Pistacchio |
+| bianca | Fiordilatte |
+| bianca con le **gocce di cioccolato** | Stracciatella |
+| azzurra | Puffo |
+| nera | Liquirizia |
+| arancione | Pesca |
+
+Il gusto giusto c'è sempre tra i quattro tasti. Un tasto sbagliato è un errore, e arriva un gelato nuovo.
 
 #### Dado
 
@@ -233,7 +247,16 @@ Un tasto sbagliato è un errore, e arriva un cartello nuovo.
 
 *Un orologio con le lancette e quattro tasti con un orario scritto in cifre. Si risolve in tre passi.*
 
-La lancetta corta segna l'ora, la lunga i minuti. Premi l'orario che l'orologio segnerà **tra un quarto d'ora**: se segna le 3 e 50, premi **4:05**. I minuti sono sempre multipli di 5 e gli orari vanno da 1:00 a 12:55 (dopo le 12:55 vengono le 1:10).
+La lancetta corta segna l'ora, la lunga i minuti. Guarda l'**ultima cifra** del numero di serie e premi l'orario che l'orologio segnerà dopo:
+
+| Ultima cifra | Premi l'ora di |
+| --- | --- |
+| 0, 1, 2 | **un quarto d'ora** dopo |
+| 3, 4, 5 | **mezz'ora** dopo |
+| 6, 7 | **tre quarti d'ora** dopo |
+| 8, 9 | **un'ora** dopo |
+
+Esempio: l'orologio segna le 3 e 50 e l'ultima cifra è 4 → mezz'ora dopo → premi **4:20**. I minuti sono sempre multipli di 5 e gli orari vanno da 1:00 a 12:55: dopo le 12 si ricomincia dall'1 (12:50 più mezz'ora fa 1:20).
 
 Un tasto sbagliato è un errore, e l'orologio cambia ora.
 
@@ -450,7 +473,7 @@ Vince la città in casa: **1**. Vince quella fuori: **2**. Infine, se l'**ultima
 2. Tocca le tessere nell'**ordine della parola**.
 3. Se nel numero di serie c'è una **vocale**, toccale invece **dalla fine**: la parola al contrario.
 
-Le lettere doppie (FORNO, BURRO…) si toccano in un ordine qualsiasi tra loro. Una tessera sbagliata è un errore e si ricomincia dalla prima.
+Le lettere doppie (FORNO, BURRO…) si toccano in un ordine qualsiasi tra loro. Ogni tessera toccata mostra il suo numero d'ordine; alla quinta il modulo controlla. Se l'ordine è sbagliato è un errore, e si ricomincia dalla prima.
 
 #### Ascensore
 
@@ -508,7 +531,7 @@ Se nel numero di serie c'è una **vocale**, il **terzo** interruttore va al **co
 
 #### Ricetta
 
-*Uno schermino con il nome di un primo piatto e sei tasti, ognuno con un ingrediente. Si toccano gli ingredienti giusti nell'ordine giusto. Si risolve in due piatti.*
+*Uno schermino con il nome di un primo piatto, sei tasti con un ingrediente ciascuno, e sotto la pentola con i tasti Svuota e Servi. Si toccano gli ingredienti giusti nell'ordine giusto, poi si preme Servi. Si risolve in due piatti.*
 
 | Piatto | Ingredienti, in ordine |
 | --- | --- |
@@ -520,7 +543,7 @@ Se nel numero di serie c'è una **vocale**, il **terzo** interruttore va al **co
 | Pesto | basilico, aglio, pinoli, olio, parmigiano |
 | Al pomodoro | olio, pomodoro, basilico |
 
-Se nel numero di serie c'è una **vocale**, al posto del **pecorino** va il **parmigiano**. La **panna** non va mai. Un ingrediente sbagliato è un errore e il piatto si ricomincia da capo.
+Se nel numero di serie c'è una **vocale**, al posto del **pecorino** va il **parmigiano**. La **panna** non va mai. Un piatto servito sbagliato è un errore, e arriva un piatto nuovo. Prima di servire, Svuota toglie tutto dalla pentola.
 
 **Da provare giocando**
 

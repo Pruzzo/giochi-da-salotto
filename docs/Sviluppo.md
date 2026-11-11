@@ -51,6 +51,24 @@ Per un gioco a squadre da due c'è già tutta la parte comune: scelta del colore
 - Server: le regole estendono `TeamTable` di `games/shared/teams.js` e definiscono `setupTeam`, `teamTimeout`, `teamPoints` e `teamView` (cosa vede ciascuno della squadra). Le azioni chiamano `playingTeam(actor)` e, a squadra finita, `finishTeam(team, outcome)`. `teamActions(game)` dà le azioni comuni da passare a `openRoom`.
 - Client: `teamViews(spec)` di `/js/kit/teams.js` dà le pagine di telefono e TV per tutte le fasi; il gioco passa le istruzioni, le impostazioni, il telefono durante il turno e la zona della TV di una squadra. Gli stili comuni sono in `/css/teams.css`.
 
+## Lavori in corso: i 30 moduli di Disinnesca la bomba
+
+Tutti i 30 moduli descritti nella [guida](Giochi-a-squadre.md#disinnesca-la-bomba) sono scritti: in `games/bomba/modules.js` c'è la logica del server, e ogni modulo ha il suo pannello sul telefono dell'artificiere e la sua pagina nel manuale. Per ognuno, quello che vede l'artificiere e quello che legge l'esperto sono in [questa pagina di revisione](https://claude.ai/artifact/St1Fp2vAgn5Vb6Lgef4YpQ).
+
+Mancano ancora:
+
+- **La difficoltà del turno.** Per ora la bomba pesca i moduli a caso fra tutti e 30. Bisogna fare:
+  - l'impostazione Facile/Medio/Difficile, che parte da Medio;
+  - il tempo fino a 8 minuti;
+  - la scelta dei moduli dalla complessità giusta, con almeno un modulo del livello più alto;
+  - i punti base 10/15/20;
+  - l'indice del manuale che mostra solo i moduli del turno.
+- **La validazione di tutti i flussi.** I test automatici controllano la risposta giusta, le risposte sbagliate e i passi di ogni modulo. Non c'è ancora stata una partita vera con tutti i moduli, con TV e telefoni. In quella partita va verificato, modulo per modulo:
+  - che le regole si possano spiegare a voce;
+  - che il manuale e il pannello dicano la stessa cosa;
+  - che dopo un errore il modulo riparta bene;
+  - che i moduli che ricordano le mosse fatte prima (Barista, Ascensore) funzionino in tutti i casi.
+
 ## L'app Android
 
 In `android/`: un'app Java che contiene Node.js ([nodejs-mobile](https://github.com/nodejs-mobile/nodejs-mobile) 18) e fa girare `server/index.js` così com'è. Istruzioni di compilazione, firma e struttura in [`android/README.md`](https://github.com/Pruzzo/giochi-da-salotto/blob/main/android/README.md).

@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#c6202c">
+<meta name="platform-game" content="labirinto">
+<title>Labirinto al buio</title>
+<link rel="icon" href="/icon.svg" type="image/svg+xml">
+<link rel="preload" href="/fonts/shantell.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/playwrite-it.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/css/tokens.css">
+<link rel="stylesheet" href="/css/kit.css">
+<link rel="stylesheet" href="/css/teams.css">
+<link rel="stylesheet" href="/games/labirinto/css/app.css">
+</head>
+<body>
+<div id="app" aria-live="off"></div>
+<div id="toast" role="status" aria-live="polite" hidden></div>
+<noscript>Per giocare serve JavaScript.</noscript>
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/platform.js"></script>
+<script type="module" src="/games/labirinto/js/main.js"></script>
+</body>
+</html>

@@ -26,7 +26,7 @@ const { phone, tv } = teamViews({
       short: 'Ha la mappa intera, ma non vede l’omino.',
       brief: [
         'Hai la mappa con muri, decori, bombe e la porta d’uscita, ma non l’omino: capisci dov’è da quello che ti racconta l’esploratore.',
-        'Ogni 8 passi la mappa gira o si capovolge: leggi la scritta in alto prima di dare indicazioni.',
+        'Ogni 8 passi la mappa si capovolge, in orizzontale o in verticale: leggi la scritta in alto prima di dare indicazioni.',
         'Guidalo fino alla porta, lontano dalle bombe.',
       ],
     },

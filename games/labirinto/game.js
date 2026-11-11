@@ -44,9 +44,8 @@ export function pathTarget(n) {
 }
 export const PATH_TOLERANCE = 1;
 
-/** Come può essere girata la mappa: ruotata (in senso orario) e poi, forse, capovolta. */
-const ORIENTATIONS = [];
-for (const rot of [0, 90, 180, 270]) for (const flip of [null, 'h', 'v']) ORIENTATIONS.push({ rot, flip });
+/** Come può essere girata la mappa: solo capovolta, in orizzontale o in verticale. Mai ruotata. */
+const ORIENTATIONS = [{ rot: 0, flip: 'h' }, { rot: 0, flip: 'v' }];
 
 /** La matrice di una girata, per riconoscere due girate scritte diversamente ma uguali (180° + orizzontale = verticale). */
 export function orientationKey({ rot, flip }) {
@@ -210,7 +209,7 @@ export class Game extends TeamTable {
     this.changed();
   }
 
-  /** La mappa del navigatore si gira: mai dritta, mai uguale a prima. */
+  /** La mappa del navigatore si capovolge: mai dritta, mai uguale a prima. Così si alterna orizzontale e verticale. */
   turnMap(b) {
     const current = orientationKey(b.orientation);
     const choices = ORIENTATIONS.filter((o) => orientationKey(o) !== current && orientationKey(o) !== IDENTITY);

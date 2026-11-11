@@ -122,8 +122,11 @@
 }
 .map-box { flex: 1; min-height: 0; display: grid; place-items: center; }
 .map-box .maze { max-width: 100%; max-height: 100%; }
-.map-box.is-turning .maze { animation: spin .8s var(--out); }
-@keyframes spin { from { transform: rotate(-35deg) scale(.55); opacity: .1; filter: blur(3px); } }
+/* La mappa si capovolge come una pagina girata: attorno all'asse verticale o a quello orizzontale. */
+.map-box.is-flip-h .maze { animation: flip-h .8s var(--out); }
+.map-box.is-flip-v .maze { animation: flip-v .8s var(--out); }
+@keyframes flip-h { from { transform: scaleX(-1); opacity: .2; } 50% { transform: scaleX(0); } }
+@keyframes flip-v { from { transform: scaleY(-1); opacity: .2; } 50% { transform: scaleY(0); } }
 .lab-foot { flex: none; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
 .lab-foot__turn, .lab-foot__info { display: flex; flex-direction: column; gap: 2px; }
 .lab-foot__info { align-items: flex-end; text-align: right; }

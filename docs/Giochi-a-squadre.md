@@ -290,11 +290,11 @@ Sul suo telefono, sopra le frecce, vede la **sua casella** intera e la **strisci
 
 Il nord è sempre in alto, e l'esploratore non sa dove sia l'uscita. La torcia sta sul telefono e non sulla TV perché il navigatore, guardando la TV, vedrebbe dov'è l'omino: l'esploratore non deve fargli vedere lo schermo. Il tempo che resta si vede solo sulla TV, non sui telefoni.
 
-**Cosa vede il navigatore (la mappa che gira)**
+**Cosa vede il navigatore (la mappa che si capovolge)**
 
 - Ha la mappa intera, con muri, decori, bombe e uscita. **Non vede l'omino**: capisce dov'è da quello che l'esploratore gli descrive (*"sono su una casella blu, a destra ho un muro, sotto c'è una stella"*).
-- **Ogni 8 passi dell'esploratore la mappa si gira**: ruotata di 90° a destra, 180° o 90° a sinistra, e/o capovolta in orizzontale o in verticale. Si parte con la mappa dritta; dopo, ogni girata è diversa dalla precedente e non torna mai dritta. Otto pallini sotto la mappa dicono quanti passi mancano alla prossima girata. Il telefono lo scrive sempre in grande (es. *Ruotata di 90° a destra · Capovolta in orizzontale*), e un'animazione avvisa quando cambia. Contano solo i passi fatti davvero: i muri non contano, e stando fermi a ragionare la mappa non si muove. Gli 8 passi valgono per tutte le grandezze.
-- I simboli dei decori restano sempre dritti, così non tradiscono come è girata la mappa: per saperlo bisogna leggere la scritta.
+- **Ogni 8 passi dell'esploratore la mappa si capovolge**, in orizzontale (destra e sinistra scambiate) o in verticale (sopra e sotto scambiati). Non viene mai ruotata. Si parte con la mappa dritta; dopo non torna mai dritta e ogni volta cambia, quindi orizzontale e verticale si alternano. Otto pallini sotto la mappa dicono quanti passi mancano alla prossima volta. Il telefono lo scrive sempre in grande (es. *Capovolta in orizzontale*), e un'animazione avvisa quando cambia. Contano solo i passi fatti davvero: i muri non contano, e stando fermi a ragionare la mappa non si muove. Gli 8 passi valgono per tutte le grandezze.
+- I simboli dei decori restano sempre dritti, così non tradiscono come è capovolta la mappa: per saperlo bisogna leggere la scritta.
 - Il navigatore deve tradurre *"sulla mia mappa vai a destra"* nella direzione vera per l'esploratore.
 
 **Come si gioca**
@@ -310,4 +310,4 @@ Il nord è sempre in alto, e l'esploratore non sa dove sia l'uscita. La torcia s
 
 **Da provare giocando**
 
-- La mappa si gira ogni 8 passi in tutte le grandezze. Se nel labirinto grande risulta troppo facile, si gira più spesso.
+- La mappa si capovolge ogni 8 passi in tutte le grandezze. Se nel labirinto grande risulta troppo facile, si capovolge più spesso.

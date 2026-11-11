@@ -160,7 +160,7 @@ test('sulla bomba si torna alla partenza e la bomba sparisce, dalla torcia e dal
   assert.ok(!game.view({ role: 'player', player: ps[1] }).teams[0].game.bombs.includes(target));
 });
 
-test('la mappa del navigatore gira ogni 8 passi effettivi, mai dritta e mai uguale a prima', () => {
+test('la mappa del navigatore si capovolge ogni 8 passi effettivi, mai dritta e mai uguale a prima', () => {
   const { game, ps } = setup();
   play(game, ps);
   const b = game.teams[0].board;
@@ -178,6 +178,8 @@ test('la mappa del navigatore gira ogni 8 passi effettivi, mai dritta e mai ugua
     const key = orientationKey(nav().orientation);
     assert.notEqual(key, previous);
     assert.notEqual(key, orientationKey({ rot: 0, flip: null }));
+    assert.equal(nav().orientation.rot, 0); // mai ruotata, solo capovolta
+    assert.ok(['h', 'v'].includes(nav().orientation.flip));
     previous = key;
     assert.equal(nav().stepsToTurn, TURN_EVERY);
   }

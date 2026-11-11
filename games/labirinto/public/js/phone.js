@@ -1,4 +1,4 @@
-// Il telefono durante il turno: le frecce dell'esploratore, la mappa che gira del navigatore.
+// Il telefono durante il turno: le frecce dell'esploratore, la mappa che si capovolge del navigatore.
 import { h, fill } from '/js/kit/dom.js';
 import { page } from '/js/kit/ui.js';
 import { mapSvg, orientationHint, orientationText, torchSvg } from './maze.js';
@@ -105,9 +105,9 @@ function navigatorPhone(state, ctx, team0) {
         fill(mapBox, mapSvg(g, { orientation: o }));
         if (turned) {
           for (const node of [card, mapBox]) {
-            node.classList.remove('is-turning');
+            node.classList.remove('is-turning', 'is-flip-h', 'is-flip-v');
             void node.offsetWidth; // fa ripartire l'animazione
-            node.classList.add('is-turning');
+            node.classList.add('is-turning', `is-flip-${o.flip}`);
           }
           vibrate([120, 80, 120]);
         }
@@ -116,7 +116,7 @@ function navigatorPhone(state, ctx, team0) {
       }
       const left = g.stepsToTurn;
       fill(dots, Array.from({ length: 8 }, (_, i) => h('span', { class: `dot${i < 8 - left ? ' is-done' : ''}` })));
-      next.textContent = left === 1 ? 'Gira al prossimo passo!' : `Gira tra ${left} passi`;
+      next.textContent = left === 1 ? 'Si capovolge al prossimo passo!' : `Si capovolge tra ${left} passi`;
       hits.textContent = bombsText(g.bombsHit);
       if (g.event.seq !== seq) {
         seq = g.event.seq;

@@ -92,29 +92,53 @@ Una versione italiana e semplificata del gioco della bomba da disinnescare in co
 
 ## Labirinto al buio
 
-Uno dei due cammina in un labirinto al buio con una torcia, l'altro ha la mappa, ma la mappa non sta mai ferma.
+Uno dei due cammina al buio in un labirinto pieno di bombe, con una torcia che illumina appena intorno a sé. L'altro ha la mappa, ma la mappa non sta mai ferma e non dice dove si trova l'omino.
 
 **Ruoli**
 
 | | Cosa vede | Cosa fa |
 | --- | --- | --- |
-| **Esploratore** | Sul telefono: quattro frecce. Sulla TV: la sua zona. | Muove l'omino con le frecce. |
-| **Navigatore** | Sul telefono: la mappa intera del labirinto, con l'uscita e la posizione dell'omino. | Guida l'esploratore a voce. |
-| **TV** | Per ogni squadra: solo le caselle accanto all'omino, come illuminate da una torcia. Il resto è buio. | |
+| **Esploratore** | Sul telefono: quattro frecce. Sulla TV: la zona della sua squadra. | Muove l'omino e descrive quello che vede. |
+| **Navigatore** | Sul telefono: la mappa intera, con muri, decori, bombe e uscita. Non l'omino. | Capisce dov'è l'omino e lo guida a voce fino all'uscita, lontano dalle bombe. |
+| **TV** | Per ogni squadra: la casella dell'omino e metà di ognuna delle quattro caselle accanto. Il resto è buio. | |
+
+**Il labirinto**
+
+- **Uno diverso per ogni squadra**, così nessuno copia guardando la zona degli altri. Sono tutti della stessa grandezza, con lo stesso numero di bombe e di decori e un percorso per l'uscita di lunghezza simile.
+- **Grandezze**: piccolo (7×7 caselle, 3 bombe), medio (9×9, 5 bombe), grande (11×11, 8 bombe).
+- **Decori**: alcune caselle sono diverse dalle altre e servono a orientarsi. Possono essere **a tinta unita** (pavimento rosso, verde, blu…) o avere un **simbolo** (stella, luna, chiave, fiore, ancora…). In un labirinto ogni decoro compare una volta sola. Più o meno una casella su sei è decorata.
+- **Bombe**: stanno sulle caselle dove si può passare, mai sul percorso obbligato per l'uscita: c'è sempre una strada senza bombe.
+- **Uscita**: una porta su una casella del bordo.
+- **Partenza**: l'omino parte sempre su una casella decorata, così l'esploratore ha subito qualcosa da descrivere.
+
+**Cosa vede l'esploratore (la torcia)**
+
+Sulla TV, nella zona della sua squadra, vede la **sua casella** intera e la **metà più vicina** di ognuna delle quattro caselle accanto (sopra, sotto, destra, sinistra). Gli angoli restano bui. Gli basta per vedere:
+
+- i **muri** intorno a sé, cioè dove può andare;
+- le **bombe** nelle caselle accanto, prima di metterci il piede;
+- i **decori**: il colore o il simbolo della sua casella e di quelle accanto;
+- l'**uscita**, quando ci arriva vicino.
+
+Sulla TV il nord è sempre in alto, e l'esploratore non sa dove sia l'uscita. Il tempo che resta si vede solo sulla TV, non sui telefoni.
+
+**Cosa vede il navigatore (la mappa che gira)**
+
+- Ha la mappa intera, con muri, decori, bombe e uscita. **Non vede l'omino**: capisce dov'è da quello che l'esploratore gli descrive (*"sono su una casella blu, a destra ho un muro, sotto c'è una stella"*).
+- **Ogni 8 passi dell'esploratore la mappa si gira**: ruotata di 90°, 180° o 270°, e/o capovolta in orizzontale o in verticale. Il telefono lo scrive sempre in grande (es. *Ruotata di 90° a destra · Capovolta in orizzontale*), e un'animazione avvisa quando cambia. Contano solo i passi fatti davvero: i muri non contano, e stando fermi a ragionare la mappa non si muove. Gli 8 passi valgono per tutte le grandezze.
+- I simboli dei decori restano sempre dritti, così non tradiscono come è girata la mappa: per saperlo bisogna leggere la scritta.
+- Il navigatore deve tradurre *"sulla mia mappa vai a destra"* nella direzione vera per l'esploratore.
 
 **Come si gioca**
 
-1. L'amministratore sceglie la grandezza del labirinto (piccolo, medio, grande) e il tempo.
-2. Ogni squadra ha lo stesso labirinto, partono tutte insieme.
-3. Sulla TV l'esploratore vede solo le caselle intorno a sé: dove ci sono muri e dove si passa. Non sa dove sia l'uscita.
-4. Il navigatore ha la mappa, ma **ogni tanto la mappa si gira**: ruotata di 90°, 180° o 270°, oppure capovolta in orizzontale e/o in verticale. Sul telefono c'è sempre scritto com'è messa in quel momento, ben in grande (es. *Ruotata di 90° a destra · Capovolta in orizzontale*), e un'animazione avvisa quando cambia. Sulla TV invece il nord è sempre in alto: il navigatore deve tradurre *"sulla mia mappa vai a destra"* nella direzione giusta.
-5. Vince la squadra che esce per prima. Le altre continuano fino allo scadere del tempo.
+1. L'amministratore sceglie la grandezza del labirinto e il tempo per turno (da 3 a 8 minuti).
+2. Formate le squadre e scelti i ruoli (vedi le [regole comuni](#regole-comuni-dei-giochi-a-squadre)), l'amministratore tocca **Via**. Tutte le squadre partono insieme, ognuna nel suo labirinto.
+3. L'esploratore si muove con le frecce. Contro un muro l'omino non si sposta e trema un attimo, senza penalità.
+4. **Su una bomba** l'omino salta in aria e **torna alla partenza**. La bomba scoppiata sparisce, dalla TV e dalla mappa. Il navigatore deve capire di nuovo dov'è, ma almeno sa che è alla partenza.
+5. Il turno della squadra finisce quando l'omino passa dalla porta d'uscita. Le altre squadre continuano fino allo scadere del tempo.
 
-**Punti**: chi esce prende 10 punti più 1 ogni 10 secondi rimasti. Primo a uscire 3 punti in più. Chi non esce prende 0.
+**Punti**: chi esce prende 10 punti più 1 ogni 10 secondi rimasti, meno 1 per ogni bomba presa (minimo 1). La prima squadra a uscire prende 3 punti in più. Chi non esce prende 0. In due non si tengono i punti.
 
-**Da decidere**
+**Da provare giocando**
 
-- Ogni quanto si gira la mappa: a tempo (es. ogni 20 secondi), dopo un certo numero di passi, o a caso?
-- La mappa mostra sempre la posizione dell'omino, o solo all'inizio (versione difficile)?
-- Il raggio della torcia: solo le 4 caselle accanto, o anche le diagonali?
-- Sbattere contro un muro costa qualcosa (un secondo di blocco, un punto in meno)?
+- La mappa si gira ogni 8 passi in tutte le grandezze. Se nel labirinto grande risulta troppo facile, si gira più spesso.

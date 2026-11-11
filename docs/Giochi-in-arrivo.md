@@ -56,37 +56,206 @@ Una schermata sola, sul telefono di ognuno:
 
 ## Disinnesca la bomba
 
-Una versione italiana e semplificata del gioco della bomba da disinnescare in coppia. Uno dei due ha la bomba e non sa come si smonta, l'altro ha il manuale e non vede la bomba.
+Uno dei due ha la bomba in mano e non sa come si smonta, l'altro ha il manuale e non vede la bomba. Si salva solo chi si spiega bene.
+
+È ispirato ai giochi di bombe da disinnescare in coppia, ma in versione corta e in italiano: un'etichetta sola, dodici tipi di modulo con regole di poche righe, e alcuni giocano su cose italiane (la bandiera, la smorfia, la moka). Moduli e manuale sono nostri.
 
 **Ruoli**
 
 | | Cosa vede | Cosa fa |
 | --- | --- | --- |
-| **Artificiere** | Sul telefono: la bomba, con i suoi moduli. | Descrive quello che vede, taglia, preme, sposta. |
-| **Esperto** | Sul telefono: il manuale, diviso per modulo. | Trova la regola giusta e dice cosa fare. |
-| **TV** | Per ogni squadra: il conto alla rovescia, gli errori e quanti moduli mancano. Mai la bomba. | |
+| **Artificiere** | Sul telefono: la bomba, un modulo alla volta, e l'etichetta col numero di serie. | Descrive quello che vede, taglia, sposta, preme. |
+| **Esperto** | Sul telefono: il manuale, una pagina per modulo. | Fa domande, trova la regola giusta e dice cosa fare. |
+| **TV** | Per ogni squadra: gli errori e quali moduli sono risolti. Mai la bomba. In alto il tempo, uguale per tutti. | |
+
+**La bomba**
+
+- Ha da 3 a 5 **moduli**, scelti a caso tra i dodici tipi, tutti diversi. Ogni modulo ha una lucina: si accende di verde quando è risolto.
+- Sul telefono dell'artificiere in alto c'è una fila di quadratini, uno per modulo: si tocca un quadratino per aprire quel modulo. Sotto c'è sempre l'**etichetta** col numero di serie.
+- Il **numero di serie** è sempre fatto così: due lettere, una cifra, trattino, due cifre, una lettera (es. `RT4-82K`). Quindi ha sempre **tre lettere** e **tre cifre**. L'*ultima cifra* è quella prima della lettera finale (nell'esempio, 2). Molte regole lo usano: l'esperto dovrà chiederlo.
+- **Uno diverso per ogni squadra**, e una bomba nuova a ogni turno. Tutte le bombe di un turno hanno lo stesso numero di moduli.
+
+**Errori e fine**
+
+- Ogni azione sbagliata è un **errore**: il telefono dell'artificiere vibra e lampeggia di rosso, la TV segna una crocetta nella zona della squadra.
+- Al **terzo errore** la bomba scoppia. Scoppia anche allo scadere del tempo.
+- La bomba è **disinnescata** quando tutti i moduli hanno la lucina verde.
+- Il turno finisce quando tutte le squadre hanno disinnescato o sono scoppiate, quando scade il tempo, o quando l'amministratore lo ferma.
 
 **Come si gioca**
 
-1. L'amministratore sceglie quanti moduli ha la bomba (3, 4 o 5) e quanto tempo c'è (da 3 a 6 minuti).
-2. Tutte le squadre ricevono una bomba diversa, con lo stesso numero di moduli, e il tempo parte insieme.
-3. La bomba ha un **numero di serie** (es. `RT4-82K`) che alcune regole usano: l'esperto dovrà chiederlo.
-4. Ogni azione sbagliata è un **errore** (la TV lampeggia). Al terzo errore, o allo scadere del tempo, la bomba scoppia.
-5. La bomba è disinnescata quando tutti i moduli sono risolti.
+1. **Prima di ogni turno** l'amministratore sceglie quanti moduli ha la bomba (3, 4 o 5) e quanto tempo c'è (da 3 a 6 minuti). Le impostazioni stanno sulla schermata delle istruzioni, sopra il tasto **Via**, e partono uguali al turno prima: si può alzare la difficoltà man mano.
+2. Formate le squadre e scelti i ruoli (vedi le [regole comuni](#regole-comuni-dei-giochi-a-squadre)), l'amministratore tocca **Via**. Tutte le squadre partono insieme.
+3. L'artificiere apre un modulo e lo descrive. L'esperto cerca la pagina giusta e lo guida. I moduli si risolvono in qualunque ordine.
 
-**Moduli per iniziare** (regole nostre, scritte apposta):
+**Punti**: la squadra che disinnesca prende 10 punti, più 1 ogni 10 secondi rimasti, meno 2 per ogni errore (minimo 1). La prima squadra a disinnescare prende 3 punti in più. Chi scoppia prende 0. In due non si tengono i punti.
 
-- **Fili**: da 3 a 6 fili colorati, se ne taglia uno solo. Il manuale ha poche regole in ordine: *"Se non ci sono fili rossi, taglia il secondo. Se l'ultimo filo è giallo e il numero di serie finisce con un numero dispari, taglia l'ultimo…"*
-- **Leve**: 5 leve su o giù. Il manuale ha una tabella: dalla prima lettera del numero di serie si ricava la posizione giusta di ogni leva. Si conferma con **Arma**.
-- **Semaforo**: una luce fa una sequenza di colori; l'esperto la traduce con la tabella del manuale e l'artificiere preme i colori tradotti. La sequenza si allunga di un colore a ogni passo giusto.
-- **Parola**: lo schermo mostra una parola (es. *CASA*, *COSA*, *CAUSA*); il manuale dice quale dei 4 bottoni premere per quella parola. Parole simili apposta, da dire bene a voce.
+### Il manuale
 
-**Punti**: la squadra che disinnesca prende 10 punti, più 1 per ogni 10 secondi rimasti, meno 2 per ogni errore. La prima squadra a finire prende 3 punti in più. Chi scoppia prende 0.
+Questo è il testo che l'esperto ha sul telefono. La prima pagina è un **indice** con il disegno di ogni modulo, così l'esperto riconosce il modulo da come lo descrive l'artificiere e apre la pagina giusta.
 
-**Da decidere**
+Quando una regola parla di **vocali** intende A, E, I, O, U tra le lettere del numero di serie.
 
-- Il manuale è uguale per tutti o cambia a ogni partita (così non si impara a memoria)?
-- Le squadre che hanno finito guardano le altre sulla TV o aspettano?
+#### Fili
+
+*Da 3 a 6 fili orizzontali, uno sotto l'altro. Colori: rosso, blu, giallo, bianco, nero. Se ne taglia uno solo.*
+
+I fili si contano dall'alto. Leggi le regole in ordine e fermati alla prima che vale:
+
+1. Ci sono **2 o più fili rossi**: taglia l'**ultimo rosso**.
+2. C'è almeno un **filo giallo** e l'**ultima cifra** del numero di serie è **pari**: taglia il **primo giallo**.
+3. Il **primo filo è nero**: taglia il **secondo filo**.
+4. Ci sono **più fili blu che bianchi**: taglia l'**ultimo filo**.
+5. Altrimenti: taglia il **filo di mezzo** (con un numero pari di fili, il più alto dei due di mezzo).
+
+#### Leve
+
+*Cinque leve in fila, ognuna su o giù, e un tasto Conferma.*
+
+Guarda la **prima lettera** del numero di serie e metti le leve così, da sinistra a destra, poi premi **Conferma**:
+
+| Prima lettera | Leve |
+| --- | --- |
+| A – E | su · giù · su · giù · su |
+| F – J | giù · giù · su · su · giù |
+| K – O | su · su · giù · giù · su |
+| P – T | giù · su · su · giù · giù |
+| U – Z | su · giù · giù · su · su |
+
+Se nel numero di serie c'è uno **zero**, la leva di mezzo va al contrario.
+
+#### Semaforo
+
+*Tre luci in alto (rossa, gialla, verde) e sotto tre tasti degli stessi colori. Si risolve in tre passi: a ogni passo si accende una luce.*
+
+Guarda se nel numero di serie c'è almeno una **vocale**, poi premi il tasto indicato:
+
+| Si accende | Con vocale | Senza vocale |
+| --- | --- | --- |
+| Rossa | premi Verde | premi Giallo |
+| Gialla | premi Rosso | premi Verde |
+| Verde | premi Giallo | premi Rosso |
+
+Dopo tre passi giusti il semaforo è risolto. Un tasto sbagliato è un errore, e quel passo ricomincia con una luce nuova.
+
+#### Parola
+
+*Uno schermino con una parola e sotto quattro tasti, ognuno con una parola. Si risolve in tre passi.*
+
+Le parole si somigliano apposta: **fatti fare lo spelling**. Trova la parola dello schermino e premi il tasto con la parola accanto:
+
+| Sullo schermino | Premi |
+| --- | --- |
+| CASA | CASCO |
+| CASSA | COSA |
+| CAUSA | CASA |
+| COSA | CASTA |
+| CASO | CAUSA |
+| CASE | CASSA |
+| CASTA | CASO |
+| CASCO | CASE |
+
+La parola da premere c'è sempre tra i quattro tasti. Dopo tre passi giusti il modulo è risolto. Un tasto sbagliato è un errore, e quel passo ricomincia con parole nuove.
+
+#### Cassaforte
+
+*Un tastierino da 0 a 9, i tasti Cancella e Apri, e uno schermino per quattro cifre.*
+
+Il codice ha quattro cifre:
+
+1. le **tre cifre del numero di serie**, nell'ordine in cui compaiono;
+2. poi l'**ultima cifra della loro somma**.
+
+Esempio: `RT4-82K` → 4, 8, 2 → somma 14 → **4824**. Scrivilo e premi **Apri**.
+
+#### Lucchetto
+
+*Un lucchetto colorato (rosso, blu o verde) con tre rotelle di lettere, ognuna con le frecce su e giù, e un tasto Apri.*
+
+Le rotelle vanno sulle **tre lettere del numero di serie**:
+
+| Lucchetto | Ordine delle lettere |
+| --- | --- |
+| Rosso | come compaiono nel numero di serie |
+| Blu | al contrario |
+| Verde | in ordine alfabetico |
+
+Esempio: `RT4-82K` col lucchetto verde → **K R T**. Poi premi **Apri**.
+
+#### Bandiera
+
+*Una bandiera con tre strisce verticali. Colori possibili: rosso, giallo, verde, blu, bianco, nero. Le tre strisce non sono mai tutte dello stesso colore. Si tocca una striscia sola.*
+
+Leggi le regole in ordine e fermati alla prima che vale:
+
+1. È la **bandiera italiana** (verde, bianco, rosso, da sinistra): tocca la **bianca**.
+2. **Due strisce hanno lo stesso colore**: tocca quella **diversa**.
+3. La striscia di **mezzo è rossa**: tocca quella **a sinistra**.
+4. Altrimenti tocca la striscia col colore che viene **prima** in questo elenco: rosso, giallo, verde, blu, bianco, nero.
+
+#### Dado
+
+*Un dado, bianco o rosso, che mostra una faccia, e sei tasti da 1 a 6. Si risolve in tre lanci.*
+
+| Dado | Cosa premere |
+| --- | --- |
+| Bianco | la **faccia opposta**: 7 meno il numero (1 → 6, 2 → 5, 3 → 4…) |
+| Rosso | il **numero dopo** (1 → 2, 2 → 3… e 6 → 1) |
+
+Se nel numero di serie c'è una **vocale**, i colori si scambiano: il dado bianco va trattato come rosso e il rosso come bianco.
+
+Un tasto sbagliato è un errore, e il dado si rilancia.
+
+#### Lampadine
+
+*Quattro lampadine numerate da 1 a 4, ognuna accesa o spenta (si toccano per cambiarle), e un tasto Conferma.*
+
+1. Accendi le lampadine il cui numero compare tra le **cifre del numero di serie**, e spegni le altre.
+2. Se nessuna cifra va da 1 a 4, accendi **solo la 4**.
+
+Esempio: `RT4-82K` → cifre 4, 8, 2 → accese la **2** e la **4**. Poi premi **Conferma**.
+
+#### Tombola
+
+*Uno schermino con un disegno e quattro tasti con un numero ciascuno. Si risolve in tre passi.*
+
+È la smorfia: premi il numero del disegno.
+
+| Disegno | Numero | | Disegno | Numero |
+| --- | --- | --- | --- | --- |
+| L'Italia | 1 | | I topi | 11 |
+| La bambina | 2 | | I soldati | 12 |
+| La gatta | 3 | | La risata | 19 |
+| Il maiale | 4 | | La festa | 20 |
+| La mano | 5 | | La testa | 34 |
+| | | | La paura | 90 |
+
+Il numero giusto c'è sempre tra i quattro tasti. Un tasto sbagliato è un errore, e arriva un disegno nuovo.
+
+#### Moka
+
+*Una moka sul fornello con un manometro: la lancetta sta nella zona verde, gialla o rossa. Tre tasti: Alza la fiamma, Abbassa, Spegni. Si risolve in tre passi.*
+
+| Lancetta | Cosa fare |
+| --- | --- |
+| Verde | **Alza la fiamma** |
+| Gialla | ultima cifra pari: **Abbassa**; dispari: **Spegni** |
+| Rossa | **Spegni** |
+
+Un tasto sbagliato è un errore, e la lancetta si sposta.
+
+#### Bussola
+
+*Una freccia che punta in su, in giù, a destra o a sinistra, e quattro tasti: N, S, E, O. Si risolve in tre passi.*
+
+La freccia in su è il Nord, a destra l'Est, in giù il Sud, a sinistra l'Ovest. Premi la direzione della freccia **girata di un quarto in senso orario** (N → E, E → S, S → O, O → N).
+
+Se nel numero di serie c'è una **vocale**, gira invece in senso **antiorario** (N → O, O → S, S → E, E → N).
+
+**Da provare giocando**
+
+- Il manuale resta uguale in tutte le partite: chi gioca spesso lo impara, e va bene così. Se diventa troppo facile, si aggiunge un livello col manuale che cambia a ogni partita.
+- Con 12 tipi e 3–5 moduli per bomba, ogni bomba è diversa. Se qualche modulo risulta troppo facile o troppo difficile, si sistema la sua pagina o lo si toglie.
 
 ---
 

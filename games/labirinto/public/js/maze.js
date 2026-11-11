@@ -244,11 +244,10 @@ export function mapSvg(m, { orientation = { rot: 0, flip: null }, trail = null, 
   floor, decos, marks, walls);
 }
 
-/** I quadretti del foglio: quattro per casella. */
-function gridPath(n, x0 = 0, y0 = 0, w = n, hgt = n) {
+/** Solo i bordi delle caselle, senza quadretti dentro. */
+function gridPath(n) {
   let d = '';
-  for (let k = 0; k <= w * 4; k++) d += `M${x0 + k / 4} ${y0}V${y0 + hgt}`;
-  for (let k = 0; k <= hgt * 4; k++) d += `M${x0} ${y0 + k / 4}H${x0 + w}`;
+  for (let k = 0; k <= n; k++) d += `M${k} 0V${n}M0 ${k}H${n}`;
   return d;
 }
 

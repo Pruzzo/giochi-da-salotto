@@ -4,7 +4,7 @@
 /* ---------- Il labirinto (mappa e torcia) ---------- */
 .maze, .torch { display: block; width: 100%; height: 100%; overflow: visible; }
 .maze__paper, .torch__floor { fill: var(--paper); }
-.maze__grid { fill: none; stroke: var(--grid); stroke-width: .018; }
+.maze__grid { fill: none; stroke: var(--grid); stroke-width: .025; }
 .maze .cell { stroke: none; }
 .cell--color { fill: none; stroke: rgb(255 255 255 / .38); stroke-width: .05; stroke-dasharray: .09 .07; }
 .wall { stroke: var(--ink-deep); stroke-width: .13; stroke-linecap: round; }

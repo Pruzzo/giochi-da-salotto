@@ -32,6 +32,7 @@ Una schermata sola, sul telefono di ognuno:
 - **Istruzioni brevi.** Poche righe: cosa fa ciascuno dei due ruoli e come si vince. In evidenza, sempre: **«Il tuo compagno non può vedere il tuo schermo: allontanati da lui.»**
 - **Scelta del ruolo.** Due tasti, uno per ruolo, ognuno con una riga che dice cosa fa. Quando il compagno ne sceglie uno, quel tasto diventa **grigio** col suo nome sopra, e a te resta l'altro. Finché il turno non parte si può cambiare idea.
 - **TV**: per ogni squadra il nome, i due giocatori e il ruolo di ciascuno appena lo scelgono, con un segno di spunta quando la squadra è pronta.
+- **Impostazioni del turno**: sul telefono dell'amministratore, sopra il tasto **Via**, ci sono le impostazioni di ogni gioco (quanto è difficile, quanto tempo c'è). Si scelgono **prima di ogni turno** e ripartono da quelle del turno prima, così la difficoltà si può alzare man mano. La TV le mostra a tutti.
 - **Partenza**: l'amministratore tocca **Via**. Il tasto si accende solo quando in ogni squadra tutti e due i ruoli sono presi.
 
 ### 3. Il gioco e i turni dopo
@@ -84,7 +85,7 @@ Uno dei due ha la bomba in mano e non sa come si smonta, l'altro ha il manuale e
 
 **Come si gioca**
 
-1. **Prima di ogni turno** l'amministratore sceglie quanti moduli ha la bomba (3, 4 o 5) e quanto tempo c'è (da 3 a 6 minuti). Le impostazioni stanno sulla schermata delle istruzioni, sopra il tasto **Via**, e partono uguali al turno prima: si può alzare la difficoltà man mano.
+1. **Prima di ogni turno** l'amministratore sceglie quanti moduli ha la bomba (3, 4 o 5) e quanto tempo c'è (da 3 a 6 minuti), come nelle [regole comuni](#2-nome-istruzioni-e-ruoli).
 2. Formate le squadre e scelti i ruoli (vedi le [regole comuni](#regole-comuni-dei-giochi-a-squadre)), l'amministratore tocca **Via**. Tutte le squadre partono insieme.
 3. L'artificiere apre un modulo e lo descrive. L'esperto cerca la pagina giusta e lo guida. I moduli si risolvono in qualunque ordine.
 
@@ -300,7 +301,7 @@ Sulla TV il nord è sempre in alto, e l'esploratore non sa dove sia l'uscita. Il
 
 **Come si gioca**
 
-1. L'amministratore sceglie la grandezza del labirinto e il tempo per turno (da 3 a 8 minuti).
+1. **Prima di ogni turno** l'amministratore sceglie la grandezza del labirinto e quanto tempo c'è (da 3 a 8 minuti), come nelle [regole comuni](#2-nome-istruzioni-e-ruoli).
 2. Formate le squadre e scelti i ruoli (vedi le [regole comuni](#regole-comuni-dei-giochi-a-squadre)), l'amministratore tocca **Via**. Tutte le squadre partono insieme, ognuna nel suo labirinto.
 3. L'esploratore si muove con le frecce. Contro un muro l'omino non si sposta e trema un attimo, senza penalità.
 4. **Su una bomba** l'omino salta in aria e **torna alla partenza**. La bomba scoppiata sparisce, dalla TV e dalla mappa. Il navigatore deve capire di nuovo dov'è, ma almeno sa che è alla partenza.

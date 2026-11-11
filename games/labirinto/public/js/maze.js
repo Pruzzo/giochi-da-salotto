@@ -263,14 +263,19 @@ function omino(color, aside = false) {
       s('circle', { cx: 0.5, cy: 0.37, r: 0.085, fill: '#fff' })));
 }
 
-/** Dove sta la metà vicina della casella accanto, e il suo centro. */
+// Delle caselle accanto si vede solo la striscia più vicina: una riga di quadretti su quattro.
+const SEE = 0.25;
 const HALF = {
-  N: { x: 0, y: -0.5, w: 1, h: 0.5 }, S: { x: 0, y: 1, w: 1, h: 0.5 },
-  W: { x: -0.5, y: 0, w: 0.5, h: 1 }, E: { x: 1, y: 0, w: 0.5, h: 1 },
+  N: { x: 0, y: -SEE, w: 1, h: SEE }, S: { x: 0, y: 1, w: 1, h: SEE },
+  W: { x: -SEE, y: 0, w: SEE, h: 1 }, E: { x: 1, y: 0, w: SEE, h: 1 },
 };
+// Dove comincia la casella accanto, per disegnarne i muri.
+const NEXT = { N: [0, -1], S: [0, 1], W: [-1, 0], E: [1, 0] };
+const PAD = 0.06;
+const VIEW = { x: -SEE - PAD, size: 1 + 2 * (SEE + PAD) };
 
 /**
- * La torcia dell'esploratore: la casella dell'omino e la metà vicina delle quattro accanto. Il nord è in alto.
+ * La torcia dell'esploratore: la casella dell'omino e la striscia vicina delle quattro accanto. Il nord è in alto.
  * @param torch  { here: { deco, walls }, around: { N|E|S|W: { deco, bomb, walls } | null } }
  */
 export function torchSvg(torch, { color, event = null }) {
@@ -297,12 +302,12 @@ export function torchSvg(torch, { color, event = null }) {
       lit.append(s('rect', { class: 'cell--color', x: a.x + 0.05, y: a.y + 0.05, width: a.w - 0.1, height: a.h - 0.1 }));
     }
   }
-  // Decori e bombe delle caselle accanto, nella metà che si vede.
+  // Decori e bombe delle caselle accanto, nella striscia che si vede.
   for (const a of areas.slice(1)) {
     const cx = a.x + a.w / 2;
     const cy = a.y + a.h / 2;
-    if (a.bomb) lit.append(bomb(cx, cy, 0.42));
-    else if (a.deco && !FLOORS[a.deco]) lit.append(symbol(a.deco, cx, cy, 0.4));
+    if (a.bomb) lit.append(bomb(cx, cy, SEE * 0.9));
+    else if (a.deco && !FLOORS[a.deco]) lit.append(symbol(a.deco, cx, cy, SEE * 0.85));
   }
   // Il simbolo della casella dell'omino, grande sul pavimento.
   // Il simbolo della casella dell'omino, grande sul pavimento; l'omino si sposta un po' per non coprirlo.
@@ -322,8 +327,8 @@ export function torchSvg(torch, { color, event = null }) {
     const half = HALF[side];
     for (const [across, kind] of Object.entries(cell.walls)) {
       if (kind === 'open') continue;
-      const [x1, y1, x2, y2] = edge(half.x - (side === 'W' ? 0.5 : 0), half.y - (side === 'N' ? 0.5 : 0), across);
-      // della casella accanto si vede solo la metà vicina
+      const [x1, y1, x2, y2] = edge(NEXT[side][0], NEXT[side][1], across);
+      // della casella accanto si vede solo la striscia vicina
       const clipLine = (v1, v2, lo, hi) => [Math.max(Math.min(v1, v2), lo), Math.min(Math.max(v1, v2), hi)];
       const [ax, bx] = clipLine(x1, x2, half.x, half.x + half.w);
       const [ay, by] = clipLine(y1, y2, half.y, half.y + half.h);
@@ -334,10 +339,10 @@ export function torchSvg(torch, { color, event = null }) {
   // Sotto i muri un alone di carta, così si staccano dal buio.
   const halo = walls.cloneNode(true);
   halo.setAttribute('class', 'walls walls--halo');
-  world.append(s('g', { 'clip-path': `url(#${id}-clip)` }, lit, s('rect', { x: -0.5, y: -0.5, width: 2, height: 2, fill: `url(#${id}-glow)` })), halo, walls);
-  const svg = s('svg', { class: `torch${event ? ` is-${event.type}` : ''}`, viewBox: '-0.56 -0.56 2.12 2.12', role: 'img', 'aria-label': describe(torch) },
+  world.append(s('g', { 'clip-path': `url(#${id}-clip)` }, lit, s('rect', { x: -SEE, y: -SEE, width: 1 + 2 * SEE, height: 1 + 2 * SEE, fill: `url(#${id}-glow)` })), halo, walls);
+  const svg = s('svg', { class: `torch${event ? ` is-${event.type}` : ''}`, viewBox: `${VIEW.x} ${VIEW.x} ${VIEW.size} ${VIEW.size}`, role: 'img', 'aria-label': describe(torch) },
     s('defs', {}, clip, glow),
-    s('rect', { class: 'torch__dark', x: -0.56, y: -0.56, width: 2.12, height: 2.12 }),
+    s('rect', { class: 'torch__dark', x: VIEW.x, y: VIEW.x, width: VIEW.size, height: VIEW.size }),
     world,
     omino(color, sym));
   if (event?.dir) {

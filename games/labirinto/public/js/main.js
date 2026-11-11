@@ -16,7 +16,7 @@ const { phone, tv } = teamViews({
       label: 'Esploratore',
       short: 'Ha la torcia sul telefono e muove l’omino con le frecce.',
       brief: [
-        'Sul telefono vedi solo la tua casella e metà di quelle accanto. Il nord è sempre in alto. Non far vedere lo schermo al navigatore.',
+        'Sul telefono vedi solo la tua casella e un pezzetto di quelle accanto. Il nord è sempre in alto. Non far vedere lo schermo al navigatore.',
         'Descrivi al navigatore quello che vedi: colori, simboli, muri, bombe.',
         'Sulla bomba torni alla partenza. Contro un muro non succede niente.',
       ],

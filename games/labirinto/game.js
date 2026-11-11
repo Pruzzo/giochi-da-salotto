@@ -1,5 +1,5 @@
 // "Labirinto al buio": l'esploratore muove l'omino con la torcia sul telefono, che illumina solo la sua casella
-// e metà di quelle accanto; il navigatore ha la mappa intera sul telefono, ma la mappa gira ogni 8 passi
+// e la striscia più vicina di quelle accanto; il navigatore ha la mappa intera sul telefono, ma la mappa gira ogni 8 passi
 // e non dice dov'è l'omino. Le regole sono in docs/Giochi-a-squadre.md, "Labirinto al buio".
 // Le fasi (squadre, ruoli, turni, pausa) sono quelle comuni di games/shared/teams.js.
 import { GameError, MAX_PLAYERS } from '../shared/table.js';
@@ -35,7 +35,7 @@ export const DIRS = {
   W: { dr: 0, dc: -1, bit: 8, back: 'E' },
 };
 const SIDES = Object.keys(DIRS);
-/** Di una casella accanto la torcia illumina la metà vicina: si vedono i due muri di lato. */
+/** Di una casella accanto la torcia illumina la striscia vicina: si vedono i due muri di lato. */
 const ACROSS = { N: ['W', 'E'], S: ['W', 'E'], E: ['N', 'S'], W: ['N', 'S'] };
 
 /** Il percorso più corto senza bombe, per ogni grandezza: le squadre dello stesso turno stanno tutte qui. */
@@ -256,7 +256,7 @@ export class Game extends TeamTable {
     return { n: b.n, open: b.open, deco: b.deco, bombs: b.bombs, exit: b.exit };
   }
 
-  /** La torcia: la casella dell'omino intera, delle quattro accanto solo la metà vicina. Niente coordinate. */
+  /** La torcia: la casella dell'omino intera, delle quattro accanto solo la striscia vicina. Niente coordinate. */
   torch(b) {
     const n = b.n;
     const r = Math.floor(b.pos / n);

@@ -145,7 +145,7 @@ test('sulla bomba si torna alla partenza e la bomba sparisce, dalla torcia e dal
   const way = sidesOf(b, b.pos)[0];
   const target = neighbor(b, b.pos, way);
   b.bombs = [...b.bombs, target]; // una bomba proprio accanto alla partenza
-  // Nella torcia dell'esploratore: la bomba è nella metà della casella accanto.
+  // Nella torcia dell'esploratore: la bomba è nella striscia della casella accanto.
   const torch = () => game.view({ role: 'player', player: ps[0] }).teams[0].game.torch;
   assert.equal(torch().around[way].bomb, true);
   game.move(ps[0], way);
@@ -248,7 +248,7 @@ test('cosa vede chi: la mappa solo al navigatore, la torcia solo all’esplorato
     const wall = b.open[b.pos] & DIRS[s].bit ? 'open' : b.exit.cell === b.pos && b.exit.side === s ? 'door' : 'wall';
     assert.equal(explorer.torch.here.walls[s], wall);
     const side = explorer.torch.around[s];
-    if (side) assert.equal(Object.keys(side.walls).length, 2); // della casella accanto, solo la metà vicina
+    if (side) assert.equal(Object.keys(side.walls).length, 2); // della casella accanto, solo la striscia vicina
   }
   // Il navigatore ha la mappa, ma non sa dov'è l'omino né dove è partito.
   assert.equal(navigator.role, 'navigatore');

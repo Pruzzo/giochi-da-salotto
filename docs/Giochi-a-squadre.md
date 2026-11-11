@@ -281,7 +281,7 @@ Uno dei due cammina al buio in un labirinto pieno di bombe, con una torcia che i
 
 **Cosa vede l'esploratore (la torcia)**
 
-Sul suo telefono, sopra le frecce, vede la **sua casella** intera e la **metà più vicina** di ognuna delle quattro caselle accanto (sopra, sotto, destra, sinistra). Gli angoli restano bui. Gli basta per vedere:
+Sul suo telefono, sopra le frecce, vede la **sua casella** intera e la **striscia più vicina** di ognuna delle quattro caselle accanto (sopra, sotto, destra, sinistra), larga una riga di quadretti su quattro. Gli angoli restano bui. Gli basta per vedere:
 
 - i **muri** intorno a sé, cioè dove può andare;
 - le **bombe** nelle caselle accanto, prima di metterci il piede;

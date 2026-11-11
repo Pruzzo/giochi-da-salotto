@@ -2,16 +2,55 @@
 
 > **Bozze.** Questi giochi non ci sono ancora: qui c'è l'idea da cui partire. Regole, nomi e punteggi possono cambiare mentre li costruiamo.
 
-Tutti e due si giocano **a squadre di due**, e ognuno dei due ha sul telefono una cosa diversa: per vincere bisogna parlarsi.
+Tutti e due si giocano a squadre di due, con le stesse regole per formare le squadre e scegliere i ruoli.
 
 ## Regole comuni dei giochi a squadre
 
-- **Solo in numero pari.** Il gioco compare nella console come gli altri, con l'etichetta *A squadre · numero pari*, ma si può giocare solo se i giocatori sono pari. In sala d'attesa l'amministratore vede quanti mancano (*Siete in 5: serve ancora un giocatore*) e **Inizia** resta spento finché i giocatori non sono pari.
-- Con **Cambia gioco** i giocatori arrivano dal gioco precedente già dentro, quindi la sala d'attesa sa subito quanti sono.
-- **Squadre da due.** Con 6 giocatori ci sono 3 squadre, con 12 ce ne sono 6. Le squadre si fanno a caso; l'amministratore può **rimescolarle** prima di iniziare.
-- **Ruoli che si scambiano.** In ogni squadra uno fa una cosa e l'altro un'altra. A ogni turno i ruoli si invertono.
-- **TV divisa.** Lo schermo si divide in tante zone quante sono le squadre, ognuna col nome dei due giocatori e un colore.
-- **Punti e stelline.** I punti della squadra vanno a tutti e due. Alla fine la stellina della serata va a entrambi i giocatori della squadra vincente.
+Le squadre sono **sempre da due**: né una persona di più né una di meno. Ognuno dei due ha sul telefono una cosa diversa, quindi per vincere bisogna parlarsi.
+
+### Solo in numero pari
+
+- Nella console il gioco compare come gli altri, con l'etichetta *A squadre · numero pari*.
+- In sala d'attesa l'amministratore vede quanti ne mancano (*Siete in 5: serve ancora un giocatore*). Finché i giocatori sono dispari **Via** resta spento.
+- Con **Cambia gioco** i giocatori arrivano già dentro dal gioco precedente, così la sala d'attesa sa subito quanti sono.
+- **In due** si gioca lo stesso, ma senza punti: c'è una sola squadra e non c'è nessuno da battere. La TV mostra solo com'è andata (es. *Disinnescata con 1:12 di anticipo*) e non si vincono stelline.
+
+### 1. Scelta della squadra
+
+Quando l'amministratore tocca **Via**, ognuno sceglie la sua squadra.
+
+- Le squadre sono tante quante servono: metà dei giocatori (3 squadre con 6 giocatori, 6 con 12). Ogni squadra è un **colore**: Rosso, Blu, Verde, Giallo, Viola, Arancione.
+- **Telefono**: i colori sono grossi tasti, ognuno con i nomi di chi c'è già dentro. Tocchi un colore per entrarci. Una squadra con due persone è **piena** e il suo tasto si spegne. Finché non sono tutte piene puoi cambiare: tocchi un altro colore e passi lì.
+- **TV**: lo schermo è già diviso in una zona per squadra, col suo colore, e i nomi compaiono appena qualcuno entra. Sopra c'è scritto quanti stanno ancora scegliendo.
+- Appena l'ultima squadra è piena, si passa da soli alla schermata successiva. Da lì le squadre non cambiano più per tutta la partita.
+
+### 2. Nome, istruzioni e ruoli
+
+Una schermata sola, sul telefono di ognuno:
+
+- **Nome della squadra.** Lo scrive chi è entrato per primo nella squadra; il compagno vede *Anna sta scegliendo il nome*. Se lo lascia vuoto, la squadra si chiama come il suo colore (*Squadra Blu*). Il nome compare subito sulla TV, nella zona della squadra.
+- **Istruzioni brevi.** Poche righe: cosa fa ciascuno dei due ruoli e come si vince. In evidenza, sempre: **«Il tuo compagno non può vedere il tuo schermo: allontanati da lui.»**
+- **Scelta del ruolo.** Due tasti, uno per ruolo, ognuno con una riga che dice cosa fa. Quando il compagno ne sceglie uno, quel tasto diventa **grigio** col suo nome sopra, e a te resta l'altro. Finché il turno non parte si può cambiare idea.
+- **TV**: per ogni squadra il nome, i due giocatori e il ruolo di ciascuno appena lo scelgono, con un segno di spunta quando la squadra è pronta.
+- **Partenza**: l'amministratore tocca **Via**. Il tasto si accende solo quando in ogni squadra tutti e due i ruoli sono presi.
+
+### 3. Il gioco e i turni dopo
+
+- Durante il turno la TV è divisa in una zona per squadra, col nome e il colore della squadra.
+- **Dal secondo turno i ruoli si scambiano da soli**: chi aveva la bomba prende il manuale, chi aveva le frecce prende la mappa. Prima di ogni turno torna la schermata delle istruzioni, già col nuovo ruolo e senza scelta, così tutti la rileggono. Poi l'amministratore tocca **Via**.
+- **Punti e stelline.** I punti della squadra vanno a tutti e due. A fine partita la stellina della serata va a tutti e due i giocatori della squadra vincente (in due, come detto, non si vince niente).
+
+### Chi si disconnette
+
+- **In due**: il gioco si ferma. Il tempo si blocca e la TV scrive *In pausa: Bruno si è disconnesso*. Quando rientra si riparte da dove eravate.
+- **In più di due**: il gioco continua per tutti, anche il tempo della sua squadra. Quando rientra, il suo telefono riprende dal punto in cui è la squadra, con lo stesso ruolo.
+
+### Chi arriva a partita iniziata
+
+- Chi entra dopo la scelta delle squadre resta **in attesa** fino alla fine del turno: il suo telefono lo dice, e la TV scrive quanti aspettano (*Un giocatore in attesa*, *2 giocatori in attesa*).
+- A fine turno, se quelli in attesa sono **in numero pari**, si torna alla scelta delle squadre: le squadre che ci sono restano come sono, e chi aspettava forma le squadre nuove con colori nuovi. Poi nome, istruzioni e ruoli, come per tutti.
+- Se sono **dispari**, l'ultimo arrivato continua ad aspettare e gli altri scelgono la squadra. Con 3 in attesa, i primi due formano una squadra e il terzo aspetta che arrivi qualcun altro.
+- Con una sola persona in attesa non cambia niente: si continua con le squadre che ci sono, e la TV lo scrive.
 
 ---
 

@@ -1,0 +1,70 @@
+/* Le pagine comuni dei giochi a squadre (public/js/kit/teams.js): colori, ruoli, TV divisa in zone. */
+
+/* ---------- Telefono ---------- */
+.team-chip { display: inline-flex; align-items: center; gap: 8px; font-weight: 700; font-size: 1.2rem; }
+.team-chip::before { content: ""; width: 22px; height: 22px; border-radius: 50%; background: var(--team); box-shadow: inset 0 0 0 2px rgb(0 0 0 / .18); flex: none; }
+
+.team-pick { display: grid; gap: 10px; }
+.team-pick__btn {
+  display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 2px 10px; text-align: left;
+  min-height: 72px; padding: 10px 16px; border: 3px solid var(--team); border-radius: 14px 40px 14px 40px / 40px 14px 40px 14px;
+  background: color-mix(in srgb, var(--team) 14%, var(--paper));
+}
+.team-pick__btn.is-mine { background: var(--team); color: #fff; box-shadow: 0 0 0 3px var(--paper), 0 0 0 5px var(--team); }
+.team-pick__btn:disabled { cursor: not-allowed; opacity: .45; filter: grayscale(.6); }
+.team-pick__color { font-weight: 800; font-size: 1.25rem; }
+.team-pick__who { grid-column: 1; font-weight: 500; }
+.team-pick__full { grid-row: 1 / span 2; grid-column: 2; font-family: var(--school); color: var(--pencil); }
+.team-pick__btn.is-mine .team-pick__who, .team-pick__btn.is-mine .team-pick__color { color: #fff; }
+
+.team-name { display: flex; flex-direction: column; gap: 6px; }
+.brief { display: flex; flex-direction: column; gap: 6px; }
+.brief__warn { font-weight: 800; color: var(--red); border: 2px solid var(--red); border-radius: 10px; padding: 8px 10px; background: color-mix(in srgb, var(--red) 8%, var(--paper)); }
+.brief__list { display: flex; flex-direction: column; gap: 4px; margin-top: 8px; padding-left: 18px; list-style: disc; }
+
+.role-pick { display: grid; gap: 10px; }
+.role-pick__btn {
+  display: flex; flex-direction: column; align-items: flex-start; gap: 2px; text-align: left;
+  min-height: 72px; padding: 10px 16px; border: 3px solid var(--ink); border-radius: 14px 40px 14px 40px / 40px 14px 40px 14px; background: var(--paper);
+}
+.role-pick__btn.is-mine { background: var(--ink); color: var(--paper); }
+.role-pick__btn.is-taken, .role-pick__btn:disabled:not(.is-mine) { cursor: not-allowed; border-color: #a3a9b1; color: #8a9099; background: #e6e8eb; opacity: 1; }
+.role-pick__label { font-weight: 800; font-size: 1.25rem; }
+.role-pick__short { font-weight: 500; }
+.role-pick__who { font-family: var(--school); font-size: .9rem; }
+
+.team-play { position: absolute; inset: 0; display: flex; flex-direction: column; }
+.team-play > .page { position: relative; flex: 1; min-height: 0; }
+.pause-banner { flex: none; padding: 10px 14px; background: var(--marker); color: var(--ink-deep); font-weight: 700; text-align: center; border-bottom: 2px solid var(--ink); }
+.pause-stop { flex: none; margin: 0 auto; background: var(--paper); width: 100%; }
+
+/* ---------- TV ---------- */
+.teams-tv { display: flex; flex-direction: column; gap: calc(var(--q) * .5); padding: calc(var(--q) * .6) calc(var(--q) * 1) calc(var(--q) * .6) calc(var(--q) * 2.6); }
+.tv-head { display: flex; align-items: baseline; gap: var(--q); flex-wrap: wrap; }
+.tv-head--play { align-items: center; flex-wrap: nowrap; }
+.tv-head--play .timer { flex: 1; font-size: calc(var(--q) * 1.4); }
+.tv-head--play .tv-sub { flex: none; max-width: 45%; }
+.tv-say { font-size: calc(var(--q) * 1.6); }
+.tv-sub { font-size: calc(var(--q) * .9); }
+.tv-warn { text-align: center; font-family: var(--school); color: var(--red); font-size: calc(var(--q) * 1); }
+.tv-pause { text-align: center; padding: calc(var(--q) * .3); background: var(--marker); color: var(--ink-deep); font-weight: 800; font-size: calc(var(--q) * 1.1); border: 2px solid var(--ink); }
+
+.zones { flex: 1; min-height: 0; display: grid; grid-template-columns: repeat(var(--cols, 1), minmax(0, 1fr)); grid-auto-rows: minmax(0, 1fr); gap: calc(var(--q) * .5); }
+.zone {
+  min-width: 0; min-height: 0; display: flex; flex-direction: column; overflow: hidden;
+  border: 3px solid var(--team); border-radius: 10px; background: color-mix(in srgb, var(--team) 6%, var(--paper));
+}
+.zone.is-done { box-shadow: inset 0 0 0 4px color-mix(in srgb, var(--team) 35%, transparent); }
+.zone__head { flex: none; display: flex; align-items: baseline; gap: calc(var(--q) * .5); padding: calc(var(--q) * .2) calc(var(--q) * .5); background: var(--team); color: #fff; }
+.zone__name { font-weight: 800; font-size: calc(var(--q) * 1); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-shadow: 0 1px 2px rgb(0 0 0 / .35); }
+.zone__who { margin-left: auto; display: flex; gap: calc(var(--q) * .5); font-size: calc(var(--q) * .7); font-weight: 600; white-space: nowrap; overflow: hidden; text-shadow: 0 1px 2px rgb(0 0 0 / .35); }
+.zone__who em { font-style: normal; opacity: .85; font-weight: 500; }
+.zone__who .is-away { text-decoration: line-through; opacity: .7; }
+.zone__body { flex: 1; min-height: 0; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: calc(var(--q) * .4); padding: calc(var(--q) * .4); text-align: center; }
+.zone__seats { display: flex; flex-direction: column; gap: calc(var(--q) * .3); font-size: calc(var(--q) * 1.1); }
+.zone__seats .is-empty { font-family: var(--school); font-size: calc(var(--q) * .8); }
+.zone__ready { font-family: var(--school); color: var(--pencil); font-size: calc(var(--q) * .8); }
+.zone__ready.is-ready { color: var(--crayon-green, #2e9e4f); font-weight: 700; font-family: var(--hand); font-size: calc(var(--q) * 1); }
+.zone__outcome { font-size: calc(var(--q) * 1.05); font-weight: 700; }
+.zone__outcome.is-win { color: var(--ink-deep); }
+.zone__points { font-size: calc(var(--q) * .95); }

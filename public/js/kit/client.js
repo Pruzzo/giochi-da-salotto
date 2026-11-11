@@ -86,7 +86,7 @@ export function startClient({ namespace, storage, views }) {
     document.body.dataset.role = state.role;
     const key = state.role === 'tv'
       ? `tv:${state.phase}:${state.round}`
-      : `p:${state.phase}:${state.round}:${state.you?.isAdmin ? 'a' : 'g'}`;
+      : `p:${state.phase}:${state.round}:${state.you?.isAdmin ? 'a' : 'g'}:${state.you?.slot ?? ''}`;
     if (key !== viewKey) mount((state.role === 'tv' ? views.tv : views.phone)(state, ctx), key);
     view.update(state);
   }

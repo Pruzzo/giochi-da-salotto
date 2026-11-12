@@ -89,3 +89,7 @@
 @media (prefers-reduced-motion: reduce) {
   .hide-pegs .peg { animation: none; }
 }
+
+/* Fine turno: le proprie giocate, a richiesta, sotto il codice svelato. */
+.review { display: flex; flex-direction: column; gap: 8px; margin-top: calc(var(--q) * .5); }
+.tries--review { align-self: center; }

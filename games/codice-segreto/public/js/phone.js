@@ -180,9 +180,31 @@ function playing(state, { act }) {
 
 // ---------- Codice svelato ----------
 
+/** Le proprie file del turno, numerate e con i pallini, da confrontare col codice svelato. */
+function triesList(guesses, length) {
+  return guesses.map((g, i) => h('li', { class: 'try' },
+    h('span', { class: 'try__n' }, String(i + 1)),
+    pegRow(g.code),
+    pins(g.exact, g.near, length)));
+}
+
 function reveal(state, { act }) {
   const body = h('div', { class: 'wait-body' });
-  const el = page('wait', body, state.you.isAdmin && h('div', { class: 'dock' },
+  // Le giocate si aprono solo a richiesta: restano aperte anche quando arriva un aggiornamento.
+  let open = false;
+  const list = h('ol', { class: 'tries tries--review', hidden: true });
+  const toggle = h('button', {
+    class: 'btn btn--ghost btn--wide', 'aria-expanded': 'false',
+    onClick: () => { open = !open; paint(); },
+  });
+  const mine = h('section', { class: 'review' }, toggle, list);
+  function paint() {
+    toggle.textContent = open ? 'Nascondi le tue giocate' : 'Vedi le tue giocate';
+    toggle.setAttribute('aria-expanded', String(open));
+    list.hidden = !open;
+  }
+  paint();
+  const el = page('wait', body, mine, state.you.isAdmin && h('div', { class: 'dock' },
     h('button', { class: 'btn btn--red btn--wide', onClick: () => act('startRound') }, 'Nuovo codice'),
     h('button', { class: 'btn btn--ghost btn--wide', onClick: () => act('endGame') }, 'Fine partita')));
   return {
@@ -199,6 +221,8 @@ function reveal(state, { act }) {
         h('p', { class: 'sum' }, line),
         h('h1', { class: 'shout' }, `${me?.total ?? 0} punti`),
         h('p', { class: 'note' }, `${rankOf(s.players, s.you.id)}° in classifica su ${s.players.length}. ${s.you.isAdmin ? '' : 'Tra poco si riparte.'}`));
+      mine.hidden = !tries;
+      fill(list, triesList(s.you.guesses, s.codeLength));
     },
   };
 }

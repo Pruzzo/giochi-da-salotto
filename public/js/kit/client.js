@@ -135,7 +135,9 @@ export function startClient({ namespace, storage, views }) {
   socket.on('disconnect', () => document.body.classList.add('offline'));
   socket.on('state', (next) => {
     state = next;
-    store.set(ME, JSON.stringify(next.role === 'tv' ? { role: 'tv' } : { role: 'player', name: next.you.name, admin: next.you.isAdmin }));
+    // Da TV si tiene il nome di prima: la copertina lo riproporrà se il telefono torna a giocare.
+    const before = (() => { try { return JSON.parse(store.get(ME)) ?? {}; } catch { return {}; } })();
+    store.set(ME, JSON.stringify(next.role === 'tv' ? { role: 'tv', name: before.name } : { role: 'player', name: next.you.name, admin: next.you.isAdmin }));
     render();
   });
   socket.on('kicked', () => {

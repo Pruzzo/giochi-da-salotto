@@ -46,6 +46,9 @@ export function joinView({ title, hints }, { onEnter }) {
     id: 'name', class: 'field', maxLength: 16, autocomplete: 'nickname', autocapitalize: 'words',
     enterKeyHint: 'go', placeholder: 'Il tuo nome',
   });
+  // Il nome dell'ultima volta su questo telefono, già scritto: basta toccare Entra, o cambiarlo.
+  // Solo il nome: il ruolo resta Giocatore, amministratore si diventa solo scegliendolo.
+  try { nameInput.value = JSON.parse(localStorage.getItem('salotto-me'))?.name ?? ''; } catch { /* storage bloccato o vuoto */ }
   const error = h('p', { class: 'error', role: 'alert', hidden: true });
   const hint = h('p', { class: 'cover__hint' });
   const nameRow = h('label', { class: 'cover__row' }, h('span', { class: 'cover__label' }, 'Nome'), nameInput);

@@ -7,6 +7,16 @@ const say = document.getElementById('say');
 const where = document.getElementById('where');
 const errorEl = document.getElementById('error');
 const tallyEl = document.getElementById('tally');
+const looksEl = document.getElementById('looks');
+const STYLE_KEY = 'salotto-style';
+
+/** Lo stile scelto vale anche per la console stessa, come per TV e telefoni. */
+function applyStyle(style) {
+  if (!style) return;
+  document.documentElement.dataset.style = style;
+  try { localStorage.setItem(STYLE_KEY, style); } catch { /* storage bloccato */ }
+}
+try { applyStyle(localStorage.getItem(STYLE_KEY) ?? 'kraft'); } catch { /* storage bloccato */ }
 let view = null;
 let confirming = false;
 
@@ -62,8 +72,21 @@ function slot(game) {
   return item;
 }
 
+function looks() {
+  return view.styles.map((style) => {
+    const b = el('button', `look look--${style.id}`);
+    b.type = 'button';
+    b.setAttribute('aria-pressed', String(style.id === view.style));
+    b.append(el('span', 'look__name', style.title), el('span', 'look__desc', style.description));
+    b.addEventListener('click', () => { if (style.id !== view.style) send('style', style.id); });
+    return b;
+  });
+}
+
 function draw() {
   if (!view) return;
+  applyStyle(view.style);
+  looksEl.replaceChildren(...looks());
   say.textContent = view.activeId
     ? 'Tutti vedono questo gioco all’indirizzo principale.'
     : 'Scegli il gioco: comparirà a tutti all’indirizzo principale.';

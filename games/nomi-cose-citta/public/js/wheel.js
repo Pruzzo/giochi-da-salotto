@@ -47,7 +47,7 @@ function sectorPath(r0, r1, a0, a1) {
 }
 
 function hatchPattern(id, color, angle, gap, width) {
-  return `<pattern id="${id}" width="${gap}" height="${gap}" patternUnits="userSpaceOnUse" patternTransform="rotate(${angle})"><line x1="0" y1="0" x2="0" y2="${gap}" stroke="${color}" stroke-width="${width}"/></pattern>`;
+  return `<pattern id="${id}" width="${gap}" height="${gap}" patternUnits="userSpaceOnUse" patternTransform="rotate(${angle})"><line x1="0" y1="0" x2="0" y2="${gap}" style="stroke: ${color}" stroke-width="${width}"/></pattern>`;
 }
 
 export function createWheel(letters, used = []) {
@@ -73,9 +73,9 @@ export function createWheel(letters, used = []) {
   svg.setAttribute('aria-label', 'Ruota delle lettere');
   svg.innerHTML = `
     <defs>
-      ${hatchPattern('hatch-blue', '#7d9be0', 38, 15, 7)}
-      ${hatchPattern('hatch-red', '#f0908f', -42, 15, 7)}
-      ${hatchPattern('hatch-yellow', '#fbdf38', 70, 13, 9)}
+      ${hatchPattern('hatch-blue', 'var(--hatch-blue)', 38, 15, 7)}
+      ${hatchPattern('hatch-red', 'var(--hatch-red)', -42, 15, 7)}
+      ${hatchPattern('hatch-yellow', 'var(--hatch-yellow)', 70, 13, 9)}
     </defs>
     <g transform="translate(0 60)">
       <g class="wheel__spin">

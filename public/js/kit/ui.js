@@ -93,7 +93,7 @@ export function joinView({ title, hints }, { onEnter }) {
 export function rosterItems(s, act) {
   const me = s.you.isAdmin;
   return s.players.map((p) => h('li', { class: `roster__item${p.online ? '' : ' is-away'}` },
-    h('span', { class: 'written' }, p.name),
+    h('span', { class: 'written is-name' }, p.name),
     stars(p.wins),
     p.isAdmin && h('span', { class: 'tag' }, 'amministratore'),
     !p.online && h('span', { class: 'tag' }, 'non connesso'),
@@ -185,7 +185,7 @@ export function finalPhone(state, { act, leave }) {
         h('p', { class: 'sum' }, `${me?.total ?? 0} punti`),
         me?.wonNow && h('p', { class: 'prize' }, stars(1, { fresh: first }), 'Una vittoria in più stasera'),
         h('ol', { class: 'own' }, [...s.players].sort((a, b) => b.total - a.total).map((p) => h('li', { class: 'standing' },
-          h('span', { class: 'written' }, p.name), h('span', { class: 'red' }, String(p.total))))),
+          h('span', { class: 'written is-name' }, p.name), h('span', { class: 'red' }, String(p.total))))),
         s.session && h('div', { class: 'final-tally' }, tally(s.session, { fresh: first })));
       first = false;
     },
@@ -215,7 +215,7 @@ export function finalTv() {
       list.style.setProperty('--n', Math.max(sorted.length, 1));
       fill(list, sorted.map((p, i) => h('li', { class: `pagella__row${p.total === top ? ' is-top' : ''}`, style: { '--i': i } },
         h('span', { class: 'pagella__pos' }, `${sorted.findIndex((q) => q.total === p.total) + 1}°`),
-        h('span', { class: 'written' }, p.name),
+        h('span', { class: 'written is-name' }, p.name),
         h('span', { class: 'red' }, String(p.total)))));
     },
   };

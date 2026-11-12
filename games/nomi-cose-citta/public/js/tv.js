@@ -70,7 +70,7 @@ function writing(state) {
       const done = s.players.filter((p) => p.done).length;
       count.textContent = done ? `Hanno consegnato in ${done} su ${s.players.length}` : '';
       fill(board, s.players.map((p) => h('li', { class: `progress__row${p.done ? ' is-done' : ''}${p.online ? '' : ' is-away'}` },
-        h('span', { class: 'written' }, p.name),
+        h('span', { class: 'written is-name' }, p.name),
         h('span', { class: 'ticks', 'aria-label': `${p.filled.filter(Boolean).length} parole su 5` },
           p.filled.map((on) => h('span', { class: `tick${on ? ' is-on' : ''}` }))))));
     },
@@ -122,7 +122,7 @@ function sheet(state) {
       scored && h('span', { class: 'table__sum', role: 'columnheader' }, 'Totale'));
     const rows = s.rows.map((row, r) => {
       const rowEl = h('div', { class: 'table__row reveal', role: 'row', 'data-id': row.playerId, style: { '--i': r } },
-        h('span', { class: 'table__name-box', role: 'rowheader' }, h('span', { class: 'table__name' }, row.name)),
+        h('span', { class: 'table__name-box', role: 'rowheader' }, h('span', { class: 'table__name is-name' }, row.name)),
         row.cells.map((cell, i) => {
           const word = h('span', { class: 'word' }, cell.text || '—');
           const slot = h('span', { class: 'cell__mark' });

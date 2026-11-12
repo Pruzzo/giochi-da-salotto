@@ -64,7 +64,7 @@ function playing(state) {
       const status = h('span', { class: 'hang__status' });
       const card = h('li', { class: 'hang' },
         h('span', { class: 'hang__pic' }, gallows.el),
-        h('span', { class: 'hang__text' }, h('span', { class: 'written hang__name' }, p.name), status));
+        h('span', { class: 'hang__text' }, h('span', { class: 'written is-name hang__name' }, p.name), status));
       cards.set(p.id, { card, gallows, status });
       return card;
     }));

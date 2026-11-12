@@ -1,0 +1,233 @@
+/* Stile "Kraft": il materiale di un gioco in scatola. Fondo di cartone, cartoncini color crema,
+   titoli su nastro Dymo, testo a macchina da scrivere, parole a pennarello, voti a timbro.
+   Vale solo con <html data-style="kraft">, che platform.js mette quando la console lo sceglie. */
+
+@font-face { font-family: "Special Elite"; src: url(/fonts/special-elite.woff2) format("woff2"); font-display: swap; }
+@font-face { font-family: "Permanent Marker"; src: url(/fonts/permanent-marker.woff2) format("woff2"); font-display: swap; }
+
+:root[data-style="kraft"] {
+  --paper: #fbfaf5;          /* il cartoncino */
+  --grid: #ddd6c6;
+  --margin-line: transparent;
+  --ink: #17181b;            /* macchina da scrivere e nastro Dymo */
+  --ink-deep: #0e0f11;
+  --red: #c62c33;            /* il timbro: chi giudica, i punti */
+  --red-deep: #9e2027;
+  --pencil: #6b6457;
+  --marker: #ffe45c;
+  --hatch-blue: #1f3a9c;
+  --hatch-red: #c62c33;
+  --hatch-yellow: #a57f52;
+  --kraft: #c29a6b;
+  --kraft-deep: #a57f52;
+  --felt: #1f3a9c;           /* le parole dei giocatori, a pennarello */
+  --display: "Special Elite", "Courier New", monospace;
+  --hand: "Special Elite", "Courier New", monospace;
+  --school: "Special Elite", "Courier New", monospace;
+  --word: "Permanent Marker", "Segoe Print", cursive;
+  --name: "Special Elite", "Courier New", monospace;
+  --fibre: repeating-linear-gradient(83deg, rgb(255 255 255 / .06) 0 1px, transparent 1px 7px), repeating-linear-gradient(-7deg, rgb(80 50 20 / .07) 0 1px, transparent 1px 5px);
+}
+
+/* Special Elite ha un solo peso: niente grassetti finti. */
+[data-style="kraft"] body { font-synthesis: none; }
+
+/* ---------- Cartone e cartoncini ---------- */
+[data-style="kraft"] body:not(.console-body, .standby-body) { background: var(--kraft-deep); }
+[data-style="kraft"] ::selection { background: rgb(31 58 156 / .2); color: var(--ink); }
+[data-style="kraft"] :focus-visible { outline-color: var(--red); border-radius: 2px; }
+/* La pagina è un cartoncino appoggiato sul cartone: il bordo è kraft. */
+[data-style="kraft"] .page {
+  border: calc(var(--q) * .45) solid transparent;
+  background: linear-gradient(var(--paper), var(--paper)) padding-box, var(--fibre) border-box, var(--kraft) border-box;
+  scrollbar-color: var(--kraft-deep) transparent;
+}
+[data-style="kraft"] .page--phone { border-width: 8px; }
+[data-style="kraft"] .page-turn { box-shadow: 18px 0 40px rgb(60 35 10 / .45); }
+
+/* Nastro Dymo: lettere bianche in rilievo su nastro nero */
+[data-style="kraft"] :is(.title, .hello, .console__title, .standby__title) {
+  width: fit-content; max-width: 100%;
+  background: var(--ink); color: #f2f2f2;
+  font-family: var(--display); font-weight: 400; font-style: normal;
+  text-transform: uppercase; letter-spacing: .14em; line-height: 1.25;
+  padding: .22em .6em .2em;
+  border-radius: .12em;
+  text-shadow: 0 -.04em 0 rgb(255 255 255 / .35);
+  box-shadow: 0 .06em .14em rgb(0 0 0 / .3);
+  transform: rotate(-1deg);
+}
+[data-style="kraft"] .hello { font-size: 1.05rem; transform: rotate(-.6deg); }
+[data-style="kraft"] .hello--red { background: var(--red); }
+
+/* ---------- Voci: tutto battuto a macchina ---------- */
+[data-style="kraft"] :is(.say, .shout, .choose__say, .spin-side__say, .cover__do, .end__prize, .prize, .why) { font-family: var(--school); font-weight: 400; font-style: normal; line-height: 1.35; color: var(--ink); }
+[data-style="kraft"] :is(.say--mid, .cover__do, .why) { color: var(--red); }
+[data-style="kraft"] .winner { font-family: var(--word); font-weight: 400; line-height: 1.15; color: var(--red); }
+[data-style="kraft"] :is(.red, .sum, .stars__count) { font-family: var(--word); font-weight: 400; color: var(--red); }
+[data-style="kraft"] :is(.tag, .signature__badge, .heading, .label-field__name, .cover__label, .row__cat, .tally__title) {
+  font-family: var(--hand); font-weight: 400; font-style: normal; letter-spacing: .1em; text-transform: uppercase; color: var(--pencil); line-height: 1.4;
+}
+[data-style="kraft"] :is(.tag, .signature__badge) { color: var(--red); font-size: .72rem; }
+[data-style="kraft"] .signature__badge { font-size: calc(var(--q) * .6); }
+[data-style="kraft"] .heading { font-size: .82rem; color: var(--ink); }
+[data-style="kraft"] .label-field__name { font-size: calc(var(--q) * .62); }
+[data-style="kraft"] .row__cat { font-size: .78rem; }
+[data-style="kraft"] .tally__title { font-size: .85em; color: var(--ink); }
+[data-style="kraft"] :is(.note, .cover__hint, .pencil, .cover__cats) { color: var(--pencil); }
+
+/* ---------- Chi scrive: parole a pennarello, nomi a macchina ---------- */
+[data-style="kraft"] :is(.written, .word, .row__input) { font-family: var(--word); font-weight: 400; color: var(--felt); letter-spacing: .01em; }
+[data-style="kraft"] .row__input { font-size: 1.55rem; }
+[data-style="kraft"] .word { font-size: calc(.95em * var(--fit, 1)); line-height: 1.3; }
+[data-style="kraft"] :is(.is-name, .signature, .who__item, .tally__name, .results__name) { font-family: var(--name); font-weight: 400; color: var(--ink); letter-spacing: .02em; }
+[data-style="kraft"] .field { font-family: var(--hand); font-weight: 400; color: var(--ink); font-size: 1.2rem; }
+[data-style="kraft"] #name.field { font-size: 1.35rem; }
+[data-style="kraft"] :is(.field, .row__input)::placeholder { font-family: var(--hand); font-size: 1rem; color: #7a7366; }
+[data-style="kraft"] :is(.field, .row__input) { border-bottom: 2px solid var(--grid); caret-color: var(--red); }
+[data-style="kraft"] :is(.field, .row__input):focus { border-bottom-color: var(--felt); background: rgb(31 58 156 / .05); }
+
+/* ---------- Copertina: cartoncini sul cartone ---------- */
+[data-style="kraft"] .cover { background-color: var(--kraft); background-image: var(--fibre); }
+[data-style="kraft"] :is(.cover__label-card, .cover__join) { border-radius: 2px; box-shadow: 0 .2em .6em rgb(60 35 10 / .4); }
+[data-style="kraft"] .cover__label-card { transform: rotate(-.6deg); }
+[data-style="kraft"] .cover__join { transform: rotate(1.2deg); }
+[data-style="kraft"] .cover--tv .title { font-size: calc(var(--q) * 1.9); }
+[data-style="kraft"] .cover--phone .title { font-size: clamp(1.25rem, 6vw, 1.6rem); margin-inline: auto; }
+[data-style="kraft"] .signature { border-bottom: 1px solid var(--grid); font-size: calc(var(--q) * var(--sig, 1.4) * .95); line-height: 1.6; }
+[data-style="kraft"] .signature--empty { color: var(--pencil); }
+[data-style="kraft"] .signature.is-away { text-decoration-color: var(--red); }
+[data-style="kraft"] .cover__url { color: var(--red); font-weight: 400; }
+[data-style="kraft"] .cover__scan { font-weight: 400; }
+[data-style="kraft"] .tab { font-weight: 400; }
+[data-style="kraft"] .tab::before { border-color: var(--ink); border-radius: 2px; }
+[data-style="kraft"] .tab[aria-pressed="true"]::before { border: 2px solid var(--red); background: none; box-shadow: inset 0 0 0 4px var(--paper), inset 0 0 0 20px var(--red); transform: rotate(-6deg); }
+
+/* ---------- Comandi: nastro Dymo, timbri ---------- */
+[data-style="kraft"] :is(.btn, .pen-btn) { border-radius: 4px; font-family: var(--hand); font-weight: 400; font-size: 1.05rem; letter-spacing: .16em; text-transform: uppercase; }
+[data-style="kraft"] :is(.btn--ink, .pen-btn--ink) { background: var(--ink); color: #f2f2f2; text-shadow: 0 -1px 0 rgb(255 255 255 / .3); box-shadow: 0 2px 4px rgb(0 0 0 / .25); }
+[data-style="kraft"] .btn--ink.is-done { background: var(--paper); color: var(--ink); border-color: var(--ink); text-shadow: none; box-shadow: none; }
+[data-style="kraft"] .btn--red { background: var(--red); }
+[data-style="kraft"] .btn--ghost { border-width: 2px; }
+[data-style="kraft"] .link { color: var(--red); font-weight: 400; }
+[data-style="kraft"] .choice__item { border: 1.5px solid var(--grid); border-radius: 3px; background: var(--paper); font-weight: 400; }
+[data-style="kraft"] .choice__item[aria-pressed="true"] { border: 2px solid var(--red); color: var(--red); transform: rotate(-3deg); }
+[data-style="kraft"] .dock { border-top: 2px solid var(--grid); }
+[data-style="kraft"] :is(.sheet-head, .phone-head) { border-bottom: 2px solid var(--grid); }
+[data-style="kraft"] :is(.roster__item, .standing, .own__row, .grade__row, .tally__row) { border-bottom: 1px solid var(--grid); }
+[data-style="kraft"] .corner__btn { border-radius: 3px; border-color: var(--ink); }
+[data-style="kraft"] .icon { stroke: var(--ink); }
+[data-style="kraft"] #toast { background: var(--ink); border-radius: 3px; font-weight: 400; letter-spacing: .04em; }
+
+/* ---------- Timer: un nastro che si riempie ---------- */
+[data-style="kraft"] .timer__track { box-shadow: inset 0 0 0 2px var(--ink); background: repeating-linear-gradient(90deg, rgb(23 24 27 / .25) 0 1px, transparent 1px var(--q)); border-radius: 2px; }
+[data-style="kraft"] .timer__fill { background: var(--ink); border-right: 0; }
+[data-style="kraft"] .timer--hurry .timer__fill { background: var(--red); }
+[data-style="kraft"] .timer__secs { font-family: var(--word); font-weight: 400; }
+
+/* ---------- Fine partita ---------- */
+[data-style="kraft"] .end__tally { background: var(--paper); border: 0; border-radius: 2px; box-shadow: 0 .2em .7em rgb(60 35 10 / .4), 0 0 0 calc(var(--q) * .08) var(--grid); transform: rotate(1.4deg); }
+[data-style="kraft"] .pagella__row { border-bottom: 1px solid var(--grid); }
+[data-style="kraft"] .pagella__pos { font-family: var(--hand); font-weight: 400; color: var(--red); }
+[data-style="kraft"] :is(.pagella__row.is-top .written, .results__row.is-first .results__name, .tally__row.is-fresh .tally__name) { text-decoration: underline solid var(--red) .1em; }
+
+/* ---------- Il timbro: segno condiviso per voti e punti ---------- */
+@keyframes stamp-in { from { transform: rotate(-9deg) scale(1.9); opacity: 0; } 60% { opacity: .9; } to { transform: rotate(-9deg) scale(1); opacity: .9; } }
+
+/* =========================================================
+   Nomi, cose e città
+   ========================================================= */
+/* La lettera del turno: un cartellino appeso, col buco rinforzato */
+[data-style="kraft"] .pen-letter {
+  background: radial-gradient(circle at 50% 13%, var(--kraft-deep) .045em, #d9d4c4 .046em .07em, transparent .072em), var(--paper);
+  clip-path: polygon(24% 0, 76% 0, 100% 18%, 100% 100%, 0 100%, 0 18%);
+  transform: rotate(4deg);
+}
+[data-style="kraft"] .pen-letter text { font-family: var(--word); font-weight: 400; font-size: 120px; transform: translateY(14px); transform-box: fill-box; }
+[data-style="kraft"] :is(.pen-letter__edge, .pen-letter__hatch) { display: none; }
+[data-style="kraft"] .pen-letter__paper { fill: var(--red); }
+[data-style="kraft"] :is(.giant, .spin-side__letter, .marks-letter, .sheet-head__letter) { filter: drop-shadow(0 .03em .05em rgb(60 35 10 / .45)); }
+
+/* La ruota */
+[data-style="kraft"] .w-line { stroke: var(--ink); }
+[data-style="kraft"] .w-letter { font-family: var(--display); font-weight: 400; fill: var(--ink); }
+[data-style="kraft"] .w-letter--used { fill: #a39b8b; }
+[data-style="kraft"] .w-cross { stroke: var(--red); }
+[data-style="kraft"] .wheel__pointer { fill: var(--red); stroke: var(--red-deep); }
+
+/* Il voto: un timbro rosso storto, a matita finché è solo una proposta */
+[data-style="kraft"] .mark { font-family: var(--hand); font-weight: 400; border: .1em solid currentColor; border-radius: .14em; width: 1.6em; height: 1.6em; transform: rotate(-9deg); }
+[data-style="kraft"] .mark__ring { display: none; }
+[data-style="kraft"] .mark--pencil { border-style: dashed; color: var(--pencil); transform: none; }
+[data-style="kraft"] .mark--ink { color: var(--red); opacity: .9; mix-blend-mode: multiply; }
+[data-style="kraft"] .mark--draw { animation: stamp-in .35s var(--out) both; }
+[data-style="kraft"] .pts__btn { font-family: var(--hand); font-weight: 400; isolation: isolate; }
+[data-style="kraft"] .pts__btn::before { border: 1.5px dashed var(--pencil); border-radius: 3px; inset: 6px 4px; opacity: .8; }
+[data-style="kraft"] .pts__btn[aria-pressed="true"] { color: var(--red); }
+[data-style="kraft"] .pts__btn[aria-pressed="true"]::before { inset: 6px 4px; background: none; border: 3px solid var(--red); border-radius: 4px; opacity: .9; transform: rotate(-8deg); }
+[data-style="kraft"] .who__item { border: 1.5px solid var(--grid); border-radius: 3px; font-size: 1.05rem; }
+[data-style="kraft"] .who__item[aria-pressed="true"] { border: 2px solid var(--ink); background: var(--ink); color: #f2f2f2; }
+[data-style="kraft"] .who__pts { font-family: var(--hand); font-size: .85rem; }
+
+/* Scrittura sulla TV */
+[data-style="kraft"] .cats-list { font-family: var(--display); font-weight: 400; text-transform: uppercase; letter-spacing: .06em; }
+[data-style="kraft"] .tick { border-color: var(--ink); }
+[data-style="kraft"] .tick.is-on { background: var(--ink); box-shadow: inset 0 0 0 3px var(--paper); }
+[data-style="kraft"] .progress__row.is-done .written { text-decoration-color: var(--red); }
+
+/* Correzione: la tabella sul cartoncino */
+[data-style="kraft"] .table__row { border-bottom: 1px solid var(--grid); }
+[data-style="kraft"] :is(.table__cat, .cell, .table__sum) { border-left: 1px solid var(--grid); }
+[data-style="kraft"] .table__row--head { font-family: var(--hand); font-weight: 400; font-size: calc(var(--q) * .66); letter-spacing: .1em; text-transform: uppercase; color: var(--pencil); border-bottom: calc(var(--q) * .1) solid var(--red); }
+[data-style="kraft"] .table__row--head .table__sum { font-family: var(--hand); font-size: calc(var(--q) * .55); color: var(--pencil); }
+[data-style="kraft"] .table__row:not(.table__row--head) .table__sum { font-family: var(--word); font-weight: 400; color: var(--red); }
+[data-style="kraft"] .table--roomy .cell { justify-content: center; gap: 0; }
+[data-style="kraft"] .table--roomy .cell__mark { font-size: .6em; }
+[data-style="kraft"] .word-wrap { overflow: visible; }
+[data-style="kraft"] .table__row.is-focus { background: rgb(255 228 92 / .3); }
+
+/* =========================================================
+   Console e pagina d'attesa
+   ========================================================= */
+[data-style="kraft"] :is(.console-body, .standby-body) { background-color: var(--kraft); background-image: var(--fibre); }
+[data-style="kraft"] .console { background: var(--paper); margin: 16px auto; min-height: 0; padding: 24px 20px 40px; box-shadow: 0 4px 14px rgb(60 35 10 / .4); max-width: 780px; }
+[data-style="kraft"] .console__title { font-size: clamp(1.6rem, 5vw, 2.2rem); }
+[data-style="kraft"] .console__say { margin-top: 0; }
+[data-style="kraft"] :is(.slot__status, .slot__warn) { color: var(--red); }
+[data-style="kraft"] .slot__title { font-family: var(--display); font-weight: 400; }
+[data-style="kraft"] .slot__cover { background-color: var(--kraft); background-image: var(--fibre); border-radius: 3px; box-shadow: inset 0 0 0 1px rgb(60 35 10 / .25); padding: 14px; }
+[data-style="kraft"] .slot__label { background: var(--ink); color: #f2f2f2; box-shadow: 0 2px 4px rgb(0 0 0 / .3); border-radius: 3px; font-family: var(--display); text-transform: uppercase; letter-spacing: .1em; font-size: .85rem; line-height: 1.3; transform: rotate(-2deg); }
+[data-style="kraft"] .slot--on .slot__label { background: var(--red); }
+[data-style="kraft"] .pen-btn { border-width: 2px; }
+[data-style="kraft"] .where { border-top: 2px solid var(--grid); }
+[data-style="kraft"] :is(.standby__label, .standby__qr) { border-radius: 2px; box-shadow: 0 .3em .9em rgb(60 35 10 / .4); }
+[data-style="kraft"] .standby__label { transform: rotate(-.6deg); }
+[data-style="kraft"] .standby__qr { transform: rotate(1.2deg); }
+[data-style="kraft"] .standby-body--tv .standby__title { font-size: calc(var(--q) * 1.7); }
+[data-style="kraft"] .standby-body--tv .standby__where { color: var(--red); }
+/* Sul cartoncino non ci sono righe da coprire: niente alone dietro le parole. */
+[data-style="kraft"] :is(.word, .table__name, .row__cat, .written) { text-shadow: none; }
+
+/* =========================================================
+   Giochi a squadre, Labirinto, Impiccato, Anagrammi, Codice
+   ========================================================= */
+[data-style="kraft"] :is(.team-pick__btn, .role-pick__btn, .turn-card, .brief__warn) { border-radius: 3px; border-width: 2px; }
+[data-style="kraft"] .team-pick__btn.is-mine { box-shadow: 0 2px 6px rgb(60 35 10 / .35); transform: rotate(-.8deg); }
+[data-style="kraft"] :is(.team-pick__color, .role-pick__label) { font-weight: 400; text-transform: uppercase; letter-spacing: .08em; font-size: 1.1rem; }
+[data-style="kraft"] .role-pick__btn.is-mine { background: var(--ink); color: #f2f2f2; }
+[data-style="kraft"] .role-pick__btn.is-taken, [data-style="kraft"] .role-pick__btn:disabled:not(.is-mine) { border-color: var(--grid); color: #9a9284; background: #efebe1; }
+[data-style="kraft"] .team-chip { font-weight: 400; }
+[data-style="kraft"] .zone { border-radius: 3px; border-width: 2px; box-shadow: 0 2px 6px rgb(60 35 10 / .2); }
+[data-style="kraft"] :is(.zone__name, .zone__who) { font-weight: 400; letter-spacing: .04em; }
+[data-style="kraft"] .zone__ready.is-ready { font-weight: 400; }
+[data-style="kraft"] .zone__outcome { font-weight: 400; }
+[data-style="kraft"] :is(.pause-banner, .tv-pause) { font-weight: 400; letter-spacing: .06em; text-transform: uppercase; }
+[data-style="kraft"] .pad__btn { border-radius: 6px; }
+[data-style="kraft"] .torch-done { border-radius: 3px; font-family: var(--word); }
+[data-style="kraft"] .turn-card__big { font-weight: 400; text-transform: uppercase; letter-spacing: .06em; }
+[data-style="kraft"] .dot { border-radius: 2px; }
+[data-style="kraft"] :is(.key, .tile) { font-weight: 400; border-radius: 2px; }
+[data-style="kraft"] .tile { box-shadow: 0 .05em .08em rgb(60 35 10 / .3); border-width: .04em; }
+[data-style="kraft"] :is(.slots, .compose-word, .ana-full) { font-weight: 400; }
+[data-style="kraft"] .stamp { font-family: var(--hand); text-transform: uppercase; letter-spacing: .08em; border-radius: 4px; opacity: .9; }
+[data-style="kraft"] :is(.ana-player__count b, .try__n, .found__pts, .hang__status, .race__state, .lab-status, .dark-steps, .legend, .side-note) { font-weight: 400; }

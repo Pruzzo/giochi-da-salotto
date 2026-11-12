@@ -16,7 +16,7 @@ export function penLetter(letter) {
   penId += 1;
   const id = `pen-${penId}`;
   const svg = h('svg:svg', { viewBox: '0 0 200 200', class: 'pen-letter', role: 'img', 'aria-label': `Lettera ${letter}` });
-  svg.innerHTML = `<defs><pattern id="${id}" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-40)"><line x1="0" y1="0" x2="0" y2="9" stroke="#1b3aa8" stroke-width="4.5"/></pattern></defs>`
+  svg.innerHTML = `<defs><pattern id="${id}" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-40)"><line x1="0" y1="0" x2="0" y2="9" style="stroke: var(--ink)" stroke-width="4.5"/></pattern></defs>`
     // Tre strati: contorno, carta sopra (cancella le sovrapposizioni del font), tratteggio.
     + ['class="pen-letter__edge"', 'class="pen-letter__paper"', `class="pen-letter__hatch" fill="url(#${id})"`]
       .map((attrs) => `<text x="100" y="104" text-anchor="middle" dominant-baseline="central" ${attrs}></text>`).join('');

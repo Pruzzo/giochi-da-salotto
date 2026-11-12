@@ -1,0 +1,203 @@
+/* Stile "Enigmistica": la pagina di una rivista di giochi. Nero più un blu di stampa su carta di rivista,
+   riquadri a filetto, la lettera dentro una casella da cruciverba, le parole a matita, i nomi firmati a biro.
+   Vale solo con <html data-style="enigmistica">, che platform.js mette quando la console lo sceglie. */
+
+@font-face { font-family: "Old Standard TT"; src: url(/fonts/old-standard.woff2) format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Old Standard TT"; src: url(/fonts/old-standard-bold.woff2) format("woff2"); font-weight: 700; font-display: swap; }
+@font-face { font-family: "Old Standard TT"; src: url(/fonts/old-standard-italic.woff2) format("woff2"); font-weight: 400; font-style: italic; font-display: swap; }
+@font-face { font-family: "Libre Franklin"; src: url(/fonts/libre-franklin.woff2) format("woff2"); font-weight: 400 900; font-display: swap; }
+@font-face { font-family: "Shadows Into Light"; src: url(/fonts/shadows-into-light.woff2) format("woff2"); font-display: swap; }
+@font-face { font-family: "Caveat"; src: url(/fonts/caveat.woff2) format("woff2"); font-weight: 600 700; font-display: swap; }
+
+:root[data-style="enigmistica"] {
+  --paper: #f3f2ee;
+  --grid: #c9c7c0;
+  --margin-line: transparent;
+  --ink: #141414;            /* stampa: filetti, testi, bottoni */
+  --ink-deep: #141414;
+  --red: #1b5fae;            /* il blu della rivista: chi giudica, i punti, le note */
+  --red-deep: #134a8a;
+  --pencil: #57585d;
+  --marker: #ffe45c;
+  --hatch-blue: #1b5fae;
+  --hatch-red: #9c9a94;
+  --hatch-yellow: #141414;
+  --graphite: #3d3e43;       /* le parole dei giocatori, a matita */
+  --biro: #1f3a9c;           /* i nomi dei giocatori, firmati a biro */
+  --display: "Old Standard TT", Georgia, serif;
+  --hand: "Libre Franklin", system-ui, sans-serif;                 /* testo dell'interfaccia */
+  --school: "Old Standard TT", Georgia, serif;                     /* la voce che guida, in corsivo */
+  --word: "Shadows Into Light", "Segoe Print", cursive;
+  --name: "Caveat", "Segoe Print", cursive;
+}
+
+/* ---------- Carta e sfondi ---------- */
+[data-style="enigmistica"] body:not(.console-body, .standby-body) { background: #1a1a1a; }
+[data-style="enigmistica"] ::selection { background: rgb(27 95 174 / .2); color: var(--ink); }
+[data-style="enigmistica"] :focus-visible { outline-color: var(--red); border-radius: 0; }
+[data-style="enigmistica"] .page { background-image: none; scrollbar-color: var(--ink) transparent; }
+[data-style="enigmistica"] .page-turn { box-shadow: 18px 0 40px rgb(0 0 0 / .35); }
+
+/* ---------- Voci: titoli stampati, la voce che guida in corsivo ---------- */
+[data-style="enigmistica"] .title { font-family: var(--display); font-weight: 700; line-height: 1.08; letter-spacing: -.005em; color: var(--ink); }
+[data-style="enigmistica"] :is(.say, .hello, .shout, .choose__say, .spin-side__say, .cover__do, .end__prize, .prize, .why) { font-family: var(--school); font-style: italic; font-weight: 400; line-height: 1.3; color: var(--ink); }
+[data-style="enigmistica"] .hello { font-style: normal; font-weight: 700; font-size: 1.6rem; }
+[data-style="enigmistica"] :is(.say--mid, .cover__do, .why) { color: var(--red); }
+[data-style="enigmistica"] .winner { font-family: var(--display); font-weight: 700; line-height: 1.1; color: var(--ink); }
+[data-style="enigmistica"] :is(.red, .sum, .stars__count) { font-family: var(--display); font-weight: 700; font-style: normal; color: var(--red); }
+[data-style="enigmistica"] :is(.tag, .signature__badge, .heading, .label-field__name, .cover__label, .row__cat, .tally__title) {
+  font-family: var(--hand); font-style: normal; font-weight: 800; letter-spacing: .18em; text-transform: uppercase; color: var(--red); line-height: 1.4;
+}
+[data-style="enigmistica"] .tag, [data-style="enigmistica"] .signature__badge { font-size: .68rem; }
+[data-style="enigmistica"] .signature__badge { font-size: calc(var(--q) * .55); }
+[data-style="enigmistica"] .heading { font-size: .78rem; color: var(--ink); }
+[data-style="enigmistica"] .label-field__name { font-size: calc(var(--q) * .62); }
+[data-style="enigmistica"] .row__cat { font-size: .74rem; color: var(--ink); }
+[data-style="enigmistica"] .tally__title { font-size: .85em; color: var(--ink); }
+[data-style="enigmistica"] :is(.note, .cover__hint, .pencil, .cover__cats) { color: var(--pencil); }
+
+/* ---------- Chi scrive: parole a matita, nomi firmati a biro ---------- */
+[data-style="enigmistica"] :is(.written, .word, .row__input, .field) { font-family: var(--word); font-weight: 400; color: var(--graphite); letter-spacing: .01em; }
+[data-style="enigmistica"] .row__input { font-size: 1.75rem; }
+[data-style="enigmistica"] .word { font-size: calc(1.1em * var(--fit, 1)); line-height: 1.45; }
+[data-style="enigmistica"] :is(.is-name, .signature, .who__item, .tally__name, .results__name) { font-family: var(--name); font-weight: 700; color: var(--biro); letter-spacing: 0; }
+/* Caveat ha le minuscole basse: si allinea l'altezza delle lettere invece di cambiare la misura del testo. */
+[data-style="enigmistica"] .is-name { font-size-adjust: .5; }
+[data-style="enigmistica"] .field { font-family: var(--hand); font-weight: 600; color: var(--ink); font-size: 1.2rem; }
+[data-style="enigmistica"] #name.field { font-family: var(--name); font-weight: 700; color: var(--biro); font-size: 1.6rem; }
+[data-style="enigmistica"] :is(.field, .row__input)::placeholder { font-family: var(--hand); font-size: 1rem; color: #6b6c71; }
+[data-style="enigmistica"] :is(.field, .row__input) { border-bottom: 2px dotted var(--ink); caret-color: var(--red); }
+[data-style="enigmistica"] :is(.field, .row__input):focus { border-bottom: 2px solid var(--red); background: rgb(27 95 174 / .06); }
+
+/* ---------- Copertina: un riquadro a filetto sulla pagina ---------- */
+[data-style="enigmistica"] .cover { background: var(--paper); }
+[data-style="enigmistica"] :is(.cover__label-card, .cover__join) { border-radius: 0; box-shadow: none; border: 4px solid var(--ink); }
+[data-style="enigmistica"] .cover--tv :is(.cover__label-card, .cover__join) { border-width: calc(var(--q) * .22); }
+[data-style="enigmistica"] .cover--tv .title { font-size: calc(var(--q) * 2.6); padding-block: 0 calc(var(--q) * .3); border-bottom: calc(var(--q) * .2) solid var(--ink); }
+[data-style="enigmistica"] .cover--phone .title { padding-bottom: 10px; border-bottom: 3px solid var(--ink); }
+[data-style="enigmistica"] .signature { border-bottom: 1px solid rgb(20 20 20 / .3); font-size: calc(var(--q) * var(--sig, 1.4) * 1.12); line-height: 1.35; }
+[data-style="enigmistica"] .signature--empty { font-family: var(--school); font-style: italic; font-weight: 400; color: var(--pencil); }
+[data-style="enigmistica"] .signature.is-away { text-decoration-color: var(--red); }
+[data-style="enigmistica"] .qr { filter: grayscale(1) brightness(.35) contrast(3); }
+[data-style="enigmistica"] .cover__scan { font-family: var(--display); font-weight: 400; font-style: italic; }
+[data-style="enigmistica"] .cover__url { color: var(--ink); font-weight: 800; }
+[data-style="enigmistica"] .tab::before { border-color: var(--ink); }
+[data-style="enigmistica"] .tab[aria-pressed="true"]::before { border: 2px solid var(--ink); background: var(--ink); box-shadow: inset 0 0 0 4px var(--paper); }
+
+/* ---------- Comandi: bottoni stampati, caselle squadrate ---------- */
+[data-style="enigmistica"] :is(.btn, .pen-btn) { border-radius: 0; font-family: var(--hand); font-weight: 800; font-size: 1rem; letter-spacing: .18em; text-transform: uppercase; }
+[data-style="enigmistica"] .btn--ink { background: var(--ink); color: var(--paper); }
+[data-style="enigmistica"] .btn--ink.is-done { background: var(--paper); color: var(--ink); border-color: var(--ink); }
+[data-style="enigmistica"] .btn--red { background: var(--red); }
+[data-style="enigmistica"] .link { color: var(--red); font-weight: 700; }
+[data-style="enigmistica"] .choice__item { border: 1.5px solid var(--ink); border-radius: 0; background: var(--paper); font-weight: 600; }
+[data-style="enigmistica"] .choice__item[aria-pressed="true"] { border: 1.5px solid var(--ink); background: var(--ink); color: var(--paper); }
+[data-style="enigmistica"] .dock { border-top: 3px solid var(--ink); }
+[data-style="enigmistica"] :is(.sheet-head, .phone-head) { border-bottom-width: 3px; }
+[data-style="enigmistica"] :is(.roster__item, .standing, .own__row, .grade__row, .tally__row) { border-bottom: 1px solid rgb(20 20 20 / .22); }
+[data-style="enigmistica"] .corner__btn { border-radius: 0; border-color: var(--ink); }
+[data-style="enigmistica"] .icon { stroke: var(--ink); }
+[data-style="enigmistica"] #toast { background: var(--ink); border-radius: 0; font-weight: 700; }
+
+/* ---------- Timer: barra stampata che si annerisce ---------- */
+[data-style="enigmistica"] .timer__track { box-shadow: inset 0 0 0 2px var(--ink); background: repeating-linear-gradient(90deg, rgb(20 20 20 / .35) 0 1px, transparent 1px var(--q)); }
+[data-style="enigmistica"] .timer__fill { background: var(--ink); border-right: 0; }
+[data-style="enigmistica"] .timer--hurry .timer__fill { background: var(--red); }
+[data-style="enigmistica"] .timer__secs { font-family: var(--display); font-weight: 700; }
+
+/* ---------- Fine partita ---------- */
+[data-style="enigmistica"] .end__tally { background: #fff; border: 3px solid var(--ink); border-radius: 0; box-shadow: none; transform: none; }
+[data-style="enigmistica"] .pagella__row { border-bottom: 1px solid rgb(20 20 20 / .25); }
+[data-style="enigmistica"] .pagella__pos { font-family: var(--hand); font-weight: 800; color: var(--red); }
+[data-style="enigmistica"] :is(.pagella__row.is-top .written, .results__row.is-first .results__name, .tally__row.is-fresh .tally__name) { text-decoration: underline solid var(--red) .08em; }
+
+/* =========================================================
+   Nomi, cose e città
+   ========================================================= */
+/* La lettera del turno: una casella da cruciverba */
+[data-style="enigmistica"] .pen-letter { background: #fff; box-shadow: 0 0 0 .035em var(--ink); }
+[data-style="enigmistica"] .pen-letter text { font-family: var(--display); font-weight: 700; font-size: 150px; }
+[data-style="enigmistica"] :is(.pen-letter__edge, .pen-letter__hatch) { display: none; }
+[data-style="enigmistica"] .pen-letter__paper { fill: var(--ink); }
+[data-style="enigmistica"] .giant .pen-letter, [data-style="enigmistica"] .spin-side__letter .pen-letter { box-shadow: 0 0 0 .025em var(--ink); }
+
+/* La ruota: tratti stampati, lettere da tipografia */
+[data-style="enigmistica"] .w-line { stroke: var(--ink); }
+[data-style="enigmistica"] .w-letter { font-family: var(--display); font-weight: 700; fill: var(--ink); }
+[data-style="enigmistica"] .w-letter--used { fill: #8d8c87; font-weight: 400; }
+[data-style="enigmistica"] .w-cross { stroke: var(--red); }
+[data-style="enigmistica"] .wheel__pointer { fill: var(--red); stroke: var(--ink); }
+
+/* Il voto: una casella stampata col punteggio, tratteggiata finché è solo una proposta */
+[data-style="enigmistica"] .mark { font-family: var(--hand); font-weight: 800; border: 2px solid currentColor; width: 1.75em; height: 1.75em; }
+[data-style="enigmistica"] .mark__ring { display: none; }
+[data-style="enigmistica"] .mark--pencil { border-style: dashed; color: var(--pencil); }
+[data-style="enigmistica"] .mark--ink { background: var(--red); border-color: var(--red); color: #fff; }
+[data-style="enigmistica"] .mark--draw { animation: ink-in .35s var(--out) both; }
+@keyframes ink-in { from { background-color: transparent; color: var(--red); } }
+[data-style="enigmistica"] .pts__btn { font-family: var(--hand); font-weight: 800; }
+[data-style="enigmistica"] .pts__btn::before { border: 1.5px dashed var(--pencil); border-radius: 0; inset: 6px 4px; opacity: .8; }
+[data-style="enigmistica"] .pts__btn[aria-pressed="true"] { color: #fff; }
+[data-style="enigmistica"] .pts__btn[aria-pressed="true"]::before { inset: 6px 4px; background: var(--red); border: 0; z-index: -1; }
+[data-style="enigmistica"] .pts__btn { isolation: isolate; }
+[data-style="enigmistica"] .who__item { border: 1.5px solid var(--ink); border-radius: 0; font-size: 1.3rem; }
+[data-style="enigmistica"] .who__item[aria-pressed="true"] { border: 1.5px solid var(--ink); background: var(--ink); color: var(--paper); }
+[data-style="enigmistica"] .who__pts { font-family: var(--hand); font-size: .8rem; font-weight: 700; }
+
+/* Scrittura sulla TV */
+[data-style="enigmistica"] .cats-list { font-family: var(--display); font-weight: 700; }
+[data-style="enigmistica"] .tick { border-color: var(--ink); }
+[data-style="enigmistica"] .tick.is-on { background: var(--ink); box-shadow: inset 0 0 0 3px var(--paper); }
+[data-style="enigmistica"] .progress__row.is-done .written { text-decoration-color: var(--red); }
+
+/* Correzione: la tabella delle soluzioni */
+[data-style="enigmistica"] .table__row { border-bottom: 1px solid rgb(20 20 20 / .25); }
+[data-style="enigmistica"] :is(.table__cat, .cell, .table__sum) { border-left: 1px solid rgb(20 20 20 / .25); }
+[data-style="enigmistica"] .table__row--head { font-family: var(--hand); font-weight: 800; font-size: calc(var(--q) * .62); letter-spacing: .18em; text-transform: uppercase; color: var(--red); border-bottom: calc(var(--q) * .14) solid var(--ink); }
+[data-style="enigmistica"] .table__row--head .table__sum { font-family: var(--hand); font-size: calc(var(--q) * .55); color: var(--red); }
+[data-style="enigmistica"] .table__row:not(.table__row--head) .table__sum { font-family: var(--display); font-weight: 700; color: var(--red); }
+[data-style="enigmistica"] .table--roomy .cell { justify-content: center; gap: 0; }
+[data-style="enigmistica"] .table--roomy .cell__mark { font-size: .6em; }
+[data-style="enigmistica"] .word-wrap { overflow: visible; }
+[data-style="enigmistica"] .table__row.is-focus { background: rgb(27 95 174 / .08); }
+
+/* =========================================================
+   Console e pagina d'attesa
+   ========================================================= */
+[data-style="enigmistica"] .console-body { background: var(--paper); }
+[data-style="enigmistica"] .console { padding-left: 16px; }
+[data-style="enigmistica"] .console__title { font-family: var(--display); font-weight: 700; color: var(--ink); line-height: 1.1; padding-bottom: 8px; border-bottom: 4px solid var(--ink); }
+[data-style="enigmistica"] :is(.slot__status, .slot__warn) { font-family: var(--school); font-style: italic; color: var(--red); }
+[data-style="enigmistica"] .slot__title { font-family: var(--display); }
+[data-style="enigmistica"] .slot__cover { background: var(--paper); border: 4px solid var(--ink); border-radius: 0; box-shadow: none; padding: 12px; }
+[data-style="enigmistica"] .slot__label { background: none; box-shadow: none; border-radius: 0; font-family: var(--display); font-weight: 700; font-size: 1.15rem; line-height: 1.1; color: var(--ink); border-block: 2px solid var(--ink); }
+[data-style="enigmistica"] .slot--on .slot__cover { background: var(--ink); }
+[data-style="enigmistica"] .slot--on .slot__label { color: var(--paper); border-color: var(--paper); }
+[data-style="enigmistica"] .pen-btn { border-width: 2px; }
+[data-style="enigmistica"] .where { border-top-width: 4px; }
+[data-style="enigmistica"] .standby-body { background: var(--paper); background-image: none; }
+[data-style="enigmistica"] :is(.standby__label, .standby__qr) { border-radius: 0; box-shadow: none; border: 4px solid var(--ink); }
+[data-style="enigmistica"] .standby-body--tv :is(.standby__label, .standby__qr) { border-width: calc(var(--q) * .22); }
+[data-style="enigmistica"] .standby__title { font-family: var(--display); font-weight: 700; line-height: 1.1; color: var(--ink); }
+[data-style="enigmistica"] .standby-body--tv .standby__where { font-family: var(--school); font-style: italic; color: var(--red); }
+[data-style="enigmistica"] .standby__qr img { filter: grayscale(1) brightness(.35) contrast(3); }
+
+/* =========================================================
+   Giochi a squadre, Labirinto, Impiccato, Anagrammi, Codice
+   ========================================================= */
+[data-style="enigmistica"] :is(.team-pick__btn, .role-pick__btn, .turn-card, .brief__warn, .zone, .pad__btn, .torch-done) { border-radius: 0; }
+[data-style="enigmistica"] :is(.team-pick__btn, .role-pick__btn, .turn-card) { border-width: 2px; }
+[data-style="enigmistica"] .team-pick__btn.is-mine { box-shadow: inset 0 0 0 3px var(--paper); }
+[data-style="enigmistica"] :is(.team-pick__color, .role-pick__label, .turn-card__big) { font-family: var(--display); font-weight: 700; }
+[data-style="enigmistica"] .role-pick__btn.is-taken, [data-style="enigmistica"] .role-pick__btn:disabled:not(.is-mine) { border-color: #b9b7b0; color: #8d8c87; background: #e7e6e1; }
+[data-style="enigmistica"] .zone { border-width: 2px; }
+[data-style="enigmistica"] .zone__name { font-family: var(--display); }
+[data-style="enigmistica"] :is(.pause-banner, .tv-pause) { font-family: var(--hand); font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+[data-style="enigmistica"] .pad__btn { box-shadow: 0 4px 0 #000; }
+[data-style="enigmistica"] .torch-done { font-family: var(--display); font-weight: 700; }
+[data-style="enigmistica"] .dot { border-radius: 0; }
+[data-style="enigmistica"] .key { border-radius: 0; font-family: var(--display); }
+[data-style="enigmistica"] .tile { font-family: var(--display); background: #fff; }
+[data-style="enigmistica"] :is(.slots, .compose-word, .ana-full) { font-family: var(--display); }
+[data-style="enigmistica"] .stamp { font-family: var(--hand); font-weight: 800; text-transform: uppercase; letter-spacing: .12em; border-radius: 0; }
+[data-style="enigmistica"] .hang-wrong { font-size: 2rem; }

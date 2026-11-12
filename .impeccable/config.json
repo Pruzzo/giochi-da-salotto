@@ -11,6 +11,40 @@
         ],
         "createdAt": "2026-11-08T16:41:44.991Z",
         "reason": "Claude: 2px grid-colour column rules between attempt cells on the TV race table, not a card accent"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "old standard tt",
+        "createdAt": "2026-11-12T00:19:34.535Z",
+        "reason": "user confirmed: stile Enigmistica scelto in sessione (firma a biro per i nomi)"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "libre franklin",
+        "createdAt": "2026-11-12T00:19:34.562Z",
+        "reason": "user confirmed: stile Enigmistica scelto in sessione (firma a biro per i nomi)"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "shadows into light",
+        "createdAt": "2026-11-12T00:19:34.588Z",
+        "reason": "user confirmed: stile Enigmistica scelto in sessione (firma a biro per i nomi)"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "caveat",
+        "createdAt": "2026-11-12T00:19:34.615Z",
+        "reason": "user confirmed: stile Enigmistica scelto in sessione (firma a biro per i nomi)"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "special elite",
+        "createdAt": "2026-11-12T08:30:10.406Z"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "permanent marker",
+        "createdAt": "2026-11-12T08:30:10.431Z"
       }
     ]
   }

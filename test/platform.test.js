@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { Platform, PlatformError } from '../server/platform.js';
 
-function setup() {
+function setup(options = {}) {
   const log = [];
   let changes = 0;
   const games = [{ id: 'a', title: 'Gioco A', description: 'x' }, { id: 'b', title: 'Gioco B', description: 'y' }];
@@ -12,6 +12,7 @@ function setup() {
       log.push(`start ${game.id}`);
       return { status: () => `stato ${game.id}`, destroy: () => log.push(`stop ${game.id}`) };
     },
+    ...options,
   });
   return { platform, log, changes: () => changes };
 }
@@ -70,4 +71,35 @@ test('non si cambia verso lo stesso gioco o uno inesistente', () => {
   assert.throws(() => platform.switchTo('zzz'), PlatformError);
   assert.equal(platform.view().activeId, 'a');
   assert.deepEqual(log, ['start a']);
+});
+
+test('lo stile parte dal kraft e si cambia per tutti', () => {
+  const { platform, changes } = setup();
+  assert.equal(platform.view().style, 'kraft');
+  assert.ok(platform.view().styles.some((s) => s.id === 'enigmistica'));
+  platform.setStyle('enigmistica');
+  assert.equal(platform.view().style, 'enigmistica');
+  assert.equal(changes(), 1);
+  platform.setStyle('enigmistica');
+  assert.equal(changes(), 1);
+});
+
+test('uno stile sconosciuto viene rifiutato', () => {
+  const { platform } = setup();
+  assert.throws(() => platform.setStyle('neon'), PlatformError);
+  assert.equal(platform.view().style, 'kraft');
+});
+
+test('riparte dallo stile salvato e avvisa a ogni cambio', () => {
+  const saved = [];
+  const { platform } = setup({ style: 'enigmistica', onStyle: (id) => saved.push(id) });
+  assert.equal(platform.view().style, 'enigmistica');
+  platform.setStyle('enigmistica');
+  platform.setStyle('quaderno');
+  assert.deepEqual(saved, ['quaderno']);
+});
+
+test('uno stile salvato che non esiste più torna al predefinito', () => {
+  const { platform } = setup({ style: 'neon' });
+  assert.equal(platform.view().style, 'kraft');
 });

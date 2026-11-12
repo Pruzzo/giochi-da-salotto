@@ -86,7 +86,7 @@ function writing(state) {
         else if (was && p.count > was.count) sounds.found();
         before.set(p.id, { count: p.count, longest: p.longest });
         return h('li', { class: `ana-player${p.done ? ' is-done' : ''}${p.online ? '' : ' is-away'}` },
-          h('span', { class: 'written ana-player__name' }, p.name),
+          h('span', { class: 'written is-name ana-player__name' }, p.name),
           h('span', { class: 'ana-player__count' }, h('b', {}, String(p.count)), p.count === 1 ? ' parola' : ' parole'),
           h('span', { class: 'ana-player__long' }, p.longest ? `la più lunga: ${p.longest} lettere` : ''));
       }));

@@ -90,7 +90,7 @@ function playing(state) {
       const rowQ = Math.min(3, Math.max(1.6, 22 / Math.max(s.players.length, 1)));
       board.style.setProperty('--row-q', rowQ.toFixed(2));
       fill(board, s.players.map((p) => h('li', { class: `race__row${p.rank ? ' is-solved' : ''}${p.online ? '' : ' is-away'}` },
-        h('span', { class: 'written race__name' }, p.name),
+        h('span', { class: 'written is-name race__name' }, p.name),
         h('span', { class: 'race__tries', 'aria-label': `${p.guesses.length} tentativi su ${s.maxAttempts}` },
           Array.from({ length: s.maxAttempts }, (_, i) => {
             const g = p.guesses[i];

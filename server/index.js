@@ -9,6 +9,7 @@ import games from '../games/index.js';
 import { announce, LOCAL_NAME } from './mdns.js';
 import { Platform, PlatformError } from './platform.js';
 import { Session } from './session.js';
+import { loadSettings, saveSettings } from './settings.js';
 
 const PORT = Number(process.env.PORT) || 3000;
 const root = join(dirname(fileURLToPath(import.meta.url)), '..', 'public');
@@ -51,8 +52,12 @@ const broadcast = () => io.of('/').emit('platform', platformView());
 
 // Le vittorie della serata restano finché il server è acceso, anche cambiando gioco.
 const session = new Session({ onChange: broadcast });
+// Lo stile scelto dalla console resta anche dopo un riavvio del server o dell'app.
+const settings = loadSettings();
 const platform = new Platform(games, {
   onChange: broadcast,
+  style: settings.style,
+  onStyle: (style) => saveSettings({ ...settings, style }),
   launch: (game) => game.start(io.of(`/${game.id}`), { joinUrl, onStatus: broadcast, session, platform: shelf }),
 });
 
@@ -95,6 +100,7 @@ io.on('connection', (socket) => {
   };
   socket.on('select', handle((id) => platform.select(id)));
   socket.on('close', handle(() => platform.close()));
+  socket.on('style', handle((id) => platform.setStyle(id)));
 });
 
 server.listen(PORT, '0.0.0.0', () => {

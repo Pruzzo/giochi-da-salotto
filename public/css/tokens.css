@@ -1,3 +1,6 @@
+/* Gli stili scelti dalla console ridefiniscono questi token sotto :root[data-style="…"]. Senza stile vale il quaderno. */
+@import url(/css/styles/enigmistica.css);
+@import url(/css/styles/kraft.css);
 @font-face { font-family: "Playwrite IT"; src: url(/fonts/playwrite-it.woff2) format("woff2"); font-display: swap; }
 @font-face { font-family: "Shantell Sans"; src: url(/fonts/shantell.woff2) format("woff2"); font-weight: 300 800; font-display: swap; }
 
@@ -11,6 +14,9 @@
   --red-deep: #961420;
   --pencil: #4f5660;
   --marker: #ffe83f;
+  --hatch-blue: #7d9be0;
+  --hatch-red: #f0908f;
+  --hatch-yellow: #fbdf38;
   --q: 24px;
   --hand: "Shantell Sans", "Comic Sans MS", system-ui, sans-serif;
   --school: "Playwrite IT", "Shantell Sans", cursive;

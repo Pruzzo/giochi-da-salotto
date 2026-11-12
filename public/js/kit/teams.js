@@ -289,7 +289,7 @@ export function teamViews(spec) {
         sub.textContent = [choosing.length ? `Devono ancora scegliere: ${choosing.join(', ')}` : 'Tutti dentro!', waitingLine(s)].filter(Boolean).join(' · ');
         grid.style.setProperty('--cols', s.teams.length <= 3 ? s.teams.length : s.teams.length === 4 ? 2 : 3);
         fill(grid, s.teams.map((t) => zoneShell(t,
-          h('ul', { class: 'zone__seats' }, [0, 1].map((i) => h('li', { class: t.members[i] ? 'written' : 'is-empty' }, t.members[i]?.name ?? 'posto libero'))),
+          h('ul', { class: 'zone__seats' }, [0, 1].map((i) => h('li', { class: t.members[i] ? 'written is-name' : 'is-empty' }, t.members[i]?.name ?? 'posto libero'))),
           t.fixed && h('p', { class: 'pencil' }, 'Squadra già fatta'))));
       },
     };
@@ -307,7 +307,7 @@ export function teamViews(spec) {
         say.textContent = s.round ? `Turno ${s.round + 1}: ruoli scambiati` : 'Nome della squadra e ruoli';
         sub.textContent = [settingsText(s), waitingLine(s)].filter(Boolean).join(' · ');
         fill(grid, s.teams.map((t) => zoneShell(t,
-          h('ul', { class: 'zone__seats' }, t.members.map((m) => h('li', { class: 'written' }, m.name, ' ',
+          h('ul', { class: 'zone__seats' }, t.members.map((m) => h('li', { class: 'written is-name' }, m.name, ' ',
             h('span', { class: 'red' }, m.role ? roleLabel(m.role) : 'sceglie il ruolo…')))),
           h('p', { class: `zone__ready${t.ready ? ' is-ready' : ''}` }, t.ready ? '✓ pronti' : 'non ancora pronti'))));
       },

@@ -355,7 +355,7 @@
 .receipt__head { text-align: center; font-weight: 800; letter-spacing: .15em; margin-bottom: 6px; }
 .receipt__row { display: flex; justify-content: space-between; gap: 8px; }
 .receipt__row--total { margin-top: 6px; padding-top: 4px; border-top: 2px dashed var(--ink); font-weight: 800; }
-.note { width: 120px; height: 60px; }
+svg.note { width: 120px; height: 60px; }
 .note__paper { stroke: var(--ink); stroke-width: 3; }
 .note--10 .note__paper { fill: #f3b4a8; }
 .note--20 .note__paper { fill: #a9c8f0; }

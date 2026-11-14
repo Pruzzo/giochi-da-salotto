@@ -51,6 +51,17 @@ Per un gioco a squadre da due c'è già tutta la parte comune: scelta del colore
 - Server: le regole estendono `TeamTable` di `games/shared/teams.js` e definiscono `setupTeam`, `teamTimeout`, `teamPoints` e `teamView` (cosa vede ciascuno della squadra). Le azioni chiamano `playingTeam(actor)` e, a squadra finita, `finishTeam(team, outcome)`. `teamActions(game)` dà le azioni comuni da passare a `openRoom`.
 - Client: `teamViews(spec)` di `/js/kit/teams.js` dà le pagine di telefono e TV per tutte le fasi; il gioco passa le istruzioni, le impostazioni, il telefono durante il turno e la zona della TV di una squadra. Gli stili comuni sono in `/css/teams.css`.
 
+## Le persone di Piacere!
+
+Le persone sono disegnate dal codice, non da immagini, e ogni turno ne escono di nuove.
+
+- `games/piacere/public/js/cast.js` decide il turno senza toccare il DOM, così lo usano sia il server sia i test. `makeRound(seed, { known, strangers, level })` restituisce le persone (tratti fissi, nome, vestiti della prima e della seconda parte), l'ordine delle presentazioni e la fila della seconda parte. Con lo stesso seme esce sempre lo stesso turno.
+  - Due persone conosciute differiscono in almeno 3 tratti tra sesso, capelli, colore dei capelli, barba, occhiali, corporatura, altezza, forma del viso e pelle; a *Difficile* gli sconosciuti ne possono avere solo 2 diversi da una di loro.
+  - I nomi di uno stesso turno non cominciano mai con le stesse due lettere.
+  - Nella seconda parte cambiano sempre il sopra, il suo colore e il colore del sotto. A *Facile* i vestiti restano gli stessi.
+- `games/piacere/public/js/people.js` disegna una persona intera in SVG da tratti e vestiti, nel riquadro 200×420 con i piedi su y=404; l'altezza accorcia o allunga la figura dai piedi. Pelle, capelli e vestiti hanno colori fissi, uguali in tutti gli stili; il contorno usa `--fig-line`.
+- Il server non manda mai ai telefoni chi è chi: nella seconda parte ogni telefono riceve solo l'aspetto della persona che ha davanti e l'elenco dei nomi. Il nome di uno sconosciuto arriva nella risposta all'azione, dopo che si è risposto.
+
 ## Lavori in corso: i 30 moduli di Disinnesca la bomba
 
 Tutti i 30 moduli descritti nella [guida](Giochi-a-squadre.md#disinnesca-la-bomba) sono scritti: in `games/bomba/modules.js` c'è la logica del server, e ogni modulo ha il suo pannello sul telefono dell'artificiere e la sua pagina nel manuale. Per ognuno, quello che vede l'artificiere e quello che legge l'esperto sono in [questa pagina di revisione](https://claude.ai/artifact/St1Fp2vAgn5Vb6Lgef4YpQ).
@@ -91,5 +102,7 @@ Servono JDK 17, l'SDK Android con NDK 27.2.12479018 e CMake 3.22.1, Node.js e `p
 npm i --no-save playwright-core
 node docs/tools/screenshots.mjs docs/img
 ```
+
+Con `ONLY=piacere` rifà solo gli screenshot di Piacere!. Il server dello script parte con impostazioni nuove, quindi con lo stile predefinito, Kraft.
 
 Gli screenshot dell'app Android (`docs/img/app-*.png`) vengono dall'emulatore.

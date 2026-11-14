@@ -3,6 +3,8 @@
 //   npm i --no-save playwright-core
 //   node docs/tools/screenshots.mjs docs/img
 // CHROME=/percorso/di/chrome se non è in /usr/bin/google-chrome.
+// ONLY=piacere per rifare solo gli screenshot di Piacere!
+// Il server parte con impostazioni nuove, quindi con lo stile predefinito.
 import { chromium } from 'playwright-core';
 import { spawn } from 'node:child_process';
 import { mkdirSync } from 'node:fs';
@@ -15,7 +17,9 @@ const BASE = `http://localhost:${PORT}`;
 const wait = (ms) => new Promise((r) => setTimeout(r, ms));
 
 const server = spawn('node', ['server/index.js'], {
-  cwd: ROOT, env: { ...process.env, PORT: String(PORT), PUBLIC_URL: 'http://192.168.1.42:3000' }, stdio: 'ignore',
+  cwd: ROOT,
+  env: { ...process.env, PORT: String(PORT), PUBLIC_URL: 'http://192.168.1.42:3000', SETTINGS_FILE: `${OUT}/.impostazioni-screenshot.json` },
+  stdio: 'ignore',
 });
 for (let i = 0; i < 50; i++) {
   try { if ((await fetch(`${BASE}/qr.svg`)).ok) break; } catch {}
@@ -92,10 +96,13 @@ async function write(page, words) {
 }
 
 try {
-  // ---------- Console e attesa ----------
+  const ONLY = process.env.ONLY;
   const tv = await open(tvCtx(), '/tv');
-  await shot(tv, 'tv-attesa', 1200);
   const consolePhone = await open(phoneCtx(), '/console');
+  await wait(1200);
+  if (!ONLY) {
+  // ---------- Console e attesa ----------
+  await shot(tv, 'tv-attesa', 1200);
   await shot(consolePhone, 'console', 1200);
   const consoleWide = await open(tvCtx(), '/console');
   await shot(consoleWide, 'console-pc', 800);
@@ -170,6 +177,49 @@ try {
     await shot(tv, `${game.id}-tv-gioco`, 800);
     await a.context().close();
     await b.context().close();
+  }
+  await closeGame(consolePhone);
+  }
+
+  // ---------- Piacere! ----------
+  if (!ONLY || ONLY === 'piacere') {
+    await selectGame(consolePhone, 'Piacere!');
+    await tv.reload();
+    await wait(1500);
+    const a = await open(phoneCtx(), '/');
+    await join(a, 'Giulia', { admin: true });
+    const b = await open(phoneCtx(), '/');
+    await join(b, 'Marco');
+    const c = await open(phoneCtx(), '/');
+    await join(c, 'Sara');
+    await a.getByRole('group', { name: 'Secondi a presentazione' }).getByRole('button', { name: '3', exact: true }).click();
+    await shot(a, 'piacere-telefono-sala-admin');
+    await a.getByRole('button', { name: 'Fate entrare gli ospiti' }).click();
+    await wait(2500 + 3000 * 2 + 1200); // la terza persona nella luce
+    await shot(tv, 'piacere-tv-presentazioni', 0);
+    await tv.locator('.countdown__n').waitFor({ timeout: 60000 });
+    await shot(tv, 'piacere-tv-conto', 300);
+    await b.locator('.answers').waitFor({ timeout: 10000 });
+    await shot(b, 'piacere-telefono-chi-e', 700);
+    // Senza sapere chi è chi: Sara dice sempre "Non ti conosco", gli altri tirano a indovinare.
+    const play = async (p, k) => {
+      for (let i = 0; i < 20; i++) {
+        if (await p.locator('.solved:not([hidden]), .score__table, .recap').count()) return;
+        const buttons = p.locator('.answers:not([hidden]) button:not([disabled])');
+        const n = await buttons.count();
+        if (!n) { await wait(150); continue; }
+        await buttons.nth(k === 2 ? n - 1 : (i * 5 + k * 2) % n).click();
+        if (k === 1 && i === 1) await shot(p, 'piacere-telefono-risposta', 250);
+        await wait(1100 + k * 500);
+      }
+    };
+    const racing = [a, b, c].map((p, k) => play(p, k));
+    await shot(tv, 'piacere-tv-gara', 6500);
+    await Promise.all(racing);
+    await tv.locator('.score__table').waitFor({ timeout: 30000 });
+    await shot(tv, 'piacere-tv-punti', 2500);
+    await shot(b, 'piacere-telefono-risposte', 0);
+    for (const p of [a, b, c]) await p.context().close();
   }
 } catch (error) {
   console.error('ERRORE', error);

@@ -1,0 +1,107 @@
+/* "Piacere!": la fila delle persone sulla TV, chi è? sul telefono. Solo token: vale per tutti gli stili. */
+
+.person { display: block; overflow: visible; }
+
+/* ---------- TV: le presentazioni ---------- */
+.intro { display: grid; grid-template-rows: auto minmax(0, 1fr) auto; padding: var(--q) calc(var(--q) * 2) var(--q) calc(var(--margin) + var(--q)); gap: calc(var(--q) * .5); }
+.intro-head { display: flex; align-items: baseline; gap: calc(var(--q) * 1.5); }
+.intro-head__say { font-size: calc(var(--q) * 1.6); }
+.intro-head__count { margin-left: auto; font-size: calc(var(--q) * 1.1); }
+
+/* La fila: tutti in piedi sulla stessa riga, uno alla volta nella luce. */
+.lineup { position: relative; display: grid; grid-template-columns: repeat(var(--n), minmax(0, 1fr)); align-items: end; column-gap: calc(var(--q) * .4); padding-inline: calc(var(--q) * 1); border-bottom: calc(var(--q) * .15) solid var(--ink); min-height: 0; }
+.lineup__spot { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; height: 100%; min-width: 0; container-type: size; }
+/* più alte possibile, ma il disegno ha margini vuoti: possono sbordare un po' nel posto accanto nella fila */
+.lineup__spot .person { height: min(100cqh, 330cqw); width: auto; flex: none; transition: opacity .5s, filter .5s, transform .5s var(--out); transform-origin: 50% 100%; }
+.lineup.is-presenting .lineup__spot:not(.is-on) .person { opacity: .28; filter: grayscale(.7); }
+.lineup__spot.is-on .person { transform: scale(1.08); }
+/* il cono di luce dietro chi si presenta */
+.lineup__spot.is-on::before { content: ""; position: absolute; inset: -10% -30% 0; background: radial-gradient(ellipse 50% 70% at 50% 75%, rgb(255 236 170 / .75), transparent 70%); z-index: -1; }
+.lineup__spot.is-on::after { content: ""; position: absolute; bottom: calc(var(--q) * -.5); width: 80%; height: calc(var(--q) * .8); border-radius: 50%; background: rgb(255 226 140 / .55); z-index: -1; }
+
+.names { display: grid; grid-template-columns: repeat(var(--n), minmax(0, 1fr)); column-gap: calc(var(--q) * .4); padding-inline: calc(var(--q) * 1); min-height: calc(var(--q) * 3.2); align-items: start; }
+.names__slot { display: flex; justify-content: center; }
+.nametag { font-family: var(--school); font-size: calc(var(--q) * 1.35); line-height: 1.5; color: var(--ink-deep); background: var(--paper); padding: calc(var(--q) * .15) calc(var(--q) * .6); border: 2px solid var(--ink); border-radius: 4px; box-shadow: 0 .15em .4em rgb(20 20 40 / .18); white-space: nowrap; animation: write-in .5s var(--out) both; }
+.nametag small { display: block; font-family: var(--hand); font-size: .5em; line-height: 1.2; color: var(--pencil); }
+
+/* ---------- TV: il conto alla rovescia ---------- */
+.countdown { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--q); padding: var(--q) calc(var(--q) * 4) calc(var(--q) * 3) calc(var(--margin) + var(--q)); text-align: center; }
+.countdown__n { font-family: var(--school); font-size: calc(var(--q) * 10); line-height: 1; color: var(--red); }
+.countdown__say { font-size: calc(var(--q) * 1.8); }
+/* l'avvertimento, come un cartellino attaccato storto: solo quando i vestiti cambiano */
+.countdown__warn { font-family: var(--school); font-size: calc(var(--q) * 1.6); line-height: 1.4; color: var(--red); border: calc(var(--q) * .1) solid var(--red); padding: calc(var(--q) * .15) calc(var(--q) * .7); transform: rotate(-3deg); }
+.countdown__n--phone { font-size: 9rem; }
+.countdown__warn--phone { font-size: 1.6rem; border-width: 3px; padding: 4px 14px; margin-block: 8px 16px; }
+
+/* ---------- TV: la gara ---------- */
+.race { display: grid; grid-template-rows: auto minmax(0, 1fr); padding: var(--q) calc(var(--q) * 2) var(--q) calc(var(--margin) + var(--q)); gap: var(--q); }
+.race-head { display: flex; align-items: center; gap: calc(var(--q) * 1.5); }
+.race-head__say { font-size: calc(var(--q) * 1.6); white-space: nowrap; }
+.race-head__text { display: flex; flex-direction: column; gap: calc(var(--q) * .2); min-width: 0; }
+.race-head__note { font-size: calc(var(--q) * .8); }
+.race-board { display: flex; flex-direction: column; justify-content: center; min-height: 0; --row: min(calc(var(--q) * 3), calc((100vh - var(--q) * 7) / var(--n))); }
+.racer { display: grid; grid-template-columns: calc(var(--q) * 9) minmax(0, 1fr) calc(var(--q) * 3.5) calc(var(--q) * 3.5); align-items: center; height: var(--row); border-bottom: 2px solid var(--grid); font-size: min(calc(var(--q) * 1.2), calc(var(--row) * .45)); gap: var(--q); }
+.racer__name { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+/* fino a 13 incontri: i pallini si stringono per stare nella colonna */
+.racer__marks { display: flex; gap: calc(var(--q) * .3); --dot: min(calc(var(--q) * 1.1), calc(var(--row) * .45)); }
+.hit { flex: none; width: var(--dot); height: var(--dot); border-radius: 50%; border: 2px dashed var(--grid); display: grid; place-items: center; font-weight: 800; font-size: calc(var(--dot) * .7); }
+.hit--ok { border: 0; background: var(--ink); }
+.hit--ko { border: 0; color: var(--red); }
+.hit--ko::before { content: "✕"; font-size: 1.6em; line-height: 1; }
+.racer__time { text-align: right; font-variant-numeric: tabular-nums; font-weight: 700; }
+.racer__pos { text-align: right; color: var(--red); font-family: var(--school); font-size: .8em; white-space: nowrap; }
+.racer.is-away { opacity: .45; }
+.racer.is-done .racer__name { text-decoration: underline wavy var(--red) .08em; text-underline-offset: .2em; }
+.race-head__clock { margin-left: auto; font-size: calc(var(--q) * 3); font-weight: 800; font-variant-numeric: tabular-nums; color: var(--ink); line-height: 1; }
+
+/* ---------- TV: risultati ---------- */
+.score { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: calc(var(--q) * 2); padding: var(--q) calc(var(--q) * 2) var(--q) calc(var(--margin) + var(--q)); }
+.score__main { display: flex; flex-direction: column; gap: calc(var(--q) * .6); min-width: 0; }
+.score__say { font-size: calc(var(--q) * 1.6); }
+.score__table { display: flex; flex-direction: column; --size: min(calc(var(--q) * 1.1), calc((100vh - var(--q) * 9) / (var(--n) + 1) * .5)); }
+.score-row { display: grid; grid-template-columns: 1.8em minmax(5em, 1fr) 3em 4.2em 3.2em 2.6em; align-items: baseline; gap: .5em; border-bottom: 2px solid var(--grid); padding-block: .2em; font-size: var(--size); font-variant-numeric: tabular-nums; }
+.score-row--head { font-size: calc(var(--q) * .55); font-weight: 700; color: var(--pencil); border-bottom: 3px solid var(--ink); }
+.score-row > :nth-child(n+3) { text-align: right; }
+.score-row .red { font-family: var(--school); }
+.score__note .red { font-family: inherit; }
+.score__note { font-size: calc(var(--q) * .8); }
+
+/* chi era chi: la fila della seconda parte, con quanti l'hanno riconosciuto */
+.gallery { display: grid; grid-template-columns: repeat(var(--cols, 4), minmax(0, 1fr)); gap: calc(var(--q) * .3) calc(var(--q) * .5); align-content: center; --fig: calc((100vh - var(--q) * 3) / var(--rows, 2) - var(--q) * 2.6); }
+.gallery__item { display: flex; flex-direction: column; align-items: center; min-width: 0; }
+.gallery__item .person { width: auto; height: min(var(--fig), calc(var(--q) * 7)); max-width: 100%; }
+.gallery__name { font-family: var(--school); font-size: calc(var(--q) * .85); line-height: 1.4; color: var(--ink-deep); }
+.gallery__hits { font-size: calc(var(--q) * .62); color: var(--pencil); }
+.gallery__item.is-new .gallery__name { color: var(--red); }
+
+/* ---------- Telefono ---------- */
+.watch { align-items: center; justify-content: center; text-align: center; }
+.watch__dots { display: flex; gap: 8px; justify-content: center; }
+.watch__dot { width: 14px; height: 14px; border-radius: 50%; border: 2px solid var(--ink); }
+.watch__dot.is-done { background: var(--ink); }
+
+.meet { gap: 10px; padding-bottom: 0; }
+.meet-head .meet__err { color: var(--red); font-weight: 700; }
+.meet__clock { margin-left: auto; }
+.meet__stage .person.is-new { animation: step-in .35s var(--out) both; }
+@keyframes step-in { from { transform: translateX(30%); opacity: 0; } }
+.meet__stage { position: relative; flex: 1; min-height: 220px; display: flex; justify-content: center; align-items: flex-end; }
+.meet__stage .person { height: 100%; width: auto; max-width: 70%; }
+.bubble { position: absolute; top: 4px; right: 0; max-width: 46%; padding: 8px 12px; background: var(--paper); border: 2.5px solid var(--ink); border-radius: 18px 18px 18px 4px; font-family: var(--school); font-size: 1.05rem; line-height: 1.5; color: var(--ink-deep); }
+.bubble--hello { color: var(--red); border-color: var(--red); }
+.answers { display: grid; grid-template-columns: repeat(var(--cols, 3), minmax(0, 1fr)); gap: 6px; }
+.answers .choice__item { min-height: 52px; font-size: 1.05rem; }
+.answers__none { grid-column: 1 / -1; }
+.verdict { font-family: var(--school); font-size: 1.6rem; line-height: 1.5; text-align: center; }
+.verdict--ok { color: var(--ink-deep); }
+.verdict--ko { color: var(--red); }
+.verdict small { display: block; font-family: var(--hand); font-size: 1rem; color: var(--pencil); }
+
+/* rivedere le proprie risposte */
+.recap { display: flex; flex-direction: column; }
+.recap__row { display: grid; grid-template-columns: 56px minmax(0, 1fr) auto; align-items: center; gap: 12px; border-bottom: 2px solid var(--grid); padding-block: 4px; }
+.recap__row .person { width: 56px; height: 100px; }
+.recap__said { color: var(--pencil); font-size: .95rem; }
+.recap__new { color: var(--red); font-size: .9rem; }
+.recap__ok { color: var(--ink); font-weight: 800; font-size: 1.3rem; }
+.recap__ko { color: var(--red); font-weight: 800; font-size: 1.3rem; }

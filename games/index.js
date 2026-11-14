@@ -7,5 +7,6 @@ import impiccato from './impiccato/index.js';
 import nomiCoseCitta from './nomi-cose-citta/index.js';
 import labirinto from './labirinto/index.js';
 import bomba from './bomba/index.js';
+import piacere from './piacere/index.js';
 
-export default [nomiCoseCitta, codiceSegreto, impiccato, anagrammi, labirinto, bomba];
+export default [nomiCoseCitta, codiceSegreto, impiccato, anagrammi, piacere, labirinto, bomba];

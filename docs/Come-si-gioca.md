@@ -127,3 +127,56 @@ Chi vince una partita, a qualunque gioco, prende una **stellina**. Le stelline r
 6. Alla fine la TV mostra la parola di partenza, le più lunghe di ognuno e quelle che nessuno ha trovato.
 
 Il dizionario (circa 63.000 parole con plurali, femminili e verbi coniugati) viene da *morph-it!* di Marco Baroni ed Eros Zanchetta (Università di Bologna), con licenza CC BY-SA 2.0 e LGPL. Fonti e istruzioni per rigenerarlo sono in [`games/anagrammi/data/README.md`](https://github.com/Pruzzo/giochi-da-salotto/blob/main/games/anagrammi/data/README.md).
+
+## Piacere!
+
+<p align="center">
+  <img src="img/piacere-tv-presentazioni.png" width="560" alt="La TV: le persone in fila, una alla volta nella luce con il suo nome">
+  <img src="img/piacere-telefono-chi-e.png" width="230" alt="Il telefono: una persona torna con altri vestiti, si sceglie il suo nome">
+</p>
+
+Ognuno per sé: una fila di persone si presenta sulla TV, poi tornano una alla volta sul telefono con altri vestiti. Vince chi le riconosce tutte, prima e senza sbagliare.
+
+1. In sala d'attesa l'amministratore sceglie:
+   - **quante persone** si presentano: 4, 6, 8 o 10;
+   - **quanti sconosciuti** si infilano nella seconda parte: da nessuno a 3;
+   - **i vestiti**: *Facile* (gli stessi di prima), *Normale* (vestiti diversi) o *Difficile* (vestiti diversi, a volte cappelli e sciarpe, e sconosciuti che somigliano a qualcuno);
+   - **i secondi a presentazione**: 3, 4 o 5.
+
+   <p align="center">
+     <img src="img/piacere-telefono-sala-admin.png" width="230" alt="Le impostazioni sul telefono dell'amministratore">
+   </p>
+
+2. L'amministratore tocca **Fate entrare gli ospiti**. Sulla TV compare tutta la fila. Poi le persone passano nella luce una alla volta, le altre restano in ombra, e sotto compare il nome: *Piacere, Marta!* Il ritmo è uguale per tutti e i telefoni dicono solo **Guarda la TV**.
+3. Ogni persona ha un aspetto suo che non cambia mai: colore della pelle, viso, capelli, barba o baffi, occhiali, lentiggini, corporatura e altezza. Cambiano solo i vestiti. Nella stessa fila due persone si distinguono sempre per almeno tre di questi tratti, e due nomi non cominciano mai con le stesse due lettere.
+4. Finite le presentazioni, la TV e i telefoni fanno il conto alla rovescia **3, 2, 1** e il cronometro parte per tutti nello stesso momento. Se i vestiti cambiano, cioè a *Normale* e *Difficile*, compare anche **Occhio ai vestiti!**
+
+   <p align="center">
+     <img src="img/piacere-tv-conto.png" width="560" alt="La TV durante il conto alla rovescia, con il cartellino Occhio ai vestiti!">
+   </p>
+
+5. Sul telefono le persone tornano una alla volta, nello stesso ordine per tutti, con i vestiti della seconda parte. Sotto ci sono tutti i nomi della prima parte, in ordine alfabetico, e il tasto **Non ti conosco**:
+   - se scegli il nome giusto, la persona dice *Sì, sono io!*;
+   - se sbagli, dice *Ma no, non sono io!*: è un errore, e non scopri il nome giusto;
+   - gli sconosciuti, dopo la risposta, si presentano (*Piacere, Ugo!*) e non tornano più. Per loro la risposta giusta è **Non ti conosco**, e toccarlo per una persona già vista è un errore.
+
+   Dopo ogni risposta si passa da soli alla persona dopo. I nomi restano tutti sempre disponibili: lo stesso nome si può dare a più persone.
+
+   <p align="center">
+     <img src="img/piacere-telefono-risposta.png" width="230" alt="Il telefono subito dopo una risposta: la persona risponde e dice se era giusta">
+   </p>
+6. Sulla TV ogni giocatore ha la sua riga: un pallino pieno per ogni risposta giusta, una croce per ogni errore. Chi arriva in fondo mostra il suo tempo e i secondi di penalità. Il cronometro si ferma a 3 minuti: le persone a cui non hai risposto contano come errori. Chi ha finito, se è l'amministratore, può anche **fermare il tempo per tutti**.
+
+   <p align="center">
+     <img src="img/piacere-tv-gara.png" width="560" alt="La TV durante la seconda parte: risposte giuste ed errori di ognuno">
+   </p>
+
+7. **Punti**: al tuo tempo si aggiungono **5 secondi per ogni errore**. In classifica si va per tempo totale e i punti vanno per posizione: 10, 8, 6, 5, 4, 3, 2, poi 1 a tutti gli altri. A pari tempo totale, pari punti. Chi non risponde a nessuno prende 0.
+8. A fine turno la TV mostra la classifica e accanto la fila della seconda parte: il nome di ognuno, colorato per gli sconosciuti, e quanti giocatori l'hanno riconosciuto. Sul telefono ognuno rivede le sue risposte, una per una. Poi l'amministratore tocca **Fate entrare nuovi ospiti**, con persone tutte nuove, oppure **Fine partita**.
+
+   <p align="center">
+     <img src="img/piacere-tv-punti.png" width="560" alt="La TV a fine turno: classifica con tempo ed errori, e chi era chi">
+     <img src="img/piacere-telefono-risposte.png" width="230" alt="Il telefono a fine turno: il proprio posto e le proprie risposte">
+   </p>
+
+Chi entra a turno iniziato aspetta il turno dopo. Chi perde la connessione nella seconda parte rientra dove era rimasto, ma il suo cronometro intanto non si è fermato. Se tutti gli altri hanno finito, il turno si chiude senza aspettarlo.

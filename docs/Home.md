@@ -25,6 +25,7 @@ Si può usare in **due modi**: con l'**app Android** oppure con un **server su P
 | **Codice segreto** | Lo schermo nasconde 4 pastelli; ognuno prova a indovinarli dal telefono con l'aiuto dei pallini. |
 | **L'impiccato** | Ognuno indovina la stessa parola sul suo telefono, la TV mostra l'omino di tutti. |
 | **Anagrammi** | 8 lettere estratte, più parole possibile in tempo; vale doppio quella trovata solo da te. |
+| **Piacere!** | Una fila di persone si presenta sulla TV, poi tornano sul telefono con altri vestiti: chi è? Ogni errore costa 5 secondi. |
 | **Labirinto al buio** | A squadre di due: uno muove l'omino al buio con la torcia sul telefono, l'altro ha la mappa, che ogni tanto si capovolge. |
 | **Disinnesca la bomba** | A squadre di due: uno ha la bomba sul telefono, l'altro il manuale per smontarla. |
 

@@ -3,30 +3,48 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#c6202c">
-<title>Console</title>
+<meta name="theme-color" content="#17181b">
+<title>Giochi da salotto</title>
 <link rel="icon" href="/icon.svg" type="image/svg+xml">
+<link rel="preload" href="/fonts/special-elite.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/css/tokens.css">
 <link rel="stylesheet" href="/css/console.css">
 <link rel="stylesheet" href="/css/tally.css">
 </head>
 <body class="console-body">
-<main class="console">
-  <h1 class="console__title">Console</h1>
-  <p class="console__say" id="say"></p>
-  <section class="looks" aria-labelledby="looks-title">
-    <h2 class="looks__title" id="looks-title">Stile per TV e telefoni</h2>
-    <div class="looks__list" id="looks" role="group" aria-labelledby="looks-title"></div>
-  </section>
-  <div class="console__tally" id="tally"></div>
-  <ul class="shelf" id="shelf"></ul>
-  <section class="where" id="where" hidden>
-    <h2>Dove si gioca</h2>
-    <p><span>TV</span> <a id="tv-link"></a></p>
-    <p><span>Telefoni</span> <a id="phone-link"></a></p>
-  </section>
-  <p class="console__error" id="error" role="alert" hidden></p>
-</main>
+<p class="console__error" id="error" role="alert" hidden></p>
+<div class="console">
+  <header class="masthead">
+    <h1 class="masthead__title">Giochi da salotto</h1>
+  </header>
+
+  <section class="table" id="table" aria-labelledby="table-title" hidden></section>
+
+  <main class="shelf-wrap">
+    <h2 class="lead" id="lead"></h2>
+    <ul class="shelf" id="shelf"></ul>
+  </main>
+
+  <aside class="side">
+    <section class="invite" aria-labelledby="invite-title">
+      <h2 class="side__title" id="invite-title">Per entrare</h2>
+      <div class="invite__row">
+        <img class="invite__qr" src="/qr.svg" alt="QR code per entrare dal telefono" width="80" height="80">
+        <dl class="invite__list">
+          <div><dt>Telefoni</dt><dd><a id="phone-link"></a></dd></div>
+          <div><dt>TV</dt><dd><a id="tv-link"></a></dd></div>
+        </dl>
+      </div>
+      <p class="invite__note">Tutti sulla stessa rete Wi-Fi.</p>
+    </section>
+    <div class="scores" id="tally" hidden></div>
+    <section class="looks" aria-labelledby="looks-title">
+      <h2 class="side__title" id="looks-title">Aspetto</h2>
+      <div class="looks__list" id="looks" role="group" aria-labelledby="looks-title"></div>
+    </section>
+  </aside>
+</div>
+<div class="confirm" id="dock" hidden></div>
 <script src="/socket.io/socket.io.js"></script>
 <script type="module" src="/js/console.js"></script>
 </body>

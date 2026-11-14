@@ -31,7 +31,7 @@ export const starsWidth = (n) => (!n ? 0 : n > SHOWN ? 3 : n * 1.1 + 0.5);
  * @param session  { players: [{ name, wins, last }] } dal server
  * @param fresh    chi ha vinto l'ultima partita riceve la stellina col timbro
  */
-export function tally(session, { fresh = false, empty = 'Nessuna partita vinta, per ora.' } = {}) {
+export function tally(session, { fresh = false, empty = 'Ancora nessuna vittoria.' } = {}) {
   const rows = session?.players ?? [];
   return h('section', { class: 'tally' },
     h('h2', { class: 'tally__title' }, 'Vittorie della serata'),
@@ -43,5 +43,5 @@ export function tally(session, { fresh = false, empty = 'Nessuna partita vinta, 
           stars(p.wins, { fresh: now }));
       }))
       : h('p', { class: 'tally__empty' }, empty),
-    h('p', { class: 'tally__note' }, 'Una stellina a chi vince una partita, a qualunque gioco.'));
+    h('p', { class: 'tally__note' }, 'Una stella per ogni partita vinta, a qualunque gioco.'));
 }

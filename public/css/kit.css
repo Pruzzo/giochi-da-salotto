@@ -49,7 +49,8 @@ button:disabled { cursor: wait; opacity: .6; }
 
 /* Telefono */
 .cover--phone { --q: 16px; display: flex; justify-content: center; padding: 30px 26px 30px 42px; overflow-y: auto; }
-.cover--phone .cover__label-card { width: min(100%, 420px); min-height: 100%; padding: 22px 20px; display: flex; flex-direction: column; gap: 14px; }
+.cover--phone .cover__label-card { width: min(100%, 420px); min-height: 100%; padding: var(--s5) var(--s5); display: flex; flex-direction: column; gap: var(--s5); }
+.cover__roles { display: flex; flex-direction: column; gap: var(--s1); }
 .cover--phone .btn--wide { margin-top: auto; }
 .cover--phone .title { font-size: clamp(1.7rem, 8.4vw, 2.3rem); text-align: center; padding-block: 4px; }
 .tabs { display: flex; flex-direction: column; }
@@ -57,7 +58,7 @@ button:disabled { cursor: wait; opacity: .6; }
 .tab::before { content: ""; flex: none; width: 26px; height: 26px; border: 2px solid var(--ink); background: none; }
 .tab[aria-pressed="true"] { font-weight: 700; }
 .tab[aria-pressed="true"]::before { border-color: var(--red); background: linear-gradient(45deg, transparent 45%, var(--red) 45% 55%, transparent 55%), linear-gradient(-45deg, transparent 45%, var(--red) 45% 55%, transparent 55%); }
-.cover__hint { color: var(--pencil); font-size: .98rem; min-height: 2.8em; }
+.cover__hint { color: var(--pencil); font-size: .98rem; min-height: 2.8em; margin-top: var(--s2); text-wrap: pretty; }
 .cover__row { display: flex; flex-direction: column; gap: 4px; }
 .cover__label { font-weight: 600; }
 .field { width: 100%; min-height: 50px; padding: 8px 10px; font: inherit; font-size: 1.25rem; color: var(--ink); caret-color: var(--red); background: transparent; border: 0; border-bottom: 3px solid var(--ink); border-radius: 0; }

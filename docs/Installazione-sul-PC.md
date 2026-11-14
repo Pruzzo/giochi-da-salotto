@@ -66,7 +66,7 @@ La prima volta il sistema può chiedere il permesso di rete:
 
 ## 5. Accendi un gioco e collega la TV
 
-1. Apri l'indirizzo della **console** dal browser del PC o da un telefono e tocca **Accendi questo gioco** sotto il gioco che vuoi.
+1. Apri l'indirizzo della **console** dal browser del PC o da un telefono tocca il gioco che vuoi e conferma con **Gioca a…**.
 
    <img src="img/console-pc.png" width="560" alt="La console nel browser del PC">
 

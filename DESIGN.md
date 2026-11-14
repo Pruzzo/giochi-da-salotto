@@ -150,6 +150,8 @@ components:
 
 # Design System: Nomi, cose e città
 
+> Lo stile con cui l'app si presenta oggi è **Kraft** (`public/css/styles/kraft.css`): cartone, cartoncini crema, nastro Dymo, macchina da scrivere, timbri. Questo documento descrive il mondo originale, il Quaderno, che resta selezionabile dalla console. Le regole comuni a tutti gli stili (scala degli spazi, gerarchia, voce dei testi, console e app Android) sono in [`docs/Guida-di-stile.md`](docs/Guida-di-stile.md).
+
 ## Overview
 
 **Creative North Star: "Il Quaderno a Quadretti"**

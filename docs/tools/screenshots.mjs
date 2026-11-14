@@ -54,13 +54,14 @@ async function join(page, name, { admin = false, shotName } = {}) {
 }
 
 async function selectGame(consolePage, title) {
-  await consolePage.locator('li', { hasText: title }).getByRole('button', { name: 'Accendi questo gioco' }).click();
+  await consolePage.locator('.game', { hasText: title }).click();
+  await consolePage.getByRole('button', { name: `Gioca a ${title}` }).click();
   await wait(800);
 }
 
 async function closeGame(consolePage) {
-  await consolePage.getByRole('button', { name: 'Chiudi il gioco' }).click();
-  await consolePage.getByRole('button', { name: 'Chiudi e cancella la partita' }).click();
+  await consolePage.getByRole('button', { name: 'Chiudi la partita' }).click();
+  await consolePage.getByRole('button', { name: 'Chiudi la partita' }).click(); // la conferma ha lo stesso nome
   await wait(800);
 }
 

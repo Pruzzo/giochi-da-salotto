@@ -38,7 +38,7 @@ test/               test di regole e piattaforma
 
 ## Aggiungere un gioco
 
-1. Crea una cartella in `games/` che esporta `{ id, title, description, page, publicDir, start }` e aggiungila a `games/index.js`.
+1. Crea una cartella in `games/` che esporta `{ id, title, tagline, description, meta, page, publicDir, start }`, aggiungila a `games/index.js` e disegna il suo pittogramma in `public/js/kit/art.js`. Per testi e aspetto segui la [Guida di stile](Guida-di-stile.md).
 2. `start(nsp, ctx)` riceve un namespace Socket.IO riservato e restituisce `{ status, destroy }`. Passa tutto `ctx` a `openRoom` (`{ joinUrl, onStatus, session, platform }`): con `session`, quando la fase diventa `'final'` chi ha più punti in `totals()` prende una vittoria della serata; con `platform`, l'amministratore può usare **Cambia gioco** (azione `switchGame`, in sala d'attesa e a fine partita). Nella sala d'attesa del telefono metti `switchGame(state, act)` di `/js/kit/ui.js`.
 3. La pagina del gioco deve avere `<meta name="platform-game" content="<id>">` e caricare `/js/platform.js`.
 

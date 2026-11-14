@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#c6202c">
+<meta name="theme-color" content="#17181b">
 <meta name="platform-game" content="">
-<title>Console</title>
+<title>Giochi da salotto</title>
 <link rel="icon" href="/icon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="/css/tokens.css">
 <link rel="stylesheet" href="/css/console.css">
@@ -14,15 +14,15 @@
 <body class="standby-body">
 <main class="standby">
   <div class="standby__label">
-    <h1 class="standby__title">Nessun gioco acceso</h1>
-    <p class="standby__say">Si parte appena qualcuno sceglie il gioco. Questa pagina si aggiorna da sola.</p>
+    <h1 class="standby__title">Si comincia tra poco</h1>
+    <p class="standby__say">Il gioco di stasera non è ancora stato scelto. Resta qui: parte da solo.</p>
     <div class="standby__tally" id="tally" hidden></div>
-    <a class="pen-btn" href="/console">Scegli il gioco</a>
+    <a class="pen-btn" href="/console">Scegli tu il gioco</a>
     <p class="standby__where" id="where"></p>
   </div>
   <aside class="standby__qr" id="qr" hidden>
     <img src="/qr.svg" alt="QR code per entrare">
-    <p>Inquadra e resta in attesa</p>
+    <p>Inquadra per entrare</p>
   </aside>
 </main>
 <script src="/socket.io/socket.io.js"></script>
@@ -41,7 +41,7 @@
   // Tra un gioco e l'altro, le vittorie della serata fin qui.
   const tallyEl = document.getElementById('tally');
   io('/').on('platform', ({ joinUrl, session }) => {
-    if (isTv) document.getElementById('where').textContent = `Dal telefono o dal PC: ${joinUrl.replace(/^https?:\/\//, '')}/console`;
+    if (isTv) document.getElementById('where').textContent = `Per scegliere il gioco: ${joinUrl.replace(/^https?:\/\//, '')}/console`;
     tallyEl.hidden = !session?.players.length;
     if (!tallyEl.hidden) fill(tallyEl, tally(session));
   });

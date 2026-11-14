@@ -164,17 +164,11 @@
 /* =========================================================
    Console e pagina d'attesa
    ========================================================= */
-[data-style="enigmistica"] .console-body { background: var(--paper); }
-[data-style="enigmistica"] .console { padding-left: 16px; }
-[data-style="enigmistica"] .console__title { font-family: var(--display); font-weight: 700; color: var(--ink); line-height: 1.1; padding-bottom: 8px; border-bottom: 4px solid var(--ink); }
-[data-style="enigmistica"] :is(.slot__status, .slot__warn) { font-family: var(--school); font-style: italic; color: var(--red); }
-[data-style="enigmistica"] .slot__title { font-family: var(--display); }
-[data-style="enigmistica"] .slot__cover { background: var(--paper); border: 4px solid var(--ink); border-radius: 0; box-shadow: none; padding: 12px; }
-[data-style="enigmistica"] .slot__label { background: none; box-shadow: none; border-radius: 0; font-family: var(--display); font-weight: 700; font-size: 1.15rem; line-height: 1.1; color: var(--ink); border-block: 2px solid var(--ink); }
-[data-style="enigmistica"] .slot--on .slot__cover { background: var(--ink); }
-[data-style="enigmistica"] .slot--on .slot__label { color: var(--paper); border-color: var(--paper); }
+[data-style="enigmistica"] .console-body { background: var(--paper); --card-radius: 0px; --card-border: 3px solid var(--ink); }
+[data-style="enigmistica"] .masthead__title { font-family: var(--display); font-weight: 700; color: var(--ink); line-height: 1.1; padding-bottom: 8px; border-bottom: 4px solid var(--ink); }
+[data-style="enigmistica"] :is(.game__title, .table__title, .lead) { font-family: var(--display); }
+[data-style="enigmistica"] .stamp { border-radius: 0; }
 [data-style="enigmistica"] .pen-btn { border-width: 2px; }
-[data-style="enigmistica"] .where { border-top-width: 4px; }
 [data-style="enigmistica"] .standby-body { background: var(--paper); background-image: none; }
 [data-style="enigmistica"] :is(.standby__label, .standby__qr) { border-radius: 0; box-shadow: none; border: 4px solid var(--ink); }
 [data-style="enigmistica"] .standby-body--tv :is(.standby__label, .standby__qr) { border-width: calc(var(--q) * .22); }
@@ -198,6 +192,5 @@
 [data-style="enigmistica"] .dot { border-radius: 0; }
 [data-style="enigmistica"] .key { border-radius: 0; font-family: var(--display); }
 [data-style="enigmistica"] .tile { font-family: var(--display); background: #fff; }
-[data-style="enigmistica"] :is(.slots, .compose-word, .ana-full) { font-family: var(--display); }
 [data-style="enigmistica"] .stamp { font-family: var(--hand); font-weight: 800; text-transform: uppercase; letter-spacing: .12em; border-radius: 0; }
 [data-style="enigmistica"] .hang-wrong { font-size: 2rem; }

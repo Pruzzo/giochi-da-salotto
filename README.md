@@ -47,7 +47,7 @@ Se un telefono va in standby ritrova posto e punti. Più dettagli in [Come funzi
 
 Non serve un computer: fa tutto un telefono, un tablet o un box Android TV. **L'APK serve solo su quel dispositivo**: gli altri giocatori usano il browser.
 
-Scarica l'APK dalle [release](https://github.com/Pruzzo/giochi-da-salotto/releases/latest), installalo e apri **Giochi da salotto**: il server si accende da solo e mostra la console e il pulsante **Vai a giocare**. Guida completa: [App Android](docs/App-Android.md).
+Scarica l'APK dalle [release](https://github.com/Pruzzo/giochi-da-salotto/releases/latest), installalo e apri **Giochi da salotto**: il server si accende da solo e mostra la console, da cui si sceglie il gioco. Guida completa: [App Android](docs/App-Android.md).
 
 L'app funziona in due modi, e in nessuno dei due serve internet:
 

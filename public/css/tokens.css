@@ -18,6 +18,11 @@
   --hatch-red: #f0908f;
   --hatch-yellow: #fbdf38;
   --q: 24px;
+  /* Spazi: una scala sola, a passi di 4. Vedi docs/Guida-di-stile.md.
+     Dentro un gruppo s2-s3, tra gruppi s5, tra sezioni s7. */
+  --s1: 4px; --s2: 8px; --s3: 12px; --s4: 16px; --s5: 24px; --s6: 32px; --s7: 48px; --s8: 64px;
+  /* Testo dell'interfaccia (non del gioco sulla TV, che si misura in quadretti). */
+  --t-label: .75rem; --t-small: .875rem; --t-body: 1rem; --t-lead: 1.125rem; --t-title: 1.25rem; --t-display: 1.75rem;
   --hand: "Shantell Sans", "Comic Sans MS", system-ui, sans-serif;
   --school: "Playwrite IT", "Shantell Sans", cursive;
   --out: cubic-bezier(.16, 1, .3, 1);

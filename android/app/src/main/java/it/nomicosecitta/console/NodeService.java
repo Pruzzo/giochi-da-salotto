@@ -161,7 +161,7 @@ public class NodeService extends Service {
                 .setContentText(Net.DISPLAY)
                 .setContentIntent(open)
                 .setOngoing(true)
-                .addAction(new Notification.Action.Builder(null, getString(R.string.stop), stop).build())
+                .addAction(new Notification.Action.Builder(null, getString(R.string.stop_short), stop).build())
                 .build();
     }
 

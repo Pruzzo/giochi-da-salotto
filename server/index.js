@@ -99,6 +99,7 @@ io.on('connection', (socket) => {
     }
   };
   socket.on('select', handle((id) => platform.select(id)));
+  socket.on('switch', handle((id) => platform.switchTo(id)));
   socket.on('close', handle(() => platform.close()));
   socket.on('style', handle((id) => platform.setStyle(id)));
 });

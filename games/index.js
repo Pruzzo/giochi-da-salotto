@@ -1,5 +1,6 @@
 // I giochi disponibili sulla console. Per aggiungerne uno: una cartella in games/
-// che esporta { id, title, description, page, publicDir, start }, poi una riga qui.
+// che esporta { id, title, tagline, description, meta, page, publicDir, start }, poi una riga qui
+// e un disegno in public/js/kit/art.js. Come scrivere tagline e descrizione: docs/Guida-di-stile.md.
 // Le parti comuni sono in games/shared (server) e public/js/kit, public/css/kit.css (client).
 import codiceSegreto from './codice-segreto/index.js';
 import anagrammi from './anagrammi/index.js';

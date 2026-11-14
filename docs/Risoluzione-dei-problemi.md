@@ -9,7 +9,7 @@ Il browser del telefono gira a vuoto o dice che il sito non è raggiungibile.
 3. **Indirizzo giusto?** Deve essere `http://game.local:3000`, con `http://` (non `https://`) e la porta. Alcuni browser aggiungono `https://` da soli: scrivilo per intero. Se il nome non si apre, vedi [più sotto](#il-nome-gamelocal-non-si-apre).
 4. **Firewall del PC?** Vedi sotto.
 
-Una prova veloce: apri il gioco dallo stesso dispositivo che fa da server (nell'app con **Vai a giocare**, sul PC con `http://localhost:3000`). Se lì funziona e dagli altri no, il problema è la rete o il firewall, non il gioco.
+Una prova veloce: apri il gioco dallo stesso dispositivo che fa da server (nell'app con **Entra a giocare**, sul PC con `http://localhost:3000`). Se lì funziona e dagli altri no, il problema è la rete o il firewall, non il gioco.
 
 ## Il firewall del PC blocca i telefoni
 
@@ -25,7 +25,7 @@ Alcuni telefoni Android e alcune smart TV non riconoscono i nomi che finiscono c
 
 - **Telefoni**: inquadrate il QR code sulla TV, che funziona anche su questi dispositivi.
 - **TV**: se il suo browser non trova il nome, collega alla TV un PC in HDMI o usa un box Android TV con l'[app](App-Android.md#su-android-tv). In alternativa inquadra il QR code con un dispositivo collegato alla TV e scegli il ruolo **TV**.
-- **Link mandato con Condividi**: contiene `game.local`, quindi su questi telefoni non si apre. Usate il QR code.
+- **Link mandato con Condividi l'indirizzo**: contiene `game.local`, quindi su questi telefoni non si apre. Usate il QR code.
 
 ## Il QR code porta a un indirizzo sbagliato
 
@@ -43,7 +43,7 @@ Succede su PC con più reti (VPN, macchine virtuali, cavo e Wi-Fi insieme): il Q
 
    Su Windows (PowerShell): `$env:PUBLIC_URL="http://INDIRIZZO-DEL-PC:3000"; npm start`.
 
-Nell'app Android il QR code si prepara da solo sulla rete giusta tra Wi-Fi, cavo e hotspot. Se è sbagliato dopo un cambio di rete, tocca **Spegni** e poi **Accendi**.
+Nell'app Android il QR code si prepara da solo sulla rete giusta tra Wi-Fi, cavo e hotspot. Se è sbagliato dopo un cambio di rete, apri il menu **⋮**, tocca **Spegni il server** e poi **Accendi**.
 
 ## La TV non mostra bene il gioco
 
@@ -72,8 +72,8 @@ Il sito [dontkillmyapp.com](https://dontkillmyapp.com/) ha le istruzioni per qua
 
 ## Sul telefono il server non parte
 
-Apri il **Log** dell'app: spiega cosa è successo. Vedi [Se il server non parte](App-Android.md#se-il-server-non-parte-il-log).
+Apri il **Registro** dell'app (menu **⋮**): spiega cosa è successo. Vedi [Se il server non parte](App-Android.md#se-il-server-non-parte-il-registro).
 
 ## La partita è sparita
 
-La partita vive in memoria: si cancella se il server si riavvia, se dalla console si chiude o si cambia gioco, o se nell'app si tocca **Spegni**. I telefoni lo dicono ("La partita è ricominciata: rientra con il tuo nome").
+La partita vive in memoria: si cancella se il server si riavvia, se dalla console si chiude o si cambia gioco, o se nell'app si tocca **Spegni il server**. I telefoni lo dicono ("La partita è ricominciata: rientra con il tuo nome").

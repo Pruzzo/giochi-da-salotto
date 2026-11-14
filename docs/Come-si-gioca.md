@@ -4,16 +4,16 @@ Prima di iniziare il server deve essere acceso: dall'[app Android](App-Android.m
 
 ## 1. Scegli il gioco dalla console
 
-Apri la **console** (`game.local:3000/console`; nell'app Android è già aperta) e tocca **Accendi questo gioco**. TV e telefoni passano da soli al gioco scelto.
+Apri la **console** (`game.local:3000/console`; nell'app Android è già aperta) tocca il gioco che vuoi e conferma con **Gioca a…** in basso. TV e telefoni passano da soli al gioco scelto.
 
 <p align="center">
   <img src="img/console.png" width="230" alt="La console: l'elenco dei giochi">
   <img src="img/console-acceso.png" width="230" alt="La console con un gioco acceso">
 </p>
 
-Per cambiare gioco tocca **Chiudi il gioco** e conferma con **Chiudi e cancella la partita**, poi accendi l'altro.
+Per cambiare gioco tocca un altro gioco e conferma con **Passa a…**: chi è dentro ci arriva da solo. Per chiudere senza cambiare, **Chiudi la partita**.
 
-Più comodo: l'amministratore può cambiare gioco dal suo telefono, senza aprire la console. In sala d'attesa, o a fine partita, tocca **Cambia gioco** e sceglie il gioco nuovo. Tutti ci rientrano da soli con lo stesso nome, e l'amministratore resta amministratore. Le stelline della serata restano, i punti della partita lasciata si perdono.
+Più comodo: l'amministratore può cambiare gioco dal suo telefono, senza aprire la console. In sala d'attesa, o a fine partita, tocca **Cambia gioco** e sceglie il gioco nuovo. Tutti ci rientrano da soli con lo stesso nome, e l'amministratore resta amministratore. Le stelle della serata restano, i punti della partita lasciata si perdono.
 
 ## 2. Entrate dal telefono
 
@@ -26,7 +26,7 @@ I giocatori **non devono installare niente**. La TV mostra il QR code: ognuno lo
 
 Uno di voi entra come **Amministratore**: gioca come gli altri, e in più sceglie le impostazioni e fa partire i turni.
 
-## 3. Aspettate tutti in classe
+## 3. Aspettate tutti in sala d'attesa
 
 Chi è entrato compare sulla TV e sui telefoni. L'amministratore sceglie le impostazioni e, quando ci siete tutti, fa partire il primo turno. Dalla sala d'attesa può anche togliere chi è entrato per sbaglio (**Togli**).
 
@@ -40,12 +40,12 @@ Chi è entrato compare sulla TV e sui telefoni. L'amministratore sceglie le impo
 
 ## Le vittorie della serata
 
-Chi vince una partita, a qualunque gioco, prende una **stellina**. Le stelline restano anche cambiando gioco, finché il server resta acceso: compaiono accanto ai nomi sulla TV e sui telefoni, nella fine partita, nella console e nella pagina d'attesa tra un gioco e l'altro.
+Chi vince una partita, a qualunque gioco, prende una **stella**. Le stelle restano anche cambiando gioco, finché il server resta acceso: compaiono accanto ai nomi sulla TV e sui telefoni, nella fine partita, nella console e nella pagina d'attesa tra un gioco e l'altro.
 
-- Vince chi ha più punti quando l'amministratore tocca **Fine partita**. A pari merito la stellina va a tutti i primi.
+- Vince chi ha più punti quando l'amministratore tocca **Fine partita**. A pari merito la stella va a tutti i primi.
 - Da soli, o se nessuno ha fatto punti, non vince nessuno.
-- Conta il nome: per tenere le tue stelline entra in ogni gioco con lo stesso nome (maiuscole e accenti non contano).
-- Spegnendo il server le stelline si azzerano.
+- Conta il nome: per tenere le tue stelle entra in ogni gioco con lo stesso nome (maiuscole e accenti non contano).
+- Spegnendo il server le stelle si azzerano.
 
 ---
 

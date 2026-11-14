@@ -40,7 +40,9 @@ function start(nsp, ctx) {
 export default {
   id: 'anagrammi',
   title: 'Anagrammi',
-  description: `Lo schermo estrae 8 lettere: tutti cercano più parole possibili usandole, a tempo. Più sono lunghe più valgono, doppio se la trovi solo tu. Fino a ${MAX_PLAYERS} giocatori.`,
+  tagline: "Otto lettere, tutte le parole che trovi.",
+  description: "Le parole lunghe valgono di più. Quelle che trovi solo tu valgono doppio.",
+  meta: [`1–${MAX_PLAYERS} giocatori`, 'Individuale'],
   page: join(here, 'public', 'index.html'),
   publicDir: join(here, 'public'),
   start,

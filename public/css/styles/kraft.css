@@ -46,7 +46,7 @@
 [data-style="kraft"] .page-turn { box-shadow: 18px 0 40px rgb(60 35 10 / .45); }
 
 /* Nastro Dymo: lettere bianche in rilievo su nastro nero */
-[data-style="kraft"] :is(.title, .hello, .console__title, .standby__title) {
+[data-style="kraft"] :is(.title, .hello, .masthead__title, .standby__title) {
   width: fit-content; max-width: 100%;
   background: var(--ink); color: #f2f2f2;
   font-family: var(--display); font-weight: 400; font-style: normal;
@@ -186,20 +186,52 @@
 [data-style="kraft"] .word-wrap { overflow: visible; }
 [data-style="kraft"] .table__row.is-focus { background: rgb(255 228 92 / .3); }
 
+/* ---------- Ingresso e sala d'attesa: spazi dalla scala --s* ---------- */
+[data-style="kraft"] .cover--phone { padding: var(--s5) var(--s4); }
+[data-style="kraft"] .cover--phone .cover__label-card { padding: var(--s6) var(--s5) var(--s5); gap: var(--s6); }
+[data-style="kraft"] .tab { min-height: 48px; font-size: 1.1rem; }
+[data-style="kraft"] .cover__hint { font-size: var(--t-small); line-height: 1.5; }
+[data-style="kraft"] .page.lobby { gap: var(--s6); padding-top: var(--s4); }
+[data-style="kraft"] .phone-head { align-items: center; padding-bottom: var(--s3); }
+[data-style="kraft"] .lobby .heading { margin-bottom: var(--s2); color: var(--pencil); }
+[data-style="kraft"] .lobby .note { font-size: var(--t-body); line-height: 1.5; text-wrap: pretty; }
+[data-style="kraft"] .lobby > .note { margin-block: calc(var(--s3) * -1); color: var(--ink); }
+[data-style="kraft"] .roster__item { min-height: 52px; gap: var(--s2) var(--s3); }
+[data-style="kraft"] .roster__item .link { font-size: var(--t-small); padding: var(--s3) var(--s1); }
+[data-style="kraft"] .settings { gap: var(--s5); }
+[data-style="kraft"] .choice { gap: var(--s2); }
+[data-style="kraft"] .dock { gap: var(--s3); padding-top: var(--s3); }
+
 /* =========================================================
    Console e pagina d'attesa
    ========================================================= */
 [data-style="kraft"] :is(.console-body, .standby-body) { background-color: var(--kraft); background-image: var(--fibre); }
-[data-style="kraft"] .console { background: var(--paper); margin: 16px auto; min-height: 0; padding: 24px 20px 40px; box-shadow: 0 4px 14px rgb(60 35 10 / .4); max-width: 780px; }
-[data-style="kraft"] .console__title { font-size: clamp(1.6rem, 5vw, 2.2rem); }
-[data-style="kraft"] .console__say { margin-top: 0; }
-[data-style="kraft"] :is(.slot__status, .slot__warn) { color: var(--red); }
-[data-style="kraft"] .slot__title { font-family: var(--display); font-weight: 400; }
-[data-style="kraft"] .slot__cover { background-color: var(--kraft); background-image: var(--fibre); border-radius: 3px; box-shadow: inset 0 0 0 1px rgb(60 35 10 / .25); padding: 14px; }
-[data-style="kraft"] .slot__label { background: var(--ink); color: #f2f2f2; box-shadow: 0 2px 4px rgb(0 0 0 / .3); border-radius: 3px; font-family: var(--display); text-transform: uppercase; letter-spacing: .1em; font-size: .85rem; line-height: 1.3; transform: rotate(-2deg); }
-[data-style="kraft"] .slot--on .slot__label { background: var(--red); }
+[data-style="kraft"] .console-body {
+  --card-border: 0 solid transparent; --card-radius: 2px;
+  --card-shadow: 0 1px 2px rgb(60 35 10 / .3), 0 6px 16px rgb(60 35 10 / .22);
+  --on-bg: var(--ink); --on-bg-soft: #3d2e1c;
+  background-size: auto;
+}
+[data-style="kraft"] .masthead__title { font-size: clamp(1.15rem, 5vw, 1.5rem); }
+[data-style="kraft"] .lead { font-weight: 400; font-size: 1.375rem; }
+[data-style="kraft"] .side__title { font-weight: 400; color: var(--pencil); }
+[data-style="kraft"] .looks .side__title { color: var(--on-bg-soft); }
+[data-style="kraft"] :is(.game__title, .table__title) { font-family: var(--display); font-weight: 400; letter-spacing: -.01em; }
+[data-style="kraft"] .stamp { font-weight: 400; border-radius: 3px; opacity: .92; mix-blend-mode: multiply; }
+[data-style="kraft"] .game__stamp { background: none; }
+/* La scheda scelta si solleva dal cartone e prende il timbro */
+[data-style="kraft"] .game[aria-pressed="true"] { transform: rotate(-.5deg); box-shadow: 0 2px 3px rgb(60 35 10 / .3), 0 14px 28px rgb(60 35 10 / .32); }
+@media (hover: hover) { [data-style="kraft"] .game:hover:not([aria-pressed="true"]) { box-shadow: 0 2px 3px rgb(60 35 10 / .3), 0 10px 22px rgb(60 35 10 / .28); } }
+[data-style="kraft"] .table { transform: rotate(-.3deg); }
+[data-style="kraft"] .confirm { background: var(--kraft-deep); background-image: var(--fibre); border-top: 0; box-shadow: 0 -1px 0 rgb(60 35 10 / .35), 0 -10px 20px rgb(60 35 10 / .18); }
+[data-style="kraft"] .confirm__warn { color: var(--ink); font-weight: 400; }
+[data-style="kraft"] :is(.table__warn, .invite__list dd) { font-weight: 400; }
+[data-style="kraft"] .invite { transform: rotate(.6deg); }
+[data-style="kraft"] .look { border-radius: 3px; }
+[data-style="kraft"] .look__name { font-weight: 400; }
 [data-style="kraft"] .pen-btn { border-width: 2px; }
-[data-style="kraft"] .where { border-top: 2px solid var(--grid); }
+[data-style="kraft"] .pen-btn:not(.pen-btn--ink, .pen-btn--red) { background: transparent; }
+[data-style="kraft"] .console__error { background: var(--ink); font-weight: 400; letter-spacing: .04em; }
 [data-style="kraft"] :is(.standby__label, .standby__qr) { border-radius: 2px; box-shadow: 0 .3em .9em rgb(60 35 10 / .4); }
 [data-style="kraft"] .standby__label { transform: rotate(-.6deg); }
 [data-style="kraft"] .standby__qr { transform: rotate(1.2deg); }

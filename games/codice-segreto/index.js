@@ -39,7 +39,9 @@ function start(nsp, ctx) {
 export default {
   id: 'codice-segreto',
   title: 'Codice segreto',
-  description: `Lo schermo sceglie a caso una fila di 4 pastelli e la tiene coperta: tutti la cercano dal telefono, a ogni tentativo pallini pieni e vuoti dicono quanto ci sei vicino. Fino a ${MAX_PLAYERS} giocatori.`,
+  tagline: "Quattro pastelli nascosti. Trovali prima degli altri.",
+  description: "A ogni tentativo rispondono i pallini: pieno se colore e posto sono giusti, vuoto se è giusto solo il colore.",
+  meta: [`1–${MAX_PLAYERS} giocatori`, 'Individuale'],
   page: join(here, 'public', 'index.html'),
   publicDir: join(here, 'public'),
   start,

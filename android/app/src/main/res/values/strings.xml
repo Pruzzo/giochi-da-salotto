@@ -1,24 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Voce dei testi: frasi corte, il fatto prima della spiegazione. Vedi docs/Guida-di-stile.md. -->
 <resources>
     <string name="app_name">Giochi da salotto</string>
     <string name="channel_name">Server di gioco</string>
-    <string name="notification_title">Il server di gioco è acceso</string>
-    <string name="start">Accendi</string>
-    <string name="stop">Spegni</string>
-    <string name="share">Condividi</string>
-    <string name="play">Vai a giocare</string>
-    <string name="status_up">Acceso · %1$s</string>
-    <string name="status_starting">Si accende…</string>
-    <string name="status_stopping">Si spegne…</string>
+    <string name="notification_title">Server acceso</string>
+    <string name="start">Accendi il server</string>
+    <string name="stop">Spegni il server</string>
+    <string name="stop_short">Spegni</string>
+    <string name="share">Condividi l\'indirizzo</string>
+    <string name="home">Console</string>
+    <string name="menu">Altro</string>
+    <string name="status_up">%1$s</string>
+    <string name="status_starting">Accendo…</string>
+    <string name="status_stopping">Spengo…</string>
     <string name="status_stopped">Spento</string>
-    <string name="placeholder_starting">Il server si sta accendendo. La prima volta dopo l\'installazione ci vuole qualche secondo in più.</string>
-    <string name="placeholder_stopped">Il server è spento. Tocca Accendi per giocare.</string>
-    <string name="no_network">Questo dispositivo non è su una rete locale. Collegalo al Wi-Fi di casa, oppure accendi l\'hotspot e collega lì telefoni e TV, poi tocca Accendi.</string>
-    <string name="start_failed">Il server non è partito. Riprova con Accendi; se non va, riavvia l\'app.</string>
-    <string name="log">Log</string>
+    <string name="log">Registro</string>
     <string name="log_copy">Copia</string>
     <string name="log_close">Chiudi</string>
-    <string name="log_copied">Log copiato: incollalo dove vuoi</string>
-    <string name="log_empty">Ancora niente. Tocca Accendi e guarda qui cosa succede.</string>
-    <string name="share_text">Giochiamo! Telefoni: %1$s · TV: %2$s</string>
+    <string name="log_copied">Registro copiato</string>
+    <string name="log_empty">Ancora niente. Accendi il server: qui compare quello che fa.</string>
+    <string name="share_text">Si gioca! Dal telefono: %1$s · Sulla TV: %2$s</string>
 </resources>

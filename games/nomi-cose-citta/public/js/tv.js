@@ -15,7 +15,7 @@ export function tvView(state) {
 function lobby() {
   return coverTv({
     title: 'Nomi, cose e città',
-    subject: { label: 'Materie', text: (s) => s.categories.join(' · ') },
+    subject: { label: 'Categorie', text: (s) => s.categories.join(' · ') },
     cta: (admin) => `${admin} farà girare la ruota quando siete tutti.`,
   });
 }

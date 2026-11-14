@@ -40,7 +40,9 @@ function start(nsp, ctx) {
 export default {
   id: 'impiccato',
   title: "L'impiccato",
-  description: `Lo schermo sceglie una parola e ne mostra la prima e l'ultima lettera: ognuno la indovina dal telefono. Vince chi è più veloce e sbaglia meno. Fino a ${MAX_PLAYERS} giocatori.`,
+  tagline: "Una parola per tutti, un omino a testa.",
+  description: "Si vedono solo la prima e l’ultima lettera. Vince chi la trova in fretta e sbaglia meno.",
+  meta: [`1–${MAX_PLAYERS} giocatori`, 'Individuale'],
   page: join(here, 'public', 'index.html'),
   publicDir: join(here, 'public'),
   start,

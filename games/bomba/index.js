@@ -37,7 +37,9 @@ function start(nsp, ctx) {
 export default {
   id: 'bomba',
   title: 'Disinnesca la bomba',
-  description: 'A squadre di due, solo in numero pari. Uno ha la bomba sul telefono, l’altro il manuale per smontarla: parlatevi bene, prima che scada il tempo o che facciate tre errori.',
+  tagline: "Uno ha la bomba, l’altro il manuale.",
+  description: "Parlatevi bene: al terzo errore, o quando scade il tempo, salta tutto.",
+  meta: ['2–12 giocatori', 'A coppie'],
   page: join(here, 'public', 'index.html'),
   publicDir: join(here, 'public'),
   start,

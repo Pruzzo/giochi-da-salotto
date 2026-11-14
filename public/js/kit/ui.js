@@ -44,14 +44,14 @@ export function joinView({ title, hints }, { onEnter }) {
   let role = 'player';
   const nameInput = h('input', {
     id: 'name', class: 'field', maxLength: 16, autocomplete: 'nickname', autocapitalize: 'words',
-    enterKeyHint: 'go', placeholder: 'Il tuo nome',
+    enterKeyHint: 'go', placeholder: 'Come ti chiami?',
   });
   // Il nome dell'ultima volta su questo telefono, già scritto: basta toccare Entra, o cambiarlo.
   // Solo il nome: il ruolo resta Giocatore, amministratore si diventa solo scegliendolo.
   try { nameInput.value = JSON.parse(localStorage.getItem('salotto-me'))?.name ?? ''; } catch { /* storage bloccato o vuoto */ }
   const error = h('p', { class: 'error', role: 'alert', hidden: true });
   const hint = h('p', { class: 'cover__hint' });
-  const nameRow = h('label', { class: 'cover__row' }, h('span', { class: 'cover__label' }, 'Nome'), nameInput);
+  const nameRow = h('label', { class: 'cover__row' }, h('span', { class: 'cover__label' }, 'Il tuo nome'), nameInput);
   const submit = h('button', { class: 'btn btn--ink btn--wide', type: 'submit' }, 'Entra');
   const tabs = roles.map((r) => h('button', {
     type: 'button', class: 'tab', 'aria-pressed': 'false',
@@ -63,7 +63,7 @@ export function joinView({ title, hints }, { onEnter }) {
     roles.forEach((r, i) => tabs[i].setAttribute('aria-pressed', String(r.id === next)));
     hint.textContent = roles.find((r) => r.id === next).hint;
     nameRow.hidden = next === 'tv';
-    submit.textContent = next === 'tv' ? 'Usa questo schermo come TV' : 'Entra';
+    submit.textContent = next === 'tv' ? 'Apri come TV' : 'Entra';
     error.hidden = true;
   }
   choose('player');
@@ -84,29 +84,33 @@ export function joinView({ title, hints }, { onEnter }) {
     },
   },
   h('h1', { class: 'title' }, title.flatMap((line, i) => (i ? [h('br'), line] : [line]))),
-  h('div', { class: 'tabs', role: 'group', 'aria-label': 'Come vuoi partecipare?' }, tabs),
-  hint, nameRow, error, submit);
+  nameRow,
+  h('div', { class: 'cover__roles' },
+    h('span', { class: 'cover__label', id: 'roles-label' }, 'Entri come'),
+    h('div', { class: 'tabs', role: 'group', 'aria-labelledby': 'roles-label' }, tabs),
+    hint),
+  error, submit);
 
   return { el: h('main', { class: 'cover cover--phone' }, form), update() {} };
 }
 
 // ---------- Sala d'attesa ----------
 
-/** Chi è in classe, con il tasto per togliere qualcuno se sei l'amministratore. */
+/** Chi è in partita, con il tasto per togliere qualcuno se sei l'amministratore. */
 export function rosterItems(s, act) {
   const me = s.you.isAdmin;
   return s.players.map((p) => h('li', { class: `roster__item${p.online ? '' : ' is-away'}` },
     h('span', { class: 'written is-name' }, p.name),
     stars(p.wins),
     p.isAdmin && h('span', { class: 'tag' }, 'amministratore'),
-    !p.online && h('span', { class: 'tag' }, 'non connesso'),
+    !p.online && h('span', { class: 'tag' }, 'assente'),
     me && p.id !== s.you.id && h('button', { class: 'link', onClick: () => act('removePlayer', { playerId: p.id }), 'aria-label': `Togli ${p.name}` }, 'Togli')));
 }
 
 export function waitingNote(s, action) {
   if (s.you.isAdmin) return `Quando ci siete tutti, ${action}.`;
   const admin = s.players.find((p) => p.isAdmin);
-  return s.adminOnline ? `In attesa che ${admin?.name} faccia partire il turno.` : 'Manca un amministratore per iniziare.';
+  return s.adminOnline ? `${admin?.name} dà il via quando ci siete tutti.` : 'Serve un amministratore per partire.';
 }
 
 /**
@@ -123,11 +127,11 @@ export function coverTv({ title, subject, cta }) {
     h('div', { class: 'cover__label-card cover__label-card--tv' },
       h('h1', { class: 'title' }, title),
       h('div', { class: 'label-field' }, h('span', { class: 'label-field__name' }, subject.label), about),
-      h('div', { class: 'label-field label-field--grow' }, h('span', { class: 'label-field__name' }, 'Classe'), names),
+      h('div', { class: 'label-field label-field--grow' }, h('span', { class: 'label-field__name' }, 'Giocatori'), names),
       what),
     h('aside', { class: 'cover__join' },
       h('img', { class: 'qr', src: '/qr.svg', alt: 'QR code per entrare nella partita' }),
-      h('p', { class: 'cover__scan' }, 'Inquadra e scrivi il tuo nome'),
+      h('p', { class: 'cover__scan' }, 'Inquadra per entrare'),
       url),
     controls());
   return {
@@ -139,9 +143,9 @@ export function coverTv({ title, subject, cta }) {
       names.style.setProperty('--sig', Math.min(s.players.length > 8 ? 1 : 1.4, 9 / (longest * 0.62)).toFixed(2));
       fill(names, s.players.length
         ? s.players.map((p) => h('li', { class: `signature${p.online ? '' : ' is-away'}` }, p.name, stars(p.wins), p.isAdmin && h('span', { class: 'signature__badge' }, 'amministratore')))
-        : h('li', { class: 'signature signature--empty' }, 'Nessuno in classe, per ora'));
-      what.textContent = !s.players.length ? 'Inquadra il codice col telefono per entrare.'
-        : !s.adminOnline ? 'Serve un amministratore: sceglilo al momento di entrare.'
+        : h('li', { class: 'signature signature--empty' }, 'Ancora nessuno'));
+      what.textContent = !s.players.length ? 'Inquadra il codice e scrivi il tuo nome.'
+        : !s.adminOnline ? 'Serve un amministratore: si sceglie entrando.'
         : cta(s.players.find((p) => p.isAdmin).name);
     },
   };
@@ -154,7 +158,7 @@ export function switchGame(state, act) {
   if (!state.you?.isAdmin || !state.games?.length) return null;
   const open = h('button', { class: 'btn btn--ghost btn--wide', onClick: () => show(true) }, 'Cambia gioco');
   const picker = h('div', { class: 'switch__list', hidden: true },
-    h('p', { class: 'note' }, 'Tutti passano al nuovo gioco col loro nome. I punti di questa partita si perdono, le stelline restano.'),
+    h('p', { class: 'note' }, 'Passate tutti al nuovo gioco. I punti di questa partita si perdono, le vittorie della serata restano.'),
     state.games.map((g) => h('button', {
       class: 'btn btn--ink btn--wide',
       onClick: (e) => { e.currentTarget.disabled = true; act('switchGame', { gameId: g.id }, (res) => { if (!res?.ok) show(false); }); },
@@ -207,7 +211,7 @@ export function finalTv() {
     update(s) {
       const won = s.players.filter((p) => p.wonNow);
       prize.hidden = !won.length;
-      fill(prize, stars(1), won.length > 1 ? 'Una stellina a testa nelle vittorie della serata' : 'Una stellina in più nelle vittorie della serata');
+      fill(prize, stars(1), won.length > 1 ? 'Una stella a testa per stasera' : 'Una stella in più per stasera');
       side.hidden = !s.session;
       if (s.session) fill(side, tally(s.session, { fresh: first }));
       first = false;

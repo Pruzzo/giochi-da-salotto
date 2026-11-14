@@ -7,19 +7,25 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.graphics.Insets;
+import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.SystemClock;
+import android.view.Menu;
 import android.view.View;
 import android.view.WindowInsets;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
+import android.widget.PopupMenu;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,11 +36,15 @@ import java.util.concurrent.Executors;
 /**
  * Accende e spegne il server, mostra l'indirizzo e, a server acceso, la console
  * (o lo schermo della TV, se l'app gira su un televisore).
+ * A server spento la pagina è assets/shell/index.html: stessi materiali del gioco,
+ * e i suoi bottoni tornano qui con indirizzi salotto://.
  */
 public class MainActivity extends Activity {
     private enum State { STOPPED, STARTING, UP, STOPPING }
 
     private static final long START_TIMEOUT_MS = 30_000;
+    private static final String SHELL = "file:///android_asset/shell/index.html";
+    private static final int MENU_SHARE = 1, MENU_LOG = 2, MENU_TOGGLE = 3;
 
     private final Handler main = new Handler(Looper.getMainLooper());
     private final ExecutorService io = Executors.newSingleThreadExecutor();
@@ -43,15 +53,15 @@ public class MainActivity extends Activity {
 
     private WebView web;
     private TextView status;
-    private TextView placeholder;
-    private Button toggle;
-    private Button share;
-    private Button play;
+    private View dot;
+    private Button home;
+    private String shellState;
     private View logPanel;
     private ScrollView logScroll;
     private TextView logText;
 
     private State state = State.STOPPED;
+    /** Perché il server non è acceso: "no_network", "failed" o null. */
     private String error;
     private long startDeadline;
     private boolean isTv;
@@ -65,10 +75,8 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         web = findViewById(R.id.web);
         status = findViewById(R.id.status);
-        placeholder = findViewById(R.id.placeholder);
-        toggle = findViewById(R.id.toggle);
-        share = findViewById(R.id.share);
-        play = findViewById(R.id.play);
+        dot = findViewById(R.id.dot);
+        home = findViewById(R.id.home);
         logPanel = findViewById(R.id.log_panel);
         logScroll = findViewById(R.id.log_scroll);
         logText = findViewById(R.id.log_text);
@@ -80,13 +88,14 @@ public class MainActivity extends Activity {
         applyInsets();
         setupWebView();
 
-        toggle.setOnClickListener(v -> {
-            if (state == State.UP || state == State.STARTING) stop();
-            else if (state == State.STOPPED) start();
-        });
-        share.setOnClickListener(v -> shareUrl());
-        play.setOnClickListener(v -> web.loadUrl(Net.LOCAL + "/"));
-        findViewById(R.id.logs).setOnClickListener(v -> showLog(logPanel.getVisibility() != View.VISIBLE));
+        // Il carattere del nastro Dymo, lo stesso del gioco.
+        Typeface elite = Typeface.createFromAsset(getAssets(), "fonts/special_elite.ttf");
+        for (int id : new int[] {R.id.status, R.id.home, R.id.log_title, R.id.log_copy, R.id.log_close}) {
+            ((TextView) findViewById(id)).setTypeface(elite);
+        }
+
+        home.setOnClickListener(v -> web.loadUrl(Net.LOCAL + "/console"));
+        findViewById(R.id.menu).setOnClickListener(this::showMenu);
         findViewById(R.id.log_close).setOnClickListener(v -> showLog(false));
         findViewById(R.id.log_copy).setOnClickListener(v -> copyLog());
 
@@ -124,7 +133,7 @@ public class MainActivity extends Activity {
     @Override
     public void onBackPressed() {
         if (logPanel.getVisibility() == View.VISIBLE) showLog(false);
-        else if (web.canGoBack() && !onHome) web.goBack(); // dalla partita si torna alla console
+        else if (state == State.UP && web.canGoBack() && !onHome) web.goBack(); // dalla partita si torna alla console
         else super.onBackPressed();
     }
 
@@ -137,7 +146,7 @@ public class MainActivity extends Activity {
         String ip = Net.lanAddress();
         ServerLog.add(this, ip == null ? "Nessuna rete locale" : "Rete locale trovata");
         if (ip == null) {
-            error = getString(R.string.no_network);
+            error = "no_network";
             render();
             return;
         }
@@ -153,7 +162,7 @@ public class MainActivity extends Activity {
     private void stop() {
         startService(new Intent(this, NodeService.class).setAction(NodeService.ACTION_STOP));
         state = State.STOPPING;
-        web.loadUrl("about:blank");
+        error = null;
         render();
     }
 
@@ -174,12 +183,11 @@ public class MainActivity extends Activity {
             web.loadUrl(Net.LOCAL + (isTv ? "/tv" : "/console"));
         } else if (!up && state == State.UP) {
             state = State.STOPPED;
-            web.loadUrl("about:blank");
         } else if (!up && state == State.STOPPING) {
             state = State.STOPPED;
         } else if (!up && state == State.STARTING && SystemClock.elapsedRealtime() > startDeadline) {
             state = State.STOPPED;
-            error = getString(R.string.start_failed);
+            error = "failed";
             ServerLog.add(this, "Il server non risponde dopo " + START_TIMEOUT_MS / 1000 + " secondi");
         } else if (!up && state == State.STOPPED && autoStart) {
             autoStart = false;
@@ -198,18 +206,46 @@ public class MainActivity extends Activity {
             case STOPPING: status.setText(R.string.status_stopping); break;
             default: status.setText(R.string.status_stopped);
         }
-        toggle.setText(up || state == State.STARTING ? R.string.stop : R.string.start);
-        toggle.setEnabled(state != State.STOPPING);
-        share.setVisibility(up ? View.VISIBLE : View.GONE);
-        // Solo sulla console: durante la partita lo schermo serve al gioco, e su una TV non si gioca.
-        play.setVisibility(up && onHome && !isTv ? View.VISIBLE : View.GONE);
-        web.setVisibility(up ? View.VISIBLE : View.INVISIBLE);
-        placeholder.setVisibility(up ? View.GONE : View.VISIBLE);
-        if (error != null) placeholder.setText(error);
-        else if (state == State.STARTING) placeholder.setText(R.string.placeholder_starting);
-        else placeholder.setText(R.string.placeholder_stopped);
+        int dotColor = up ? R.color.dot_up : state == State.STOPPED ? R.color.dot_down : R.color.dot_busy;
+        dot.setBackgroundTintList(ColorStateList.valueOf(getColor(dotColor)));
+        // Durante la partita la barra offre solo il ritorno alla console; su una TV non c'è console.
+        home.setVisibility(up && !onHome && !isTv ? View.VISIBLE : View.GONE);
+        if (!up) showShell(state == State.STARTING || autoStart ? "starting" : state == State.STOPPING ? "stopping" : error != null ? error : "stopped");
+        else shellState = null;
         // Su una TV lo schermo non deve spegnersi né passare al salvaschermo durante la partita.
         web.setKeepScreenOn(isTv && up);
+    }
+
+    /** La pagina di stato dell'app: si carica una volta, poi cambia stato senza ricaricarsi. */
+    private void showShell(String next) {
+        if (next.equals(shellState)) return;
+        boolean loaded = shellState != null;
+        shellState = next;
+        if (loaded) web.evaluateJavascript("window.setState && setState('" + next + "')", null);
+        else web.loadUrl(SHELL + "#" + next + "," + BuildConfig.VERSION_NAME + (isTv ? ",tv" : ""));
+    }
+
+    /** Il menu della barra: quello che serve di rado sta qui, non in fila sullo schermo. */
+    private void showMenu(View anchor) {
+        PopupMenu menu = new PopupMenu(this, anchor);
+        boolean running = state == State.UP || state == State.STARTING;
+        if (state == State.UP) menu.getMenu().add(Menu.NONE, MENU_SHARE, 0, R.string.share);
+        menu.getMenu().add(Menu.NONE, MENU_LOG, 1, R.string.log);
+        if (state != State.STOPPING) menu.getMenu().add(Menu.NONE, MENU_TOGGLE, 2, running ? R.string.stop : R.string.start);
+        menu.setOnMenuItemClickListener(item -> {
+            switch (item.getItemId()) {
+                case MENU_SHARE: shareUrl(); break;
+                case MENU_LOG: showLog(true); break;
+                default: toggle();
+            }
+            return true;
+        });
+        menu.show();
+    }
+
+    private void toggle() {
+        if (state == State.UP || state == State.STARTING) stop();
+        else if (state == State.STOPPED) start();
     }
 
     private void showLog(boolean show) {
@@ -250,11 +286,31 @@ public class MainActivity extends Activity {
         s.setJavaScriptEnabled(true);
         s.setDomStorageEnabled(true);
         s.setMediaPlaybackRequiresUserGesture(false);
+        web.setBackgroundColor(getColor(R.color.kraft)); // niente lampo bianco tra una pagina e l'altra
         web.setWebViewClient(new WebViewClient() {
             @Override
             public void doUpdateVisitedHistory(WebView view, String page, boolean isReload) {
+                boolean wasHome = onHome;
                 onHome = page.endsWith(isTv ? "/tv" : "/console");
+                // Arrivati alla console non si torna indietro alla pagina di stato.
+                if (onHome && !wasHome && state == State.UP) view.clearHistory();
                 render();
+            }
+
+            @Override
+            public void onPageFinished(WebView view, String page) {
+                // Se lo stato è cambiato mentre la pagina si caricava, lo riallinea.
+                if (page.startsWith(SHELL) && shellState != null) view.evaluateJavascript("setState('" + shellState + "')", null);
+            }
+
+            /** I bottoni della pagina di stato: salotto://start e salotto://log. */
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+                Uri uri = request.getUrl();
+                if (!"salotto".equals(uri.getScheme())) return false;
+                if ("log".equals(uri.getHost())) showLog(true);
+                else if (state == State.STOPPED) start();
+                return true;
             }
         });
     }

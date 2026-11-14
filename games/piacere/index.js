@@ -40,7 +40,9 @@ function start(nsp, ctx) {
 export default {
   id: 'piacere',
   title: 'Piacere!',
-  description: `Una fila di persone si presenta sulla TV, poi tornano una alla volta sul telefono con altri vestiti, insieme a qualche sconosciuto: chi è? Vince chi le riconosce prima, ogni errore costa 5 secondi. Fino a ${MAX_PLAYERS} giocatori.`,
+  tagline: "Li hai appena conosciuti. Li riconosci?",
+  description: "Una fila di persone si presenta sulla TV, poi torna sul telefono con altri vestiti e qualche sconosciuto in mezzo. Ogni errore costa 5 secondi.",
+  meta: [`1–${MAX_PLAYERS} giocatori`, 'Individuale'],
   page: join(here, 'public', 'index.html'),
   publicDir: join(here, 'public'),
   start,

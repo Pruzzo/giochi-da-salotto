@@ -74,7 +74,7 @@ export function teamViews(spec) {
     const el = page('lobby',
       h('header', { class: 'phone-head' }, h('h1', { class: 'hello' }, `Ciao ${state.you.name}!`), h('button', { class: 'link', onClick: leave }, 'Esci')),
       status, claim,
-      h('section', { class: 'block' }, h('h2', { class: 'heading' }, 'In classe'), list),
+      h('section', { class: 'block' }, h('h2', { class: 'heading' }, 'Giocatori'), list),
       settings,
       switchGame(state, act),
       state.you.isAdmin && h('div', { class: 'dock' }, go));
@@ -87,7 +87,7 @@ export function teamViews(spec) {
         status.textContent = n < 2 ? 'Si gioca a squadre di due: serve almeno un altro giocatore.'
           : odd ? `Siete in ${n}: serve ancora un giocatore per fare squadre da due.`
           : s.you.isAdmin ? `Siete in ${n}: ${n / 2} ${n === 2 ? 'squadra' : 'squadre'}. Quando ci siete tutti, tocca Via.`
-          : s.adminOnline ? `Siete in ${n}. In attesa che ${admin?.name} dia il via.` : 'Manca un amministratore per iniziare.';
+          : s.adminOnline ? `Siete in ${n}. ${admin?.name} dà il via quando ci siete tutti.` : 'Serve un amministratore per partire.';
         claim.hidden = s.you.isAdmin || s.adminOnline;
         fill(list, rosterItems(s, act));
         if (s.you.isAdmin) fill(settings, settingsBlock(s, act));

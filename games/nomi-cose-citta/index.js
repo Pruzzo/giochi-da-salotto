@@ -45,7 +45,9 @@ function start(nsp, ctx) {
 export default {
   id: 'nomi-cose-citta',
   title: 'Nomi, cose e città',
-  description: `La ruota sceglie la lettera, tutti scrivono 5 parole a tempo e l'amministratore corregge sulla TV. Fino a ${MAX_PLAYERS} giocatori.`,
+  tagline: "Una lettera, cinque categorie, poco tempo.",
+  description: "La ruota estrae la lettera. Cinque parole a testa, poi si corregge insieme sulla TV.",
+  meta: [`1–${MAX_PLAYERS} giocatori`, 'Individuale'],
   page: join(here, 'public', 'index.html'),
   publicDir: join(here, 'public'),
   start,

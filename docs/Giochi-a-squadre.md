@@ -11,7 +11,7 @@ Le squadre sono **sempre da due**: né una persona di più né una di meno. Ognu
 - Nella console il gioco compare come gli altri, con l'etichetta *A squadre · numero pari*.
 - In sala d'attesa l'amministratore vede quanti ne mancano (*Siete in 5: serve ancora un giocatore*). Finché i giocatori sono dispari **Via** resta spento.
 - Con **Cambia gioco** i giocatori arrivano già dentro dal gioco precedente, così la sala d'attesa sa subito quanti sono.
-- **In due** si gioca lo stesso, ma senza punti: c'è una sola squadra e non c'è nessuno da battere. La TV mostra solo com'è andata (es. *Disinnescata con 1:12 di anticipo*) e non si vincono stelline.
+- **In due** si gioca lo stesso, ma senza punti: c'è una sola squadra e non c'è nessuno da battere. La TV mostra solo com'è andata (es. *Disinnescata con 1:12 di anticipo*) e non si vincono stelle.
 
 ### 1. Scelta della squadra
 
@@ -37,7 +37,7 @@ Una schermata sola, sul telefono di ognuno:
 
 - Durante il turno la TV è divisa in una zona per squadra, col nome e il colore della squadra.
 - **Dal secondo turno i ruoli si scambiano da soli**: chi aveva la bomba prende il manuale, chi aveva le frecce prende la mappa. Prima di ogni turno torna la schermata delle istruzioni, già col nuovo ruolo e senza scelta, così tutti la rileggono. Poi l'amministratore tocca **Via**.
-- **Punti e stelline.** I punti della squadra vanno a tutti e due. A fine partita la stellina della serata va a tutti e due i giocatori della squadra vincente (in due, come detto, non si vince niente).
+- **Punti e stelle.** I punti della squadra vanno a tutti e due. A fine partita la stella della serata va a tutti e due i giocatori della squadra vincente (in due, come detto, non si vince niente).
 
 ### Chi si disconnette
 

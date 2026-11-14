@@ -33,7 +33,7 @@ function lobby(state, { act, leave }) {
       h('h1', { class: 'hello' }, `Ciao ${state.you.name}!`),
       h('button', { class: 'link', onClick: leave }, 'Esci')),
     status, claim,
-    h('section', { class: 'block' }, h('h2', { class: 'heading' }, 'In classe'), list),
+    h('section', { class: 'block' }, h('h2', { class: 'heading' }, 'Giocatori'), list),
     admin,
     switchGame(state, act),
     isAdmin && h('div', { class: 'dock' }, startBtn));

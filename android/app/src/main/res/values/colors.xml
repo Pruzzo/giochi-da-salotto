@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Dalla palette di public/css/tokens.css -->
+<!-- Dallo stile Kraft di public/css/styles/kraft.css -->
 <resources>
-    <color name="paper">#f4f8fc</color>
-    <color name="ink">#1b3aa8</color>
-    <color name="red">#c6202c</color>
-    <color name="red_deep">#961420</color>
-    <color name="sheet">#f7f9f6</color>
+    <color name="paper">#fbfaf5</color>
+    <color name="ink">#17181b</color>
+    <color name="red">#c62c33</color>
+    <color name="kraft">#c29a6b</color>
+    <!-- Sul nastro nero: lettere in rilievo, testo secondario, filetti -->
+    <color name="tape_text">#f2f2f2</color>
+    <color name="tape_soft">#a9a69d</color>
+    <color name="tape_line">#33353a</color>
+    <!-- Il pallino di stato -->
+    <color name="dot_up">#5fbf7f</color>
+    <color name="dot_busy">#e8b93c</color>
+    <color name="dot_down">#6f7178</color>
 </resources>

@@ -3,9 +3,9 @@ export class PlatformError extends Error {}
 
 /** Gli stili grafici tra cui si sceglie dalla console: valgono per TV e telefoni insieme. */
 export const STYLES = [
+  { id: 'kraft', title: 'Kraft', description: 'Cartone, cartoncini e timbri.' },
   { id: 'quaderno', title: 'Quaderno', description: 'Quadretti, biro blu e penna rossa.' },
-  { id: 'enigmistica', title: 'Enigmistica', description: 'La pagina di una rivista di giochi: nero più un blu.' },
-  { id: 'kraft', title: 'Kraft', description: 'Cartoncini sul cartone, nastro Dymo e timbri.' },
+  { id: 'enigmistica', title: 'Enigmistica', description: 'Bianco e nero da rivista di giochi.' },
 ];
 /** Lo stile con cui si parte la prima volta, prima che qualcuno ne scelga un altro dalla console. */
 export const DEFAULT_STYLE = 'kraft';
@@ -65,10 +65,12 @@ export class Platform {
       activeId: this.activeId,
       style: this.style,
       styles: STYLES,
-      games: [...this.games.values()].map(({ id, title, description }) => ({
+      games: [...this.games.values()].map(({ id, title, tagline = '', description, meta = [] }) => ({
         id,
         title,
+        tagline,
         description,
+        meta,
         status: id === this.activeId ? this.session.status() : null,
       })),
     };

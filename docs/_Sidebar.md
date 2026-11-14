@@ -14,3 +14,4 @@
   - [Disinnesca la bomba](Giochi-a-squadre.md#disinnesca-la-bomba)
 - [Risoluzione dei problemi](Risoluzione-dei-problemi.md)
 - [Sviluppo](Sviluppo.md)
+- [Guida di stile](Guida-di-stile.md)

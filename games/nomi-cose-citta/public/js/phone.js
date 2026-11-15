@@ -15,7 +15,7 @@ function lobby(state, { act, leave }) {
   const list = h('ul', { class: 'roster' });
   const status = h('p', { class: 'note' });
   const startBtn = h('button', { class: 'btn btn--red btn--wide', onClick: () => act('startRound') }, 'Fai girare la ruota');
-  const claim = h('button', { class: 'btn btn--ghost btn--wide', onClick: () => act('claimAdmin') }, 'Diventa amministratore');
+  const claim = h('button', { class: 'btn btn--ghost btn--wide', onClick: () => act('claimAdmin') }, 'Diventa master');
   const catInputs = state.categories.map((value, i) => h('input', {
     class: 'field field--small', value, maxLength: 16, 'aria-label': `Categoria ${i + 1}`,
     onChange: () => act('setSettings', { categories: catInputs.map((inp) => inp.value) }),
@@ -159,7 +159,7 @@ function review(state, ctx) {
 function playerReview() {
   const body = h('div');
   return {
-    el: page('wait', h('h1', { class: 'shout shout--small' }, 'Guarda la TV!'), h('p', { class: 'note' }, "L'amministratore sta correggendo. Qui vedi i tuoi punti in diretta."), body),
+    el: page('wait', h('h1', { class: 'shout shout--small' }, 'Guarda la TV!'), h('p', { class: 'note' }, "Il master sta correggendo. Qui vedi i tuoi punti in diretta."), body),
     update(s) {
       const row = s.rows.find((r) => r.playerId === s.you.id);
       if (!row) { fill(body, h('p', { class: 'note' }, 'In questo turno non hai scritto parole.')); return; }

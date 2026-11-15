@@ -25,7 +25,7 @@ test('normalize ignora maiuscole, accenti e spazi', () => {
   assert.equal(normalize("L'Aquila"), 'l aquila');
 });
 
-test('un solo amministratore online, subentro se è offline', () => {
+test('un solo master online, subentro se è offline', () => {
   const { game, players: [anna, bruno] } = setup();
   assert.throws(() => game.join({ name: 'Dario', admin: true }), GameError);
   game.disconnect(anna);
@@ -42,7 +42,7 @@ test('nome doppio rifiutato se online, riaggancia il posto se offline', () => {
 
 test('il giocatore semplice non può usare le azioni da admin', () => {
   const { game, players: [, bruno] } = setup();
-  assert.throws(() => game.startRound(bruno), /amministratore/);
+  assert.throws(() => game.startRound(bruno), /master/);
 });
 
 test('turno completo: suggerimenti, voto admin e totali', () => {

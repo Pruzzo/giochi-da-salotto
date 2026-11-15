@@ -22,7 +22,7 @@ public/             console, pagina d'attesa, font, colori e pezzi comuni del cl
   js/kit/           ingresso, copertina TV, voltapagina, timer, suoni, fine partita
 games/
   index.js          elenco dei giochi sulla console
-  shared/           tavolo comune (giocatori, amministratore, riconnessione), WebSocket, testo
+  shared/           tavolo comune (giocatori, master, riconnessione), WebSocket, testo
   <gioco>/
     game.js         regole (nessuna dipendenza di rete, testate in test/)
     index.js        collegamento alla console
@@ -32,14 +32,14 @@ docs/               questa guida, con gli screenshot e lo script che li genera
 test/               test di regole e piattaforma
 ```
 
-- `games/shared/table.js`: la classe `Table` da cui partono tutti i giochi. Gestisce chi è seduto, l'amministratore, i nomi doppi e la riconnessione con un token salvato sul telefono.
+- `games/shared/table.js`: la classe `Table` da cui partono tutti i giochi. Gestisce chi è seduto, il master, i nomi doppi e la riconnessione con un token salvato sul telefono.
 - `games/shared/room.js`: collega un `Table` a un namespace Socket.IO. Raggruppa gli aggiornamenti dello stesso giro di eventi e manda a ognuno solo la sua vista (`game.view({ role, player })`): le risposte degli altri non escono mai dal server prima del tempo.
 - `games/shared/text.js`: accenti e separatori senza `Intl`, perché il Node dell'app Android non ha ICU. Sul server non usare `\p{…}` nelle regex, `normalize()` o `Intl`: lì non funzionano.
 
 ## Aggiungere un gioco
 
 1. Crea una cartella in `games/` che esporta `{ id, title, tagline, description, meta, page, publicDir, start }`, aggiungila a `games/index.js` e disegna il suo pittogramma in `public/js/kit/art.js`. Per testi e aspetto segui la [Guida di stile](Guida-di-stile.md).
-2. `start(nsp, ctx)` riceve un namespace Socket.IO riservato e restituisce `{ status, destroy }`. Passa tutto `ctx` a `openRoom` (`{ joinUrl, onStatus, session, platform }`): con `session`, quando la fase diventa `'final'` chi ha più punti in `totals()` prende una vittoria della serata; con `platform`, l'amministratore può usare **Cambia gioco** (azione `switchGame`, in sala d'attesa e a fine partita). Nella sala d'attesa del telefono metti `switchGame(state, act)` di `/js/kit/ui.js`.
+2. `start(nsp, ctx)` riceve un namespace Socket.IO riservato e restituisce `{ status, destroy }`. Passa tutto `ctx` a `openRoom` (`{ joinUrl, onStatus, session, platform }`): con `session`, quando la fase diventa `'final'` chi ha più punti in `totals()` prende una vittoria della serata; con `platform`, il master può usare **Cambia gioco** (azione `switchGame`, in sala d'attesa e a fine partita). Nella sala d'attesa del telefono metti `switchGame(state, act)` di `/js/kit/ui.js`.
 3. La pagina del gioco deve avere `<meta name="platform-game" content="<id>">` e caricare `/js/platform.js`.
 
 La strada più corta è copiare `games/codice-segreto/`: le regole estendono `Table`, `start` chiama `openRoom` di `games/shared/room.js` con le azioni del gioco, e il client chiama `startClient` di `/js/kit/client.js` con le sue viste di telefono e TV.

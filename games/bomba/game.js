@@ -82,7 +82,7 @@ export class Game extends TeamTable {
 
   // ---------- Agganci di TeamTable ----------
 
-  /** Il turno si chiude con la bomba ancora attiva: scoppia allo scadere del tempo, o si ferma se l'ha fermato l'amministratore. */
+  /** Il turno si chiude con la bomba ancora attiva: scoppia allo scadere del tempo, o si ferma se l'ha fermato il master. */
   teamTimeout() {
     return { success: false, reason: (this.remainingMs() ?? 0) > 1000 ? 'stopped' : 'time' };
   }

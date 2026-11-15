@@ -423,7 +423,7 @@ test('Fili: il filo sbagliato resta tagliato e non si taglia due volte', () => {
   assert.equal(bomb(game, ps[0]).modules[0].solved, true);
 });
 
-test('tempo scaduto: la bomba scoppia; fermato dall’amministratore: turno fermato', () => {
+test('tempo scaduto: la bomba scoppia; fermato dal master: turno fermato', () => {
   const { game, ps, tick } = setup();
   play(game, ps, { durationSec: 180 });
   tick(180_000);

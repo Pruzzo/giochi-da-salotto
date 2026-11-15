@@ -1,5 +1,5 @@
 // Su ogni pagina di gioco e d'attesa: se dalla console cambia il gioco acceso, si ricarica da sola.
-// Se l'amministratore passa direttamente a un altro gioco, chi era dentro ci rientra da solo (vedi kit/client.js).
+// Se il master passa direttamente a un altro gioco, chi era dentro ci rientra da solo (vedi kit/client.js).
 // Lo stile grafico scelto dalla console si applica subito, senza ricaricare (vedi /css/styles/).
 (() => {
   const KEY = 'salotto-style';

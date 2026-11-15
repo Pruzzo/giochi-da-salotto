@@ -1,4 +1,4 @@
-// Il tavolo comune a tutti i giochi: chi è seduto, chi è l'amministratore, chi è connesso.
+// Il tavolo comune a tutti i giochi: chi è seduto, chi è il master, chi è connesso.
 // Ogni gioco estende Table e aggiunge le sue regole. Nessuna dipendenza di rete.
 import { randomUUID } from 'node:crypto';
 import { SEPARATORS, stripAccents } from './text.js';
@@ -58,7 +58,7 @@ export class Table {
   claimAdmin(player) {
     const current = this.players.get(this.adminId);
     if (current && current !== player && current.connections > 0) {
-      throw new GameError(`L'amministratore è già ${current.name}. Entra come giocatore.`);
+      throw new GameError(`Il master è già ${current.name}. Entra come giocatore.`);
     }
     this.adminId = player.id;
   }
@@ -105,7 +105,7 @@ export class Table {
   }
 
   requireAdmin(actor) {
-    if (!actor || actor.id !== this.adminId) throw new GameError("Solo l'amministratore può farlo.");
+    if (!actor || actor.id !== this.adminId) throw new GameError("Solo il master può farlo.");
   }
 
   requirePhase(...phases) {

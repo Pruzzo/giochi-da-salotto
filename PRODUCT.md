@@ -12,7 +12,7 @@ delegated: Node.js + Express + Socket.IO con client HTML/CSS/JS vanilla senza bu
 
 ## Users
 
-Amici o famiglia nello stesso salotto, in serata, con una TV e i propri telefoni. Il giocatore scrive parole sotto pressione del tempo. L'amministratore è anche giocatore: avvia i turni e assegna i punti. La TV è lo schermo comune che tutti guardano da lontano.
+Amici o famiglia nello stesso salotto, in serata, con una TV e i propri telefoni. Il giocatore scrive parole sotto pressione del tempo. Il master è anche giocatore: avvia i turni e assegna i punti. La TV è lo schermo comune che tutti guardano da lontano.
 
 ## Product Purpose
 
@@ -24,7 +24,7 @@ La TV è il tavolo comune e il telefono è il foglietto privato: le parole resta
 
 ## Operating Context
 
-Una console in `/console` sceglie il gioco acceso: tutti lo vedono all'indirizzo principale, e senza gioco acceso compare una pagina d'attesa. Per ora c'è un solo gioco. Una sola partita per server, in rete locale. Si entra da un QR code/indirizzo mostrato sulla TV. Tre ruoli: TV, giocatore, giocatore amministratore. Ciclo: l'admin avvia il turno, la ruota sulla TV gira da sola e sceglie una lettera, i giocatori scrivono fino allo scadere, la TV mostra le parole, l'admin vota dal telefono e la TV si aggiorna in diretta, poi nuovo turno.
+Una console in `/console` sceglie il gioco acceso: tutti lo vedono all'indirizzo principale, e senza gioco acceso compare una pagina d'attesa. Per ora c'è un solo gioco. Una sola partita per server, in rete locale. Si entra da un QR code/indirizzo mostrato sulla TV. Tre ruoli: TV, giocatore, giocatore master. Ciclo: l'admin avvia il turno, la ruota sulla TV gira da sola e sceglie una lettera, i giocatori scrivono fino allo scadere, la TV mostra le parole, l'admin vota dal telefono e la TV si aggiorna in diretta, poi nuovo turno.
 
 ## Capabilities and Constraints
 

@@ -55,9 +55,9 @@ Nell'app Android il QR code si prepara da solo sulla rete giusta tra Wi-Fi, cavo
 
 Deve rientrare dal QR code con **lo stesso nome**: ritrova punti e risposte. Se compare "C'è già un giocatore che si chiama…", il vecchio telefono è ancora collegato: chiudi lì la pagina, oppure scegli un altro nome.
 
-## Non c'è l'amministratore
+## Non c'è il master
 
-Se l'amministratore esce o si scollega, un altro giocatore tocca **Diventa amministratore** dalla sala d'attesa e prende il suo posto.
+Se il master esce o si scollega, un altro giocatore tocca **Diventa master** dalla sala d'attesa e prende il suo posto.
 
 ## Sul telefono il server si spegne da solo
 

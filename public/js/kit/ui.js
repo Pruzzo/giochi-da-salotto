@@ -38,7 +38,7 @@ export function tvPage(cls, ...kids) {
 export function joinView({ title, hints }, { onEnter }) {
   const roles = [
     { id: 'player', label: 'Giocatore', hint: hints.player },
-    { id: 'admin', label: 'Amministratore', hint: hints.admin },
+    { id: 'admin', label: 'Master', hint: hints.admin },
     { id: 'tv', label: 'TV', hint: hints.tv },
   ];
   let role = 'player';
@@ -47,7 +47,7 @@ export function joinView({ title, hints }, { onEnter }) {
     enterKeyHint: 'go', placeholder: 'Come ti chiami?',
   });
   // Il nome dell'ultima volta su questo telefono, già scritto: basta toccare Entra, o cambiarlo.
-  // Solo il nome: il ruolo resta Giocatore, amministratore si diventa solo scegliendolo.
+  // Solo il nome: il ruolo resta Giocatore, master si diventa solo scegliendolo.
   try { nameInput.value = JSON.parse(localStorage.getItem('salotto-me'))?.name ?? ''; } catch { /* storage bloccato o vuoto */ }
   const error = h('p', { class: 'error', role: 'alert', hidden: true });
   const hint = h('p', { class: 'cover__hint' });
@@ -96,13 +96,13 @@ export function joinView({ title, hints }, { onEnter }) {
 
 // ---------- Sala d'attesa ----------
 
-/** Chi è in partita, con il tasto per togliere qualcuno se sei l'amministratore. */
+/** Chi è in partita, con il tasto per togliere qualcuno se sei il master. */
 export function rosterItems(s, act) {
   const me = s.you.isAdmin;
   return s.players.map((p) => h('li', { class: `roster__item${p.online ? '' : ' is-away'}` },
     h('span', { class: 'written is-name' }, p.name),
     stars(p.wins),
-    p.isAdmin && h('span', { class: 'tag' }, 'amministratore'),
+    p.isAdmin && h('span', { class: 'tag' }, 'master'),
     !p.online && h('span', { class: 'tag' }, 'assente'),
     me && p.id !== s.you.id && h('button', { class: 'link', onClick: () => act('removePlayer', { playerId: p.id }), 'aria-label': `Togli ${p.name}` }, 'Togli')));
 }
@@ -110,7 +110,7 @@ export function rosterItems(s, act) {
 export function waitingNote(s, action) {
   if (s.you.isAdmin) return `Quando ci siete tutti, ${action}.`;
   const admin = s.players.find((p) => p.isAdmin);
-  return s.adminOnline ? `${admin?.name} dà il via quando ci siete tutti.` : 'Serve un amministratore per partire.';
+  return s.adminOnline ? `${admin?.name} dà il via quando ci siete tutti.` : 'Serve un master per partire.';
 }
 
 /**
@@ -142,10 +142,10 @@ export function coverTv({ title, subject, cta }) {
       const longest = Math.max(1, ...s.players.map((p) => p.name.length + starsWidth(p.wins) * 0.7));
       names.style.setProperty('--sig', Math.min(s.players.length > 8 ? 1 : 1.4, 9 / (longest * 0.62)).toFixed(2));
       fill(names, s.players.length
-        ? s.players.map((p) => h('li', { class: `signature${p.online ? '' : ' is-away'}` }, p.name, stars(p.wins), p.isAdmin && h('span', { class: 'signature__badge' }, 'amministratore')))
+        ? s.players.map((p) => h('li', { class: `signature${p.online ? '' : ' is-away'}` }, p.name, stars(p.wins), p.isAdmin && h('span', { class: 'signature__badge' }, 'master')))
         : h('li', { class: 'signature signature--empty' }, 'Ancora nessuno'));
       what.textContent = !s.players.length ? 'Inquadra il codice e scrivi il tuo nome.'
-        : !s.adminOnline ? 'Serve un amministratore: si sceglie entrando.'
+        : !s.adminOnline ? 'Serve un master: si sceglie entrando.'
         : cta(s.players.find((p) => p.isAdmin).name);
     },
   };
@@ -153,7 +153,7 @@ export function coverTv({ title, subject, cta }) {
 
 // ---------- Cambia gioco ----------
 
-/** Solo per l'amministratore: passa a un altro gioco, e tutti ci rientrano da soli. */
+/** Solo per il master: passa a un altro gioco, e tutti ci rientrano da soli. */
 export function switchGame(state, act) {
   if (!state.you?.isAdmin || !state.games?.length) return null;
   const open = h('button', { class: 'btn btn--ghost btn--wide', onClick: () => show(true) }, 'Cambia gioco');

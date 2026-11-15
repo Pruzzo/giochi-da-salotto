@@ -20,7 +20,7 @@ export function startClient({ namespace, storage, views }) {
     del(key) { try { localStorage.removeItem(key); } catch { /* storage bloccato */ } },
   };
 
-  // Chi eri nell'ultimo gioco, per rientrare da solo quando l'amministratore cambia gioco.
+  // Chi eri nell'ultimo gioco, per rientrare da solo quando il master cambia gioco.
   const ME = 'salotto-me';
   const carried = takeCarry(namespace.slice(1));
   if (carried) { store.del(TOKEN); store.del(ROLE); }
@@ -142,7 +142,7 @@ export function startClient({ namespace, storage, views }) {
   });
   socket.on('kicked', () => {
     forget();
-    toast("L'amministratore ti ha tolto dalla partita.");
+    toast("Il master ti ha tolto dalla partita.");
   });
 
   addEventListener('pointerdown', unlockAudio, { passive: true });

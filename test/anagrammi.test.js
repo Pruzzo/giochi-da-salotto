@@ -85,7 +85,7 @@ test('turno completo: parole controllate subito, doppio se unica', () => {
   assert.ok(!open.missed.includes('ladro'));
 });
 
-test('solo l’amministratore ferma il tempo; si consegna e si riapre', () => {
+test('solo il master ferma il tempo; si consegna e si riapre', () => {
   const { game, players: [anna, bruno], fire } = setup();
   assert.throws(() => game.startRound(bruno), GameError);
   game.startRound(anna);

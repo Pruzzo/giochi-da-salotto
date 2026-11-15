@@ -47,7 +47,7 @@ Finché nessun gioco è acceso, TV e telefoni mostrano una pagina d'attesa con i
 Entrando dal telefono si sceglie un ruolo:
 
 - **Giocatore**: gioca e basta.
-- **Amministratore**: gioca anche lui, e in più sceglie le impostazioni (tempo, categorie, difficoltà), avvia i turni e, in *Nomi, cose e città*, conferma i punti. Ne serve uno per partita; se esce, un altro può prenderne il posto.
+- **Master**: gioca anche lui, e in più sceglie le impostazioni (tempo, categorie, difficoltà), avvia i turni e, in *Nomi, cose e città*, conferma i punti. Ne serve uno per partita; se esce, un altro può prenderne il posto.
 - **TV**: trasforma quello schermo nella TV del gioco. Utile se la TV non può aprire un indirizzo a mano ma ha una fotocamera, o per usare un tablet come schermo comune.
 
 ## Cosa succede se…
@@ -57,7 +57,7 @@ Entrando dal telefono si sceglie un ruolo:
 - **Il server si riavvia**: la partita riparte da zero (tutto è in memoria), e i telefoni chiedono di rientrare col nome.
 - **Arriva qualcuno a partita iniziata**: può entrare dal QR code in qualsiasi momento.
 - **Un giocatore cambia telefono** (batteria scarica…): rientra dal nuovo telefono con lo stesso nome e ritrova i suoi punti.
-- **L'amministratore se ne va**: un altro giocatore tocca *Diventa amministratore* e prende il suo posto.
+- **Il master se ne va**: un altro giocatore tocca *Diventa master* e prende il suo posto.
 
 ## Cosa serve in rete
 

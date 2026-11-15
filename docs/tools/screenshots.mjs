@@ -46,7 +46,7 @@ async function open(ctxPromise, path) {
 }
 
 async function join(page, name, { admin = false, shotName } = {}) {
-  await page.getByRole('button', { name: admin ? 'Amministratore' : 'Giocatore', exact: true }).click();
+  await page.getByRole('button', { name: admin ? 'Master' : 'Giocatore', exact: true }).click();
   await page.locator('#name').fill(name);
   if (shotName) await shot(page, shotName);
   await page.getByRole('button', { name: 'Entra', exact: true }).click();

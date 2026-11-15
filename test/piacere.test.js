@@ -190,7 +190,7 @@ test('più turni sommano i punti; fine partita e partita nuova', () => {
   assert.equal(game.totals().get(anna.id), 0);
 });
 
-test("l'amministratore può fermare la seconda parte", () => {
+test("il master può fermare la seconda parte", () => {
   const { game, players: [anna, bruno], toQuiz } = setup();
   toQuiz();
   assert.throws(() => game.stopRound(bruno), GameError);

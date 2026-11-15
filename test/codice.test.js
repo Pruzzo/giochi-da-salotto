@@ -81,7 +81,7 @@ test('tentativi finiti o tempo scaduto valgono zero', () => {
   assert.equal(pointsFor({ guesses: [{}], rank: 2 }), MAX_ATTEMPTS);
 });
 
-test('tentativi non validi e azioni da amministratore', () => {
+test('tentativi non validi e azioni da master', () => {
   const { game, players: [anna, bruno], fire } = setup();
   assert.throws(() => game.startRound(bruno), GameError);
   assert.throws(() => game.setSettings(bruno, { colors: 8 }), GameError);

@@ -21,7 +21,7 @@ Si può usare in **due modi**: con l'**app Android** oppure con un **server su P
 
 | Gioco | In breve |
 | --- | --- |
-| **Nomi, cose e città** | La ruota sceglie la lettera, tutti scrivono 5 parole a tempo, l'amministratore corregge sulla TV. |
+| **Nomi, cose e città** | La ruota sceglie la lettera, tutti scrivono 5 parole a tempo, il master corregge sulla TV. |
 | **Codice segreto** | Lo schermo nasconde 4 pastelli; ognuno prova a indovinarli dal telefono con l'aiuto dei pallini. |
 | **L'impiccato** | Ognuno indovina la stessa parola sul suo telefono, la TV mostra l'omino di tutti. |
 | **Anagrammi** | 8 lettere estratte, più parole possibile in tempo; vale doppio quella trovata solo da te. |

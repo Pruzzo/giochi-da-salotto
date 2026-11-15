@@ -213,7 +213,7 @@ body.offline::after { content: "Connessione persa, riprovo…"; position: fixed;
 .why { font-family: var(--school); font-size: .86rem; line-height: 1.7; color: var(--red); }
 .why:empty { display: none; }
 
-/* Cambia gioco, nella sala d'attesa e a fine partita dell'amministratore */
+/* Cambia gioco, nella sala d'attesa e a fine partita del master */
 .switch { margin-top: 8px; }
 .switch__list:not([hidden]) { display: flex; flex-direction: column; gap: 8px; }
 .switch__list .link { margin: 0 auto; }

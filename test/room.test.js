@@ -40,7 +40,7 @@ test('ogni telefono riceve gli altri giochi, non quello acceso', async () => {
   assert.deepEqual(anna.socket.sent.games, [{ id: 'impiccato', title: "L'impiccato" }]);
 });
 
-test("l'amministratore cambia gioco dalla sala d'attesa", async () => {
+test("il master cambia gioco dalla sala d'attesa", async () => {
   const { phone, switched } = setup();
   const anna = phone({ role: 'player', name: 'Anna', admin: true });
   await anna.ready;
@@ -50,13 +50,13 @@ test("l'amministratore cambia gioco dalla sala d'attesa", async () => {
   assert.deepEqual(switched, ['impiccato']);
 });
 
-test('solo l\'amministratore, solo verso un altro gioco, mai a metà turno', async () => {
+test('solo l\'master, solo verso un altro gioco, mai a metà turno', async () => {
   const { game, phone, switched } = setup();
   const anna = phone({ role: 'player', name: 'Anna', admin: true });
   const bruno = phone({ role: 'player', name: 'Bruno' });
   await anna.ready;
   await bruno.ready;
-  assert.match((await bruno.act('switchGame', { gameId: 'impiccato' })).error, /Solo l'amministratore/);
+  assert.match((await bruno.act('switchGame', { gameId: 'impiccato' })).error, /Solo il master/);
   assert.equal((await anna.act('switchGame', { gameId: 'codice-segreto' })).ok, false);
   assert.equal((await anna.act('switchGame', { gameId: 'zzz' })).ok, false);
   game.code = [1, 2, 3, 4];

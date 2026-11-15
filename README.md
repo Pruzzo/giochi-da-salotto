@@ -21,7 +21,7 @@ Si può usare in **due modi**: con l'**app Android** oppure con un **server su P
 
 ## I giochi
 
-- **Nomi, cose e città**: la ruota sceglie la lettera, tutti scrivono 5 parole a tempo, l'amministratore corregge sulla TV.
+- **Nomi, cose e città**: la ruota sceglie la lettera, tutti scrivono 5 parole a tempo, il master corregge sulla TV.
 - **Codice segreto**: lo schermo nasconde 4 pastelli e ognuno prova a indovinarli dal telefono, aiutato dai pallini.
 - **L'impiccato**: tutti indovinano la stessa parola, ognuno sul suo telefono; la TV mostra l'omino di ciascuno.
 - **Anagrammi**: 8 lettere estratte, più parole possibile; quella trovata solo da te vale doppio.
@@ -37,7 +37,7 @@ Un dispositivo fa da **server** e tiene la partita: di solito un telefono con l'
 
 - **Console** (`/console`): accende, cambia o chiude il gioco.
 - **TV** (`/tv`): QR code per entrare, ruota, tempo, risposte e classifica.
-- **Telefoni** (`/`): ognuno gioca sul suo, in privato. Chi entra come **amministratore** gioca e in più avvia i turni e assegna i punti.
+- **Telefoni** (`/`): ognuno gioca sul suo, in privato. Chi entra come **master** gioca e in più avvia i turni e assegna i punti.
 
 Se un telefono va in standby ritrova posto e punti. Più dettagli in [Come funziona](docs/Come-funziona.md).
 

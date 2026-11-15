@@ -18,7 +18,7 @@ export function rules(s) {
 function lobby(state, { act, leave }) {
   const list = h('ul', { class: 'roster' });
   const status = h('p', { class: 'note' });
-  const claim = h('button', { class: 'btn btn--ghost btn--wide', onClick: () => act('claimAdmin') }, 'Diventa amministratore');
+  const claim = h('button', { class: 'btn btn--ghost btn--wide', onClick: () => act('claimAdmin') }, 'Diventa master');
   const settings = h('section', { class: 'settings' });
   const el = page('lobby',
     h('header', { class: 'phone-head' },

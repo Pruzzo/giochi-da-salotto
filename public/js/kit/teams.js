@@ -68,7 +68,7 @@ export function teamViews(spec) {
     const { act, leave } = ctx;
     const list = h('ul', { class: 'roster' });
     const status = h('p', { class: 'note' });
-    const claim = h('button', { class: 'btn btn--ghost btn--wide', onClick: () => act('claimAdmin') }, 'Diventa amministratore');
+    const claim = h('button', { class: 'btn btn--ghost btn--wide', onClick: () => act('claimAdmin') }, 'Diventa master');
     const settings = h('div');
     const go = h('button', { class: 'btn btn--red btn--wide', onClick: () => act('start') }, 'Via: scegliete le squadre');
     const el = page('lobby',
@@ -87,7 +87,7 @@ export function teamViews(spec) {
         status.textContent = n < 2 ? 'Si gioca a squadre di due: serve almeno un altro giocatore.'
           : odd ? `Siete in ${n}: serve ancora un giocatore per fare squadre da due.`
           : s.you.isAdmin ? `Siete in ${n}: ${n / 2} ${n === 2 ? 'squadra' : 'squadre'}. Quando ci siete tutti, tocca Via.`
-          : s.adminOnline ? `Siete in ${n}. ${admin?.name} dà il via quando ci siete tutti.` : 'Serve un amministratore per partire.';
+          : s.adminOnline ? `Siete in ${n}. ${admin?.name} dà il via quando ci siete tutti.` : 'Serve un master per partire.';
         claim.hidden = s.you.isAdmin || s.adminOnline;
         fill(list, rosterItems(s, act));
         if (s.you.isAdmin) fill(settings, settingsBlock(s, act));

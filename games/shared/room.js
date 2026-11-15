@@ -76,7 +76,7 @@ export function openRoom(nsp, { game, actions, status, joinUrl, onStatus, sessio
   const ACTIONS = {
     ...actions,
     claimAdmin: (p) => { game.claimAdmin(p); game.changed(); },
-    // L'amministratore passa a un altro gioco: in sala d'attesa o a partita finita, mai a metà turno.
+    // Il master passa a un altro gioco: in sala d'attesa o a partita finita, mai a metà turno.
     switchGame: (p, a) => {
       game.requireAdmin(p);
       game.requirePhase('lobby', 'final');

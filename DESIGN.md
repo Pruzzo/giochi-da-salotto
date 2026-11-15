@@ -179,7 +179,7 @@ Due inchiostri saturi su carta fredda, con il giallo riservato a un solo signifi
 - **Biro Calcata** (#14297a): la voce del quaderno in corsivo (titolo, istruzioni, messaggi grandi), hover del bottone blu, fondo del toast.
 
 ### Secondary
-- **Penna Rossa** (#c6202c): l'arbitro. Voti cerchiati, note di correzione, somme, cancellature; bottoni degli atti dell'amministratore (far girare la ruota, confermare i punti, nuovo turno); ultimi dieci secondi del timer; errori; fondo della copertina.
+- **Penna Rossa** (#c6202c): l'arbitro. Voti cerchiati, note di correzione, somme, cancellature; bottoni degli atti del master (far girare la ruota, confermare i punti, nuovo turno); ultimi dieci secondi del timer; errori; fondo della copertina.
 - **Rosso Dorso** (#961420): il dorso della copertina, il fondo dietro le pagine durante il voltapagina, hover del bottone rosso, bordo della lancetta della ruota.
 
 ### Tertiary
@@ -203,7 +203,7 @@ Otto matite colorate sono i pezzi del gioco, non colori dell'interfaccia: rosso,
 
 **The Evidenziatore Rule.** Il giallo pieno significa una cosa sola: questa parola è un doppione. Il tratteggio giallo della ruota è una matita colorata, ha un altro valore e non comunica nulla.
 
-**The Matita Prima Rule.** Una proposta è a matita, una decisione è a penna. Il voto suggerito dal gioco è grigio e tratteggiato; diventa rosso e continuo solo quando l'amministratore lo conferma.
+**The Matita Prima Rule.** Una proposta è a matita, una decisione è a penna. Il voto suggerito dal gioco è grigio e tratteggiato; diventa rosso e continuo solo quando il master lo conferma.
 
 ## Typography
 
@@ -273,7 +273,7 @@ I cerchi sono aperti e sovrapposti alla chiusura, come un voto tracciato in un g
 Grandi, un po' storti, fatti per un pollice che ha fretta.
 - **Shape:** rettangolo a mano libera (`rounded.hand`), altezza minima 56px, quasi sempre a tutta larghezza; bordo di 3px anche quando è trasparente, così le varianti hanno la stessa misura.
 - **Biro:** l'azione del giocatore (Entra, Ho finito, Avanti). Una volta consegnato si svuota: carta con bordo blu.
-- **Penna:** l'atto dell'amministratore (Fai girare la ruota, Conferma i punti, Nuovo turno).
+- **Penna:** l'atto del master (Fai girare la ruota, Conferma i punti, Nuovo turno).
 - **Contorno:** l'azione secondaria, carta con bordo blu.
 - **Hover / Focus:** l'hover scurisce il fondo solo su dispositivi con hover reale; il contorno ottiene una velatura blu all'8%. Alla pressione il bottone scende di 2px in .12s. Il focus è un anello di 3px in Biro Blu con 2px di stacco, uguale in tutto il sistema.
 - **Disabilitato:** opacità .6 con cursore di attesa.
@@ -349,7 +349,7 @@ Le lettere estratte sono quadretti grandi bordati in Biro Blu, senza raggio, con
 - **Don't** introdurre viola, neon, glow o gradienti luminosi da party game.
 - **Don't** usare il giallo pieno per qualcosa che non sia un doppione.
 - **Don't** colorare di rosso una parola scritta da un giocatore: il rosso le passa sopra, non la riscrive.
-- **Don't** usare il Bottone Penna per un'azione che non spetta all'amministratore.
+- **Don't** usare il Bottone Penna per un'azione che non spetta al master.
 - **Don't** mettere ombre su ciò che non si solleva dal foglio, nemmeno in hover.
 - **Don't** racchiudere i campi di testo in una scatola: sono righe.
 - **Don't** riempire timer e barre di avanzamento con una campitura piena.

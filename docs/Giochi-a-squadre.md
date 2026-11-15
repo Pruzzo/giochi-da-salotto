@@ -9,13 +9,13 @@ Le squadre sono **sempre da due**: né una persona di più né una di meno. Ognu
 ### Solo in numero pari
 
 - Nella console il gioco compare come gli altri, con l'etichetta *A squadre · numero pari*.
-- In sala d'attesa l'amministratore vede quanti ne mancano (*Siete in 5: serve ancora un giocatore*). Finché i giocatori sono dispari **Via** resta spento.
+- In sala d'attesa il master vede quanti ne mancano (*Siete in 5: serve ancora un giocatore*). Finché i giocatori sono dispari **Via** resta spento.
 - Con **Cambia gioco** i giocatori arrivano già dentro dal gioco precedente, così la sala d'attesa sa subito quanti sono.
 - **In due** si gioca lo stesso, ma senza punti: c'è una sola squadra e non c'è nessuno da battere. La TV mostra solo com'è andata (es. *Disinnescata con 1:12 di anticipo*) e non si vincono stelle.
 
 ### 1. Scelta della squadra
 
-Quando l'amministratore tocca **Via**, ognuno sceglie la sua squadra.
+Quando il master tocca **Via**, ognuno sceglie la sua squadra.
 
 - Le squadre sono tante quante servono: metà dei giocatori (3 squadre con 6 giocatori, 6 con 12). Ogni squadra è un **colore**: Rosso, Blu, Verde, Giallo, Viola, Arancione.
 - **Telefono**: i colori sono grossi tasti, ognuno con i nomi di chi c'è già dentro. Tocchi un colore per entrarci. Una squadra con due persone è **piena** e il suo tasto si spegne. Finché non sono tutte piene puoi cambiare: tocchi un altro colore e passi lì.
@@ -30,13 +30,13 @@ Una schermata sola, sul telefono di ognuno:
 - **Istruzioni brevi.** Poche righe: cosa fa ciascuno dei due ruoli e come si vince. In evidenza, sempre: **«Il tuo compagno non può vedere il tuo schermo: allontanati da lui.»**
 - **Scelta del ruolo.** Due tasti, uno per ruolo, ognuno con una riga che dice cosa fa. Quando il compagno ne sceglie uno, quel tasto diventa **grigio** col suo nome sopra, e a te resta l'altro. Finché il turno non parte si può cambiare idea.
 - **TV**: per ogni squadra il nome, i due giocatori e il ruolo di ciascuno appena lo scelgono, con un segno di spunta quando la squadra è pronta.
-- **Impostazioni del turno**: sul telefono dell'amministratore, sopra il tasto **Via**, ci sono le impostazioni di ogni gioco (quanto è difficile, quanto tempo c'è). Si scelgono **prima di ogni turno** e ripartono da quelle del turno prima, così la difficoltà si può alzare man mano. La TV le mostra a tutti.
-- **Partenza**: l'amministratore tocca **Via**. Il tasto si accende solo quando in ogni squadra tutti e due i ruoli sono presi.
+- **Impostazioni del turno**: sul telefono del master, sopra il tasto **Via**, ci sono le impostazioni di ogni gioco (quanto è difficile, quanto tempo c'è). Si scelgono **prima di ogni turno** e ripartono da quelle del turno prima, così la difficoltà si può alzare man mano. La TV le mostra a tutti.
+- **Partenza**: il master tocca **Via**. Il tasto si accende solo quando in ogni squadra tutti e due i ruoli sono presi.
 
 ### 3. Il gioco e i turni dopo
 
 - Durante il turno la TV è divisa in una zona per squadra, col nome e il colore della squadra.
-- **Dal secondo turno i ruoli si scambiano da soli**: chi aveva la bomba prende il manuale, chi aveva le frecce prende la mappa. Prima di ogni turno torna la schermata delle istruzioni, già col nuovo ruolo e senza scelta, così tutti la rileggono. Poi l'amministratore tocca **Via**.
+- **Dal secondo turno i ruoli si scambiano da soli**: chi aveva la bomba prende il manuale, chi aveva le frecce prende la mappa. Prima di ogni turno torna la schermata delle istruzioni, già col nuovo ruolo e senza scelta, così tutti la rileggono. Poi il master tocca **Via**.
 - **Punti e stelle.** I punti della squadra vanno a tutti e due. A fine partita la stella della serata va a tutti e due i giocatori della squadra vincente (in due, come detto, non si vince niente).
 
 ### Chi si disconnette
@@ -88,12 +88,12 @@ Uno dei due ha la bomba in mano e non sa come si smonta, l'altro ha il manuale e
 - Ogni azione sbagliata è un **errore**: il telefono dell'artificiere vibra e lampeggia di rosso, la TV segna una crocetta nella zona della squadra.
 - Al **terzo errore** la bomba scoppia. Scoppia anche allo scadere del tempo.
 - La bomba è **disinnescata** quando tutti i moduli hanno la lucina verde.
-- Il turno finisce quando tutte le squadre hanno disinnescato o sono scoppiate, quando scade il tempo, o quando l'amministratore lo ferma.
+- Il turno finisce quando tutte le squadre hanno disinnescato o sono scoppiate, quando scade il tempo, o quando il master lo ferma.
 
 **Come si gioca**
 
-1. **Prima di ogni turno** l'amministratore sceglie la **difficoltà** (Facile, Medio, Difficile; si parte da Medio), quanti moduli ha la bomba (3, 4 o 5) e quanto tempo c'è (da 3 a 8 minuti), come nelle [regole comuni](#2-nome-istruzioni-e-ruoli).
-2. Formate le squadre e scelti i ruoli (vedi le [regole comuni](#regole-comuni-dei-giochi-a-squadre)), l'amministratore tocca **Via**. Tutte le squadre partono insieme.
+1. **Prima di ogni turno** il master sceglie la **difficoltà** (Facile, Medio, Difficile; si parte da Medio), quanti moduli ha la bomba (3, 4 o 5) e quanto tempo c'è (da 3 a 8 minuti), come nelle [regole comuni](#2-nome-istruzioni-e-ruoli).
+2. Formate le squadre e scelti i ruoli (vedi le [regole comuni](#regole-comuni-dei-giochi-a-squadre)), il master tocca **Via**. Tutte le squadre partono insieme.
 3. L'artificiere apre un modulo e lo descrive. L'esperto cerca la pagina giusta e lo guida. I moduli si risolvono in qualunque ordine.
 
 **Punti**: la squadra che disinnesca prende 10 punti a Facile, 15 a Medio e 20 a Difficile, più 1 ogni 10 secondi rimasti, meno 2 per ogni errore (minimo 1). La prima squadra a disinnescare prende 3 punti in più. Chi scoppia prende 0. In due non si tengono i punti.
@@ -595,8 +595,8 @@ Il nord è sempre in alto, e l'esploratore non sa dove sia l'uscita. La torcia s
 
 **Come si gioca**
 
-1. **Prima di ogni turno** l'amministratore sceglie la grandezza del labirinto e quanto tempo c'è (da 3 a 8 minuti), come nelle [regole comuni](#2-nome-istruzioni-e-ruoli).
-2. Formate le squadre e scelti i ruoli (vedi le [regole comuni](#regole-comuni-dei-giochi-a-squadre)), l'amministratore tocca **Via**. Tutte le squadre partono insieme, ognuna nel suo labirinto.
+1. **Prima di ogni turno** il master sceglie la grandezza del labirinto e quanto tempo c'è (da 3 a 8 minuti), come nelle [regole comuni](#2-nome-istruzioni-e-ruoli).
+2. Formate le squadre e scelti i ruoli (vedi le [regole comuni](#regole-comuni-dei-giochi-a-squadre)), il master tocca **Via**. Tutte le squadre partono insieme, ognuna nel suo labirinto.
 3. L'esploratore si muove con le frecce. Contro un muro l'omino non si sposta e trema un attimo, senza penalità.
 4. **Su una bomba** l'omino salta in aria e **torna alla partenza**. La bomba scoppiata sparisce, dalla torcia e dalla mappa. Il navigatore deve capire di nuovo dov'è, ma almeno sa che è alla partenza.
 5. Il turno della squadra finisce quando l'omino passa dalla porta d'uscita. Le altre squadre continuano fino allo scadere del tempo.

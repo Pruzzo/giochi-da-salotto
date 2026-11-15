@@ -93,7 +93,7 @@ test('il ruolo preso dal compagno non si può prendere; Via solo con tutti i ruo
   assert.throws(() => game.go(ps[0]), /due ruoli/);
   game.chooseRole(ps[2], 'b');
   game.chooseRole(ps[3], 'a');
-  assert.throws(() => game.go(ps[1]), /amministratore/);
+  assert.throws(() => game.go(ps[1]), /master/);
   game.go(ps[0]);
   assert.equal(game.phase, 'playing');
 });

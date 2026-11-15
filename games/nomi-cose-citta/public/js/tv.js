@@ -144,8 +144,8 @@ function sheet(state) {
     update(s) {
       const scored = s.phase === 'scored';
       help.textContent = scored
-        ? "L'amministratore può far partire un nuovo turno."
-        : `Unica 3 · Doppione 1 · Sbagliata 0. ${s.players.find((p) => p.isAdmin)?.name ?? "L'amministratore"} decide dal telefono.`;
+        ? "Il master può far partire un nuovo turno."
+        : `Unica 3 · Doppione 1 · Sbagliata 0. ${s.players.find((p) => p.isAdmin)?.name ?? "Il master"} decide dal telefono.`;
       const key = s.rows.map((r) => r.playerId).join();
       if (key !== builtFor) {
         builtFor = key;
